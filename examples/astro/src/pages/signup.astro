@@ -1,0 +1,62 @@
+---
+import '../styles/styles.css';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.png" type="image/png" media="(prefers-color-scheme: dark)">
+		<link rel="icon" href="/favicon-light.png" type="image/png" media="(prefers-color-scheme: light)">
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Arcjet Astro example app</title>
+	</head>
+	<body>
+		<div id="#root">
+            <main class="page">
+                <div class="section">
+                    <h1 class="section__heading--primary">Arcjet signup form protection</h1>
+                    <p class="section__description">This form uses <a class="link">Arcjet's signup form protection</a> which includes:</p>
+                    <ul class="bullets">
+                        <li>Arcjet server-side email verification configured to block disposable providers and ensure that the domain has a valid MX record.</li>
+                        <li>Rate limiting set to 5 requests over a 2 minute sliding window - a reasonable limit for a signup form, but easily configurable.</li>
+                        <li>Bot protection to stop automated clients from submitting the form.</li>
+                    </ul>
+                </div>
+                <hr class="page__divider" />
+                <div class="section">
+                    <h2 class="section__heading--secondary">Try it</h2>
+                    <form>
+                        <label>
+                            Email
+                            <input type="email" />
+                        </label>
+                        <p>Just a test form - you won't receive any emails.</p>
+                        <button class="button button--primary" type="submit">Sign up</button>
+                    </form>
+                <div class="section">
+                    <h3 class="section__heading--secondary">Test emails</h3>
+                    <p>Try these emails to see how it works:</p>
+                    <ul class="bullets">
+                        <li><code>invalid.@arcjet</code> – is an invalid email address.</li>
+                        <li><code>test@0zc7eznv3rsiswlohu.tk</code> – is from a disposable email provider.</li>
+                        <li><code>nonexistent@arcjet.ai</code> – is a valid email address & domain, but has no MX records.</li>
+                    </ul>
+                </div>
+                <hr class="page__divider" />
+                <div class="section">
+                    <h2 class="section__heading--secondary">See the code</h2>
+                    <p>The <a class="link">API route</a> imports a <a class="link">centralized Arcjet client</a> which sets base rules.</p>
+                </div>
+                <hr class="page__divider" />
+                <div class="section">
+					<h2 class="section__heading--secondary">
+						What next?
+					</h2>
+					<button class="button button--secondary">Sign up for Arcjet</button>
+					<p>Want to know more?</p>
+				</div>
+            </main>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "@arcjet-examples/astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview --host",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@arcjet/astro": "1.0.0-beta.8",
+    "@astrojs/node": "9.2.2",
+    "@fontsource-variable/figtree": "^5.2.8",
+    "astro": "5.10.1"
+  }
+}

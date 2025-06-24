@@ -1,0 +1,182 @@
+@layer global, component;
+
+@import url("./reset.css") layer(global);
+@import "@fontsource-variable/figtree" layer(global);
+
+@property --palette-black {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #030405;
+}
+
+@property --palette-white {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #ffffff;
+}
+
+@layer global {
+  :root {
+    color-scheme: light dark;
+
+    --theme-foreground: light-dark(var(--palette-black), var(--palette-white));
+    --theme-background: light-dark(var(--palette-white), var(--palette-black));
+
+    /* TODO: source these to the palette from design system & sync naming with design system */
+    --theme-foreground-secondary: light-dark(hsl(256 9% 25%), hsl(264 12% 75%));
+    --theme-border: light-dark(hsl(264 9% 68%), hsl(258 8% 31%));
+    --theme-accent: light-dark(hsl(276 25% 92%), hsl(260 11% 11%));
+    --theme-input: light-dark(hsl(268 14% 82%), hsl(258 10% 19%));
+
+    /* TODO: Use as the override */
+    /* color-scheme: dark; */
+  }
+
+  * {
+    font-family:
+      "Figtree Variable", "Figtree", "Figtree Fallback", ui-sans-serif,
+      system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+
+  code {
+    /* TODO: monospace font matching design system */
+    padding: calc(8px * 0.2) calc(8px * 0.75);
+  }
+
+  body {
+    background-color: var(--theme-background);
+    color: var(--theme-foreground);
+  }
+}
+
+@layer component {
+  .page {
+    padding: calc(8px * 8) calc(8px * 4) calc(8px * 5);
+    display: grid;
+    align-items: center;
+    grid-gap: calc(8px * 6);
+    gap: calc(8px * 6);
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .page__divider {
+    background-color: var(--theme-border);
+    opacity: 0.6;
+    height: 1px;
+    width: 100%;
+    border: 0;
+  }
+
+  .section {
+    display: flex;
+    max-width: 980px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .section__heading--primary {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.05em;
+  }
+
+  .section__heading--secondary {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+  }
+
+  .section__description {
+    max-width: 700px;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .section__subtitle {
+    max-width: 700px;
+    color: var(--theme-foreground-secondary);
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+
+    height: 2rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+
+    border-radius: 9999px;
+    border: 0 solid;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .button--primary {
+    background-color: var(--theme-foreground);
+    color: var(--theme-background);
+
+    &:hover {
+      background-color: oklch(
+        from var(--theme-foreground) l c h / calc(alpha - 0.1)
+      );
+    }
+  }
+
+  .button--secondary {
+    background-color: var(--theme-background);
+    color: var(--theme-foreground);
+    border-width: 1px;
+    border-color: var(--theme-input);
+
+    &:hover {
+      background-color: var(--theme-accent);
+      color: var(--theme-foreground-secondary);
+    }
+  }
+
+  .link {
+    font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    color: inherit;
+    text-decoration: inherit;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration-line: underline;
+    }
+  }
+
+  .bullets {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+    margin-inline-start: 2rem;
+    max-width: 700px;
+    list-style-position: outside;
+    list-style-type: disc;
+    color: var(--theme-foreground-secondary);
+
+    & > :not(:first-child) {
+      padding-top: 1rem;
+    }
+  }
+}
