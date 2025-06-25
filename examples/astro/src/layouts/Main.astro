@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+
+import LogoLight from "../assets/logo-light.svg";
+import LogoDark from "../assets/logo-dark.svg";
+import IconMenu from "../assets/icon-menu.svg";
+
+import '../styles/styles.css';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.png" type="image/png" media="(prefers-color-scheme: dark)">
+		<link rel="icon" href="/favicon-light.png" type="image/png" media="(prefers-color-scheme: light)">
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Arcjet Astro example app</title>
+	</head>
+	<body class="layout">
+		<header class="header">
+			<a href="/">
+				<Image
+				alt="Arcjet Example app"
+				width={310}
+				height={30}
+				src={LogoLight}
+				class="light"
+				/>
+				<Image
+				alt="Arcjet Example app"
+				width={310}
+				height={30}
+				src={LogoDark}
+				class="dark"
+				/>
+			</a>
+			<nav>
+				<!-- TODO: Actual menu -->
+				<button class="header__hamburger">
+					<IconMenu />
+				</button>
+			</nav>
+		</header>
+		<slot />
+	</body>
+</html>

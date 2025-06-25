@@ -1,4 +1,4 @@
-@layer global, component;
+@layer global, component, utility;
 
 @import url("./reset.css") layer(global);
 @import "@fontsource-variable/figtree" layer(global);
@@ -27,8 +27,9 @@
     --theme-border: light-dark(hsl(264 9% 68%), hsl(258 8% 31%));
     --theme-accent: light-dark(hsl(276 25% 92%), hsl(260 11% 11%));
     --theme-input: light-dark(hsl(268 14% 82%), hsl(258 10% 19%));
+    --theme-forground-muted: light-dark(hsl(256 9% 25%), hsl(263 7% 52%));
 
-    /* TODO: Use as the override */
+    /* TODO: Use as the override (looks like we'll need javascript to toggle an attribute in 2025...) */
     /* color-scheme: dark; */
   }
 
@@ -46,14 +47,58 @@
     /* TODO: monospace font matching design system */
     padding: calc(8px * 0.2) calc(8px * 0.75);
   }
-
-  body {
-    background-color: var(--theme-background);
-    color: var(--theme-foreground);
-  }
 }
 
 @layer component {
+  .layout {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--theme-background);
+    color: var(--theme-foreground);
+  }
+
+  .header {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+
+    width: 100%;
+    height: 4rem;
+
+    padding-right: 2rem;
+
+    background-color: var(--theme-background);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header__hamburger {
+    height: 2.5rem;
+    border-radius: 9999px;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    color: var(--theme-forground-muted);
+
+    padding: 0;
+    border: 0;
+
+    & > svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
   .page {
     padding: calc(8px * 8) calc(8px * 4) calc(8px * 5);
     display: grid;
@@ -63,6 +108,7 @@
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+    isolation: isolate;
   }
 
   .page__divider {
@@ -117,6 +163,7 @@
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.5rem;
+    text-decoration: none;
 
     border-radius: 9999px;
     border: 0 solid;
@@ -177,6 +224,20 @@
 
     & > :not(:first-child) {
       padding-top: 1rem;
+    }
+  }
+}
+
+@layer utility {
+  @media (prefers-color-scheme: dark) {
+    .light {
+      display: none;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .dark {
+      display: none;
     }
   }
 }

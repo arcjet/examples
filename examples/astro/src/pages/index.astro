@@ -1,45 +1,33 @@
 ---
-import '../styles/styles.css';
+import Layout from '../layouts/Main.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="/favicon.png" type="image/png" media="(prefers-color-scheme: dark)">
-		<link rel="icon" href="/favicon-light.png" type="image/png" media="(prefers-color-scheme: light)">
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Arcjet Astro example app</title>
-	</head>
-	<body>
-		<div id="#root">
-			<main class="page">
-				<div class="section">
-					<h1 class="section__heading--primary">Arcjet Astro example app</h1>
-					<p class="section__description"><a class="link" href="">Arcjet</a> helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security.</p>
-					<p class="section__subtitle">This is an example Astro application using Arcjet. The code is <a class="link" href="">on GitHub</a>.</p>
-				</div>
-				<div class="section">
-					<h2 class="section__heading--secondary">
-						Examples
-					</h2>
-					<button class="button button--primary">test</button>
-				</div>
-				<hr class="page__divider" />
-				<div class="section">
-					<h2 class="section__heading--secondary">
-						Deploy it now
-					</h2>
-				</div>
-				<hr class="page__divider" />
-				<div class="section">
-					<h2 class="section__heading--secondary">
-						What next?
-					</h2>
-					<button class="button button--secondary">Sign up for Arcjet</button>
-					<p>Want to know more?</p>
-				</div>
-			</main>
+<Layout>
+	<main class="page">
+		<div class="section">
+			<h1 class="section__heading--primary">Arcjet Astro example app</h1>
+			<p class="section__description"><a class="link" href="">Arcjet</a> helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security.</p>
+			<p class="section__subtitle">This is an example Astro application using Arcjet. The code is <a class="link" href="">on GitHub</a>.</p>
 		</div>
-	</body>
-</html>
+		<div class="section">
+			<h2 class="section__heading--secondary">
+				Examples
+			</h2>
+			<a class="button button--primary" href="/signup">Signup form protection</a>
+		</div>
+		<hr class="page__divider" />
+		<div class="section">
+			<h2 class="section__heading--secondary">
+				Deploy it now
+			</h2>
+		</div>
+		<hr class="page__divider" />
+		<div class="section">
+			<h2 class="section__heading--secondary">
+				What next?
+			</h2>
+			<button class="button button--secondary">Sign up for Arcjet</button>
+			<p>Want to know more?</p>
+		</div>
+	</main>
+</Layout>
