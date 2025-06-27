@@ -1,12 +1,12 @@
 {
   "name": "@arcjet-examples/root",
-  "packageManager": "npm@10.9.2",
+  "packageManager": "npm@11.4.2",
   "private": true,
   "version": "0.0.0",
   "workspaces": [
     "examples/*"
   ],
   "devDependencies": {
-    "turbo": "^2.5.4"
+    "turbo": "2.5.4"
   }
 }

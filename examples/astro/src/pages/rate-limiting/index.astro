@@ -1,0 +1,98 @@
+---
+import Layout from "../../layouts/Main.astro";
+import WhatNext from "../../components/WhatNext.astro";
+---
+
+<Layout>
+  <main class="page">
+    <div class="section">
+      <h1 class="heading--primary">Arcjet rate limiting example</h1>
+      <p class="typography--description">
+        This page is protected by{" "}
+        <a href="https://docs.arcjet.com/bot-protection/concepts" class="link">
+          Arcjet&apos;s rate limiting
+        </a>
+        .
+      </p>
+    </div>
+
+    <hr class="page__divider" />
+
+    <div class="section">
+      <h2 class="heading--secondary">Try it</h2>
+      <form class="form" id="form-rate-limit">
+        <button type="submit" class="button button--primary form__button">
+          Push me
+        </button>
+      </form>
+      <script>
+        import { actions } from "astro:actions";
+
+        const form = document.querySelector("#form-rate-limit")!;
+        let code: HTMLElement | null = null;
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const { error, data } = await actions.rateLimit();
+
+          if (!code) {
+            code = document.createElement('code');
+            code.className = 'codeblock';
+            form.insertAdjacentElement('afterend', code);
+          }
+
+          if (error) {
+            code.textContent = error.message;
+          } else {
+            code.textContent = data.message;
+          }
+        });
+      </script>
+
+      <p>The limit is set to 2 requests every 60 seconds.</p>
+      <p class="typography--subtitle">
+        Rate limits can be{" "}
+        <a
+          href="https://docs.arcjet.com/reference/astro#ad-hoc-rules"
+          class="link"
+        >
+          dynamically adjusted
+        </a>{" "}
+        e.g. to set a limit based on the authenticated user.
+      </p>
+      <!-- TODO: Authentication mechanism -->
+    </div>
+
+    <hr class="page__divider" />
+
+    <div class="section">
+      <h2 class="heading--secondary">See the code</h2>
+      <p class="typography--subtitle">
+        The{" "}
+        <!-- TODO: Update this link -->
+        <a
+          href="https://github.com/arcjet/example-nextjs/blob/main/app/rate-limiting/test/route.ts"
+          target="_blank"
+          rel="noreferrer"
+          class="link"
+        >
+          API route
+        </a>{" "}
+        imports a{" "}
+        <!-- TODO: Update this link -->
+        <a
+          href="https://github.com/arcjet/example-nextjs/blob/main/lib/arcjet.ts"
+          target="_blank"
+          rel="noreferrer"
+          class="link"
+        >
+          centralized Arcjet client
+        </a>{" "}
+        which sets base rules.
+      </p>
+    </div>
+
+    <hr class="page__divider" />
+
+    <WhatNext />
+  </main>
+</Layout>
