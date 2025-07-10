@@ -28,11 +28,6 @@ export const rateLimitAction = defineAction({
 
     console.log("Arcjet decision: ", decision);
 
-    // Add rate limit info the headers (optional)
-    const headers = new Headers();
-    //  TODO: Implement setRateLimitHeaders function
-    //   setRateLimitHeaders(headers, decision);
-
     let message = "";
     let remaining = 0;
 
@@ -72,7 +67,7 @@ export const rateLimitAction = defineAction({
     } else if (decision.isErrored()) {
       console.error("Arcjet error:", decision.reason);
 
-      if (decision.reason.message == "[unauthenticated] invalid key") {
+      if (decision.reason.message === "[unauthenticated] invalid key") {
         throw new ActionError({
           code: "BAD_REQUEST",
           message:
@@ -81,7 +76,7 @@ export const rateLimitAction = defineAction({
       } else {
         throw new ActionError({
           code: "BAD_REQUEST",
-          message: "Internal server error: " + decision.reason.message,
+          message: `Internal server error: ${decision.reason.message}`,
         });
       }
     }

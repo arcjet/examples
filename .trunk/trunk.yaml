@@ -16,13 +16,33 @@ runtimes:
     - python@3.10.8
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
+  definitions:
+    - name: prettier
+      files:
+        # Enable astro support for prettier
+        - astro
+        # https://github.com/trunk-io/plugins/blob/68b737870840c4a6f85b93e9814354177c8e79f1/linters/prettier/plugin.yaml#L13-L23
+        - typescript
+        - yaml
+        - css
+        - postcss
+        - sass
+        - html
+        - markdown
+        - json
+        - javascript
+        - graphql
+        - prettier_supported_configs
   enabled:
-    - checkov@3.2.446
+    - biome@2.1.1:
+        commands: [lint]
+    - checkov@3.2.450
     - git-diff-check
     - markdownlint@0.45.0
     - osv-scanner@2.0.3
     - oxipng@9.1.5
-    - prettier@3.6.1
+    - prettier@3.6.2
+    - svgo@4.0.0
     - trufflehog@3.89.2
     - yamllint@1.37.1
 actions:

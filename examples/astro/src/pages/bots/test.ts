@@ -1,5 +1,5 @@
-import type { APIRoute } from "astro";
 import arcjet, { detectBot, fixedWindow } from "arcjet:client";
+import type { APIRoute } from "astro";
 
 export const prerender = false;
 
@@ -30,7 +30,7 @@ export const GET: APIRoute = async ({ request, clientAddress }) => {
   console.log("Arcjet decision: ", decision);
 
   // Use the IP analysis to customize the response based on the country
-  if (decision.ip.hasCountry() && decision.ip.country == "JP") {
+  if (decision.ip.hasCountry() && decision.ip.country === "JP") {
     return Response.json({ message: "Konnichiwa!" });
   }
 
@@ -47,7 +47,7 @@ export const GET: APIRoute = async ({ request, clientAddress }) => {
     return Response.json({ error: "Too many requests" }, { status: 429 });
   } else if (decision.isErrored()) {
     console.error("Arcjet error:", decision.reason);
-    if (decision.reason.message == "[unauthenticated] invalid key") {
+    if (decision.reason.message === "[unauthenticated] invalid key") {
       return Response.json(
         {
           message:
@@ -57,7 +57,7 @@ export const GET: APIRoute = async ({ request, clientAddress }) => {
       );
     } else {
       return Response.json(
-        { message: "Internal server error: " + decision.reason.message },
+        { message: `Internal server error: ${decision.reason.message}` },
         { status: 500 },
       );
     }

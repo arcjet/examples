@@ -1,6 +1,6 @@
-import { rateLimitAction } from "../pages/rate-limiting/action";
-import { sensitiveInfoAction } from "../pages/sensitive-info/action";
-import { signupAction } from "../pages/signup/action";
+import { rateLimitAction } from "../pages/rate-limiting/_action";
+import { sensitiveInfoAction } from "../pages/sensitive-info/_action";
+import { signupAction } from "../pages/signup/_action";
 
 export const server = {
   rateLimit: rateLimitAction,

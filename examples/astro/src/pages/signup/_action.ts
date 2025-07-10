@@ -123,7 +123,7 @@ export const signupAction = defineAction({
       }
     } else if (decision.isErrored()) {
       console.error("Arcjet error:", decision.reason);
-      if (decision.reason.message == "[unauthenticated] invalid key") {
+      if (decision.reason.message === "[unauthenticated] invalid key") {
         throw new ActionError({
           code: "BAD_REQUEST",
           message:
@@ -132,7 +132,7 @@ export const signupAction = defineAction({
       } else {
         throw new ActionError({
           code: "BAD_REQUEST",
-          message: "Internal server error: " + decision.reason.message,
+          message: `Internal server error: ${decision.reason.message}`,
         });
       }
     }

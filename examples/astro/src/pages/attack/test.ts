@@ -1,5 +1,5 @@
-import type { APIRoute } from "astro";
 import arcjet, { shield } from "arcjet:client";
+import type { APIRoute } from "astro";
 
 export const prerender = false;
 
@@ -25,7 +25,7 @@ export const GET: APIRoute = async ({ request, clientAddress }) => {
     return Response.json({ error: "Forbidden" }, { status: 403 });
   } else if (decision.isErrored()) {
     console.error("Arcjet error:", decision.reason);
-    if (decision.reason.message == "[unauthenticated] invalid key") {
+    if (decision.reason.message === "[unauthenticated] invalid key") {
       return Response.json(
         {
           message:
@@ -35,7 +35,7 @@ export const GET: APIRoute = async ({ request, clientAddress }) => {
       );
     } else {
       return Response.json(
-        { v: "Internal server error: " + decision.reason.message },
+        { v: `Internal server error: ${decision.reason.message}` },
         { status: 500 },
       );
     }

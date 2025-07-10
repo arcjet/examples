@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/Main.astro";
 import WhatNext from "../../components/WhatNext.astro";
+import Layout from "../../layouts/Main.astro";
 ---
 
 <Layout>
@@ -35,9 +35,9 @@ import WhatNext from "../../components/WhatNext.astro";
           const { error, data } = await actions.rateLimit();
 
           if (!code) {
-            code = document.createElement('code');
-            code.className = 'codeblock';
-            form.insertAdjacentElement('afterend', code);
+            code = document.createElement("code");
+            code.className = "codeblock";
+            form.insertAdjacentElement("afterend", code);
           }
 
           if (error) {

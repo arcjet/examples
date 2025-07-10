@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/Main.astro";
 import WhatNext from "../../components/WhatNext.astro";
+import Layout from "../../layouts/Main.astro";
 ---
 
 <Layout>
@@ -44,12 +44,11 @@ import WhatNext from "../../components/WhatNext.astro";
         </button>
       </form>
       <script>
-        import { isInputError } from "astro:actions";
-        import { actions } from "astro:actions";
+        import { actions, isInputError } from "astro:actions";
         import { navigate } from "astro:transitions/client";
 
         const form: HTMLFormElement = document.querySelector(
-          "#form-sensitive-info"
+          "#form-sensitive-info",
         )!;
         let formErrorElement: HTMLElement | null = null;
         form.addEventListener("submit", async (event) => {

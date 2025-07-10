@@ -1,8 +1,7 @@
 ---
 import { Image } from "astro:assets";
-
-import LogoLight from "../assets/logo-light.svg";
 import LogoDark from "../assets/logo-dark.svg";
+import LogoLight from "../assets/logo-light.svg";
 
 import "../styles/styles.css";
 ---
@@ -25,6 +24,13 @@ import "../styles/styles.css";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Arcjet Astro example app</title>
+    <script>
+      // Polyfill Anchor Positioning
+      // https://github.com/oddbird/css-anchor-positioning?tab=readme-ov-file#getting-started
+      if (!("anchorName" in document.documentElement.style)) {
+        await import("@oddbird/css-anchor-positioning");
+      }
+    </script>
   </head>
   <body class="layout">
     <header class="header">
@@ -92,24 +98,30 @@ import "../styles/styles.css";
         <nav id="navigation" popover="auto">
           <ul class="navigation-links">
             <li>
-              <a class="navigation-link" href="/signup"> Signup form protection </a>
+              <a class="navigation-link" href="/signup">
+                Signup form protection
+              </a>
             </li>
             <li>
               <a class="navigation-link" href="/bots"> Bot protection </a>
             </li>
             <li>
-              <a class="navigation-link" href="/rate-limiting"> Rate limiting </a>
+              <a class="navigation-link" href="/rate-limiting">
+                Rate limiting
+              </a>
             </li>
             <li>
               <a class="navigation-link" href="/attack"> Attack protection </a>
             </li>
             <li>
-              <a class="navigation-link" href="/sensitive-info"> Sensitive info </a>
+              <a class="navigation-link" href="/sensitive-info">
+                Sensitive info
+              </a>
             </li>
           </ul>
         </nav>
         <a
-          class="navigation-link--icon"
+          class="navigation-icon"
           href="https://github.com/arcjet/example-nextjs"
           target="_blank"
           rel="noreferrer"

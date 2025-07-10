@@ -51,36 +51,31 @@ import Layout from "../../layouts/Main.astro";
           </span>
         </div>
         <div class="form-button">
-          <button
-            type="submit"
-            class="button-primary"
-          >
-            Sign up
-          </button>
+          <button type="submit" class="button-primary"> Sign up </button>
         </div>
       </form>
-       <script>
+      <script>
         import { isInputError } from "astro:actions";
         import { actions } from "astro:actions";
-        import { navigate } from 'astro:transitions/client';
+        import { navigate } from "astro:transitions/client";
 
         const form: HTMLFormElement = document.querySelector("#form-signup")!;
         let formErrorElement: HTMLElement | null = null;
         form.addEventListener("submit", async (event) => {
           event.preventDefault();
-            const formData = new FormData(form);
+          const formData = new FormData(form);
 
           const { error } = await actions.signup(formData);
 
           if (!error) {
-            return navigate('/signup/submitted');
+            return navigate("/signup/submitted");
           }
 
           if (!formErrorElement) {
-            formErrorElement = document.createElement('div');
-            formErrorElement.className = 'form-error';
-            const labelElement = form.querySelector('.form-description')!;
-            labelElement.insertAdjacentElement('afterend', formErrorElement);
+            formErrorElement = document.createElement("div");
+            formErrorElement.className = "form-error";
+            const labelElement = form.querySelector(".form-description")!;
+            labelElement.insertAdjacentElement("afterend", formErrorElement);
           }
 
           if (error && isInputError(error)) {
@@ -91,9 +86,7 @@ import Layout from "../../layouts/Main.astro";
         });
       </script>
       <h2 class="heading-secondary">Test emails</h2>
-      <p class="typography-secondary">
-        Try these emails to see how it works:
-      </p>
+      <p class="typography-secondary">Try these emails to see how it works:</p>
       <ul class="list-bullets-secondary">
         <li>
           <code>invalid.@arcjet</code> – is an invalid email address.

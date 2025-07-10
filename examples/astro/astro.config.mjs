@@ -1,7 +1,7 @@
+import arcjet from "@arcjet/astro";
+import node from "@astrojs/node";
 // @ts-check
 import { defineConfig } from "astro/config";
-import node from "@astrojs/node";
-import arcjet from "@arcjet/astro";
 
 export default defineConfig({
   adapter: node({
