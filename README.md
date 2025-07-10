@@ -18,9 +18,8 @@ frameworks.
 - [Next.js example](https://github.com/arcjet/example-nextjs)
 - [Remix example](https://github.com/arcjet/example-remix)
 
-Can't find what you're looking for? There are some additional [`examples`
-directory of the `arcjet/arcjet-js`
-repository](https://github.com/arcjet/example-expressjs).
+Can't find what you're looking for? Try the [`examples` directory of the
+`arcjet/arcjet-js` repository](https://github.com/arcjet/example-expressjs).
 
 ## Contributing
 
