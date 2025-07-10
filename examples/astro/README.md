@@ -1,47 +1,73 @@
-# Astro Starter Kit: Minimal
+<a href="https://arcjet.com" target="_arcjet-home">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://arcjet.com/logo/arcjet-dark-lockup-voyage-horizontal.svg">
+    <img src="https://arcjet.com/logo/arcjet-light-lockup-voyage-horizontal.svg" alt="Arcjet Logo" height="128" width="auto">
+  </picture>
+</a>
 
-```sh
-npm create astro@latest -- --template minimal
+[![Deploy with Vercel][vercel_button]][vercel_deploy]
+&nbsp; &nbsp;
+[![Deploy to Netlify][netlify_button]][netlify_deploy]
+
+# Arcjet Astro example app
+
+[Arcjet](https://arcjet.com) helps developers protect their apps in just a few
+lines of code. Bot detection. Rate limiting. Email validation. Attack
+protection. Data redaction. A developer-first approach to security.
+
+This is an example Astro application demonstrating the use of multiple
+features.
+
+## Features
+
+- [Signup form protection](https://example.arcjet.com/signup) uses Arcjet's
+  server-side email verification configured to block disposable providers and
+  ensure that the domain has a valid MX record. It also includes rate limiting
+  and bot protection to prevent automated abuse.
+- [Bot protection](https://example.arcjet.com/bots) shows how a page can be
+  protected from automated clients.
+- [Rate limiting](https://example.arcjet.com/rate-limiting) shows the use of
+  different rate limit configurations depending on the authenticated user. A
+  logged-in user can make more requests than an anonymous user.
+- [Attack protection](https://example.arcjet.com/attack) demonstrates Arcjet
+  Shield, which detects suspicious behavior, such as SQL injection and
+  cross-site scripting attacks.
+- [Sensitive info](https://example.arcjet.com/sensitive-info) protects against
+  clients sending you sensitive information such as PII that you do not wish to
+  handle.
+
+## Run locally
+
+1. [Register for a free Arcjet account](https://app.arcjet.com).
+
+2. Install dependencies:
+
+```bash
+npm ci
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+3. Rename `.env.local.example` to `.env.local` and add your Arcjet key.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+4. Start the dev server
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npm run dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+5. Open [http://localhost:4321](http://localhost:4321) in your browser.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Need help?
 
-Any static assets, like images, can be placed in the `public/` directory.
+Check out [the docs](https://docs.arcjet.com), [contact
+support](https://docs.arcjet.com/support), or [join our Discord
+server](https://arcjet.com/discord).
 
-## 🧞 Commands
+## Stack
 
-All commands are run from the root of the project, from a terminal:
+- Astro: [Astro](https://astro.build/)
+- Security: [Arcjet](https://arcjet.com/)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+[vercel_deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-astro&project-name=arcjet-astro-example&repository-name=arcjet-astro-example&developer-id=oac_1GEcKBuKBilVnjToj1QUwdb8&demo-title=Arcjet%20Astro%20Example%20&demo-description=Example%20rate%20limiting%2C%20bot%20protection%2C%20email%20verification%20%26%20form%20protection.&demo-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-astro&demo-image=https%3A%2F%2Fapp.arcjet.com%2Fimg%2Fexample-apps%2Fvercel%2Fdemo-image.jpg&integration-ids=oac_1GEcKBuKBilVnjToj1QUwdb8&external-id=arcjet-js-example◊
+[vercel_button]: https://vercel.com/button
+[netlify_deploy]: https://app.netlify.com/start/deploy?repository=https://github.com/arcjet/example-astro
+[netlify_button]: https://www.netlify.com/img/deploy/button.svg
