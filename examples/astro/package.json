@@ -9,9 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@arcjet/astro": "1.0.0-beta.8",
-    "@astrojs/node": "9.2.2",
-    "@fontsource-variable/figtree": "^5.2.8",
-    "astro": "5.10.1"
+    "@arcjet/astro": "1.0.0-beta.9",
+    "@astrojs/node": "9.3.0",
+    "@fontsource-variable/figtree": "5.2.8",
+    "@fontsource/ibm-plex-mono": "5.2.6",
+    "astro": "5.11.0"
   }
 }

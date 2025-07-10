@@ -44,9 +44,9 @@ import "../styles/styles.css";
           class="dark"
         />
       </a>
-      <div class="header__nav">
+      <div class="header-end">
         <button
-          class="nav__toggle"
+          class="hamburger-menu"
           popovertarget="navigation"
           popovertargetaction="toggle"
         >
@@ -54,7 +54,7 @@ import "../styles/styles.css";
             aria-label="Menu"
             role="img"
             viewBox="0 0 128 128"
-            class="nav__icon"
+            class="hamburger-menu-menu-icon"
             stroke="currentColor"
           >
             <path
@@ -77,7 +77,7 @@ import "../styles/styles.css";
             aria-label="Cancel"
             role="img"
             viewBox="0 0 128 128"
-            class="nav__icon--close"
+            class="hamburger-menu-cancel-icon"
             stroke="currentColor"
           >
             <path
@@ -90,26 +90,26 @@ import "../styles/styles.css";
           </svg>
         </button>
         <nav id="navigation" popover="auto">
-          <ul class="nav__list">
+          <ul class="navigation-links">
             <li>
-              <a class="nav__link" href="/signup"> Signup form protection </a>
+              <a class="navigation-link" href="/signup"> Signup form protection </a>
             </li>
             <li>
-              <a class="nav__link" href="/bots"> Bot protection </a>
+              <a class="navigation-link" href="/bots"> Bot protection </a>
             </li>
             <li>
-              <a class="nav__link" href="/rate-limiting"> Rate limiting </a>
+              <a class="navigation-link" href="/rate-limiting"> Rate limiting </a>
             </li>
             <li>
-              <a class="nav__link" href="/attack"> Attack protection </a>
+              <a class="navigation-link" href="/attack"> Attack protection </a>
             </li>
             <li>
-              <a class="nav__link" href="/sensitive-info"> Sensitive info </a>
+              <a class="navigation-link" href="/sensitive-info"> Sensitive info </a>
             </li>
           </ul>
         </nav>
         <a
-          class="nav__link--icon"
+          class="navigation-link--icon"
           href="https://github.com/arcjet/example-nextjs"
           target="_blank"
           rel="noreferrer"
