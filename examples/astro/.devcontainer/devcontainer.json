@@ -6,9 +6,7 @@
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
-  "features": {
-    "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {}
-  },
+  //   "features": {},
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
