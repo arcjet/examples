@@ -78,11 +78,13 @@ import Layout from "../../layouts/Main.astro";
             labelElement.insertAdjacentElement("afterend", formErrorElement);
           }
 
+          let message = "We couldn't sign you up: ";
           if (error && isInputError(error)) {
-            formErrorElement.textContent = error.issues.at(0)!.message;
+            message += error.issues.at(0)!.message;
           } else if (error) {
-            formErrorElement.textContent = error.message;
+            message += error.message;
           }
+          formErrorElement.textContent = message;
         });
       </script>
       <h2 class="heading-secondary">Test emails</h2>
