@@ -4,13 +4,9 @@
   "description": "An example Express.js application protected by Arcjet bot detection, rate limiting, and Shield WAF.",
   "license": "Apache-2.0",
   "homepage": "https://arcjet.com",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arcjet/example-expressjs.git",
-    "directory": "arcjet"
-  },
+  "repository": "github:arcjet/example-expressjs",
   "bugs": {
-    "url": "https://github.com/arcjet/example-expressjs/issues",
+    "url": "https://github.com/arcjet/examples/issues",
     "email": "support@arcjet.com"
   },
   "author": {
