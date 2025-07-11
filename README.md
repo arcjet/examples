@@ -19,7 +19,7 @@ frameworks.
 - [Remix example](https://github.com/arcjet/example-remix)
 
 Can't find what you're looking for? Try the [`examples` directory of the
-`arcjet/arcjet-js` repository](https://github.com/arcjet/example-expressjs).
+`arcjet/arcjet-js` repository](https://github.com/arcjet/arcjet-js/tree/main/examples).
 
 ## Contributing
 
