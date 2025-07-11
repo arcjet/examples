@@ -1,0 +1,134 @@
+---
+import WhatNext from "../../components/WhatNext.astro";
+import Layout from "../../layouts/Main.astro";
+---
+
+<Layout>
+  <main class="page">
+    <div class="section">
+      <h1 class="heading-primary">Arcjet signup form protection</h1>
+      <p class="typography-primary">
+        This form uses{" "}
+        <a
+          href="https://docs.arcjet.com/signup-protection/concepts"
+          class="link"
+        >
+          Arcjet&apos;s signup form protection
+        </a>{" "}
+        which includes:
+      </p>
+      <ul class="bulleted--primary">
+        <li>
+          Arcjet server-side email verification configured to block disposable
+          providers and ensure that the domain has a valid MX record.
+        </li>
+        <li>
+          Rate limiting set to 5 requests over a 2 minute sliding window - a
+          reasonable limit for a signup form, but easily configurable.
+        </li>
+        <li>
+          Bot protection to stop automated clients from submitting the form.
+        </li>
+      </ul>
+    </div>
+    <hr class="divider" />
+    <div class="section">
+      <h2 class="heading-secondary">Try it</h2>
+      <form class="form" id="form-signup">
+        <div class="form-field">
+          <label class="form-label">
+            Email
+            <input
+              name="email"
+              type="email"
+              placeholder="totoro@example.com"
+              class="form-input"
+              value="nonexistent@arcjet.ai"
+            />
+          </label>
+          <span class="form-description">
+            Just a test form - you won&apos;t receive any emails.
+          </span>
+        </div>
+        <div class="form-button">
+          <button type="submit" class="button-primary"> Sign up </button>
+        </div>
+      </form>
+      <script>
+        import { isInputError } from "astro:actions";
+        import { actions } from "astro:actions";
+        import { navigate } from "astro:transitions/client";
+
+        const form: HTMLFormElement = document.querySelector("#form-signup")!;
+        let formErrorElement: HTMLElement | null = null;
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const formData = new FormData(form);
+
+          const { error } = await actions.signup(formData);
+
+          if (!error) {
+            return navigate("/signup/submitted");
+          }
+
+          if (!formErrorElement) {
+            formErrorElement = document.createElement("div");
+            formErrorElement.className = "form-error";
+            const labelElement = form.querySelector(".form-description")!;
+            labelElement.insertAdjacentElement("afterend", formErrorElement);
+          }
+
+          let message = "We couldn't sign you up: ";
+          if (error && isInputError(error)) {
+            message += error.issues.at(0)!.message;
+          } else if (error) {
+            message += error.message;
+          }
+          formErrorElement.textContent = message;
+        });
+      </script>
+      <h2 class="heading-secondary">Test emails</h2>
+      <p class="typography-secondary">Try these emails to see how it works:</p>
+      <ul class="list-bullets-secondary">
+        <li>
+          <code>invalid.@arcjet</code> – is an invalid email address.
+        </li>
+        <li>
+          <code>test@0zc7eznv3rsiswlohu.tk</code>{" "}
+          <span>– is from a disposable email provider.</span>
+        </li>
+        <li>
+          <code>nonexistent@arcjet.ai</code> – is a valid email address & domain,
+          but has no MX records.
+        </li>
+      </ul>
+    </div>
+    <hr class="divider" />
+    <div class="section">
+      <h2 class="heading-secondary">See the code</h2>
+      <p class="typography-secondary">
+        The{" "}
+        <a
+          href="https://github.com/arcjet/example-astro/blob/main/src/pages/signup/_action.ts"
+          target="_blank"
+          rel="noreferrer"
+          class="link"
+        >
+          action
+        </a>{" "}
+        imports a{" "}
+        <a
+          href="https://github.com/arcjet/example-astro/blob/main/astro.config.mjs"
+          target="_blank"
+          rel="noreferrer"
+          class="link"
+        >
+          centralized Arcjet client
+        </a>{" "}
+        which sets base rules.
+      </p>
+    </div>
+    <hr class="divider" />
+    <WhatNext />
+  </main>
+</Layout>
