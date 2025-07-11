@@ -1,0 +1,16 @@
+// Based on the suggested TypeScript configuration for Node.js v24.x
+// with added options for strict type checking.
+// See: https://nodejs.org/docs/latest-v24.x/api/typescript.html#type-stripping
+{
+  "compilerOptions": {
+    "erasableSyntaxOnly": true,
+    "module": "nodenext",
+    "noEmit": true,
+    "rewriteRelativeImportExtensions": true,
+    "strict": true,
+    "target": "esnext",
+    "verbatimModuleSyntax": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true
+  }
+}
