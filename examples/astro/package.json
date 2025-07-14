@@ -5,7 +5,7 @@
     "@fontsource-variable/figtree": "5.2.8",
     "@fontsource/ibm-plex-mono": "5.2.6",
     "@oddbird/css-anchor-positioning": "0.6.1",
-    "astro": "5.11.0"
+    "astro": "5.11.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
