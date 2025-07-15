@@ -7,12 +7,6 @@ We recommend using the provided
 develop examples in this repository. This ensures a consistent development
 environment across all contributors.
 
-To develop locally, you will need to have the following tools installed:
-
-- Git
-- [Node.js](https://nodejs.org/en/download/) (24.3.0 or later)
-- [Trunk](https://docs.trunk.io/references/cli/install)
-
 ## Static analysis
 
 We use [Trunk](https://docs.trunk.io/) to manage formatting and linting in this
