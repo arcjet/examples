@@ -1,0 +1,11 @@
+{
+  "extends": "fastify-tsconfig",
+  // Configured to run TypeScript files directly with Node.js
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "noEmit": true,
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts"]
+}
