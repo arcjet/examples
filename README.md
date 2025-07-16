@@ -14,6 +14,7 @@ frameworks.
 - [Astro example](https://github.com/arcjet/example-astro)
   ([`./examples/astro`](./examples/astro))
 - [Express.js example](https://github.com/arcjet/example-expressjs)
+  ([`./examples/expressjs`](./examples/expressjs))
 - [NestJS example](https://github.com/arcjet/example-nestjs)
 - [Next.js example](https://github.com/arcjet/example-nextjs)
 - [Remix example](https://github.com/arcjet/example-remix)
