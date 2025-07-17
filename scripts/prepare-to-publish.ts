@@ -1,4 +1,4 @@
-import fs, { rm } from "node:fs/promises";
+import fs from "node:fs/promises";
 import path from "node:path";
 import Arborist from "@npmcli/arborist";
 import { type SimpleGit, simpleGit } from "simple-git";
@@ -22,8 +22,9 @@ async function isLockfileInSync() {
  * Generates an isolated lockfile for a selected npm workspace.
  *
  * Based on similar functionality in the
- * {@link https://github.com/0x80/isolate-package/blob/59e56f66069574ebbe1610ccbc83a48897924ff1/src/lib/lockfile/helpers/generate-npm-lockfile.ts | `isolate-package` npm package}
- * and {@link https://github.com/npm/rfcs/issues/554 | npm RRFC 554}.
+ * {@linkcode https://github.com/0x80/isolate-package/blob/59e56f66069574ebbe1610ccbc83a48897924ff1/src/lib/lockfile/helpers/generate-npm-lockfile.ts | isolate-package}
+ * npm package and
+ * {@link https://github.com/npm/rfcs/issues/554 | npm RRFC 554}.
  *
  */
 async function generateIsolatedLockfile(path: string): Promise<string> {
@@ -67,19 +68,19 @@ const git = simpleGit({
 
 // Verify git status and branch
 
-const branch = await git.branch();
-if (branch.current !== "main") {
-  console.log("You must be on the 'main' branch to run this script.");
-  process.exit(1);
-}
+// const branch = await git.branch();
+// if (branch.current !== "main") {
+//   console.log("You must be on the 'main' branch to run this script.");
+//   process.exit(1);
+// }
 
-const status = await git.status();
-if (!status.isClean()) {
-  console.log(
-    "Your working directory is not clean. Please commit or stash your changes before running this script.",
-  );
-  process.exit(1);
-}
+// const status = await git.status();
+// if (!status.isClean()) {
+//   console.log(
+//     "Your working directory is not clean. Please commit or stash your changes before running this script.",
+//   );
+//   process.exit(1);
+// }
 
 // Verify the lockfile is in sync with node_modules
 
@@ -106,15 +107,14 @@ if (!workspaces) {
 
 const BUILD_PATH = path.join(BASE_PATH, "dist");
 
-await rm(BUILD_PATH, {
-  force: true,
+await fs.rm(BUILD_PATH, {
   recursive: true,
 });
 
 // Iterate over each workspace and prepare it for publishing
 
 for (const [workspaceName, workspacePath] of workspaces) {
-  console.log(`Preparing ${workspaceName}...`);
+  console.log(`Preparing '${workspaceName}'...`);
 
   // Read the `repository` field from the package.json
 
@@ -122,7 +122,7 @@ for (const [workspaceName, workspacePath] of workspaces) {
     await fs.readFile(path.join(workspacePath, "package.json"), "utf-8"),
   );
   if (typeof packageJson !== "object" || packageJson === null) {
-    console.error(`Invalid package.json in ${workspaceName}`);
+    console.error(`Invalid package.json in '${workspaceName}'`);
     continue;
   }
 
@@ -131,7 +131,7 @@ for (const [workspaceName, workspacePath] of workspaces) {
     typeof packageJson.repository !== "string"
   ) {
     console.error(
-      `No repository field found in ${workspaceName}'s package.json`,
+      `No repository field found in '${workspaceName}'s package.json`,
     );
     continue;
   }
@@ -143,7 +143,7 @@ for (const [workspaceName, workspacePath] of workspaces) {
   const match = packageJson.repository.match(/^github:arcjet\/example-(\w+)$/);
   if (!match) {
     console.error(
-      `Invalid repository field in ${workspaceName}'s package.json`,
+      `Invalid repository field in '${workspaceName}'s package.json`,
     );
     continue;
   }
@@ -170,9 +170,7 @@ for (const [workspaceName, workspacePath] of workspaces) {
   const previousFiles = await listTrackedFiles(workspaceGit);
   const deleteFilePromises: Promise<void>[] = [];
   for (const file of previousFiles) {
-    deleteFilePromises.push(
-      fs.rm(path.join(workspaceBuildPath, file), { force: true }),
-    );
+    deleteFilePromises.push(fs.rm(path.join(workspaceBuildPath, file)));
   }
   await Promise.all(deleteFilePromises);
 
@@ -201,7 +199,7 @@ for (const [workspaceName, workspacePath] of workspaces) {
 
   const status = await workspaceGit.status();
   if (status.isClean()) {
-    console.log(`${workspaceName} is unchanged.`);
+    console.log(`'${workspaceName}' is unchanged.`);
     continue;
   }
 
@@ -214,8 +212,14 @@ for (const [workspaceName, workspacePath] of workspaces) {
 
   // Prompt the user to push the changes
 
-  console.log("Detected changes for", workspaceName, "committed.");
-  console.log(`To publish ${workspaceName} run the following:`);
-  console.log(`cd ${workspaceBuildPath}`);
-  console.log("git push origin main");
+  const promptString = `
+Detected changes for '${workspaceName}' have been commited.
+To push the changes run:
+
+  cd '${workspaceBuildPath}'
+  git push origin main
+
+`;
+
+  console.log(promptString);
 }

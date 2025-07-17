@@ -81,7 +81,7 @@ Your new example repository is now ready to be published to. Follow [Publishing 
 > automate this process via a GitHub Action & GitHub App.
 
 1. Ensure you have `main` checked out and the working directory is clean.
-2. Run the node script to prepare the examples for publishing:
+1. Run the node script to prepare the examples for publishing:
    ```bash
    npm run prepare-to-publish
    ```
@@ -92,4 +92,4 @@ Your new example repository is now ready to be published to. Follow [Publishing 
    - Write out an isolated `package-lock.json` for the example
    - If there are any changes, commit them to the example repository
    - Prompt you to push the changes to the example repository
-3. Where prompted, sanity check and then push as directed
+1. Where prompted, sanity check and then push as directed

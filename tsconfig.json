@@ -4,13 +4,14 @@
 {
   "compilerOptions": {
     "erasableSyntaxOnly": true,
+    "exactOptionalPropertyTypes": true,
     "module": "nodenext",
     "noEmit": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
     "rewriteRelativeImportExtensions": true,
     "strict": true,
     "target": "esnext",
-    "verbatimModuleSyntax": true,
-    "noImplicitOverride": true,
-    "noUncheckedIndexedAccess": true
+    "verbatimModuleSyntax": true
   }
 }
