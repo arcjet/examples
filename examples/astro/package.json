@@ -27,6 +27,7 @@
       }
     ]
   },
+  "repository": "github:arcjet/example-astro",
   "scripts": {
     "build": "astro build",
     "check": "astro check",
