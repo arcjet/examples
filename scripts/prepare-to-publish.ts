@@ -68,19 +68,19 @@ const git = simpleGit({
 
 // Verify git status and branch
 
-// const branch = await git.branch();
-// if (branch.current !== "main") {
-//   console.log("You must be on the 'main' branch to run this script.");
-//   process.exit(1);
-// }
+const branch = await git.branch();
+if (branch.current !== "main") {
+  console.log("You must be on the 'main' branch to run this script.");
+  process.exit(1);
+}
 
-// const status = await git.status();
-// if (!status.isClean()) {
-//   console.log(
-//     "Your working directory is not clean. Please commit or stash your changes before running this script.",
-//   );
-//   process.exit(1);
-// }
+const status = await git.status();
+if (!status.isClean()) {
+  console.log(
+    "Your working directory is not clean. Please commit or stash your changes before running this script.",
+  );
+  process.exit(1);
+}
 
 // Verify the lockfile is in sync with node_modules
 
