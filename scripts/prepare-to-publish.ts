@@ -23,7 +23,7 @@ async function isLockfileInSync() {
  *
  * Based on similar functionality in the
  * {@link https://github.com/0x80/isolate-package/blob/59e56f66069574ebbe1610ccbc83a48897924ff1/src/lib/lockfile/helpers/generate-npm-lockfile.ts | `isolate-package` npm package}
- * and disussion in this {@link https://github.com/npm/rfcs/issues/554 | NPM RRFC}.
+ * and {@link https://github.com/npm/rfcs/issues/554 | npm RRFC 554}.
  *
  */
 async function generateIsolatedLockfile(path: string): Promise<string> {
