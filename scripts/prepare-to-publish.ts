@@ -107,9 +107,13 @@ if (!workspaces) {
 
 const BUILD_PATH = path.join(BASE_PATH, "dist");
 
-await fs.rm(BUILD_PATH, {
-  recursive: true,
-});
+try {
+  await fs.rm(BUILD_PATH, {
+    recursive: true,
+  });
+} catch {
+  // Ignore errors if the directory does not exist
+}
 
 // Iterate over each workspace and prepare it for publishing
 
