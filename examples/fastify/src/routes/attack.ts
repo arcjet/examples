@@ -3,8 +3,8 @@ import type { FastifyInstance } from "fastify";
 
 export default async function (fastify: FastifyInstance) {
   const arcjet = fastify.arcjet.withRule(
-    // Configures Arcjet Shield. Shield protects
-    // against common attacks e.g. SQL injection, XSS, etc.
+    // Configures Arcjet Shield to protect against
+    // common attacks e.g. SQL injection, XSS, etc.
     shield({ mode: "LIVE" }),
   );
 
