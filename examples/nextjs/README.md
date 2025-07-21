@@ -10,14 +10,15 @@
 &nbsp; &nbsp;
 [![Deploy to Netlify][netlify_button]][netlify_deploy]
 
-# Arcjet Astro example app
+# Arcjet example app
 
 [Arcjet](https://arcjet.com) helps developers protect their apps in just a few
 lines of code. Bot detection. Rate limiting. Email validation. Attack
 protection. Data redaction. A developer-first approach to security.
 
-This is an example Astro application demonstrating the use of multiple
-features.
+This is an example Next.js application demonstrating the use of multiple
+features. It is deployed at
+[https://example.arcjet.com](https://example.arcjet.com).
 
 ## Features
 
@@ -47,7 +48,10 @@ features.
 npm ci
 ```
 
-3. Rename `.env.local.example` to `.env.local` and add your Arcjet key.
+3. Rename `.env.local.example` to `.env.local` and add your Arcjet key. If you
+   want to test the rate limiting authentication, you will also need to add an
+   Auth.js secret and [create a GitHub OAuth
+   app](https://authjs.dev/guides/configuring-github).
 
 4. Start the dev server
 
@@ -55,17 +59,22 @@ npm ci
 npm run dev
 ```
 
-5. Open [http://localhost:4321](http://localhost:4321) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Need help?
 
-Check out [the docs](https://docs.arcjet.com), [contact
+Check out [the docs](https://docs.arcjet.com/), [contact
 support](https://docs.arcjet.com/support), or [join our Discord
 server](https://arcjet.com/discord).
 
 ## Stack
 
-- Astro: [Astro](https://astro.build/)
+- Auth: [Auth.js](https://authjs.dev/)
+- App: [Next.js](https://nextjs.org/)
+- Form handling: [React Hook Form](https://react-hook-form.com/) (see also [our
+  full form protection
+  example](https://github.com/arcjet/example-nextjs-form))
+- Client-side validation: [Zod](https://zod.dev/)
 - Security: [Arcjet](https://arcjet.com/)
 
 ## Contributing
@@ -81,7 +90,7 @@ our
 [contributing guide](https://github.com/arcjet/examples/blob/main/CONTRIBUTING.md)
 for more information.
 
-[vercel_deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-astro&project-name=arcjet-astro-example&repository-name=arcjet-astro-example&developer-id=oac_1GEcKBuKBilVnjToj1QUwdb8&demo-title=Arcjet%20Astro%20Example%20&demo-description=Example%20rate%20limiting%2C%20bot%20protection%2C%20email%20verification%20%26%20form%20protection.&demo-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-astro&demo-image=https%3A%2F%2Fapp.arcjet.com%2Fimg%2Fexample-apps%2Fvercel%2Fdemo-image.jpg&integration-ids=oac_1GEcKBuKBilVnjToj1QUwdb8&external-id=arcjet-js-example◊
+[vercel_deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-nextjs&project-name=arcjet-example&repository-name=arcjet-example&developer-id=oac_1GEcKBuKBilVnjToj1QUwdb8&demo-title=Arcjet%20Example%20&demo-description=Example%20rate%20limiting%2C%20bot%20protection%2C%20email%20verification%20%26%20form%20protection.&demo-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-nextjs&demo-image=https%3A%2F%2Fapp.arcjet.com%2Fimg%2Fexample-apps%2Fvercel%2Fdemo-image.jpg&integration-ids=oac_1GEcKBuKBilVnjToj1QUwdb8&external-id=arcjet-js-example◊
 [vercel_button]: https://vercel.com/button
-[netlify_deploy]: https://app.netlify.com/start/deploy?repository=https://github.com/arcjet/example-astro
+[netlify_deploy]: https://app.netlify.com/start/deploy?repository=https://github.com/arcjet/example-nextjs
 [netlify_button]: https://www.netlify.com/img/deploy/button.svg
