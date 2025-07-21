@@ -1,18 +1,17 @@
 import { Metadata } from "next";
-import Script from "next/script";
-import Link from "next/link";
 import Image from "next/image";
-
-import { siteConfig } from "@/config/site";
-
-import LogoLight from "@/assets/logo-light.svg";
+import Link from "next/link";
+import Script from "next/script";
 import LogoDark from "@/assets/logo-dark.svg";
 
+import LogoLight from "@/assets/logo-light.svg";
+import { siteConfig } from "@/config/site";
+
 import "@/styles/styles.css";
-import { IconMenu } from "@/components/icons/Menu";
 import { IconCancel } from "@/components/icons/Cancel";
-import { PopoverTarget } from "@/components/PopoverTarget";
+import { IconMenu } from "@/components/icons/Menu";
 import { NavLink } from "@/components/NavLink";
+import { PopoverTarget } from "@/components/PopoverTarget";
 
 export const metadata: Metadata = {
   title: {

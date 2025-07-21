@@ -1,7 +1,7 @@
-import arcjet, { shield } from "@/lib/arcjet";
 import { isDevelopment } from "@arcjet/env";
 import ip from "@arcjet/ip";
 import { NextRequest, NextResponse } from "next/server";
+import arcjet, { shield } from "@/lib/arcjet";
 
 // Opt out of caching
 export const dynamic = "force-dynamic";

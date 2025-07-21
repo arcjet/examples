@@ -1,8 +1,8 @@
-import { formSchema } from "@/app/sensitive-info/schema";
-import arcjet, { sensitiveInfo, shield } from "@/lib/arcjet";
 import { isDevelopment } from "@arcjet/env";
 import ip from "@arcjet/ip";
 import { NextRequest, NextResponse } from "next/server";
+import { formSchema } from "@/app/sensitive-info/schema";
+import arcjet, { sensitiveInfo, shield } from "@/lib/arcjet";
 
 // Add rules to the base Arcjet instance outside of the handler function
 const aj = arcjet

@@ -1,10 +1,10 @@
-import arcjet, { fixedWindow, shield } from "@/lib/arcjet";
-import { auth } from "@/lib/auth";
 import { setRateLimitHeaders } from "@arcjet/decorate";
 import { isDevelopment } from "@arcjet/env";
 import ip from "@arcjet/ip";
-import type { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import type { Session } from "next-auth";
+import arcjet, { fixedWindow, shield } from "@/lib/arcjet";
+import { auth } from "@/lib/auth";
 
 // Opt out of caching
 export const dynamic = "force-dynamic";
