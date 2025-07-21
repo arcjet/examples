@@ -11,6 +11,7 @@
   "packageManager": "npm@11.4.2",
   "private": true,
   "scripts": {
+    "build": "turbo run build",
     "prepare-to-publish": "turbo run build && node scripts/prepare-to-publish.ts",
     "sort-staged-imports": "npx @biomejs/biome check --formatter-enabled=false --linter-enabled=false --staged --write"
   },
