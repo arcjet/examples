@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 MD041 -->
 <a href="https://arcjet.com" target="_arcjet-home">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://arcjet.com/logo/arcjet-dark-lockup-voyage-horizontal.svg">
@@ -49,3 +50,16 @@ npm run start
 Check out [the docs](https://docs.arcjet.com/), [contact
 support](https://docs.arcjet.com/support), or [join our Discord
 server](https://arcjet.com/discord).
+
+## Contributing
+
+All development for Arcjet examples is done in the
+[`arcjet/examples` repository](https://github.com/arcjet/examples).
+
+You are welcome to open an issue here or in
+[`arcjet/examples`](https://github.com/arcjet/examples/issues) directly.
+However, please direct all pull requests to
+[`arcjet/examples`](https://github.com/arcjet/examples/pulls). Take a look at
+our
+[contributing guide](https://github.com/arcjet/examples/blob/main/CONTRIBUTING.md)
+for more information.
