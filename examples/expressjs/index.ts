@@ -1,8 +1,12 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { isSpoofedBot } from "@arcjet/inspect";
 import arcjet, { detectBot, shield, slidingWindow } from "@arcjet/node";
-import express, { Request, Response, NextFunction } from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,9 +14,15 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 
+if (!process.env.ARCJET_KEY) {
+  throw new Error(
+    "ARCJET_KEY environment variable is required. Sign up for your Arcjet key at https://app.arcjet.com",
+  );
+}
+
 const aj = arcjet({
   // Get your site key from https://app.arcjet.com
-  key: process.env.ARCJET_KEY!,
+  key: process.env.ARCJET_KEY,
   rules: [
     // Shield protects your app from common attacks e.g. SQL injection
     shield({ mode: "LIVE" }),
