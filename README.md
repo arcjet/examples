@@ -16,6 +16,7 @@ frameworks.
 - [Express.js example](https://github.com/arcjet/example-expressjs)
   ([`./examples/exressjs`](./examples/expressjs))
 - [NestJS example](https://github.com/arcjet/example-nestjs)
+  ([`./examples/nestjs`](./examples/nestjs))
 - [Next.js example](https://github.com/arcjet/example-nextjs)
   ([`./examples/nextjs`](./examples/nextjs))
 - [Remix example](https://github.com/arcjet/example-remix)
