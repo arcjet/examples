@@ -21,11 +21,8 @@
   },
   "scripts": {
     "build": "nest build",
-    "dev": "nest start",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main"
+    "dev": "nest start --watch",
+    "start": "nest start"
   },
   "dependencies": {
     "@arcjet/decorate": "1.0.0-beta.9",
