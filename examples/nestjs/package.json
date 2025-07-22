@@ -4,7 +4,7 @@
   "description": "Arcjet NestJS example app. Arcjet helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security.",
   "license": "Apache-2.0",
   "homepage": "https://arcjet.com",
-  "repository": "github:arcjet/example-nest",
+  "repository": "github:arcjet/example-nestjs",
   "bugs": {
     "url": "https://github.com/arcjet/examples/issues",
     "email": "support@arcjet.com"
