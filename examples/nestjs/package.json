@@ -1,0 +1,47 @@
+{
+  "name": "@arcjet-examples/nestjs",
+  "exports": "./index.js",
+  "description": "Arcjet NestJS example app. Arcjet helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security.",
+  "license": "Apache-2.0",
+  "homepage": "https://arcjet.com",
+  "repository": "github:arcjet/example-nest",
+  "bugs": {
+    "url": "https://github.com/arcjet/examples/issues",
+    "email": "support@arcjet.com"
+  },
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "nest build",
+    "dev": "nest start --watch",
+    "start": "nest start"
+  },
+  "dependencies": {
+    "@arcjet/decorate": "1.0.0-beta.9",
+    "@arcjet/nest": "1.0.0-beta.9",
+    "@nestjs/common": "11.1.5",
+    "@nestjs/config": "4.0.2",
+    "@nestjs/core": "11.1.5",
+    "@nestjs/platform-express": "11.1.5",
+    "class-transformer": "0.5.1",
+    "class-validator": "0.14.2",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "11.0.7",
+    "@nestjs/schematics": "11.0.5",
+    "@types/express": "5.0.3",
+    "@types/node": "20.19.8",
+    "prettier": "3.6.2",
+    "typescript": "5.8.3"
+  }
+}
