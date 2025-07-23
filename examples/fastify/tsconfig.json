@@ -1,6 +1,6 @@
 {
   "extends": "fastify-tsconfig",
-  // Configured to run TypeScript files directly with Node.js
+  // Configured to run TypeScript files directly with node or tsx
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "erasableSyntaxOnly": true,

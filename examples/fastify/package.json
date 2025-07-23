@@ -14,14 +14,17 @@
     "fastify-cli": "7.4.0",
     "fastify-tsconfig": "3.0.0",
     "prettier": "3.6.2",
+    "tsx": "4.20.3",
     "typescript": "5.8.3"
   },
   "name": "@arcjet-examples/fastify",
   "repository": "github:arcjet/example-fastify",
   "scripts": {
-    "check": "tsc --noEmit",
-    "dev": "fastify start -wP -l info src/app.ts",
-    "start": "node src/serve.ts"
+    "check": "tsc",
+    "dev": "fastify start --watch --pretty-logs --log-level info src/app.ts",
+    "dev-tsx": "NODE_OPTIONS='--import tsx' FASTIFY_AUTOLOAD_TYPESCRIPT=1 fastify start --watch --pretty-logs --log-level info src/app.ts",
+    "start": "node src/serve.ts",
+    "start-tsx": "tsx src/serve.ts"
   },
   "type": "module",
   "version": "0.0.0"

@@ -42,7 +42,7 @@ features.
 
 2. Install dependencies:
 
-```bash
+```sh
 npm ci
 ```
 
@@ -50,9 +50,20 @@ npm ci
 
 4. Start the dev server
 
-```bash
+```sh
+# Node.js 24.3+
 npm run dev
 ```
+
+> [!TIP] For older versions of Node.js or if you encounter this error:
+>
+> > Unknown file extension ".ts"
+>
+> Use this [`tsx`](https://www.npmjs.com/package/tsx)-based command instead:
+>
+> ```sh
+> npm run dev-tsx
+> ```
 
 ## Try it out
 
@@ -65,7 +76,7 @@ The `/bots` route uses a guard to protect the controller. All automated clients
 will receive a 403 response. `curl` is considered an automated client by
 default, so you can test it with:
 
-```bash
+```sh
 curl -v http://localhost:3000/bots
 ```
 
@@ -74,7 +85,7 @@ curl -v http://localhost:3000/bots
 The `/rate-limiting` route uses a fixed window rate limit. Send 3 requests in quick
 succession to see the rate limit in action:
 
-```bash
+```sh
 curl -v http://localhost:3000/rate-limiting
 ```
 
@@ -84,7 +95,7 @@ The `/signup` route uses Arcjet's signup form protection which combines bot
 protection, rate limiting, and email verification. To test it, send a POST
 request with different email addresses to test:
 
-```bash
+```sh
 curl -v http://localhost:3000/signup \
   -X POST \
   -H "Content-Type: application/json" \
@@ -103,7 +114,7 @@ Try these emails to see how it works:
 The `/sensitive-info` route uses a guard to protect the controller. It will
 block requests containing credit card numbers:
 
-```bash
+```sh
 curl -v http://localhost:3000/sensitive-info \
   -X POST \
   -H "Content-Type: application/json" \
@@ -116,7 +127,7 @@ The `/attack` route uses Arcjet Shield to detect and block attacks, such as SQL
 injection and cross-site scripting. To simulate an attack, send a request with
 the special header:
 
-```bash
+```sh
 curl -v http://localhost:3000/attack \
   -H "x-arcjet-suspicious: true"
 ```
