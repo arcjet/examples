@@ -55,7 +55,8 @@ npm ci
 npm run dev
 ```
 
-> [!TIP] For older versions of Node.js or if you encounter this error:
+> [!TIP]
+> For older versions of Node.js or if you encounter this error:
 >
 > > Unknown file extension ".ts"
 >
