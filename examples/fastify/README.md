@@ -141,11 +141,6 @@ Check out [the docs](https://docs.arcjet.com/), [contact
 support](https://docs.arcjet.com/support), or [join our Discord
 server](https://arcjet.com/discord).
 
-[vercel_deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-fastify&project-name=arcjet-example&repository-name=arcjet-example&developer-id=oac_1GEcKBuKBilVnjToj1QUwdb8&demo-title=Arcjet%20Example%20&demo-description=Example%20rate%20limiting%2C%20bot%20protection%2C%20email%20verification%20%26%20form%20protection.&demo-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-fastify&demo-image=https%3A%2F%2Fapp.arcjet.com%2Fimg%2Fexample-apps%2Fvercel%2Fdemo-image.jpg&integration-ids=oac_1GEcKBuKBilVnjToj1QUwdb8&external-id=example-fastify
-[vercel_button]: https://vercel.com/button
-[netlify_deploy]: https://app.netlify.com/start/deploy?repository=https://github.com/arcjet/example-fastify
-[netlify_button]: https://www.netlify.com/img/deploy/button.svg
-
 ## Contributing
 
 All development for Arcjet examples is done in the
@@ -158,3 +153,8 @@ However, please direct all pull requests to
 our
 [contributing guide](https://github.com/arcjet/examples/blob/main/CONTRIBUTING.md)
 for more information.
+
+[vercel_deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-fastify&project-name=arcjet-example&repository-name=arcjet-example&developer-id=oac_1GEcKBuKBilVnjToj1QUwdb8&demo-title=Arcjet%20Example%20&demo-description=Example%20rate%20limiting%2C%20bot%20protection%2C%20email%20verification%20%26%20form%20protection.&demo-url=https%3A%2F%2Fgithub.com%2Farcjet%2Fexample-fastify&demo-image=https%3A%2F%2Fapp.arcjet.com%2Fimg%2Fexample-apps%2Fvercel%2Fdemo-image.jpg&integration-ids=oac_1GEcKBuKBilVnjToj1QUwdb8&external-id=example-fastify
+[vercel_button]: https://vercel.com/button
+[netlify_deploy]: https://app.netlify.com/start/deploy?repository=https://github.com/arcjet/example-fastify
+[netlify_button]: https://www.netlify.com/img/deploy/button.svg
