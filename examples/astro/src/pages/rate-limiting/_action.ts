@@ -22,9 +22,7 @@ export const rateLimitAction = defineAction({
   async handler(_, { clientAddress, request }) {
     // The protect method returns a decision object that contains information
     // about the request.
-    const decision = await aj.protect(request, {
-      fingerprint: clientAddress,
-    });
+    const decision = await aj.protect(request);
 
     console.log("Arcjet decision: ", decision);
 
