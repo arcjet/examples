@@ -53,11 +53,10 @@ export const formSchema = z.object({
 export const signupAction = defineAction({
   accept: "form",
   input: formSchema,
-  async handler({ email }, { clientAddress, request }) {
+  async handler({ email }, { request }) {
     // The protect method returns a decision object that contains information
     // about the request.
     const decision = await aj.protect(request, {
-      fingerprint: clientAddress,
       email,
     });
 

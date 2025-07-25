@@ -12,10 +12,10 @@ const aj = arcjet.withRule(
   }),
 );
 
-export const GET: APIRoute = async ({ request, clientAddress }) => {
+export const GET: APIRoute = async ({ request }) => {
   // The protect method returns a decision object that contains information
   // about the request.
-  const decision = await aj.protect(request, { fingerprint: clientAddress });
+  const decision = await aj.protect(request);
 
   console.log("Arcjet decision: ", decision);
 
