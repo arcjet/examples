@@ -20,7 +20,7 @@
   "name": "@arcjet-examples/fastify",
   "repository": "github:arcjet/example-fastify",
   "scripts": {
-    "check": "tsc",
+    "build": "tsc",
     "dev": "fastify start --watch --pretty-logs --log-level info src/app.ts",
     "dev-tsx": "NODE_OPTIONS='--import tsx' FASTIFY_AUTOLOAD_TYPESCRIPT=1 fastify start --watch --pretty-logs --log-level info src/app.ts",
     "start": "node src/serve.ts",
