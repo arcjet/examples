@@ -7,6 +7,26 @@ We recommend using the provided
 develop examples in this repository. This ensures a consistent development
 environment across all contributors.
 
+## Starting the examples
+
+From outside the devcontainer run the following command to start all examples in
+watch mode:
+
+```sh
+docker compose up
+```
+
+Each of the examples should start and be available at
+`*.arcjet-examples.orb.local` (e.g. `astro.arcjet-examples.orb.local`).
+
+> [!TIP]
+>
+> This assumes you are using [OrbStack](https://orbstack.dev/). If you are using
+> a different Docker provider there will be some differences. Notably ports will
+> be automatically assigned and the examples will be available at
+> `localhost:<port>` instead of `*.arcjet-examples.orb.local`. Use
+> `docker compose ps` to find the assigned ports.
+
 ## Static analysis
 
 We use [Trunk](https://docs.trunk.io/) to manage formatting and linting in this
@@ -46,6 +66,7 @@ trunk check
    1. Import `styles.css` via your frameworks canonical method
    1. Conditionally import the [`@oddbird/css-anchor-positioning` polyfill](https://github.com/oddbird/css-anchor-positioning?tab=readme-ov-file#getting-started)
 1. Follow the html structure of the other examples
+1. Add a `Dockerfile` and `compose.yaml` & link it in the root `compose.yaml` file
 
 ### Publishing to a repository
 
@@ -81,15 +102,18 @@ Your new example repository is now ready to be published to. Follow [Publishing 
 > automate this process via a GitHub Action & GitHub App.
 
 1. Ensure you have `main` checked out and the working directory is clean.
+1. Build all of the docker images to ensure they are in a good state:
+   ```sh
+   # Run outside of the devcontainer
+   docker compose build
+   ```
 1. Run the node script to prepare the examples for publishing:
    ```bash
    npm run prepare-to-publish
    ```
    This will:
-   - Build the examples to verify they work
    - Shallow clone the corresponding example repositories into `dist/[example-name]`
    - Overwrite the `dist/[example-name]` with the current example
-   - Write out an isolated `package-lock.json` for the example
    - If there are any changes, commit them to the example repository
    - Prompt you to push the changes to the example repository
 1. Where prompted, sanity check and then push as directed

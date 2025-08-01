@@ -1,0 +1,16 @@
+services:
+  expressjs:
+    build: .
+    command: node --watch index.ts
+    env_file:
+      - .env.local
+    labels:
+      - dev.orbstack.domains=expressjs.arcjet-examples.orb.local
+    ports:
+      - 3000
+    volumes:
+      - .:/app
+      - expressjs_node_modules:/app/node_modules
+
+volumes:
+  expressjs_node_modules:
