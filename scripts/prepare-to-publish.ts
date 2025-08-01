@@ -48,7 +48,7 @@ if (!status.isClean()) {
   process.exit(1);
 }
 
-// TODO(#): Add an improved loading mechanism for workspaces
+// TODO(#31): Add an improved loading mechanism for workspaces
 const workspaces = [
   ["@arcjet-examples/astro", path.join(BASE_PATH, "./examples/astro")],
   ["@arcjet-examples/expressjs", path.join(BASE_PATH, "./examples/expressjs")],
