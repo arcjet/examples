@@ -1,0 +1,6 @@
+*
+!astro.config.mjs
+!package*.json
+!public
+!src
+!tsconfig.json
