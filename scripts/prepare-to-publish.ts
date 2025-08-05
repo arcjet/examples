@@ -1,42 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import Arborist from "@npmcli/arborist";
 import { type SimpleGit, simpleGit } from "simple-git";
 
 const BASE_PATH = path.join(import.meta.dirname, "..");
-
-/**
- * Checks if the lockfile is in sync with the current state of the node_modules.
- */
-async function isLockfileInSync() {
-  const arborist = new Arborist({
-    path: path.join(import.meta.dirname, ".."),
-    dryRun: true,
-    ignoreScripts: true,
-  });
-  await arborist.reify();
-  return !arborist.diff?.children?.length;
-}
-
-/**
- * Generates an isolated lockfile for a selected npm workspace.
- *
- * Based on similar functionality in the
- * {@linkcode https://github.com/0x80/isolate-package/blob/59e56f66069574ebbe1610ccbc83a48897924ff1/src/lib/lockfile/helpers/generate-npm-lockfile.ts | isolate-package}
- * npm package and
- * {@link https://github.com/npm/rfcs/issues/554 | npm RRFC 554}.
- *
- */
-async function generateIsolatedLockfile(path: string): Promise<string> {
-  const arborist = new Arborist({
-    path,
-  });
-
-  const { meta } = await arborist.buildIdealTree();
-  meta?.commit();
-
-  return String(meta);
-}
 
 /**
  * Copies a file from one location to another, creating the necessary directories.
@@ -82,28 +48,14 @@ if (!status.isClean()) {
   process.exit(1);
 }
 
-// Verify the lockfile is in sync with node_modules
-
-if (!(await isLockfileInSync())) {
-  console.log(
-    "Lockfile is not in sync with node_modules. Please run `npm ci` to update it.",
-  );
-  process.exit(1);
-}
-
-// Read the list of workspaces via Arborist
-
-const arborist = new Arborist({
-  path: BASE_PATH,
-});
-const tree = await arborist.loadActual();
-
-const workspaces = tree.workspaces;
-
-if (!workspaces) {
-  console.log("No workspaces found in the current project.");
-  process.exit(1);
-}
+// TODO(#31): Add an improved loading mechanism for workspaces
+const workspaces = [
+  ["@arcjet-examples/astro", path.join(BASE_PATH, "./examples/astro")],
+  ["@arcjet-examples/expressjs", path.join(BASE_PATH, "./examples/expressjs")],
+  ["@arcjet-examples/fastify", path.join(BASE_PATH, "./examples/fastify")],
+  ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
+  ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
+] satisfies [string, string][];
 
 const BUILD_PATH = path.join(BASE_PATH, "dist");
 
@@ -189,15 +141,6 @@ for (const [workspaceName, workspacePath] of workspaces) {
   }
 
   await Promise.all(copyFilePromises);
-
-  // Write an isolated lockfile for the workspace
-
-  const workspaceLockfile = await generateIsolatedLockfile(workspacePath);
-  await fs.writeFile(
-    path.join(workspaceBuildPath, "package-lock.json"),
-    workspaceLockfile,
-    "utf8",
-  );
 
   // Check if there are any changes to commit
 

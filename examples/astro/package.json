@@ -32,7 +32,7 @@
     "build": "astro build",
     "check": "astro check",
     "dev": "astro dev --host",
-    "preview": "astro preview --host"
+    "start": "astro preview --host"
   },
   "type": "module",
   "version": "0.0.0"

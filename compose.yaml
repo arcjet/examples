@@ -1,0 +1,6 @@
+include:
+  - examples/astro/compose.yaml
+  - examples/expressjs/compose.yaml
+  - examples/fastify/compose.yaml
+  - examples/nestjs/compose.yaml
+  - examples/nextjs/compose.yaml
