@@ -55,6 +55,10 @@ const workspaces = [
   ["@arcjet-examples/fastify", path.join(BASE_PATH, "./examples/fastify")],
   ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
   ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
+  [
+    "@arcjet-examples/tanstack-start",
+    path.join(BASE_PATH, "./examples/tanstack-start"),
+  ],
 ] satisfies [string, string][];
 
 const BUILD_PATH = path.join(BASE_PATH, "dist");
