@@ -1,15 +1,15 @@
 <script lang="ts">
-	import WhatNext from "$lib/components/WhatNext.svelte";
+  import WhatNext from "$lib/components/WhatNext.svelte";
 </script>
-
-<!-- TODO: Implement behavior and routing to mirror Astro's /bots/test endpoint in SvelteKit -->
 
 <main class="page">
   <div class="section">
     <h1 class="heading-primary">Arcjet bot protection example</h1>
     <p class="typography-primary">
       This page is protected by
-      <a href="https://docs.arcjet.com/bot-protection/concepts" class="link">Arcjet's bot protection</a>
+      <a href="https://docs.arcjet.com/bot-protection/concepts" class="link"
+        >Arcjet's bot protection</a
+      >
       configured to block automated clients.
     </p>
   </div>
@@ -19,12 +19,14 @@
   <div class="section">
     <h2 class="heading-secondary">Try it</h2>
     <p class="typography-secondary">
-      Make a request using <code>curl</code>, which is considered an automated client:
+      Make a request using <code>curl</code>, which is considered an automated
+      client:
     </p>
-    <pre class="codeblock">curl -v http://localhost:4321/bots/test</pre>
+    <pre class="codeblock">curl -v http://localhost:5173/bots/test</pre>
     <p class="typography-secondary">Your IP will be blocked for 60 seconds.</p>
     <p class="typography-secondary">
-      Bot protection can also be installed in middleware to protect your entire site.
+      Bot protection can also be installed in middleware to protect your entire
+      site.
     </p>
   </div>
 
@@ -32,20 +34,19 @@
 
   <div class="section">
     <h2 class="heading-secondary">See the code</h2>
-    <!-- TODO update to sveltekit -->
     <p class="typography-secondary">
       The
       <a
-        href="https://github.com/arcjet/example-astro/blob/main/src/pages/bots/test.ts"
+        href="https://github.com/arcjet/example-sveltekit/blob/main/src/routes/bots/test/+server.ts"
         target="_blank"
         rel="noreferrer"
         class="link"
       >
-        endpoint
+        route
       </a>
       imports a
       <a
-        href="https://github.com/arcjet/example-astro/blob/main/astro.config.mjs"
+        href="https://github.com/arcjet/example-sveltekit/blob/main/src/lib/server/arcjet.ts"
         target="_blank"
         rel="noreferrer"
         class="link"

@@ -18,11 +18,13 @@ export const GET: RequestHandler = async (event) => {
 
   console.log("Arcjet decision: ", decision);
 
-  // If the decision is denied, return a 403 Forbidden response. You can inspect
-  // the decision results to customize the response.
+  // If the decision is denied, return a 403 Forbidden response. You can
+  // inspect the decision results to customize the response.
   if (decision.isDenied()) {
     return json({ error: "Forbidden" }, { status: 403 });
-  } else if (decision.isErrored()) {
+  }
+
+  if (decision.isErrored()) {
     console.error("Arcjet error:", decision.reason);
     if (decision.reason.message === "[unauthenticated] invalid key") {
       return json(
@@ -32,12 +34,12 @@ export const GET: RequestHandler = async (event) => {
         },
         { status: 500 },
       );
-    } else {
-      return json(
-        { message: `Internal server error: ${decision.reason.message}` },
-        { status: 500 },
-      );
     }
+
+    return json(
+      { message: `Internal server error: ${decision.reason.message}` },
+      { status: 500 },
+    );
   }
 
   return json({ message: "Hello world" });

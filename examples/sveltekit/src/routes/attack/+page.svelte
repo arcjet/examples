@@ -1,19 +1,23 @@
 <script lang="ts">
-	import WhatNext from "$lib/components/WhatNext.svelte";
+  import WhatNext from "$lib/components/WhatNext.svelte";
 </script>
-
-<!-- TODO: Implement behavior and routing to mirror Astro's /attack/test endpoint in SvelteKit -->
 
 <main class="page">
   <div class="section">
     <h1 class="heading-primary">Arcjet attack protection example</h1>
     <p class="typography-primary">
       This page is protected by
-      <a href="https://docs.arcjet.com/shield/concepts" class="link">Arcjet Shield</a>.
+      <a href="https://docs.arcjet.com/shield/concepts" class="link"
+        >Arcjet Shield</a
+      >.
     </p>
     <p class="typography-secondary">
-      Once a certain suspicion threshold is reached, subsequent requests from that client are blocked for a period of time. Shield detects
-      <a href="https://docs.arcjet.com/shield/concepts#which-attacks-will-arcjet-shield-block" class="link">suspicious behavior</a>, such as SQL injection and cross-site scripting attacks.
+      Once a certain suspicion threshold is reached, subsequent requests from
+      that client are blocked for a period of time. Shield detects
+      <a
+        href="https://docs.arcjet.com/shield/concepts#which-attacks-will-arcjet-shield-block"
+        class="link">suspicious behavior</a
+      >, such as SQL injection and cross-site scripting attacks.
     </p>
   </div>
 
@@ -21,32 +25,38 @@
 
   <div class="section">
     <h2 class="heading-secondary">Try it</h2>
-    <p class="typography-secondary">Simulate an attack using <code>curl</code>:</p>
-    <pre class="codeblock">curl -v -H "x-arcjet-suspicious: true" http://localhost:4321/attack/test</pre>
     <p class="typography-secondary">
-      After the 5th request, your IP will be blocked for 15 minutes. Suspicious requests must meet a threshold before they are blocked to avoid false positives.
+      Simulate an attack using <code>curl</code>:
     </p>
-    <p class="typography-secondary">Shield can also be installed in middleware to protect your entire site.</p>
+    <pre
+      class="codeblock">curl -v -H "x-arcjet-suspicious: true" http://localhost:5173/attack/test</pre>
+    <p class="typography-secondary">
+      After the 5th request, your IP will be blocked for 15 minutes. Suspicious
+      requests must meet a threshold before they are blocked to avoid false
+      positives.
+    </p>
+    <p class="typography-secondary">
+      Shield can also be installed in middleware to protect your entire site.
+    </p>
   </div>
 
   <hr class="divider" />
 
   <div class="section">
     <h2 class="heading-secondary">See the code</h2>
-    <!-- TODO update to sveltekit -->
     <p class="typography-secondary">
       The
       <a
-        href="https://github.com/arcjet/example-astro/blob/main/src/pages/attack/test.ts"
+        href="https://github.com/arcjet/example-sveltekit/blob/main/src/routes/attack/test/+server.ts"
         target="_blank"
         rel="noreferrer"
         class="link"
       >
-        endpoint
+        route
       </a>
       imports a
       <a
-        href="https://github.com/arcjet/example-astro/blob/main/astro.config.mjs"
+        href="https://github.com/arcjet/example-sveltekit/blob/main/src/lib/server/arcjet.ts"
         target="_blank"
         rel="noreferrer"
         class="link"

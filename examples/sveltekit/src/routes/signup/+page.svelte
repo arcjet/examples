@@ -6,24 +6,28 @@
   let { form }: PageProps = $props();
 </script>
 
-<!-- TODO: Wire up server-side email verification, rate limiting, and bot protection using Arcjet. Static HTML only for now. -->
-
 <main class="page">
   <div class="section">
     <h1 class="heading-primary">Arcjet signup form protection</h1>
     <p class="typography-primary">
       This form uses
-      <a href="https://docs.arcjet.com/signup-protection/concepts" class="link">Arcjet's signup form protection</a>
+      <a href="https://docs.arcjet.com/signup-protection/concepts" class="link"
+        >Arcjet's signup form protection</a
+      >
       which includes:
     </p>
     <ul class="bulleted--primary">
       <li>
-        Arcjet server-side email verification configured to block disposable providers and ensure that the domain has a valid MX record.
+        Arcjet server-side email verification configured to block disposable
+        providers and ensure that the domain has a valid MX record.
       </li>
       <li>
-        Rate limiting set to 5 requests over a 2 minute sliding window - a reasonable limit for a signup form, but easily configurable.
+        Rate limiting set to 5 requests over a 2 minute sliding window - a
+        reasonable limit for a signup form, but easily configurable.
       </li>
-      <li>Bot protection to stop automated clients from submitting the form.</li>
+      <li>
+        Bot protection to stop automated clients from submitting the form.
+      </li>
     </ul>
   </div>
 
@@ -40,10 +44,12 @@
             type="email"
             placeholder="totoro@example.com"
             class="form-input"
-            value={form?.email ?? "nonexistent@arcjet.ai"}
+            value="nonexistent@arcjet.ai"
           />
         </label>
-        <span class="form-description">Just a test form - you won't receive any emails.</span>
+        <span class="form-description"
+          >Just a test form - you won't receive any emails.</span
+        >
         {#if form?.error}
           <p class="form-error">We couldn't sign you up: {form.error}</p>
         {/if}
@@ -52,14 +58,18 @@
         <button type="submit" class="button-primary">Sign up</button>
       </div>
     </form>
-    <!-- TODO: Add SvelteKit form action, show validation errors, and navigate to /signup/submitted on success -->
 
     <h2 class="heading-secondary">Test emails</h2>
     <p class="typography-secondary">Try these emails to see how it works:</p>
     <ul class="list-bullets-secondary">
       <li><code>invalid.@arcjet</code> – is an invalid email address.</li>
-      <li><code>test@0zc7eznv3rsiswlohu.tk</code> – is from a disposable email provider.</li>
-      <li><code>nonexistent@arcjet.ai</code> – is a valid email address & domain, but has no MX records.</li>
+      <li>
+        <code>test@0zc7eznv3rsiswlohu.tk</code> – is from a disposable email provider.
+      </li>
+      <li>
+        <code>nonexistent@arcjet.ai</code> – is a valid email address & domain, but
+        has no MX records.
+      </li>
     </ul>
   </div>
 
@@ -67,20 +77,19 @@
 
   <div class="section">
     <h2 class="heading-secondary">See the code</h2>
-  <!-- Updated to SvelteKit form actions -->
     <p class="typography-secondary">
       The
       <a
-    href="https://github.com/arcjet/examples/blob/main/examples/sveltekit/src/routes/signup/+page.server.ts"
+        href="https://github.com/arcjet/example-sveltekit/blob/main/src/routes/signup/+page.server.ts"
         target="_blank"
         rel="noreferrer"
         class="link"
       >
-    SvelteKit form action
+        form action
       </a>
       imports a
       <a
-    href="https://github.com/arcjet/examples/blob/main/examples/sveltekit/src/lib/server/arcjet.ts"
+        href="https://github.com/arcjet/example-sveltekit/blob/main/src/lib/server/arcjet.ts"
         target="_blank"
         rel="noreferrer"
         class="link"

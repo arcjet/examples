@@ -8,7 +8,9 @@
   <div class="list-actions">
     <p class="typography-secondary">Want to know more?</p>
     <div>
-      <a href="https://docs.arcjet.com" target="_blank" class="link">Arcjet docs</a>
+      <a href="https://docs.arcjet.com" target="_blank" class="link"
+        >Arcjet docs</a
+      >
       <span class="typography-secondary"> / </span>
       <a
         href="https://arcjet.com/discord"

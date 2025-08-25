@@ -42,11 +42,19 @@ export const GET: RequestHandler = async (event) => {
 
   // If the decision is denied, return an appropriate response. You can inspect
   // the decision results to customize the response.
-  if (decision.isDenied() && decision.reason.isBot()) {
-    return json({ error: "Bots are forbidden" }, { status: 403 });
-  } else if (decision.isDenied() && decision.reason.isRateLimit()) {
-    return json({ error: "Too many requests" }, { status: 429 });
-  } else if (decision.isErrored()) {
+  if (decision.isDenied()) {
+    if (decision.reason.isBot()) {
+      return json({ error: "Bots are forbidden" }, { status: 403 });
+    }
+
+    if (decision.reason.isRateLimit()) {
+      return json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    return json({ error: "Request denied" }, { status: 403 });
+  }
+
+  if (decision.isErrored()) {
     console.error("Arcjet error:", decision.reason);
     if (decision.reason.message === "[unauthenticated] invalid key") {
       return json(
@@ -56,12 +64,12 @@ export const GET: RequestHandler = async (event) => {
         },
         { status: 500 },
       );
-    } else {
-      return json(
-        { message: `Internal server error: ${decision.reason.message}` },
-        { status: 500 },
-      );
     }
+
+    return json(
+      { message: `Internal server error: ${decision.reason.message}` },
+      { status: 500 },
+    );
   }
 
   return json({ message: "Hello world" });
