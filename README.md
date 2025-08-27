@@ -22,6 +22,10 @@ frameworks.
 - [Next.js example](https://github.com/arcjet/example-nextjs)
   ([`./examples/nextjs`](./examples/nextjs))
 - [Remix example](https://github.com/arcjet/example-remix)
+- [SvelteKit example](https://github.com/arcjet/example-sveltekit)
+  ([`./examples/sveltekit`](./examples/sveltekit))
+- [TanStack Start example](https://github.com/arcjet/example-tanstack-start)
+  ([`./examples/tanstack-start`](./examples/tanstack-start))
 
 Can't find what you're looking for? Try the [`examples` directory of the
 `arcjet/arcjet-js` repository](https://github.com/arcjet/arcjet-js/tree/main/examples).

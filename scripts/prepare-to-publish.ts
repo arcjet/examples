@@ -55,6 +55,7 @@ const workspaces = [
   ["@arcjet-examples/fastify", path.join(BASE_PATH, "./examples/fastify")],
   ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
   ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
+  ["@arcjet-examples/sveltekit", path.join(BASE_PATH, "./examples/sveltekit")],
   [
     "@arcjet-examples/tanstack-start",
     path.join(BASE_PATH, "./examples/tanstack-start"),
@@ -100,7 +101,7 @@ for (const [workspaceName, workspacePath] of workspaces) {
    * Spefically match only arcjet/example-<name> to avoid any potential leaks
    * of private repositories.
    */
-  const match = packageJson.repository.match(/^github:arcjet\/example-(\w+)$/);
+  const match = packageJson.repository.match(/^github:arcjet\/example-(.+)$/);
   if (!match) {
     console.error(
       `Invalid repository field in '${workspaceName}'s package.json`,
