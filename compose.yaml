@@ -1,5 +1,6 @@
 include:
   - examples/astro/compose.yaml
+  - examples/deno/compose.yaml
   - examples/expressjs/compose.yaml
   - examples/fastify/compose.yaml
   - examples/nestjs/compose.yaml

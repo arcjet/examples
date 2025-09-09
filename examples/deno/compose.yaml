@@ -1,0 +1,12 @@
+services:
+  deno:
+    build: .
+    command: deno run dev
+    env_file:
+      - .env
+    labels:
+      - dev.orbstack.domains=deno.arcjet-examples.orb.local
+    ports:
+      - 3000
+    volumes:
+      - .:/app
