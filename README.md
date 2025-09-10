@@ -13,6 +13,8 @@ frameworks.
 
 - [Astro example](https://github.com/arcjet/example-astro)
   ([`./examples/astro`](./examples/astro))
+- [Deno example](https://github.com/arcjet/example-deno)
+  ([`./examples/deno`](./examples/deno))
 - [Express.js example](https://github.com/arcjet/example-expressjs)
   ([`./examples/expressjs`](./examples/expressjs))
 - [Fastify example](https://github.com/arcjet/example-fastify)

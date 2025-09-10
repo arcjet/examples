@@ -1,0 +1,10 @@
+{
+  "name": "Deno",
+  "build": { "dockerfile": "Dockerfile" },
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": ["denoland.vscode-deno"]
+    }
+  }
+}

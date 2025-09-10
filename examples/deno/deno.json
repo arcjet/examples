@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-env --allow-read --allow-net --env-file --watch src/main.ts",
+    "start": "deno run --allow-env --allow-read --allow-net src/main.ts"
+  },
+  "imports": {
+    "@arcjet/deno": "npm:@arcjet/deno@1.0.0-beta.11",
+    "@arcjet/inspect": "npm:@arcjet/inspect@1.0.0-beta.11"
+  }
+}
