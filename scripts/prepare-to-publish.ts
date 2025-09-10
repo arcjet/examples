@@ -56,6 +56,10 @@ const workspaces = [
   ["@arcjet-examples/fastify", path.join(BASE_PATH, "./examples/fastify")],
   ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
   ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
+  [
+    "@arcjet-examples/nextjs-fly",
+    path.join(BASE_PATH, "./examples/nextjs-fly"),
+  ],
   ["@arcjet-examples/sveltekit", path.join(BASE_PATH, "./examples/sveltekit")],
   [
     "@arcjet-examples/tanstack-start",
