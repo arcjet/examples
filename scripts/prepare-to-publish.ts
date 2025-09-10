@@ -78,11 +78,26 @@ try {
 for (const [workspaceName, workspacePath] of workspaces) {
   console.log(`Preparing '${workspaceName}'...`);
 
-  // Read the `repository` field from the package.json
+  // Read the `repository` field from the manifest
 
-  const packageJson: unknown = JSON.parse(
-    await fs.readFile(path.join(workspacePath, "package.json"), "utf-8"),
-  );
+  let raw: string | null = null;
+  // Try to read package.json first
+  try {
+    raw = await fs.readFile(
+      path.join(workspacePath, "arcjet-example.json"),
+      "utf-8",
+    );
+  } catch {
+    // Intentionally left blank
+  }
+
+  // Fallback to reading example.json if package.json is not found
+  // TODO(#31): Rework this script
+  if (!raw) {
+    raw = await fs.readFile(path.join(workspacePath, "package.json"), "utf-8");
+  }
+
+  const packageJson: unknown = JSON.parse(raw);
   if (typeof packageJson !== "object" || packageJson === null) {
     console.error(`Invalid package.json in '${workspaceName}'`);
     continue;
@@ -140,6 +155,11 @@ for (const [workspaceName, workspacePath] of workspaces) {
 
   const copyFilePromises: Promise<void>[] = [];
   for (const filePath of await listTrackedFiles(git, workspacePath)) {
+    // TODO(#31): Better handling of ignored files etc.
+    if (path.basename(filePath) === "arcjet-example.json") {
+      continue;
+    }
+
     const relativeFilePath = path.relative(workspacePath, filePath);
     copyFilePromises.push(
       copyFile(filePath, path.join(workspaceBuildPath, relativeFilePath)),
