@@ -29,6 +29,11 @@ frameworks.
 - [TanStack Start example](https://github.com/arcjet/example-tanstack-start)
   ([`./examples/tanstack-start`](./examples/tanstack-start))
 
+### Use cases
+
+- [Next.js Form example](https://github.com/arcjet/example-nextjs-form)
+  ([`./examples/nextjs-form`](./examples/nextjs-form))
+
 Can't find what you're looking for? Try the [`examples` directory of the
 `arcjet/arcjet-js` repository](https://github.com/arcjet/arcjet-js/tree/main/examples).
 
