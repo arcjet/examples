@@ -1,0 +1,7 @@
+*
+!app
+!package*.json
+!public
+!react-router.config.ts
+!tsconfig.json
+!vite.config.ts
