@@ -23,6 +23,8 @@ frameworks.
   ([`./examples/nestjs`](./examples/nestjs))
 - [Next.js example](https://github.com/arcjet/example-nextjs)
   ([`./examples/nextjs`](./examples/nextjs))
+- [React Router example](https://github.com/arcjet/example-react-router)
+  ([`./examples/react-router`](./examples/react-router))
 - [Remix example](https://github.com/arcjet/example-remix)
 - [SvelteKit example](https://github.com/arcjet/example-sveltekit)
   ([`./examples/sveltekit`](./examples/sveltekit))
