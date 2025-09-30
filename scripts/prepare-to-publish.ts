@@ -60,6 +60,7 @@ const workspaces = [
     "@arcjet-examples/nextjs-form",
     path.join(BASE_PATH, "./examples/nextjs-form"),
   ],
+  ["@arcjet-examples/nuxt", path.join(BASE_PATH, "./examples/nuxt")],
   [
     "@arcjet-examples/react-router",
     path.join(BASE_PATH, "./examples/react-router"),

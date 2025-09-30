@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "@arcjet/node": "1.0.0-beta.12",
+    "@fontsource-variable/figtree": "5.2.10",
+    "@oddbird/css-anchor-positioning": "0.6.1",
+    "nuxt": "4.1.2",
+    "vue": "3.5.22",
+    "vue-router": "4.5.1",
+    "zod": "4.1.11"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.18",
+    "typescript": "5.9.2",
+    "vue-tsc": "3.1.0"
+  },
+  "name": "@arcjet-examples/nuxt",
+  "private": true,
+  "repository": "github:arcjet/example-nuxt",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host --no-fork",
+    "generate": "nuxt generate",
+    "start": "nuxt preview --host",
+    "postinstall": "nuxt prepare"
+  },
+  "type": "module"
+}
