@@ -23,6 +23,8 @@ lint:
         - astro
         # Enable svelte support for prettier
         - svelte
+        # Enable vue support for prettier
+        - vue
         # https://github.com/trunk-io/plugins/blob/68b737870840c4a6f85b93e9814354177c8e79f1/linters/prettier/plugin.yaml#L13-L23
         - typescript
         - yaml
@@ -50,6 +52,11 @@ lint:
     - svgo@4.0.0
     - trufflehog@3.89.2
     - yamllint@1.37.1
+  # Trunk doesn't define the `vue` file type
+  files:
+    - name: vue
+      extensions:
+        - vue
 actions:
   enabled:
     - trunk-announce

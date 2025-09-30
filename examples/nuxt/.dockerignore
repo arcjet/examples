@@ -1,0 +1,7 @@
+*
+!app
+!public
+!server
+!nuxt.config.ts
+!package*.json
+!tsconfig.json
