@@ -19,6 +19,11 @@
     "vite": "7.1.7"
   },
   "name": "@arcjet-example/sveltekit",
+  "overrides": {
+    "@sveltejs/kit": {
+      "cookie": "0.7.0"
+    }
+  },
   "prettier": {
     "plugins": [
       "prettier-plugin-svelte"
