@@ -12,10 +12,9 @@
 
 > [!NOTE]
 >
-> We don't yet have an official Arcjet SDK validated specifically for Nuxt.
-> This example uses the `@arcjet/node` package with a small adapter
-> located in [`src/lib/arcjet.ts`](./src/lib/arcjet.ts). Please report any
-> issues you encounter to the
+> We don't yet have an official Arcjet SDK validated specifically for Nuxt. This
+> example uses the `@arcjet/node` package and expects Nuxt to be running on
+> Node.js. Please report any issues you encounter to the
 > [Arcjet examples monorepo](https://github.com/arcjet/examples/issues).
 
 # Arcjet Nuxt example app
