@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "@arcjet/astro": "1.0.0-beta.12",
-    "@astrojs/node": "9.4.3",
+    "@astrojs/node": "9.4.4",
     "@fontsource-variable/figtree": "5.2.8",
     "@fontsource/ibm-plex-mono": "5.2.6",
     "@oddbird/css-anchor-positioning": "0.6.1",
-    "astro": "5.13.5"
+    "astro": "5.14.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
