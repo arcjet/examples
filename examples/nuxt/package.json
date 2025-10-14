@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arcjet/node": "1.0.0-beta.12",
+    "@arcjet/node": "1.0.0-beta.13",
     "@fontsource-variable/figtree": "5.2.10",
     "@oddbird/css-anchor-positioning": "0.6.1",
     "nuxt": "4.1.2",
