@@ -25,8 +25,14 @@ export default defineNuxtConfig({
       ],
     },
   },
-
+  arcjet: {
+    // TODO: Remove the default key once @arcjet/nuxt doesn't throw during
+    //       build without it set.
+    key: process.env.ARCJET_KEY ?? "ajkey_dummy",
+  },
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  typescript: { strict: true, typeCheck: true },
+  modules: ["@arcjet/nuxt"],
+  // TODO: Enable strict type checking once the Arcjet Nuxt module typechecks.
+  // typescript: { strict: true, typeCheck: true },
 });

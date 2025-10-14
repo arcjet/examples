@@ -1,6 +1,5 @@
-import arcjetNode from "@arcjet/node";
+import arcjetNuxt from "#arcjet";
 
-export const arcjet = arcjetNode({
-  key: process.env.ARCJET_KEY!,
+export const arcjet = arcjetNuxt({
   rules: [],
 });
