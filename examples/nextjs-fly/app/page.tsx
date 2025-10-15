@@ -53,7 +53,7 @@ export default function IndexPage() {
 
       <hr className="divider" />
 
-      <WhatNext deployed={siteKey !== null} />
+      <WhatNext />
     </main>
   );
 }

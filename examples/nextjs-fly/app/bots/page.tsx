@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
-import VisitDashboard from "@/components/compositions/VisitDashboard";
 import { WhatNext } from "@/components/compositions/WhatNext";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default async function IndexPage() {
-  const siteKey = process.env.ARCJET_SITE ? process.env.ARCJET_SITE : null;
   const headersList = await headers();
   const hostname = headersList.get("host") || "example.arcjet.com"; // Default to hosted example if undefined
   const protocol = hostname?.match(/^(localhost|127.0.0.1):\d+$/)
@@ -51,8 +49,6 @@ export default async function IndexPage() {
           Bot protection can also be installed in middleware to protect your
           entire site.
         </p>
-
-        {siteKey && <VisitDashboard />}
       </div>
 
       <hr className="divider" />
@@ -84,7 +80,7 @@ export default async function IndexPage() {
 
       <hr className="divider" />
 
-      <WhatNext deployed={siteKey != null} />
+      <WhatNext />
     </main>
   );
 }

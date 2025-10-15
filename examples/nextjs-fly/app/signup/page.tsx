@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import VisitDashboard from "@/components/compositions/VisitDashboard";
 import { WhatNext } from "@/components/compositions/WhatNext";
 import { EmailForm } from "@/components/EmailForm";
 
@@ -11,8 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default function IndexPage() {
-  const siteKey = process.env.ARCJET_SITE ? process.env.ARCJET_SITE : null;
-
   return (
     <main className="page">
       <div className="section">
@@ -48,8 +45,6 @@ export default function IndexPage() {
         <h2 className="heading-secondary">Try it</h2>
 
         <EmailForm />
-
-        {siteKey && <VisitDashboard />}
 
         <h2 className="heading-secondary">Test emails</h2>
         <p className="typography-secondary">
@@ -96,10 +91,8 @@ export default function IndexPage() {
           which sets base rules.
         </p>
       </div>
-
       <hr className="divider" />
-
-      <WhatNext deployed={siteKey != null} />
+      <WhatNext />
     </main>
   );
 }

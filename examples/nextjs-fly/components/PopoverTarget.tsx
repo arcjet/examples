@@ -24,10 +24,7 @@ type Props = {
   closeAtWidthPx: number;
 } & ComponentProps<"nav">;
 
-export function PopoverTarget({
-  closeAtWidthPx: closeAtWidthPx,
-  ...props
-}: Props) {
+export function PopoverTarget({ closeAtWidthPx, ...props }: Props) {
   const popover = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

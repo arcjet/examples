@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import VisitDashboard from "@/components/compositions/VisitDashboard";
 import { WhatNext } from "@/components/compositions/WhatNext";
-import { SupportForm } from "@/components/SuppportForm";
+import { SupportForm } from "@/components/SupportForm";
 
 export const metadata: Metadata = {
   title: "Sensitive info detection example",
@@ -11,8 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default function IndexPage() {
-  const siteKey = process.env.ARCJET_SITE ? process.env.ARCJET_SITE : null;
-
   return (
     <main className="page">
       <div className="section">
@@ -43,8 +40,6 @@ export default function IndexPage() {
         <h2 className="heading-secondary">Try it</h2>
 
         <SupportForm />
-
-        {siteKey && <VisitDashboard />}
       </div>
 
       <hr className="divider" />
@@ -76,7 +71,7 @@ export default function IndexPage() {
 
       <hr className="divider" />
 
-      <WhatNext deployed={siteKey != null} />
+      <WhatNext />
     </main>
   );
 }

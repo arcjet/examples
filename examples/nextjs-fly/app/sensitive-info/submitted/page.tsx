@@ -1,9 +1,6 @@
 import { WhatNext } from "@/components/compositions/WhatNext";
-import useSiteKey from "@/components/effects/useSiteKey";
 
 export default function IndexPage() {
-  const { siteKey } = useSiteKey();
-
   return (
     <div className="page">
       <section className="section">
@@ -15,7 +12,7 @@ export default function IndexPage() {
 
       <hr className="divider" />
 
-      <WhatNext deployed={siteKey != null} />
+      <WhatNext />
     </div>
   );
 }

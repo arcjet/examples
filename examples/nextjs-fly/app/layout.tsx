@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -64,6 +64,7 @@ export default function RootLayout({ children }: Props) {
               className="hamburger-menu"
               popoverTarget="navigation"
               popoverTargetAction="toggle"
+              type="button"
             >
               <IconMenu classes={["hamburger-menu-menu-icon"]} />
               <IconCancel classes={["hamburger-menu-cancel-icon"]} />
