@@ -38,6 +38,7 @@ export const FormSchema = z.object({
 
 export default defineEventHandler(async (event) => {
   // TODO: This breaks currently because it consumes the body & Arcjet can't read it.
+  //       <https://github.com/arcjet/arcjet-js/pull/5305>
   const formData = await readFormData(event);
 
   const parsed = FormSchema.safeParse(Object.fromEntries(formData.entries()));
