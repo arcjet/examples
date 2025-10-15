@@ -55,11 +55,15 @@ const workspaces = [
   ["@arcjet-examples/expressjs", path.join(BASE_PATH, "./examples/expressjs")],
   ["@arcjet-examples/fastify", path.join(BASE_PATH, "./examples/fastify")],
   ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
-  ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
+  [
+    "@arcjet-examples/nextjs-fly",
+    path.join(BASE_PATH, "./examples/nextjs-fly"),
+  ],
   [
     "@arcjet-examples/nextjs-form",
     path.join(BASE_PATH, "./examples/nextjs-form"),
   ],
+  ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
   ["@arcjet-examples/nuxt", path.join(BASE_PATH, "./examples/nuxt")],
   [
     "@arcjet-examples/react-router",

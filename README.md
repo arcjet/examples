@@ -35,7 +35,9 @@ frameworks.
 
 ### Use cases
 
-- [Next.js Form example](https://github.com/arcjet/example-nextjs-form)
+- [Next.js deployed to Fly.io example](https://github.com/arcjet/example-nextjs-fly)
+  ([`./examples/nextjs-fly`](./examples/nextjs-fly))
+- [Next.js form example](https://github.com/arcjet/example-nextjs-form)
   ([`./examples/nextjs-form`](./examples/nextjs-form))
 
 Can't find what you're looking for? Try the [`examples` directory of the

@@ -1,0 +1,14 @@
+*
+!app
+!assets
+!components
+!config
+!docker-entrypoint.js
+!environment.d.ts
+!lib
+!middleware.ts
+!next-env.d.ts
+!package*.json
+!public
+!styles
+!tsconfig.json
