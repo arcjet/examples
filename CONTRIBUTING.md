@@ -1,41 +1,66 @@
 # Contributing to Arcjet Examples
 
+Thanks for helping improve the Arcjet Examples! This guide explains how to set
+up your environment, run examples, follow our lint/format rules, add a new
+example, publish it to its own repository, and keep dependencies up to date.
+
+---
+
+## Table of contents
+
+1. [Development environment](#development-environment)
+2. [Starting the examples](#starting-the-examples)
+3. [Static analysis (formatting & linting)](#static-analysis-formatting--linting)
+4. [Adding a new example (Arcjet JS SDK)](#adding-a-new-example-arcjet-js-sdk)
+5. [Publishing to a new repository](#publishing-to-a-new-repository)
+6. [Publishing an example (semi‑automated)](#publishing-an-example-semiautomated)
+7. [Updating dependencies](#updating-dependencies)
+   - [npm](#npm)
+   - [Deno](#deno)
+8. [Helpful commands](#helpful-commands)
+
+---
+
 ## Development environment
 
-We recommend using the provided
-[devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) to
-develop examples in this repository. This ensures a consistent development
-environment across all contributors.
+We recommend using the provided [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers). It gives you a consistent toolchain and avoids “works on my machine” issues.
+
+> [!TIP]
+> You can still work locally without the devcontainer; just be sure to install the tools referenced below (e.g., Docker, Trunk).
+
+---
 
 ## Starting the examples
 
-From outside the devcontainer run the following command to start all examples in
-watch mode:
+From **outside** the devcontainer, start all examples in watch mode:
 
 ```sh
-docker compose up
+# You'll likely need to populate the relevant .env files first
+docker compose up [example-name]  # e.g. astro, deno, expressjs, etc.
 ```
 
-Each of the examples should start and be available at
-`*.arcjet-examples.orb.local` (e.g. `astro.arcjet-examples.orb.local`).
+When using [OrbStack](https://orbstack.dev/), each example will be reachable at:
+
+```
+[example-name].arcjet-examples.orb.local
+# e.g. astro.arcjet-examples.orb.local
+```
 
 > [!TIP]
->
-> This assumes you are using [OrbStack](https://orbstack.dev/). If you are using
-> a different Docker provider there will be some differences. Notably ports will
-> be automatically assigned and the examples will be available at
-> `localhost:<port>` instead of `*.arcjet-examples.orb.local`. Use
-> `docker compose ps` to find the assigned ports.
+> Using a different Docker provider? Ports will be auto‑assigned and examples will be served at `http://localhost:<port>` rather than `*.arcjet-examples.orb.local`.
+> Run `docker compose ps` to find the assigned ports.
 
-## Static analysis
+---
 
-We use [Trunk](https://docs.trunk.io/) to manage formatting and linting in this
-repository. If you arn't using the provided devcontainer, you'll need to
-[install Trunk locally](https://docs.trunk.io/references/cli/install).
+## Static analysis (formatting & linting)
 
-Once installed you have access to the following commands:
+We use [Trunk](https://docs.trunk.io/) to manage formatting and linting.
 
-```shell
+If you’re **not** using the devcontainer, first [install Trunk locally](https://docs.trunk.io/references/cli/install).
+
+Once installed:
+
+```sh
 # Format all changed files
 trunk fmt
 
@@ -44,76 +69,161 @@ trunk check
 ```
 
 > [!TIP]
-> If you encounter Biome import sorting issues, stage the effected files and
-> run:
+> If you hit Biome import‑sorting issues, stage the affected files and run:
 >
-> ```shell
+> ```sh
 > npm run sort-staged-imports
 > ```
 
-## Adding a new example
+---
+
+## Adding a new example (Arcjet JS SDK)
 
 > [!NOTE]
-> This guide is for adding new examples using the Arcjet JS SDK.
+> These steps are for examples built with the **Arcjet JS SDK**.
 
-1. Place your example in the `examples` directory.
-1. Set up the shared stylesheet
-   1. Add the shared `*.css` files to your example (for now copy from [examples/astro/src/styles](./examples/astro/src/styles))
-   1. Install the required dependencies:
-      ```bash
-      npm install @fontsource-variable/figtree @fontsource/ibm-plex-mono @oddbird/css-anchor-positioning
-      ```
-   1. Import `styles.css` via your frameworks canonical method
-   1. Conditionally import the [`@oddbird/css-anchor-positioning` polyfill](https://github.com/oddbird/css-anchor-positioning?tab=readme-ov-file#getting-started)
-1. Follow the html structure of the other examples
-1. Add a `Dockerfile` and `compose.yaml` & link it in the root `compose.yaml` file
+1. **Create the project**
+   - Place your example in the `examples/` directory.
 
-### Publishing to a repository
+2. **Set up the shared stylesheet**
+   - Copy the shared `*.css` files (temporarily copy from [`examples/astro/src/styles`](./examples/astro/src/styles)).
+   - Install required dependencies:
 
-1. Once the example has been merged into the `main` branch it can be published to it's own repository.
-1. Create a new public repository on GitHub
-   1. Following the naming convention
-      > arcjet/example-[example-name]
-   1. Do not initialize a README, .gitignore, or license
-   1. Set the repository description
-      > An example [framework] application protected by Arcjet
-   1. Set the repository as a Template repository
-   <!-- TODO(#8): Social preview -->
-   1. Disable repository features
-      - Wikis
-      - Issues
-      - Sponsorships
-      - Discussions
-      - Projects
-   1. Disable GitHub actions
-1. Add the `repository` field to the `package.json` of your example
+     ```sh
+     npm install @fontsource-variable/figtree @fontsource/ibm-plex-mono @oddbird/css-anchor-positioning
+     ```
+
+   - Import `styles.css` using your framework’s standard method.
+   - Conditionally load the [`@oddbird/css-anchor-positioning` polyfill](https://github.com/oddbird/css-anchor-positioning?tab=readme-ov-file#getting-started).
+
+3. **Match the HTML structure**
+   - Follow the general HTML structure used by existing examples to stay consistent.
+
+4. **Containerization**
+   - Add a `Dockerfile` and a `compose.yaml` in your example folder.
+   - Link your example service in the **root** `compose.yaml`.
+
+5. **(Temporary) Workspace entry**
+   - Until [#31](https://github.com/arcjet/examples/issues/31) is resolved, manually add your example to the `workspaces` array in [`scripts/prepare-to-publish.ts`](./scripts/prepare-to-publish.ts).
+
+---
+
+## Publishing to a new repository
+
+Once your example is merged into `main`, you can publish it to its own repository.
+
+1. **Create a public GitHub repository**
+   - Naming: `arcjet/example-[example-name]`
+   - Do **not** initialize a README, `.gitignore`, or license.
+   - Description: `An example [framework] application protected by Arcjet`
+   - Mark as a **Template repository**
+   - Disable repository features you won’t need:
+     - Wikis
+     - Issues
+     - Sponsorships
+     - Discussions
+     - Projects
+
+   - Disable GitHub Actions
+
+2. **Add the repository field to your example’s `package.json`**
+
    ```json
    {
      "repository": "github:arcjet/example-[example-name]"
    }
    ```
 
-Your new example repository is now ready to be published to. Follow [Publishing an example](#publishing-an-example).
+Your example repository is now ready to receive code. Next, follow [Publishing an example](#publishing-an-example-semiautomated).
 
-## Publishing an example
+---
+
+## Publishing an example (semi‑automated)
 
 > [!NOTE]
-> For now, publishing is only semi-automated. In the future we will likely fully
-> automate this process via a GitHub Action & GitHub App.
+> This process is currently semi‑automated. We may fully automate it with a GitHub Action & GitHub App in the future.
 
-1. Ensure you have `main` checked out and the working directory is clean.
-1. Build all of the docker images to ensure they are in a good state:
+1. Ensure you have `main` checked out and a clean working directory.
+2. Build all Docker images to validate they’re healthy (run **outside** the devcontainer):
+
    ```sh
-   # Run outside of the devcontainer
    docker compose build
    ```
-1. Run the node script to prepare the examples for publishing:
-   ```bash
+
+3. Prepare examples for publishing:
+
+   ```sh
    npm run prepare-to-publish
    ```
-   This will:
-   - Shallow clone the corresponding example repositories into `dist/[example-name]`
-   - Overwrite the `dist/[example-name]` with the current example
-   - If there are any changes, commit them to the example repository
-   - Prompt you to push the changes to the example repository
-1. Where prompted, sanity check and then push as directed
+
+   This script will:
+   - Shallow clone each example’s destination repo into `dist/[example-name]`
+   - Overwrite `dist/[example-name]` with the current example
+   - Commit any changes to the example repository
+   - Prompt you to push the changes upstream
+
+4. When prompted, sanity‑check the changes and push.
+
+   ```sh
+   # Check changed files
+   git diff --name-only HEAD^
+   ```
+
+   _Remember it's a proper (shallow) git repository! You'll only be able to see the last commit but the power of git is still there if you need it!_
+
+---
+
+## Updating dependencies
+
+### npm
+
+We use [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates#cooldown) with a **30‑day cooldown**.
+
+- **Update Arcjet packages to the latest version:**
+
+  ```sh
+  npx npm-check-updates --interactive --packageFile 'examples/*/package.json' --filter 'arcjet, @arcjet/*, nosecone, @nosecone/*' --target latest
+  ```
+
+- **Recursively update all dependencies to the greatest minor within cooldown:**
+
+  ```sh
+  npx npm-check-updates --interactive --packageFile 'examples/*/package.json' --cooldown 30 --target minor
+  ```
+
+- **Recursively update all dependencies to the latest within cooldown:**
+
+  ```sh
+  npx npm-check-updates --interactive --packageFile 'examples/*/package.json' --cooldown 30 --target @latest
+  ```
+
+### Deno
+
+Deno dependencies are currently managed manually. Open the `deno-2` devcontainer and run:
+
+```sh
+cd examples/deno
+deno update --interactive --latest
+```
+
+## Helpful commands
+
+Destroy all docker containers + volumes (can be relevant for dependency updates):
+
+```sh
+docker compose down -v
+```
+
+Rebuild all examples:
+
+_Typically if this passes without error, everything is working relatively well._
+
+```sh
+docker compose build --no-cache
+```
+
+VSCode switch devcontainer:
+
+```txt
+[COMMAND]+[P] > Dev Containers: Switch Container
+```
