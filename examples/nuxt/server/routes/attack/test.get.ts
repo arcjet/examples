@@ -1,4 +1,4 @@
-import { shield } from "@arcjet/node";
+import { shield } from "#arcjet";
 
 // Add rules to the base Arcjet instance outside of the handler function
 const aj = arcjet.withRule(
@@ -12,7 +12,7 @@ const aj = arcjet.withRule(
 export default defineEventHandler(async (event) => {
   // The protect method returns a decision object that contains information
   // about the request.
-  const decision = await aj.protect(event.node.req);
+  const decision = await aj.protect(event);
 
   console.log("Arcjet decision: ", decision);
 

@@ -1,4 +1,4 @@
-import { detectBot, fixedWindow } from "@arcjet/node";
+import { detectBot, fixedWindow } from "#arcjet";
 
 // Add rules to the base Arcjet instance outside of the handler function
 const aj = arcjet
@@ -22,7 +22,7 @@ const aj = arcjet
 export default defineEventHandler(async (event) => {
   // The protect method returns a decision object that contains information
   // about the request.
-  const decision = await aj.protect(event.node.req);
+  const decision = await aj.protect(event);
 
   console.log("Arcjet decision: ", decision);
 

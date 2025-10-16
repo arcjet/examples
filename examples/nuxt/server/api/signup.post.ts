@@ -1,4 +1,4 @@
-import { protectSignup, shield } from "@arcjet/node";
+import { protectSignup, shield } from "#arcjet";
 import { z } from "zod";
 
 // Add rules to the base Arcjet instance outside of the handler function
@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
 
   // The protect method returns a decision object that contains information
   // about the request.
-  const decision = await aj.protect(event.node.req, {
+  const decision = await aj.protect(event, {
     email: parsed.data.email,
   });
 

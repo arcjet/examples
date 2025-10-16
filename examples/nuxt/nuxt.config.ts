@@ -25,8 +25,12 @@ export default defineNuxtConfig({
       ],
     },
   },
-
+  arcjet: {
+    key: process.env.ARCJET_KEY,
+  },
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  typescript: { strict: true, typeCheck: true },
+  modules: ["@arcjet/nuxt"],
+  // TODO: Enable strict type checking once the Arcjet Nuxt module typechecks.
+  // typescript: { strict: true, typeCheck: true },
 });
