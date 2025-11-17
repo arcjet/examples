@@ -6,5 +6,6 @@
       "settings": {},
       "extensions": ["denoland.vscode-deno"]
     }
-  }
+  },
+  "runArgs": ["--name", "arcjet-examples-deno-2"]
 }
