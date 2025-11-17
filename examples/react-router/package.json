@@ -1,24 +1,24 @@
 {
   "dependencies": {
-    "@arcjet/react-router": "1.0.0-beta.13",
+    "@arcjet/react-router": "1.0.0-beta.15",
     "@fontsource-variable/figtree": "5.2.10",
-    "@oddbird/css-anchor-positioning": "0.6.1",
+    "@oddbird/css-anchor-positioning": "0.7.0",
     "@react-router/fs-routes": "7.9.2",
     "@react-router/node": "7.9.2",
     "@react-router/serve": "7.9.2",
     "isbot": "5.1.31",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-router": "7.9.2",
-    "zod": "4.1.11"
+    "zod": "4.1.12"
   },
   "devDependencies": {
     "@react-router/dev": "7.9.2",
     "@types/node": "20",
-    "@types/react": "19.1.13",
-    "@types/react-dom": "19.1.9",
-    "typescript": "5.9.2",
-    "vite": "6.3.6",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "5.9.3",
+    "vite": "7.2.2",
     "vite-tsconfig-paths": "5.1.4"
   },
   "name": "@arcjet-example/react-router",

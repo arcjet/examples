@@ -4,6 +4,8 @@
   "name": "node-24 (recommended)",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
+  // Use 'runArgs' to specify additional docker run arguments.
+  "runArgs": ["--name", "arcjet-examples-node-24"],
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
@@ -14,7 +16,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "yarn install",
+  "postCreateCommand": "bash -i -c 'nvm install 24 --latest-npm'",
 
   // Configure tool-specific properties.
   "customizations": {
