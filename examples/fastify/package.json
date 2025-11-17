@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@arcjet/fastify": "1.0.0-beta.13",
-    "@arcjet/inspect": "1.0.0-beta.13",
+    "@arcjet/fastify": "1.0.0-beta.15",
+    "@arcjet/inspect": "1.0.0-beta.15",
     "@fastify/autoload": "6.3.1",
     "@fastify/env": "5.0.2",
     "@fastify/type-provider-json-schema-to-ts": "5.0.0",
