@@ -20,9 +20,9 @@
   "repository": "github:arcjet/example-nuxt",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --host --no-fork",
+    "dev": "nuxt dev --host 0.0.0.0 --no-fork",
     "generate": "nuxt generate",
-    "start": "nuxt preview --host",
+    "start": "nuxt preview --host 0.0.0.0",
     "postinstall": "nuxt prepare"
   },
   "type": "module"
