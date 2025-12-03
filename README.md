@@ -35,6 +35,8 @@ frameworks.
 
 ### Use cases
 
+- [Firebase functions example](https://github.com/arcjet/example-firebase-functions)
+  ([`./examples/firebase-functions`](./examples/firebase-functions))
 - [Next.js deployed to Fly.io example](https://github.com/arcjet/example-nextjs-fly)
   ([`./examples/nextjs-fly`](./examples/nextjs-fly))
 - [Next.js form example](https://github.com/arcjet/example-nextjs-form)

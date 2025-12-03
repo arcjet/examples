@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    // Based on the Node.js suggested tsconfig:
+    // https://nodejs.org/docs/latest/api/typescript.html#type-stripping
+    "erasableSyntaxOnly": true,
+    "module": "nodenext",
+    "noEmit": true,
+    "rewriteRelativeImportExtensions": true,
+    "target": "esnext",
+    "verbatimModuleSyntax": true,
+    // Additional options for stricter type checking
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true
+  },
+  "include": ["src"]
+}
