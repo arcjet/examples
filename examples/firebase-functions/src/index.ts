@@ -1,5 +1,10 @@
 import { isSpoofedBot } from "@arcjet/inspect";
-import arcjetNode, { detectBot, shield, slidingWindow } from "@arcjet/node";
+import arcjetNode, {
+  ArcjetDecision,
+  detectBot,
+  shield,
+  slidingWindow,
+} from "@arcjet/node";
 import { setGlobalOptions } from "firebase-functions";
 import { onRequest } from "firebase-functions/https";
 import * as logger from "firebase-functions/logger";
@@ -29,17 +34,46 @@ const arcjet = arcjetNode({
         "CATEGORY:PREVIEW", // Link previews e.g. Slack, Discord
       ],
     }),
-    // Create a token bucket rate limit. Other algorithms are supported.
-    slidingWindow({
-      mode: "LIVE",
-      interval: "2s", // Refill every 2 seconds
-      max: 5, // Allow 5 requests per interval
-    }),
   ],
 });
 
+// Use Ad hoc rules to set rate limits for guests and authenticated users.
+// See https://docs.arcjet.com/reference/nodejs/#ad-hoc-rules for more
+
+const arcjetForGuest = arcjet.withRule(
+  // Create a token bucket rate limit. Other algorithms are supported.
+  slidingWindow({
+    // characteristics: ["ip.src"], // Defaults to "ip.src" if not specified
+    mode: "LIVE",
+    interval: "1m", // Refill every 1 minute
+    max: 5, // Allow 5 requests per interval for guests
+  }),
+);
+
+const arcjetForUser = arcjet.withRule(
+  // Create a token bucket rate limit. Other algorithms are supported.
+  slidingWindow({
+    characteristics: ["user"], // Custom "user" characteristic
+    mode: "LIVE",
+    interval: "1m", // Refill every 1 minute
+    max: 15, // Allow 15 requests per interval for guests
+  }),
+);
+
 export const arcjetExample = onRequest(async (request, response) => {
-  const decision = await arcjet.protect(request);
+  // In a real app you'd use proper authentication to identify users.
+  // Here we just use a "user" query parameter for demonstration.
+  const user =
+    typeof request.query.user === "string" ? request.query.user : null;
+
+  // Dynamically choose the Arcjet instance to use based on whether a user is
+  // authenticated or this is a guest request.
+  let decision: ArcjetDecision;
+  if (user) {
+    decision = await arcjetForUser.protect(request, { user });
+  } else {
+    decision = await arcjetForGuest.protect(request);
+  }
 
   logger.log("Arcjet decision:", decision);
 
@@ -77,5 +111,5 @@ export const arcjetExample = onRequest(async (request, response) => {
     // Intentionally fail open for other Arcjet errors
   }
 
-  response.json({ message: "Hello world" });
+  response.json({ message: `Hello ${user ?? "world"}` });
 });

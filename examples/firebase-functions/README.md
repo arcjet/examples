@@ -84,8 +84,12 @@ Firebase will provide the URL of your deployed function which should end with
 1. Open the deployed function URL in your browser and you'll see a "Hello world"
    response.
 2. Reload the page 6 or so times within a minute and you should see "Rate limit exceeded."
-3. Make a `curl` request to the function and you should see a "Bots denied" message.
-4. Try running following `curl` command a couple times to simulate a spoofed bot
+3. Add a `user` query parameter to the URL (for example `https://<your
+functionurl>?user=david`), and reload the page multiple times. You should see
+   "Hello david" responses until you exceed the higher rate limit for
+   authenticated users.
+4. Make a `curl` request to the function and you should see a "Bots denied" message.
+5. Try running following `curl` command a couple times to simulate a spoofed bot
 
 ```sh
 curl -H "User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" <your function url>
