@@ -9,11 +9,8 @@ setGlobalOptions({ maxInstances: 10, secrets: ["ARCJET_KEY"] });
 let arcjetKey = process.env.ARCJET_KEY;
 if (!arcjetKey) {
   // In your app this should be a hard error! Here for the sake of the
-  // example we just log an error and use an intentionally invalid key.
-  logger.error(
-    "ARCJET_KEY environment variable is not set. Sign up for free at https://app.arcjet.com to get your key.",
-  );
-  arcjetKey = "invalid";
+  // example we just use an intentionally invalid key.
+  arcjetKey = "";
 }
 
 const arcjet = arcjetNode({

@@ -1,0 +1,5 @@
+*
+!firebase.json
+!package*.json
+!src
+!tsconfig.json

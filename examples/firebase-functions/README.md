@@ -43,6 +43,8 @@ npm ci
 npm run dev
 ```
 
+Firebase may prompt you to login; follow the instructions in the terminal.
+
 Firebase will print the local URL of both the emulator UI and the function
 iteself. The function URL should end with `/arcjetExample`.
 

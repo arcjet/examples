@@ -13,5 +13,11 @@
       ],
       "predeploy": ["npm run check"]
     }
-  ]
+  ],
+  "emulators": {
+    "functions": {
+      "host": "0.0.0.0",
+      "port": 5000
+    }
+  }
 }

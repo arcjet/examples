@@ -4,10 +4,8 @@
   "scripts": {
     "check": "tsc",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log",
     "dev": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell"
+    "serve": "firebase serve --only functions --host 0.0.0.0"
   },
   "engines": {
     "node": "24"
