@@ -2,11 +2,11 @@
   "dependencies": {
     "@arcjet/nuxt": "1.0.0-beta.15",
     "@fontsource-variable/figtree": "5.2.10",
-    "@nuxt/kit": "4.2.0",
-    "@nuxt/schema": "4.2.0",
+    "@nuxt/kit": "4.2.1",
+    "@nuxt/schema": "4.2.1",
     "@oddbird/css-anchor-positioning": "0.7.0",
-    "nuxt": "4.2.0",
-    "vue": "3.5.22",
+    "nuxt": "4.2.1",
+    "vue": "3.5.24",
     "vue-router": "4.6.3",
     "zod": "4.1.12"
   },
