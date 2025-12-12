@@ -5,6 +5,7 @@ include:
   - examples/fastify/compose.yaml
   - examples/firebase-functions/compose.yaml
   - examples/nestjs/compose.yaml
+  - examples/nextjs-bot-protection/compose.yaml
   - examples/nextjs-fly/compose.yaml
   - examples/nextjs-form/compose.yaml
   - examples/nextjs/compose.yaml

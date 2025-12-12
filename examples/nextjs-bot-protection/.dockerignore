@@ -1,0 +1,10 @@
+*
+!app
+!assets
+!lib
+!middleware.ts
+!next-env.d.ts
+!package*.json
+!public
+!styles
+!tsconfig.json
