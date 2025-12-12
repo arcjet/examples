@@ -50,7 +50,7 @@ export default async function IndexPage() {
     ? "http"
     : "https";
 
-  const curlCommand = `curl -H "User-Agent: Mozilla/5.0 \\
+  const curlCommand = `curl -I -H "User-Agent: Mozilla/5.0 \\
   (compatible; Googlebot/2.1;+http://www.google.com/bot.html)" \\
   ${protocol}://${hostname}
 `;
