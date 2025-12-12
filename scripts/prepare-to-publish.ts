@@ -64,6 +64,10 @@ const workspaces = [
     path.join(BASE_PATH, "./examples/nextjs-fly"),
   ],
   [
+    "@arcjet-examples/nextjs-bot-protection",
+    path.join(BASE_PATH, "./examples/nextjs-bot-protection"),
+  ],
+  [
     "@arcjet-examples/nextjs-form",
     path.join(BASE_PATH, "./examples/nextjs-form"),
   ],
