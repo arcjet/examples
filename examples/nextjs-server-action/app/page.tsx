@@ -1,41 +1,34 @@
-import { EmailForm } from "@/components/EmailForm";
-import Divider from "@/components/elements/Divider";
-import type { Metadata } from "next";
+// import { EmailForm } from "@/components/EmailForm";
 import Link from "next/link";
-
-import sharedStyles from "@/components/elements/PageShared.module.scss";
-import styles from "./page.module.css";
-
-export const metadata: Metadata = {
-  title: "Server action form protection example",
-  description:
-    "An example of Arcjet's form protection for Next.js which includes bot protection, rate limiting, and Shield WAF for attack protection.",
-};
+import { EmailForm } from "./EmailForm";
 
 export default function IndexPage() {
   return (
-    <section className={sharedStyles.Content}>
-      <div className={sharedStyles.Section}>
-        <h1 className={styles.title}>Protected server action form</h1>
-        <p className={styles.description}>
+    <main className="page">
+      <div className="section">
+        <h1 className="heading-primary">Protected server action form</h1>
+        <p className="typography-primary">
           This form is protected by Arcjet's{" "}
           <Link
             href="https://docs.arcjet.com/bot-protection/concepts"
-            className={styles.link}
+            target="_blank"
+            className="link"
           >
             bot protection
           </Link>
           ,{" "}
           <Link
             href="https://docs.arcjet.com/rate-limiting/concepts"
-            className={styles.link}
+            target="_blank"
+            className="link"
           >
             rate limiting
           </Link>
           , and{" "}
           <Link
             href="https://docs.arcjet.com/shield/concepts"
-            className={styles.link}
+            target="_blank"
+            className="link"
           >
             Shield WAF
           </Link>
@@ -43,13 +36,9 @@ export default function IndexPage() {
         </p>
       </div>
 
-      <Divider />
+      <hr className="divider" />
 
-      <div className={sharedStyles.Section}>
-        <div className={styles.formContainer}>
-          <EmailForm />
-        </div>
-      </div>
-    </section>
+      <EmailForm />
+    </main>
   );
 }

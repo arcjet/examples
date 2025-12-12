@@ -60,16 +60,20 @@ const workspaces = [
   ],
   ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
   [
-    "@arcjet-examples/nextjs-fly",
-    path.join(BASE_PATH, "./examples/nextjs-fly"),
-  ],
-  [
     "@arcjet-examples/nextjs-bot-protection",
     path.join(BASE_PATH, "./examples/nextjs-bot-protection"),
   ],
   [
+    "@arcjet-examples/nextjs-fly",
+    path.join(BASE_PATH, "./examples/nextjs-fly"),
+  ],
+  [
     "@arcjet-examples/nextjs-form",
     path.join(BASE_PATH, "./examples/nextjs-form"),
+  ],
+  [
+    "@arcjet-examples/nextjs-server-action",
+    path.join(BASE_PATH, "./examples/nextjs-server-action"),
   ],
   ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
   ["@arcjet-examples/nuxt", path.join(BASE_PATH, "./examples/nuxt")],
