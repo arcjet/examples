@@ -17,9 +17,9 @@
   "engines": {
     "node": ">=20"
   },
-  "name": "@arcjet-examples/nextjs-form-action",
+  "name": "@arcjet-examples/nextjs-server-action",
   "private": true,
-  "repository": "github:arcjet/example-nextjs-form-action",
+  "repository": "github:arcjet/example-nextjs-server-action",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
