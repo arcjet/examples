@@ -1,11 +1,11 @@
 {
   "devDependencies": {
-    "@types/node": "24.3.0",
-    "simple-git": "3.28.0",
+    "@types/node": "24.10.1",
+    "simple-git": "3.30.0",
     "typescript": "5.9.3"
   },
   "name": "@arcjet-examples/root",
-  "packageManager": "npm@11.5.2",
+  "packageManager": "npm@11.6.4",
   "private": true,
   "scripts": {
     "prepare-to-publish": "node scripts/prepare-to-publish.ts",
