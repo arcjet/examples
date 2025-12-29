@@ -1,15 +1,15 @@
 {
   "dependencies": {
     "@arcjet/astro": "1.0.0-beta.15",
-    "@astrojs/node": "9.5.0",
+    "@astrojs/node": "9.5.1",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
-    "@oddbird/css-anchor-positioning": "0.7.0",
-    "astro": "5.15.9"
+    "@oddbird/css-anchor-positioning": "0.8.0",
+    "astro": "5.16.2"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.5",
-    "prettier": "3.6.2",
+    "@astrojs/check": "0.9.6",
+    "prettier": "3.7.2",
     "prettier-plugin-astro": "0.14.1",
     "typescript": "5.9.3"
   },
