@@ -1,0 +1,13 @@
+{
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "tamasfe.even-better-toml"
+      ]
+    }
+  },
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "name": "python-3",
+  "postCreateCommand": "curl -LsSf https://astral.sh/uv/0.9.21/install.sh | sh",
+  "runArgs": ["--name", "arcjet-examples-python-3"]
+}
