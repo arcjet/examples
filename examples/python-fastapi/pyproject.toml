@@ -1,0 +1,7 @@
+[project]
+name = "arcjet-example-python-fastapi"
+version = "0.1.0"
+description = "Arcjet FastAPI example app. Arcjet helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
