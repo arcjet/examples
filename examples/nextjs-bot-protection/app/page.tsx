@@ -40,7 +40,7 @@ export default async function IndexPage() {
     // experimental `throw forbidden()` could be used instead. See:
     // - https://nextjs.org/docs/app/getting-started/error-handling#server-functions
     // - https://nextjs.org/docs/app/api-reference/functions/forbidden
-    throw new Error("Forbidden");
+    throw notFound();
   }
 
   // Only used to display the correct url in the example
