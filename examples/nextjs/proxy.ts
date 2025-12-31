@@ -1,7 +1,7 @@
 import { isDevelopment } from "@arcjet/env";
 import * as nosecone from "@nosecone/next";
 
-const noseconeConfig: nosecone.NoseconeOptions = {
+const noseconeConfig: nosecone.Options = {
   ...nosecone.defaults,
   contentSecurityPolicy: {
     ...nosecone.defaults.contentSecurityPolicy,
@@ -13,8 +13,9 @@ const noseconeConfig: nosecone.NoseconeOptions = {
         "https://www.netlify.com", // Deploy button
       ],
       scriptSrc: [
-        // We have to use unsafe-inline because Vercel Analytics
+        // We have to use unsafe-inline because next-themes and Vercel Analytics
         // do not support nonce
+        // https://github.com/pacocoursey/next-themes/issues/106
         // https://github.com/vercel/analytics/issues/122
         //...nosecone.defaults.contentSecurityPolicy.directives.scriptSrc,
         "'self'",
@@ -36,10 +37,8 @@ const noseconeConfig: nosecone.NoseconeOptions = {
   },
 } as const;
 
-const noseconeMiddleware = nosecone.createMiddleware(
+export const proxy = nosecone.createMiddleware(
   process.env.VERCEL_ENV === "preview"
     ? nosecone.withVercelToolbar(noseconeConfig)
     : noseconeConfig,
 );
-
-export default noseconeMiddleware;

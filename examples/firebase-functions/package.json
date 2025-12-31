@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "firebase-functions-test": "3.4.1",
-    "firebase-tools": "14.26.0",
+    "firebase-tools": "15.1.0",
     "typescript": "5.9.3"
   },
   "private": true

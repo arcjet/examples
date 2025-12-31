@@ -15,7 +15,7 @@ protection. Data redaction. A developer-first approach to security.
 This is an example Next.js application demonstrating how to protect a Next.js
 form which uses an API route. It also uses [Arcjet
 Nosecone](https://docs.arcjet.com/nosecone/quick-start) to configure security
-headers in middleware.
+headers in proxy.
 
 ## Features
 
