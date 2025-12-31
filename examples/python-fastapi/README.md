@@ -31,7 +31,31 @@ from abuse.
 
 2. Install dependencies:
 
-<!-- TODO -->
+
+1. [Register for a free Arcjet account](https://app.arcjet.com).
+
+2. Install dependencies:
+
+```sh
+uv sync
+```
+
+> [!NOTE]
+>
+> Temporarily you will also need to run something like:
+> ```sh
+> cp -r fix-arcjet/proto ./.venv/lib/python3.12/site-packages/
+> ```
+
+3. Rename `.env.example` to `.env` and add your Arcjet key.
+
+4. Start the dev server
+
+```sh
+uv run --env-file .env fastapi dev
+```
+
+5. Open [http://localhost:8000](http://localhost:8000) in your browser.
 
 ## Need help?
 
