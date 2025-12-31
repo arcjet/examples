@@ -44,7 +44,7 @@ uv sync
 >
 > Temporarily you will also need to run something like:
 > ```sh
-> cp -r fix-arcjet/proto ./.venv/lib/python3.12/site-packages/
+> cp -r fix-arcjet/proto ./.venv/lib/python3.10/site-packages/
 > ```
 
 3. Rename `.env.example` to `.env` and add your Arcjet key.

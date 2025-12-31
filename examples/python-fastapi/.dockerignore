@@ -1,0 +1,6 @@
+*
+!.python-version
+!app
+!fix-arcjet
+!pyproject.toml
+!uv.lock

@@ -6,7 +6,7 @@
       ]
     }
   },
-  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "image": "mcr.microsoft.com/devcontainers/python:3.10",
   "name": "python-3",
   "postCreateCommand": "curl -LsSf https://astral.sh/uv/0.9.21/install.sh | sh",
   "runArgs": ["--name", "arcjet-examples-python-3"]

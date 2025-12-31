@@ -11,6 +11,7 @@ include:
   - examples/nextjs-server-action/compose.yaml
   - examples/nextjs/compose.yaml
   - examples/nuxt/compose.yaml
+  - examples/python-fastapi/compose.yaml
   - examples/react-router/compose.yaml
   - examples/sveltekit/compose.yaml
   - examples/tanstack-start/compose.yaml

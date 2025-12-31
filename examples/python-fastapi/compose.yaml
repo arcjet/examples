@@ -1,0 +1,12 @@
+services:
+  fastapi:
+    build: .
+    command: uv run fastapi dev --host 0.0.0.0 --port 8000
+    env_file:
+      - .env
+    labels:
+      - dev.orbstack.domains=fastapi.arcjet-examples.orb.local
+    ports:
+      - 8000
+    volumes:
+      - ./app:/app/app
