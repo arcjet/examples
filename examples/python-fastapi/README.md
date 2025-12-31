@@ -55,7 +55,8 @@ uv sync
 uv run --env-file .env fastapi dev
 ```
 
-5. Open [http://localhost:8000](http://localhost:8000) in your browser.
+5. Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser. You will be able to interact with the example routes directly from the
+OpenAPI docs.
 
 ## Need help?
 
