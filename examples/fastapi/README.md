@@ -51,6 +51,11 @@ uv run --env-file .env fastapi dev
 5. Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser. You will be able to interact with the example routes directly from the
 OpenAPI docs.
 
+## Stack
+
+- App: [FastAPI](https://fastapi.tiangolo.com/)
+- Security: [Arcjet](https://arcjet.com/)
+
 ## Need help?
 
 Check out [the docs](https://docs.arcjet.com/), [contact
