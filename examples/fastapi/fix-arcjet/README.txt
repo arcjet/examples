@@ -1,1 +1,0 @@
-Copy the included `proto` folder into `.venv/lib/python3.12/site-packages/proto`

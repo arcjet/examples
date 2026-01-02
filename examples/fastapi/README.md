@@ -40,13 +40,6 @@ from abuse.
 uv sync
 ```
 
-> [!NOTE]
->
-> Temporarily you will also need to run something like:
-> ```sh
-> cp -r fix-arcjet/proto ./.venv/lib/python3.10/site-packages/
-> ```
-
 3. Rename `.env.example` to `.env` and add your Arcjet key.
 
 4. Start the dev server
