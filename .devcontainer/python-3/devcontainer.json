@@ -1,9 +1,7 @@
 {
   "customizations": {
     "vscode": {
-      "extensions": [
-        "tamasfe.even-better-toml"
-      ]
+      "extensions": ["tamasfe.even-better-toml"]
     }
   },
   "image": "mcr.microsoft.com/devcontainers/python:3.10",

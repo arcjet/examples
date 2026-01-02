@@ -31,10 +31,9 @@ from abuse.
 
 2. Install dependencies:
 
+3. [Register for a free Arcjet account](https://app.arcjet.com).
 
-1. [Register for a free Arcjet account](https://app.arcjet.com).
-
-2. Install dependencies:
+4. Install dependencies:
 
 ```sh
 uv sync
@@ -49,7 +48,7 @@ uv run --env-file .env fastapi dev
 ```
 
 5. Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser. You will be able to interact with the example routes directly from the
-OpenAPI docs.
+   OpenAPI docs.
 
 ## Stack
 
