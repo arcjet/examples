@@ -17,6 +17,8 @@ frameworks.
   ([`./examples/deno`](./examples/deno))
 - [Express.js example](https://github.com/arcjet/example-expressjs)
   ([`./examples/expressjs`](./examples/expressjs))
+- [FastAPI example](https://github.com/arcjet/example-fastapi)
+  ([`./examples/fastapi`](./examples/fastapi))
 - [Fastify example](https://github.com/arcjet/example-fastify)
   ([`./examples/fastify`](./examples/fastify))
 - [NestJS example](https://github.com/arcjet/example-nestjs)
