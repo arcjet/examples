@@ -8,8 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createServerRootRoute } from '@tanstack/react-start/server'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
@@ -19,10 +17,8 @@ import { Route as BotsIndexRouteImport } from './routes/bots/index'
 import { Route as AttackIndexRouteImport } from './routes/attack/index'
 import { Route as SignupSubmittedRouteImport } from './routes/signup/submitted'
 import { Route as SensitiveInfoSubmittedRouteImport } from './routes/sensitive-info/submitted'
-import { ServerRoute as BotsTestServerRouteImport } from './routes/bots/test'
-import { ServerRoute as AttackTestServerRouteImport } from './routes/attack/test'
-
-const rootServerRouteImport = createServerRootRoute()
+import { Route as BotsTestRouteImport } from './routes/bots/test'
+import { Route as AttackTestRouteImport } from './routes/attack/test'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,19 +60,21 @@ const SensitiveInfoSubmittedRoute = SensitiveInfoSubmittedRouteImport.update({
   path: '/sensitive-info/submitted',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BotsTestServerRoute = BotsTestServerRouteImport.update({
+const BotsTestRoute = BotsTestRouteImport.update({
   id: '/bots/test',
   path: '/bots/test',
-  getParentRoute: () => rootServerRouteImport,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AttackTestServerRoute = AttackTestServerRouteImport.update({
+const AttackTestRoute = AttackTestRouteImport.update({
   id: '/attack/test',
   path: '/attack/test',
-  getParentRoute: () => rootServerRouteImport,
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/attack/test': typeof AttackTestRoute
+  '/bots/test': typeof BotsTestRoute
   '/sensitive-info/submitted': typeof SensitiveInfoSubmittedRoute
   '/signup/submitted': typeof SignupSubmittedRoute
   '/attack': typeof AttackIndexRoute
@@ -87,6 +85,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/attack/test': typeof AttackTestRoute
+  '/bots/test': typeof BotsTestRoute
   '/sensitive-info/submitted': typeof SensitiveInfoSubmittedRoute
   '/signup/submitted': typeof SignupSubmittedRoute
   '/attack': typeof AttackIndexRoute
@@ -98,6 +98,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/attack/test': typeof AttackTestRoute
+  '/bots/test': typeof BotsTestRoute
   '/sensitive-info/submitted': typeof SensitiveInfoSubmittedRoute
   '/signup/submitted': typeof SignupSubmittedRoute
   '/attack/': typeof AttackIndexRoute
@@ -110,6 +112,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/attack/test'
+    | '/bots/test'
     | '/sensitive-info/submitted'
     | '/signup/submitted'
     | '/attack'
@@ -120,6 +124,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/attack/test'
+    | '/bots/test'
     | '/sensitive-info/submitted'
     | '/signup/submitted'
     | '/attack'
@@ -130,6 +136,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/attack/test'
+    | '/bots/test'
     | '/sensitive-info/submitted'
     | '/signup/submitted'
     | '/attack/'
@@ -141,6 +149,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AttackTestRoute: typeof AttackTestRoute
+  BotsTestRoute: typeof BotsTestRoute
   SensitiveInfoSubmittedRoute: typeof SensitiveInfoSubmittedRoute
   SignupSubmittedRoute: typeof SignupSubmittedRoute
   AttackIndexRoute: typeof AttackIndexRoute
@@ -148,31 +158,6 @@ export interface RootRouteChildren {
   RateLimitingIndexRoute: typeof RateLimitingIndexRoute
   SensitiveInfoIndexRoute: typeof SensitiveInfoIndexRoute
   SignupIndexRoute: typeof SignupIndexRoute
-}
-export interface FileServerRoutesByFullPath {
-  '/attack/test': typeof AttackTestServerRoute
-  '/bots/test': typeof BotsTestServerRoute
-}
-export interface FileServerRoutesByTo {
-  '/attack/test': typeof AttackTestServerRoute
-  '/bots/test': typeof BotsTestServerRoute
-}
-export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport
-  '/attack/test': typeof AttackTestServerRoute
-  '/bots/test': typeof BotsTestServerRoute
-}
-export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/attack/test' | '/bots/test'
-  fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/attack/test' | '/bots/test'
-  id: '__root__' | '/attack/test' | '/bots/test'
-  fileServerRoutesById: FileServerRoutesById
-}
-export interface RootServerRouteChildren {
-  AttackTestServerRoute: typeof AttackTestServerRoute
-  BotsTestServerRoute: typeof BotsTestServerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -233,29 +218,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SensitiveInfoSubmittedRouteImport
       parentRoute: typeof rootRouteImport
     }
-  }
-}
-declare module '@tanstack/react-start/server' {
-  interface ServerFileRoutesByPath {
     '/bots/test': {
       id: '/bots/test'
       path: '/bots/test'
       fullPath: '/bots/test'
-      preLoaderRoute: typeof BotsTestServerRouteImport
-      parentRoute: typeof rootServerRouteImport
+      preLoaderRoute: typeof BotsTestRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/attack/test': {
       id: '/attack/test'
       path: '/attack/test'
       fullPath: '/attack/test'
-      preLoaderRoute: typeof AttackTestServerRouteImport
-      parentRoute: typeof rootServerRouteImport
+      preLoaderRoute: typeof AttackTestRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AttackTestRoute: AttackTestRoute,
+  BotsTestRoute: BotsTestRoute,
   SensitiveInfoSubmittedRoute: SensitiveInfoSubmittedRoute,
   SignupSubmittedRoute: SignupSubmittedRoute,
   AttackIndexRoute: AttackIndexRoute,
@@ -267,10 +250,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-const rootServerRouteChildren: RootServerRouteChildren = {
-  AttackTestServerRoute: AttackTestServerRoute,
-  BotsTestServerRoute: BotsTestServerRoute,
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }
-export const serverRouteTree = rootServerRouteImport
-  ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>()
