@@ -4,7 +4,7 @@
     "start": "deno run --allow-env --allow-read --allow-net src/main.ts"
   },
   "imports": {
-    "@arcjet/deno": "npm:@arcjet/deno@1.0.0-beta.15",
-    "@arcjet/inspect": "npm:@arcjet/inspect@1.0.0-beta.15"
+    "@arcjet/deno": "npm:@arcjet/deno@1.0.0-beta.16",
+    "@arcjet/inspect": "npm:@arcjet/inspect@1.0.0-beta.16"
   }
 }

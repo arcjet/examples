@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arcjet/nuxt": "1.0.0-beta.15",
+    "@arcjet/nuxt": "1.0.0-beta.16",
     "@fontsource-variable/figtree": "5.2.10",
     "@nuxt/kit": "4.2.1",
     "@nuxt/schema": "4.2.1",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "@types/node": "20.19.25",
     "typescript": "5.9.3",
-    "vue-tsc": "3.1.5"
+    "vue-tsc": "3.1.7"
   },
   "name": "@arcjet-examples/nuxt",
   "private": true,
