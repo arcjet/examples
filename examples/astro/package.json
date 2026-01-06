@@ -5,11 +5,11 @@
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@oddbird/css-anchor-positioning": "0.8.0",
-    "astro": "5.16.2"
+    "astro": "5.16.4"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.6",
-    "prettier": "3.7.2",
+    "prettier": "3.7.4",
     "prettier-plugin-astro": "0.14.1",
     "typescript": "5.9.3"
   },

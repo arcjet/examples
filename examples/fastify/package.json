@@ -13,8 +13,8 @@
     "@types/node": "20.19.25",
     "fastify-cli": "7.4.1",
     "fastify-tsconfig": "3.0.0",
-    "prettier": "3.7.2",
-    "tsx": "4.20.6",
+    "prettier": "3.7.4",
+    "tsx": "4.21.0",
     "typescript": "5.9.3"
   },
   "name": "@arcjet-examples/fastify",
