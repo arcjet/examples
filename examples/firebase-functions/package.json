@@ -13,8 +13,8 @@
   "main": "src/index.ts",
   "type": "module",
   "dependencies": {
-    "@arcjet/inspect": "1.0.0-beta.15",
-    "@arcjet/node": "1.0.0-beta.15",
+    "@arcjet/inspect": "1.0.0-beta.16",
+    "@arcjet/node": "1.0.0-beta.16",
     "firebase-admin": "13.6.0",
     "firebase-functions": "7.0.0"
   },
