@@ -1,4 +1,5 @@
 import path from "node:path";
+import { cwd as processCwd } from "node:process";
 import { fileURLToPath } from "node:url";
 import { isSpoofedBot } from "@arcjet/inspect";
 import arcjet, { detectBot, shield, slidingWindow } from "@arcjet/node";
@@ -74,7 +75,7 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(processCwd(), "./public")));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
