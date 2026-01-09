@@ -1,0 +1,12 @@
+services:
+  flask:
+    build: .
+    command: uv run flask run --reload --host 0.0.0.0
+    env_file:
+      - .env
+    labels:
+      - dev.orbstack.domains=flask.arcjet-examples.orb.local
+    ports:
+      - 5000
+    volumes:
+      - ./app:/app/app

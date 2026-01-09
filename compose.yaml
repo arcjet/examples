@@ -2,8 +2,10 @@ include:
   - examples/astro/compose.yaml
   - examples/deno/compose.yaml
   - examples/expressjs/compose.yaml
+  - examples/fastapi/compose.yaml
   - examples/fastify/compose.yaml
   - examples/firebase-functions/compose.yaml
+  - examples/flask/compose.yaml
   - examples/nestjs/compose.yaml
   - examples/nextjs-bot-protection/compose.yaml
   - examples/nextjs-fly/compose.yaml
@@ -11,7 +13,6 @@ include:
   - examples/nextjs-server-action/compose.yaml
   - examples/nextjs/compose.yaml
   - examples/nuxt/compose.yaml
-  - examples/fastapi/compose.yaml
   - examples/react-router/compose.yaml
   - examples/sveltekit/compose.yaml
   - examples/tanstack-start/compose.yaml

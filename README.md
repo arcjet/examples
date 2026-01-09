@@ -21,6 +21,8 @@ frameworks.
   ([`./examples/fastapi`](./examples/fastapi))
 - [Fastify example](https://github.com/arcjet/example-fastify)
   ([`./examples/fastify`](./examples/fastify))
+- [Flask example](https://github.com/arcjet/example-flask)
+  ([`./examples/flask`](./examples/flask))
 - [NestJS example](https://github.com/arcjet/example-nestjs)
   ([`./examples/nestjs`](./examples/nestjs))
 - [Next.js example](https://github.com/arcjet/example-nextjs)

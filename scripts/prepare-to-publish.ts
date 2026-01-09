@@ -59,6 +59,7 @@ const workspaces = [
     "@arcjet-examples/firebase-functions",
     path.join(BASE_PATH, "./examples/firebase-functions"),
   ],
+  ["@arcjet-examples/flask", path.join(BASE_PATH, "./examples/flask")],
   ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
   [
     "@arcjet-examples/nextjs-bot-protection",
