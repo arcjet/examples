@@ -24,8 +24,8 @@
     "start": "tsc && node --env-file .env.local dist/index.js"
   },
   "dependencies": {
-    "@arcjet/inspect": "1.0.0-beta.16",
-    "@arcjet/node": "1.0.0-beta.16",
+    "@arcjet/inspect": "1.0.0-beta.17",
+    "@arcjet/node": "1.0.0-beta.17",
     "express": "5.2.1"
   },
   "devDependencies": {

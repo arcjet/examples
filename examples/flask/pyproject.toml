@@ -1,11 +1,8 @@
 [project]
 dependencies = [
-    "arcjet==0.2.1",
+    "arcjet==0.2.2",
     "flask==3.1.2",
-    "gunicorn==23.0.0",
-    # Temporary fix for Docker build issues
-    # See: https://github.com/arcjet/arcjet-py/issues/2
-    "typeid-python<0.3.7",
+    "gunicorn==23.0.0"
 ]
 description = "Arcjet Flask example app. Arcjet helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security."
 name = "app"
