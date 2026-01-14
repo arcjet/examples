@@ -24,29 +24,27 @@ dependencies = [
     { name = "arcjet" },
     { name = "flask" },
     { name = "gunicorn" },
-    { name = "typeid-python" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "arcjet", specifier = "==0.2.1" },
+    { name = "arcjet", specifier = "==0.2.2" },
     { name = "flask", specifier = "==3.1.2" },
     { name = "gunicorn", specifier = "==23.0.0" },
-    { name = "typeid-python", specifier = "<0.3.7" },
 ]
 
 [[package]]
 name = "arcjet"
-version = "0.2.1"
+version = "0.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "connect-python" },
     { name = "httpx", extra = ["http2"] },
     { name = "typeid-python" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b5/26/65ae29e5344e483413347bc09669fd1fe99891e5cee364eff6ff756d18b8/arcjet-0.2.1.tar.gz", hash = "sha256:e4ccab0ea65f000ffaef2896550db63e36b3a4a91736dfa34b84d4096d978da8", size = 31830, upload-time = "2026-01-02T15:10:44.243Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/35/23/c4e121636fd8a2de0eafb057a02b20c7a499b43208bbedb52f8f9d9438a5/arcjet-0.2.2.tar.gz", hash = "sha256:17383e0f23af00bf62bf5ca38515996e8a3452eaf0dc768c333de15c2cbb83ba", size = 32299, upload-time = "2026-01-13T18:43:05.788Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/2f/78cd3133df4bd2c09e55ebb7e7acbbc1b9d66410d1c2000ba3a070dd7a33/arcjet-0.2.1-py3-none-any.whl", hash = "sha256:5728bdd4cc06d96b502dcf5c924cbdd71e1138c8a1ee4e398917e5b3332b5dc1", size = 36873, upload-time = "2026-01-02T15:10:42.932Z" },
+    { url = "https://files.pythonhosted.org/packages/ae/ea/0a23aed3393606ad7606c7cc6685a3851af0dda5a45bb818913901941d92/arcjet-0.2.2-py3-none-any.whl", hash = "sha256:3a5c0905ff29217450ac122465b356f42d6e7e425facfdfaf3a4d14112ec9436", size = 37208, upload-time = "2026-01-13T18:43:06.543Z" },
 ]
 
 [[package]]
