@@ -31,10 +31,6 @@ from abuse.
 
 2. Install dependencies:
 
-3. [Register for a free Arcjet account](https://app.arcjet.com).
-
-4. Install dependencies:
-
 ```sh
 uv sync
 ```
@@ -84,7 +80,6 @@ curl -v http://localhost:5000/attack \
 
 After the 5th request, your IP will be blocked for 15 minutes. Suspicious
 requests must meet a threshold before they are blocked to avoid false positives.
-
 
 ## Stack
 

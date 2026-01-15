@@ -31,10 +31,6 @@ from abuse.
 
 2. Install dependencies:
 
-3. [Register for a free Arcjet account](https://app.arcjet.com).
-
-4. Install dependencies:
-
 ```sh
 uv sync
 ```
