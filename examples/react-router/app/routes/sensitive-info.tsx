@@ -41,9 +41,7 @@ export const FormSchema = z.object({
 });
 
 export async function action(ctx: Route.ActionArgs) {
-  // Note that we need to clone the request before reading its body
-  // because Arcjet will need to read the body as well.
-  const formData = await ctx.request.clone().formData();
+  const formData = await ctx.request.formData();
 
   const parsed = FormSchema.safeParse(Object.fromEntries(formData.entries()));
 
@@ -53,7 +51,10 @@ export async function action(ctx: Route.ActionArgs) {
 
   // The protect method returns a decision object that contains information
   // about the request.
-  const decision = await arcjetForSensitiveInfoDetection.protect(ctx);
+  const decision = await arcjetForSensitiveInfoDetection.protect(ctx, {
+    // Pass the message to be evaluated for sensitive info (locally)
+    sensitiveInfoValue: parsed.data.supportMessage,
+  });
 
   console.log("Arcjet decision: ", decision);
 
