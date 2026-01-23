@@ -37,8 +37,6 @@ export const FormSchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
-  // TODO: This breaks currently because it consumes the body & Arcjet can't read it.
-  //       <https://github.com/arcjet/arcjet-js/pull/5305>
   const formData = await readFormData(event);
 
   const parsed = FormSchema.safeParse(Object.fromEntries(formData.entries()));
@@ -52,7 +50,10 @@ export default defineEventHandler(async (event) => {
 
   // The protect method returns a decision object that contains information
   // about the request.
-  const decision = await aj.protect(event);
+  const decision = await aj.protect(event, {
+    // Pass the message to be evaluated for sensitive info (locally)
+    sensitiveInfoValue: parsed.data.supportMessage,
+  });
 
   console.log("Arcjet decision: ", decision);
 

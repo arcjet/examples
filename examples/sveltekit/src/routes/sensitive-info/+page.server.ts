@@ -37,9 +37,7 @@ const FormSchema = z.object({
 
 export const actions = {
   default: async (event) => {
-    // NOTE: We have to clone the request here otherwise @arcjet/sveltekit will
-    //       be unable to read the body for sensitive info detection.
-    const formData = await event.request.clone().formData();
+    const formData = await event.request.formData();
 
     const validated = FormSchema.safeParse(Object.fromEntries(formData));
 
@@ -51,7 +49,9 @@ export const actions = {
 
     // The protect method returns a decision object that contain information
     // about the request.
-    const decision = await aj.protect(event);
+    const decision = await aj.protect(event, {
+      sensitiveInfoValue: validated.data.supportMessage,
+    });
 
     console.log("Arcjet decision: ", decision);
 

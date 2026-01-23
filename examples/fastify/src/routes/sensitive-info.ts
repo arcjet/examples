@@ -25,7 +25,10 @@ export default async function (fastify: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const decision = await arcjet.protect(request);
+      const decision = await arcjet.protect(request, {
+        // Pass the message to be evaluated for sensitive info (locally)
+        sensitiveInfoValue: request.body.message,
+      });
 
       fastify.log.info(`Arcjet: id = ${decision.id}`);
       fastify.log.info(

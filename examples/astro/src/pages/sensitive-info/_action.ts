@@ -43,7 +43,10 @@ export const sensitiveInfoAction = defineAction({
   async handler({ supportMessage }, { request }) {
     // The protect method returns a decision object that contains information
     // about the request.
-    const decision = await aj.protect(request);
+    const decision = await aj.protect(request, {
+      // Pass the message to be evaluated for sensitive info (locally)
+      sensitiveInfoValue: supportMessage,
+    });
 
     console.log("Arcjet decision: ", decision);
 
