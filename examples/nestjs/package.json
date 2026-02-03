@@ -43,5 +43,8 @@
     "@types/node": "20.19.27",
     "prettier": "3.7.4",
     "typescript": "5.9.3"
+  },
+  "overrides": {
+    "lodash": ">4.17.21"
   }
 }
