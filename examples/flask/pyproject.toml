@@ -1,6 +1,6 @@
 [project]
 dependencies = [
-    "arcjet==0.2.2",
+    "arcjet==0.3.0",
     "flask==3.1.2",
     "gunicorn==23.0.0"
 ]
