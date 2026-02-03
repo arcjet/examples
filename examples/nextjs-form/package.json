@@ -25,19 +25,19 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
-    "@arcjet/decorate": "1.0.0",
-    "@arcjet/env": "1.0.0",
-    "@arcjet/ip": "1.0.0",
-    "@arcjet/next": "1.0.0",
+    "@arcjet/decorate": "1.1.0-rc",
+    "@arcjet/env": "1.1.0-rc",
+    "@arcjet/ip": "1.1.0-rc",
+    "@arcjet/next": "1.1.0-rc",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@hookform/resolvers": "5.2.2",
-    "@nosecone/next": "1.0.0",
-    "next": "16.1.1",
+    "@nosecone/next": "1.1.0-rc",
+    "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-hook-form": "7.69.0",
-    "zod": "4.2.1"
+    "react-hook-form": "7.70.0",
+    "zod": "4.3.5"
   },
   "devDependencies": {
     "@types/node": "22.19.3",

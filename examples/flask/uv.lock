@@ -28,23 +28,23 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "arcjet", specifier = "==0.2.2" },
+    { name = "arcjet", specifier = "==0.3.0" },
     { name = "flask", specifier = "==3.1.2" },
     { name = "gunicorn", specifier = "==23.0.0" },
 ]
 
 [[package]]
 name = "arcjet"
-version = "0.2.2"
+version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "connect-python" },
     { name = "httpx", extra = ["http2"] },
     { name = "typeid-python" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/35/23/c4e121636fd8a2de0eafb057a02b20c7a499b43208bbedb52f8f9d9438a5/arcjet-0.2.2.tar.gz", hash = "sha256:17383e0f23af00bf62bf5ca38515996e8a3452eaf0dc768c333de15c2cbb83ba", size = 32299, upload-time = "2026-01-13T18:43:05.788Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/91/5d/3770f232d5ad4ac91f14fd5bb54d8ce30fad4c6dd078b7a1d13b61a7c1ed/arcjet-0.3.0.tar.gz", hash = "sha256:8aed9d59b8b85ecb4d5a21367ebe55633540695a7292a74b7b0ce4891b485fca", size = 35865, upload-time = "2026-02-02T16:04:10.322Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ae/ea/0a23aed3393606ad7606c7cc6685a3851af0dda5a45bb818913901941d92/arcjet-0.2.2-py3-none-any.whl", hash = "sha256:3a5c0905ff29217450ac122465b356f42d6e7e425facfdfaf3a4d14112ec9436", size = 37208, upload-time = "2026-01-13T18:43:06.543Z" },
+    { url = "https://files.pythonhosted.org/packages/de/59/62f81dcc4ef8496f5b2bf7613d7941fd333066c072f3ba628e6c4662632d/arcjet-0.3.0-py3-none-any.whl", hash = "sha256:d5cc06cc408148f0fe0528a3434b878d45ee7e72ca093f636fdd8ff687c8d93a", size = 41204, upload-time = "2026-02-02T16:04:09.021Z" },
 ]
 
 [[package]]

@@ -56,6 +56,7 @@ export const signupAction = defineAction({
   async handler({ email }, { request }) {
     // The protect method returns a decision object that contains information
     // about the request.
+    // @ts-expect-error - https://github.com/arcjet/arcjet-js/issues/5772
     const decision = await aj.protect(request, {
       email,
     });

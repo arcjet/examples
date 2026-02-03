@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arcjet/astro": "1.0.0",
+    "@arcjet/astro": "1.1.0-rc",
     "@astrojs/node": "9.5.1",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
@@ -14,6 +14,9 @@
     "typescript": "5.9.3"
   },
   "name": "@arcjet-examples/astro",
+  "overrides": {
+    "lodash": ">4.17.21"
+  },
   "prettier": {
     "plugins": [
       "prettier-plugin-astro"
