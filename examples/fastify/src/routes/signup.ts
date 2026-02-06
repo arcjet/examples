@@ -42,7 +42,6 @@ export default async function (fastify: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      // @ts-expect-error - https://github.com/arcjet/arcjet-js/issues/5772
       const decision = await arcjet.protect(request, {
         email: request.body.email,
       });

@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@arcjet/inspect": "1.1.0-rc",
-    "@arcjet/next": "1.1.0-rc",
+    "@arcjet/inspect": "1.1.0",
+    "@arcjet/next": "1.1.0",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "next": "16.1.6",
