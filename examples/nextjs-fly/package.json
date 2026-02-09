@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "0.7.10",
-    "@types/node": "22.19.3",
-    "@types/react": "19.2.7",
+    "@types/node": "22.19.5",
+    "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "typescript": "5.9.3"
   }
