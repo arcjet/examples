@@ -182,19 +182,19 @@ We use [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates#coo
 - **Update Arcjet packages to the latest version:**
 
   ```sh
-  npx npm-check-updates --interactive --packageFile 'examples/*/package.json' --filter 'arcjet, @arcjet/*, nosecone, @nosecone/*' --target latest
+  npx --no -- npm-check-updates --interactive --packageFile 'examples/*/package.json' --filter 'arcjet, @arcjet/*, nosecone, @nosecone/*' --target latest
   ```
 
 - **Recursively update all dependencies to the greatest minor within cooldown:**
 
   ```sh
-  npx npm-check-updates --interactive --packageFile 'examples/*/package.json' --cooldown 30 --target minor
+  npx --no -- npm-check-updates --interactive --packageFile 'examples/*/package.json' --cooldown 30 --target minor
   ```
 
 - **Recursively update all dependencies to the latest within cooldown:**
 
   ```sh
-  npx npm-check-updates --interactive --packageFile 'examples/*/package.json' --cooldown 30 --target @latest
+  npx --no -- npm-check-updates --interactive --packageFile 'examples/*/package.json' --cooldown 30 --target @latest
   ```
 
 ### Deno
