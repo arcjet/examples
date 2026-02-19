@@ -1,9 +1,9 @@
 [project]
 dependencies = [
     "arcjet==0.3.1",
-    "fastapi[standard]==0.128.5",
-    "pydantic-settings==2.12.0",
-    "uvicorn==0.40.0",
+    "fastapi[standard]==0.129.0",
+    "pydantic-settings==2.13.0",
+    "uvicorn==0.41.0",
 ]
 description = "Arcjet FastAPI example app. Arcjet helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security."
 name = "app"

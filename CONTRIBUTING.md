@@ -206,6 +206,26 @@ cd examples/deno
 deno update --interactive --latest
 ```
 
+### uv (Python)
+
+Python dependencies are currently managed extra manually. From the `python-3` devcontainer:
+
+
+
+```sh
+# Run from an example folder, e.g. examples/fastapi
+
+# Show top-level outdated dependencies
+uv tree --depth 1 --outdated | grep latest
+
+# Show installed version of a specific package
+uv tree --package <package-name>
+
+# Update specific transitive package
+uv lock --upgrade-package <package-name>
+
+```
+
 ## Helpful commands
 
 Destroy all docker containers + volumes (can be relevant for dependency updates):
