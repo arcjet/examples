@@ -75,7 +75,7 @@ const RateLimitingPage = (_props: PageProps) => {
             </a>{" "}
             configures Arcjet with rate limiting rules using{" "}
             <a
-              href="https://github.com/arcjet/example-gatsby/blob/main/src/api/rate-limiting.ts"
+              href="https://docs.arcjet.com/reference/nodejs"
               target="_blank"
               rel="noreferrer"
               className="link"

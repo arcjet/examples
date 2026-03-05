@@ -17,7 +17,7 @@ This is an example Gatsby application demonstrating the use of Arcjet with
 
 ## Features
 
-- [Rate limiting](https://example.arcjet.com/rate-limiting) shows the use of
+- [Rate limiting](/rate-limiting) shows the use of
   rate limit configurations using Arcjet with Gatsby API routes.
 
 ## Run locally
