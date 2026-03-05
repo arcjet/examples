@@ -1,3 +1,4 @@
+// biome-ignore lint/correctness/noUnusedImports: Gatsby's classic JSX transform requires React in scope at runtime
 import * as React from "react";
 
 export function WhatNext() {

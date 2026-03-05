@@ -1,5 +1,6 @@
-import * as React from "react";
 import { Link } from "gatsby";
+// biome-ignore lint/style/useImportType: Gatsby's classic JSX transform requires React in scope at runtime
+import * as React from "react";
 
 import logoDark from "../assets/logo-dark.svg";
 import logoLight from "../assets/logo-light.svg";

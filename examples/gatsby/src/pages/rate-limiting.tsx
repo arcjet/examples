@@ -1,9 +1,9 @@
-import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
+import * as React from "react";
 import Layout from "../components/Layout";
 import { WhatNext } from "../components/WhatNext";
 
-const RateLimitingPage: React.FC<PageProps> = () => {
+const RateLimitingPage = (_props: PageProps) => {
   const [result, setResult] = React.useState("");
 
   async function onSubmit(e: React.FormEvent) {

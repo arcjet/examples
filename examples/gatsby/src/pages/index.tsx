@@ -1,9 +1,10 @@
+import { type HeadFC, Link, type PageProps } from "gatsby";
+// biome-ignore lint/correctness/noUnusedImports: Gatsby's classic JSX transform requires React in scope at runtime
 import * as React from "react";
-import { Link, type HeadFC, type PageProps } from "gatsby";
 import Layout from "../components/Layout";
 import { WhatNext } from "../components/WhatNext";
 
-const IndexPage: React.FC<PageProps> = () => {
+const IndexPage = (_props: PageProps) => {
   return (
     <Layout>
       <main className="page">

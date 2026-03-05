@@ -2,8 +2,21 @@
 import arcjet, { fixedWindow, shield } from "@arcjet/node";
 import type { GatsbyFunctionRequest, GatsbyFunctionResponse } from "gatsby";
 
+// Get your Arcjet key at <https://app.arcjet.com>.
+// Set it as an environment variable instead of hard coding it.
+let arcjetKey = process.env.ARCJET_KEY;
+if (!arcjetKey) {
+  console.warn(
+    "ARCJET_KEY environment variable is required. Sign up for your Arcjet key at https://app.arcjet.com",
+  );
+  // Typically you would throw an error here, but for the sake of this example,
+  // we will just set an empty key and Arcjet will show errors about the
+  // missing key.
+  arcjetKey = "";
+}
+
 const aj = arcjet({
-  key: process.env.ARCJET_KEY!,
+  key: arcjetKey,
   rules: [
     shield({
       mode: "LIVE",
