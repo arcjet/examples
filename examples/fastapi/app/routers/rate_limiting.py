@@ -50,6 +50,6 @@ async def rate_limiting(request: Request):
     if decision.is_error():
         # Fail open to prevent an Arcjet error from blocking all requests. You
         # may want to fail closed if this route is very sensitive
-        print(f"Arcjet error: {decision.error}", flush=True)
+        print(f"Arcjet error: {decision.reason_v2}", flush=True)
 
     return JSONResponse({"message": "Hello world!"})
