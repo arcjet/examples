@@ -1,0 +1,41 @@
+{
+  "name": "@arcjet-examples/gatsby",
+  "version": "0.0.0",
+  "private": true,
+  "description": "An example Gatsby application protected by Arcjet",
+  "license": "Apache-2.0",
+  "repository": "github:arcjet/example-gatsby",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop --host 0.0.0.0",
+    "start": "gatsby develop --host 0.0.0.0",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@arcjet/node": "1.1.0",
+    "@fontsource-variable/figtree": "5.2.10",
+    "@fontsource/ibm-plex-mono": "5.2.7",
+    "gatsby": "5.15.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.10",
+    "@types/react": "18.3.23",
+    "@types/react-dom": "18.3.7",
+    "typescript": "5.8.3"
+  },
+  "overrides": {
+    "cookie": "^0.7.1",
+    "tmp": "0.2.5",
+    "qs": "^6.14.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

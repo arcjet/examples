@@ -1,0 +1,7 @@
+*
+!gatsby-browser.tsx
+!gatsby-config.ts
+!gatsby-ssr.tsx
+!package*.json
+!src
+!tsconfig.json
