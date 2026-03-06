@@ -3,6 +3,7 @@ from fastapi.responses import PlainTextResponse, RedirectResponse
 
 from .routers.attack import router as attack_router
 from .routers.bots import router as bot_router
+from .routers.detect_prompt_injection import router as prompt_injection_router
 from .routers.rate_limiting import router as rate_limiting_router
 
 app = FastAPI(
@@ -15,6 +16,7 @@ app = FastAPI(
 
 app.include_router(attack_router, tags=["Arcjet examples"])
 app.include_router(bot_router, tags=["Arcjet examples"])
+app.include_router(prompt_injection_router, tags=["Arcjet examples"])
 app.include_router(rate_limiting_router, tags=["Arcjet examples"])
 
 

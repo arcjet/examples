@@ -36,6 +36,6 @@ def attack_route():
     if decision.is_error():
         # Fail open to prevent an Arcjet error from blocking all requests. You
         # may want to fail closed if this route is very sensitive
-        current_app.logger.error(f"Arcjet error: {decision.error}")
+        current_app.logger.error(f"Arcjet error: {decision.reason_v2}")
 
     return jsonify(message="Hello world!")
