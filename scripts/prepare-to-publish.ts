@@ -1,32 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { type SimpleGit, simpleGit } from "simple-git";
+import { simpleGit } from "simple-git";
+import { copyFile, listTrackedFiles, loadExamples } from "./lib.ts";
 
 const BASE_PATH = path.join(import.meta.dirname, "..");
-
-/**
- * Copies a file from one location to another, creating the necessary directories.
- */
-async function copyFile(from: string, to: string): Promise<void> {
-  await fs.mkdir(path.dirname(to), { recursive: true });
-  await fs.copyFile(from, to);
-}
-
-/**
- * Lists all tracked files in a git repository at a given path.
- */
-async function listTrackedFiles(
-  git: SimpleGit,
-  path?: string,
-): Promise<string[]> {
-  const filesRaw = await git.raw(
-    typeof path === "string" ? ["ls-files", path] : ["ls-files"],
-  );
-  return filesRaw
-    .split("\n")
-    .map((f) => f.trim())
-    .filter(Boolean);
-}
 
 const git = simpleGit({
   baseDir: BASE_PATH,
@@ -48,47 +25,7 @@ if (!status.isClean()) {
   process.exit(1);
 }
 
-// TODO(#31): Add an improved loading mechanism for workspaces
-const workspaces = [
-  ["@arcjet-examples/astro", path.join(BASE_PATH, "./examples/astro")],
-  ["@arcjet-examples/deno", path.join(BASE_PATH, "./examples/deno")],
-  ["@arcjet-examples/expressjs", path.join(BASE_PATH, "./examples/expressjs")],
-  ["@arcjet-examples/fastapi", path.join(BASE_PATH, "./examples/fastapi")],
-  ["@arcjet-examples/fastify", path.join(BASE_PATH, "./examples/fastify")],
-  [
-    "@arcjet-examples/firebase-functions",
-    path.join(BASE_PATH, "./examples/firebase-functions"),
-  ],
-  ["@arcjet-examples/flask", path.join(BASE_PATH, "./examples/flask")],
-  ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
-  [
-    "@arcjet-examples/nextjs-bot-protection",
-    path.join(BASE_PATH, "./examples/nextjs-bot-protection"),
-  ],
-  [
-    "@arcjet-examples/nextjs-fly",
-    path.join(BASE_PATH, "./examples/nextjs-fly"),
-  ],
-  [
-    "@arcjet-examples/nextjs-form",
-    path.join(BASE_PATH, "./examples/nextjs-form"),
-  ],
-  [
-    "@arcjet-examples/nextjs-server-action",
-    path.join(BASE_PATH, "./examples/nextjs-server-action"),
-  ],
-  ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
-  ["@arcjet-examples/nuxt", path.join(BASE_PATH, "./examples/nuxt")],
-  [
-    "@arcjet-examples/react-router",
-    path.join(BASE_PATH, "./examples/react-router"),
-  ],
-  ["@arcjet-examples/sveltekit", path.join(BASE_PATH, "./examples/sveltekit")],
-  [
-    "@arcjet-examples/tanstack-start",
-    path.join(BASE_PATH, "./examples/tanstack-start"),
-  ],
-] satisfies [string, string][];
+const workspaces = await loadExamples(BASE_PATH);
 
 const BUILD_PATH = path.join(BASE_PATH, "dist");
 
@@ -118,8 +55,7 @@ for (const [workspaceName, workspacePath] of workspaces) {
     // Intentionally left blank
   }
 
-  // Fallback to reading example.json if package.json is not found
-  // TODO(#31): Rework this script
+  // Fallback to reading package.json if arcjet-example.json is not found
   if (!raw) {
     raw = await fs.readFile(path.join(workspacePath, "package.json"), "utf-8");
   }
