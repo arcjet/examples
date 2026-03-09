@@ -77,11 +77,11 @@ export interface FileRoutesByFullPath {
   '/bots/test': typeof BotsTestRoute
   '/sensitive-info/submitted': typeof SensitiveInfoSubmittedRoute
   '/signup/submitted': typeof SignupSubmittedRoute
-  '/attack': typeof AttackIndexRoute
-  '/bots': typeof BotsIndexRoute
-  '/rate-limiting': typeof RateLimitingIndexRoute
-  '/sensitive-info': typeof SensitiveInfoIndexRoute
-  '/signup': typeof SignupIndexRoute
+  '/attack/': typeof AttackIndexRoute
+  '/bots/': typeof BotsIndexRoute
+  '/rate-limiting/': typeof RateLimitingIndexRoute
+  '/sensitive-info/': typeof SensitiveInfoIndexRoute
+  '/signup/': typeof SignupIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -116,11 +116,11 @@ export interface FileRouteTypes {
     | '/bots/test'
     | '/sensitive-info/submitted'
     | '/signup/submitted'
-    | '/attack'
-    | '/bots'
-    | '/rate-limiting'
-    | '/sensitive-info'
-    | '/signup'
+    | '/attack/'
+    | '/bots/'
+    | '/rate-limiting/'
+    | '/sensitive-info/'
+    | '/signup/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -172,35 +172,35 @@ declare module '@tanstack/react-router' {
     '/signup/': {
       id: '/signup/'
       path: '/signup'
-      fullPath: '/signup'
+      fullPath: '/signup/'
       preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sensitive-info/': {
       id: '/sensitive-info/'
       path: '/sensitive-info'
-      fullPath: '/sensitive-info'
+      fullPath: '/sensitive-info/'
       preLoaderRoute: typeof SensitiveInfoIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rate-limiting/': {
       id: '/rate-limiting/'
       path: '/rate-limiting'
-      fullPath: '/rate-limiting'
+      fullPath: '/rate-limiting/'
       preLoaderRoute: typeof RateLimitingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bots/': {
       id: '/bots/'
       path: '/bots'
-      fullPath: '/bots'
+      fullPath: '/bots/'
       preLoaderRoute: typeof BotsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/attack/': {
       id: '/attack/'
       path: '/attack'
-      fullPath: '/attack'
+      fullPath: '/attack/'
       preLoaderRoute: typeof AttackIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
