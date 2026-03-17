@@ -4,7 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./tests",
+  testDir: "./examples/nextjs/tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -18,7 +18,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://127.0.0.1:4000",
+    baseURL: "http://127.0.0.1:3000",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -53,16 +53,19 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: "npm run build && npm run start -- -p 4000",
-    url: "http://127.0.0.1:4000",
-    reuseExistingServer: !process.env.CI,
-    env: {
-      ARCJET_ENV: "development",
-      AUTH_SECRET: "playwright",
-      AUTH_TRUST_HOST: "http://127.0.0.1:4000",
-      AUTH_GITHUB_ID: "playwright",
-      AUTH_GITHUB_SECRET: "playwright",
-    },
-  },
+  webServer: process.env.CI
+    ? undefined
+    : {
+        command: "npm run build && npm run start -- -p 3000",
+        url: "http://127.0.0.1:3000",
+        reuseExistingServer: true,
+        cwd: "./examples/nextjs",
+        env: {
+          ARCJET_ENV: "development",
+          AUTH_SECRET: "playwright",
+          AUTH_TRUST_HOST: "http://127.0.0.1:3000",
+          AUTH_GITHUB_ID: "playwright",
+          AUTH_GITHUB_SECRET: "playwright",
+        },
+      },
 });
