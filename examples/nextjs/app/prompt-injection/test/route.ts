@@ -1,22 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { formSchema } from "@/app/prompt-injection/schema";
-import arcjet, { detectPromptInjection, shield } from "@/lib/arcjet";
+import arcjet, { detectPromptInjection } from "@/lib/arcjet";
 
 // Add rules to the base Arcjet instance outside of the handler function
-const aj = arcjet
-  .withRule(
-    detectPromptInjection({
-      mode: "LIVE", // Will block requests, use "DRY_RUN" to log only
-    }),
-  )
-  // You can chain multiple rules, so we'll include shield
-  .withRule(
-    // Shield detects suspicious behavior, such as SQL injection and cross-site
-    // scripting attacks.
-    shield({
-      mode: "LIVE",
-    }),
-  );
+const aj = arcjet.withRule(
+  detectPromptInjection({
+    mode: "LIVE", // Will block requests, use "DRY_RUN" to log only
+  }),
+);
 
 export async function POST(req: NextRequest) {
   const json = await req.json();
@@ -50,9 +41,8 @@ export async function POST(req: NextRequest) {
         },
         { status: 400 },
       );
-    } else {
-      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
+    return NextResponse.json({ message: "Forbidden" }, { status: 403 });
   } else if (decision.isErrored()) {
     console.error("Arcjet error:", decision.reason);
     if (decision.reason.message === "[unauthenticated] invalid key") {
@@ -63,12 +53,11 @@ export async function POST(req: NextRequest) {
         },
         { status: 500 },
       );
-    } else {
-      return NextResponse.json(
-        { message: `Internal server error: ${decision.reason.message}` },
-        { status: 500 },
-      );
     }
+    return NextResponse.json(
+      { message: `Internal server error: ${decision.reason.message}` },
+      { status: 500 },
+    );
   }
 
   return NextResponse.json({
