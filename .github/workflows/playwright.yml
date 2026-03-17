@@ -25,12 +25,6 @@ jobs:
           node-version: lts/*
       - name: Build Docker image
         run: docker build -t example-nextjs examples/nextjs
-      - name: Extract build manifest
-        run: |
-          mkdir -p examples/nextjs/.next
-          docker create --name temp-nextjs example-nextjs
-          docker cp temp-nextjs:/app/.next/app-path-routes-manifest.json examples/nextjs/.next/app-path-routes-manifest.json
-          docker rm temp-nextjs
       - name: Start container
         run: |
           docker run -d --name example-nextjs-app -p 3000:3000 \

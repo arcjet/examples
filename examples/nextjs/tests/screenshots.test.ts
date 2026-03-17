@@ -1,16 +1,17 @@
 import { expect, test } from "@playwright/test";
 
-// @ts-ignore build manifest may or may not exist
-import appPathManifest from "../.next/app-path-routes-manifest.json";
+const paths = [
+  "/",
+  "/attack",
+  "/bots",
+  "/rate-limiting",
+  "/sensitive-info",
+  "/sensitive-info/submitted",
+  "/signup",
+  "/signup/submitted",
+];
 
-const manifest = appPathManifest as Record<string, string>;
-
-for (const [file, pathname] of Object.entries(manifest)) {
-  // Skip over dynamic and api routes
-  if (file.endsWith("/route") || file === "/_not-found/page") {
-    continue;
-  }
-
+for (const pathname of paths) {
   test(`"${pathname}" screenshot matches`, async ({ page }) => {
     const response = await page.goto(pathname);
     await expect(response?.status()).toEqual(200);
