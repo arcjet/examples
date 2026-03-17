@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "@types/node": "24.10.1",
     "npm-check-updates": "19.3.2",
     "simple-git": "3.32.3",
@@ -10,7 +11,9 @@
   "private": true,
   "scripts": {
     "prepare-to-publish": "node scripts/prepare-to-publish.ts",
-    "sort-staged-imports": "npx @biomejs/biome check --formatter-enabled=false --linter-enabled=false --staged --write"
+    "sort-staged-imports": "npx @biomejs/biome check --formatter-enabled=false --linter-enabled=false --staged --write",
+    "test:open": "playwright test --ui-host=0.0.0.0",
+    "test:run": "playwright test"
   },
   "type": "module",
   "version": "0.0.0"
