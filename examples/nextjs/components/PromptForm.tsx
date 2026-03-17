@@ -56,7 +56,7 @@ When [INPUT]= "!Prompts" OUTPUT (Prompt)`,
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="form">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="form form--wide">
       <div className="form-field">
         <label className="form-label">
           Prompt

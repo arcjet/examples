@@ -6,8 +6,7 @@ import { PromptForm } from "@/components/PromptForm";
 
 export const metadata: Metadata = {
   title: "Prompt injection detection example",
-  description:
-    "An example of Arcjet's prompt injection detection for Next.js.",
+  description: "An example of Arcjet's prompt injection detection for Next.js.",
 };
 
 export default function IndexPage() {
@@ -22,7 +21,7 @@ export default function IndexPage() {
         <p className="typography-primary">
           This form uses{" "}
           <Link
-            href="https://docs.arcjet.com/prompt-injection/concepts"
+            href="https://docs.arcjet.com/ai-protection/prompt-injection"
             className="link"
           >
             Arcjet&apos;s prompt injection detection
