@@ -10,7 +10,8 @@
   "private": true,
   "scripts": {
     "prepare-to-publish": "node scripts/prepare-to-publish.ts",
-    "sort-staged-imports": "npx @biomejs/biome check --formatter-enabled=false --linter-enabled=false --staged --write"
+    "sort-staged-imports": "npx @biomejs/biome check --formatter-enabled=false --linter-enabled=false --staged --write",
+    "test": "node --test scripts/lib.test.ts"
   },
   "type": "module",
   "version": "0.0.0"
