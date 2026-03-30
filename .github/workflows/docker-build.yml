@@ -1,0 +1,42 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs for the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        example:
+          - astro
+          - deno
+          - expressjs
+          - fastapi
+          - fastify
+          - firebase-functions
+          - flask
+          - nestjs
+          - nextjs
+          - nextjs-bot-protection
+          - nextjs-fly
+          - nextjs-form
+          - nextjs-server-action
+          - nuxt
+          - react-router
+          - sveltekit
+          - tanstack-start
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build examples/${{ matrix.example }}
