@@ -1,0 +1,50 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Cancel in-progress runs for the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        example:
+          - astro
+          - deno
+          - expressjs
+          - fastapi
+          - fastify
+          - firebase-functions
+          - flask
+          - nestjs
+          - nextjs
+          - nextjs-bot-protection
+          - nextjs-fly
+          - nextjs-form
+          - nextjs-server-action
+          - nuxt
+          - react-router
+          - sveltekit
+          - tanstack-start
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Build Docker image
+        run: docker build examples/${{ matrix.example }}
