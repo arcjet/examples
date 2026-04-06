@@ -1,9 +1,4 @@
 <script setup lang="ts">
-// Polyfill Anchor Positioning
-// https://github.com/oddbird/css-anchor-positioning?tab=readme-ov-file#getting-started
-if (import.meta.client && !("anchorName" in document.documentElement.style)) {
-  await import("@oddbird/css-anchor-positioning");
-}
 </script>
 
 <template>

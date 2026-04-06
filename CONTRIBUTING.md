@@ -90,11 +90,10 @@ trunk check
    - Install required dependencies:
 
      ```sh
-     npm install @fontsource-variable/figtree @fontsource/ibm-plex-mono @oddbird/css-anchor-positioning
+     npm install @fontsource-variable/figtree @fontsource/ibm-plex-mono
      ```
 
    - Import `styles.css` using your framework’s standard method.
-   - Conditionally load the [`@oddbird/css-anchor-positioning` polyfill](https://github.com/oddbird/css-anchor-positioning?tab=readme-ov-file#getting-started).
 
 3. **Match the HTML structure**
    - Follow the general HTML structure used by existing examples to stay consistent.
