@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { browser } from "$app/environment";
   import { page } from "$app/state";
   import favicon from "$lib/assets/favicon.png";
   import faviconLight from "$lib/assets/favicon-light.png";
@@ -9,15 +7,6 @@
   import type { LayoutProps } from "./$types";
 
   import "../styles/styles.css";
-
-  onMount(async () => {
-    if (!browser) return;
-
-    // Polyfill Anchor Positioning when needed
-    if (!("anchorName" in document.documentElement.style)) {
-      import("@oddbird/css-anchor-positioning");
-    }
-  });
 
   let { children }: LayoutProps = $props();
 </script>

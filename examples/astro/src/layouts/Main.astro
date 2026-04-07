@@ -24,13 +24,6 @@ import "../styles/styles.css";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Arcjet Astro example app</title>
-    <script>
-      // Polyfill Anchor Positioning
-      // https://github.com/oddbird/css-anchor-positioning?tab=readme-ov-file#getting-started
-      if (!("anchorName" in document.documentElement.style)) {
-        await import("@oddbird/css-anchor-positioning");
-      }
-    </script>
   </head>
   <body class="layout">
     <header class="header">
