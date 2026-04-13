@@ -40,7 +40,7 @@
     "@nestjs/cli": "11.0.16",
     "@nestjs/schematics": "11.0.9",
     "@types/express": "5.0.6",
-    "@types/node": "20.19.35",
+    "@types/node": "20.19.37",
     "prettier": "3.8.1",
     "typescript": "5.9.3"
   },
