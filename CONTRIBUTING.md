@@ -13,11 +13,13 @@ example, publish it to its own repository, and keep dependencies up to date.
 3. [Static analysis (formatting & linting)](#static-analysis-formatting--linting)
 4. [Adding a new example (Arcjet JS SDK)](#adding-a-new-example-arcjet-js-sdk)
 5. [Publishing to a new repository](#publishing-to-a-new-repository)
-6. [Publishing an example (semi‑automated)](#publishing-an-example-semiautomated)
-7. [Updating dependencies](#updating-dependencies)
+6. [Publishing an example (automated)](#publishing-an-example-automated)
+7. [Publishing an example (manual)](#publishing-an-example-manual)
+8. [Setting up the Publish GitHub App](#setting-up-the-publish-github-app)
+9. [Updating dependencies](#updating-dependencies)
    - [npm](#npm)
    - [Deno](#deno)
-8. [Helpful commands](#helpful-commands)
+10. [Helpful commands](#helpful-commands)
 
 ---
 
@@ -133,14 +135,38 @@ Once your example is merged into `main`, you can publish it to its own repositor
    }
    ```
 
-Your example repository is now ready to receive code. Next, follow [Publishing an example](#publishing-an-example-semiautomated).
+3. **Add the repository to the publish workflow allowlist**
+   - Open [`.github/workflows/publish.yml`](./.github/workflows/publish.yml).
+   - Add `example-[example-name]` to the `repositories` list in the
+     `Create GitHub App Token` step.
+
+Your example repository is now ready to receive code. Next, follow [Publishing an example (automated)](#publishing-an-example-automated).
 
 ---
 
-## Publishing an example (semi‑automated)
+## Publishing an example (automated)
+
+The **Publish Examples** workflow (`.github/workflows/publish.yml`) pushes every
+example to its own `arcjet/example-*` repository using a GitHub App for
+authentication.
+
+1. Open the [Actions tab](../../actions/workflows/publish.yml).
+2. Click **Run workflow** → select the `main` branch → **Run workflow**.
+
+The workflow will:
+- Shallow clone each example’s destination repository
+- Overwrite it with the current example source
+- Commit and push any changes
 
 > [!NOTE]
-> This process is currently semi‑automated. We may fully automate it with a GitHub Action & GitHub App in the future.
+> The workflow requires a GitHub App to be configured. See
+> [Setting up the Publish GitHub App](#setting-up-the-publish-github-app).
+
+---
+
+## Publishing an example (manual)
+
+If the automated workflow is unavailable you can publish locally:
 
 1. Ensure you have `main` checked out and a clean working directory.
 2. Build all Docker images to validate they’re healthy (run **outside** the devcontainer):
@@ -168,7 +194,50 @@ Your example repository is now ready to receive code. Next, follow [Publishing a
    git diff --name-only HEAD^
    ```
 
-   _Remember it's a proper (shallow) git repository! You'll only be able to see the last commit but the power of git is still there if you need it!_
+   _Remember it’s a proper (shallow) git repository! You’ll only be able to see the last commit but the power of git is still there if you need it!_
+
+---
+
+## Setting up the Publish GitHub App
+
+The [Publish Examples workflow](./.github/workflows/publish.yml) authenticates
+via a [GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps)
+so it can push to the `arcjet/example-*` repositories. Follow these steps to
+create the app (org admin required):
+
+1. **Create a new GitHub App** at
+   <https://github.com/organizations/arcjet/settings/apps/new>.
+
+   | Setting | Value |
+   | --- | --- |
+   | **App name** | `Arcjet Examples Publish` (or similar) |
+   | **Homepage URL** | `https://github.com/arcjet/examples` |
+   | **Webhook → Active** | **Unchecked** (no webhook needed) |
+
+2. **Set repository permissions** — grant only what is needed:
+
+   | Permission | Access |
+   | --- | --- |
+   | **Contents** | **Read & write** |
+
+   No other permissions are required.
+
+3. **Install the app** on the `arcjet` organization:
+   - Go to **Install App** in the app settings.
+   - Choose **Only select repositories** and pick every `example-*`
+     repository listed in the workflow's `repositories` input.
+
+4. **Store credentials** in the `arcjet/examples` repository:
+   - Copy the app's **Client ID** → create a **repository variable**
+     named `PUBLISH_APP_CLIENT_ID` under
+     **Settings → Secrets and variables → Actions → Variables**.
+   - Generate a **private key** in the app settings → create a
+     **repository secret** named `PUBLISH_APP_PRIVATE_KEY` under
+     **Settings → Secrets and variables → Actions → Secrets**.
+
+> [!TIP]
+> For more details, see the
+> [`actions/create-github-app-token` documentation](https://github.com/actions/create-github-app-token).
 
 ---
 

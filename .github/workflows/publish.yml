@@ -1,0 +1,112 @@
+name: Publish Examples
+
+# Publishes each example to its own repository (arcjet/example-*).
+#
+# Prerequisites:
+#   See "Setting up the Publish GitHub App" in CONTRIBUTING.md.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+# Only one publish at a time
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Create GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
+        with:
+          client-id: ${{ vars.PUBLISH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.PUBLISH_APP_PRIVATE_KEY }}
+          owner: arcjet
+          repositories: >-
+            example-astro,
+            example-deno,
+            example-expressjs,
+            example-fastapi,
+            example-fastify,
+            example-firebase-functions,
+            example-flask,
+            example-nestjs,
+            example-nextjs,
+            example-nextjs-bot-protection,
+            example-nextjs-fly,
+            example-nextjs-form,
+            example-nextjs-server-action,
+            example-nuxt,
+            example-react-router,
+            example-sveltekit,
+            example-tanstack-start
+          permission-contents: write
+
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure git for GitHub App token
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          # Rewrite SSH URLs to HTTPS with the App token so the existing
+          # prepare-to-publish script (which uses git@github.com:…) works
+          # without modification.
+          git config --global \
+            url."https://x-access-token:${APP_TOKEN}@github.com/".insteadOf \
+            "git@github.com:"
+
+          # Set committer identity for the commits created by the script
+          git config --global user.name "arcjet-publish[bot]"
+          git config --global user.email "arcjet-publish[bot]@users.noreply.github.com"
+
+      - name: Prepare examples for publishing
+        run: npm run prepare-to-publish
+
+      - name: Push changes to example repositories
+        run: |
+          pushed=0
+          skipped=0
+
+          for dir in dist/*/; do
+            name="$(basename "$dir")"
+
+            if [ ! -d "$dir/.git" ]; then
+              echo "⚠️  Skipping $name (not a git repository)"
+              continue
+            fi
+
+            cd "$dir"
+
+            # Check if there are commits ahead of the remote
+            if git diff --quiet HEAD origin/main 2>/dev/null; then
+              echo "⏭️  $name — no changes"
+              skipped=$((skipped + 1))
+            else
+              echo "🚀 $name — pushing changes…"
+              git push origin main
+              pushed=$((pushed + 1))
+            fi
+
+            cd - > /dev/null
+          done
+
+          echo ""
+          echo "✅ Done — pushed $pushed, skipped $skipped"
