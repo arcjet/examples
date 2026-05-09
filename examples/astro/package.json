@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "@arcjet/astro": "1.4.0",
-    "@astrojs/node": "9.5.5",
+    "@astrojs/node": "10.0.5",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
-    "astro": "5.18.1"
+    "astro": "6.3.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.8",
