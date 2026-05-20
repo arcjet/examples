@@ -33,7 +33,7 @@
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@hookform/resolvers": "5.2.2",
     "@nosecone/next": "1.4.0",
-    "next": "16.2.3",
+    "next": "16.2.6",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-hook-form": "7.72.1",
@@ -44,5 +44,8 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "typescript": "5.9.3"
+  },
+  "overrides": {
+    "postcss": ">=8.5.10"
   }
 }
