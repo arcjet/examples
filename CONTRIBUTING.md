@@ -198,7 +198,7 @@ We use [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates#coo
 
 ### Deno
 
-Deno dependencies are currently managed manually. Open the `deno-2` devcontainer and run:
+Deno dependencies are currently managed manually. Run:
 
 ```sh
 cd examples/deno
@@ -207,9 +207,7 @@ deno update --interactive --latest
 
 ### uv (Python)
 
-Python dependencies are currently managed extra manually. From the `python-3` devcontainer:
-
-
+Python dependencies are currently managed extra manually. Run:
 
 ```sh
 # Run from an example folder, e.g. examples/fastapi
@@ -239,10 +237,4 @@ _Typically if this passes without error, everything is working relatively well._
 
 ```sh
 docker compose build --no-cache
-```
-
-VSCode switch devcontainer:
-
-```txt
-[COMMAND]+[P] > Dev Containers: Switch Container
 ```
