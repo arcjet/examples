@@ -54,18 +54,14 @@ When using [OrbStack](https://orbstack.dev/), each example will be reachable at:
 
 ## Static analysis (formatting & linting)
 
-We use [Trunk](https://docs.trunk.io/) to manage formatting and linting.
-
-If you’re **not** using the devcontainer, first [install Trunk locally](https://docs.trunk.io/references/cli/install).
-
-Once installed:
+Run Biome and Prettier directly from the example directory:
 
 ```sh
-# Format all changed files
-trunk fmt
+# Lint (Biome)
+npx biome lint .
 
-# Lint all changed files
-trunk check
+# Format (Prettier)
+npx prettier --write .
 ```
 
 > [!TIP]

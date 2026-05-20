@@ -1,14 +1,10 @@
 {
   "name": "arcjet-examples",
-  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
-  "runArgs": ["--name", "arcjet-examples"],
-
-  "features": {
-    "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {}
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
-
-  "postCreateCommand": "curl https://mise.run | sh && echo 'eval \"$(~/.local/bin/mise activate bash)\"' >> ~/.bashrc && ~/.local/bin/mise install",
-
+  "runArgs": ["--name", "arcjet-examples"],
   "customizations": {
     "vscode": {
       "extensions": [
