@@ -14,12 +14,19 @@ RUN set -eux; \
     echo "${SHA256}  /usr/local/bin/mise" | sha256sum -c; \
     chmod +x /usr/local/bin/mise
 
-# Store tools in a shared location accessible to all users
-ENV MISE_DATA_DIR=/usr/local/share/mise
+# Store tools in a shared location accessible to all users, and put shims on PATH
+# so installed tools work in non-interactive shells (CI, devcontainer postCreateCommand, etc.)
+ENV MISE_DATA_DIR=/usr/local/share/mise \
+    MISE_TRUSTED_CONFIG_PATHS=/workspaces \
+    PATH=/usr/local/share/mise/shims:$PATH
 
-# Pre-install all runtimes pinned in the lockfile (build context is repo root)
-COPY mise.toml mise.lock /tmp/mise/
-RUN cd /tmp/mise && mise install && rm -rf /tmp/mise
+# Pre-install all runtimes pinned in the lockfile (build context is repo root).
+# The config is installed to /etc/mise/ as a system-wide default so shims work
+# in any shell, even outside the workspace directory.
+COPY mise.toml mise.lock /etc/mise/
+RUN chmod a+r /etc/mise/mise.toml /etc/mise/mise.lock \
+    && mise trust /etc/mise/mise.toml \
+    && cd /etc/mise && mise install
 
 # Activate mise for interactive shells
 RUN echo 'eval "$(mise activate bash)"' >> /home/vscode/.bashrc

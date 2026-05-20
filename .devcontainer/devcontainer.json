@@ -1,19 +1,19 @@
 {
-  "name": "arcjet-examples",
   "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
+    "context": "..",
+    "dockerfile": "Dockerfile"
   },
-  "runArgs": ["--name", "arcjet-examples"],
   "customizations": {
     "vscode": {
       "extensions": [
         "astro-build.astro-vscode",
-        "svelte.svelte-vscode",
-        "Vue.volar",
         "denoland.vscode-deno",
-        "tamasfe.even-better-toml"
+        "svelte.svelte-vscode",
+        "tamasfe.even-better-toml",
+        "Vue.volar"
       ]
     }
-  }
+  },
+  "name": "arcjet-examples",
+  "runArgs": ["--name", "arcjet-examples"]
 }
