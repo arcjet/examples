@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@arcjet/fastify": "1.4.0",
-    "@arcjet/inspect": "1.4.0",
+    "@arcjet/fastify": "1.5.0",
+    "@arcjet/inspect": "1.5.0",
     "@fastify/autoload": "6.3.1",
     "@fastify/env": "5.0.3",
     "@fastify/type-provider-json-schema-to-ts": "5.0.0",
@@ -10,12 +10,12 @@
     "json-schema-to-ts": "3.1.1"
   },
   "devDependencies": {
-    "@types/node": "20.19.39",
-    "fastify-cli": "7.4.1",
+    "@types/node": "20.19.41",
+    "fastify-cli": "8.0.0",
     "fastify-tsconfig": "3.0.0",
     "prettier": "3.8.3",
-    "tsx": "4.21.0",
-    "typescript": "5.9.3"
+    "tsx": "4.22.3",
+    "typescript": "6.0.3"
   },
   "name": "@arcjet-examples/fastify",
   "repository": "github:arcjet/example-fastify",

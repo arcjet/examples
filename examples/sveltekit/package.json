@@ -1,21 +1,21 @@
 {
   "dependencies": {
-    "@arcjet/inspect": "1.4.0",
-    "@arcjet/sveltekit": "1.4.0",
+    "@arcjet/inspect": "1.5.0",
+    "@arcjet/sveltekit": "1.5.0",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
-    "zod": "4.3.6"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "5.5.4",
-    "@sveltejs/kit": "2.57.1",
+    "@sveltejs/kit": "2.61.0",
     "@sveltejs/vite-plugin-svelte": "6.2.4",
     "prettier": "3.8.3",
-    "prettier-plugin-svelte": "3.5.1",
+    "prettier-plugin-svelte": "3.5.2",
     "svelte": "5.55.9",
-    "svelte-check": "4.4.6",
-    "typescript": "5.9.3",
-    "vite": "7.3.2"
+    "svelte-check": "4.4.8",
+    "typescript": "6.0.3",
+    "vite": "7.3.3"
   },
   "name": "@arcjet-example/sveltekit",
   "overrides": {
