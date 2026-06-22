@@ -9,14 +9,14 @@
     "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@types/node": "22.19.19",
+    "@types/node": "22.20.0",
     "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "typescript": "6.0.3"
   },
   "description": "An example Next.js site protected by Arcjet bot detection middleware.",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "name": "@arcjet-examples/nextjs-bot-protection",
   "private": true,
