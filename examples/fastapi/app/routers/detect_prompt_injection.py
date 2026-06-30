@@ -1,6 +1,6 @@
 from dataclasses import asdict
 
-from arcjet import Mode, experimental_detect_prompt_injection
+from arcjet import Mode, detect_prompt_injection
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -9,7 +9,7 @@ from app.arcjet import arcjet_with_rule
 
 arcjet = arcjet_with_rule(
     [
-        experimental_detect_prompt_injection(mode=Mode.LIVE, threshold=0.5),
+        detect_prompt_injection(mode=Mode.LIVE, threshold=0.5),
     ]
 )
 
