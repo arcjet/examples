@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@arcjet/inspect": "1.5.0",
-    "@arcjet/sveltekit": "1.5.0",
+    "@arcjet/inspect": "1.6.0",
+    "@arcjet/sveltekit": "1.6.0",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "zod": "4.4.3"
