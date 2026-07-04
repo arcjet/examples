@@ -25,10 +25,10 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
-    "@arcjet/decorate": "1.6.1",
-    "@arcjet/env": "1.6.1",
-    "@arcjet/ip": "1.6.1",
-    "@arcjet/next": "1.6.1",
+    "@arcjet/decorate": "1.7.0-rc.0",
+    "@arcjet/env": "1.7.0-rc.0",
+    "@arcjet/ip": "1.7.0-rc.0",
+    "@arcjet/next": "1.7.0-rc.0",
     "@fontsource-variable/figtree": "5.2.10",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@hookform/resolvers": "5.4.0",

@@ -1,5 +1,5 @@
-import arcjet, { detectBot, shield, slidingWindow } from "npm:@arcjet/deno";
-import { isSpoofedBot } from "npm:@arcjet/inspect";
+import arcjet, { detectBot, shield, slidingWindow } from "@arcjet/deno";
+import { isSpoofedBot } from "@arcjet/inspect";
 
 const arcjetKey = Deno.env.get("ARCJET_KEY");
 if (!arcjetKey) {
