@@ -65,6 +65,8 @@ frameworks.
   ([`./examples/node-guard-policy`](./examples/node-guard-policy))
 - [React Router middleware example](https://github.com/arcjet/example-react-router-middleware)
   ([`./examples/react-router-middleware`](./examples/react-router-middleware))
+- [Vercel Eve agent example](https://github.com/arcjet/example-eve-agent)
+  ([`./examples/eve-agent`](./examples/eve-agent))
 
 Can't find what you're looking for? Check out [the Arcjet
 docs](https://docs.arcjet.com/) for more integrations and guides.

@@ -54,6 +54,10 @@ const workspaces = [
   ["@arcjet-examples/bun", path.join(BASE_PATH, "./examples/bun")],
   ["@arcjet-examples/deno", path.join(BASE_PATH, "./examples/deno")],
   [
+    "@arcjet-examples/eve-agent",
+    path.join(BASE_PATH, "./examples/eve-agent"),
+  ],
+  [
     "@arcjet-examples/express-newman",
     path.join(BASE_PATH, "./examples/express-newman"),
   ],
