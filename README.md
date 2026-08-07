@@ -13,6 +13,8 @@ frameworks.
 
 - [Astro example](https://github.com/arcjet/example-astro)
   ([`./examples/astro`](./examples/astro))
+- [Bun example](https://github.com/arcjet/example-bun)
+  ([`./examples/bun`](./examples/bun))
 - [Deno example](https://github.com/arcjet/example-deno)
   ([`./examples/deno`](./examples/deno))
 - [Express.js example](https://github.com/arcjet/example-expressjs)
@@ -39,19 +41,33 @@ frameworks.
 
 ### Use cases
 
+- [Express.js with Newman tests example](https://github.com/arcjet/example-express-newman)
+  ([`./examples/express-newman`](./examples/express-newman))
 - [Firebase functions example](https://github.com/arcjet/example-firebase-functions)
   ([`./examples/firebase-functions`](./examples/firebase-functions))
+- [Next.js AI agent guardrails example](https://github.com/arcjet/example-nextjs-ai-agent)
+  ([`./examples/nextjs-ai-agent`](./examples/nextjs-ai-agent))
+- [Next.js bot categories example](https://github.com/arcjet/example-nextjs-bot-categories)
+  ([`./examples/nextjs-bot-categories`](./examples/nextjs-bot-categories))
 - [Next.js bot protection example](https://github.com/arcjet/example-nextjs-bot-protection)
   ([`./examples/nextjs-bot-protection`](./examples/nextjs-bot-protection))
 - [Next.js deployed to Fly.io example](https://github.com/arcjet/example-nextjs-fly)
   ([`./examples/nextjs-fly`](./examples/nextjs-fly))
 - [Next.js form example](https://github.com/arcjet/example-nextjs-form)
   ([`./examples/nextjs-form`](./examples/nextjs-form))
-- [Next.js server action example](./examples/nextjs-server-action)
+- [Next.js Guard policy example](https://github.com/arcjet/example-nextjs-guard-policy)
+  ([`./examples/nextjs-guard-policy`](./examples/nextjs-guard-policy))
+- [Next.js sensitive information example](https://github.com/arcjet/example-nextjs-sensitive-info)
+  ([`./examples/nextjs-sensitive-info`](./examples/nextjs-sensitive-info))
+- [Next.js server action example](https://github.com/arcjet/example-nextjs-server-action)
   ([`./examples/nextjs-server-action`](./examples/nextjs-server-action))
+- [Node.js Guard policy example](https://github.com/arcjet/example-node-guard-policy)
+  ([`./examples/node-guard-policy`](./examples/node-guard-policy))
+- [React Router middleware example](https://github.com/arcjet/example-react-router-middleware)
+  ([`./examples/react-router-middleware`](./examples/react-router-middleware))
 
-Can't find what you're looking for? Try the [`examples` directory of the
-`arcjet/arcjet-js` repository](https://github.com/arcjet/arcjet-js/tree/main/examples).
+Can't find what you're looking for? Check out [the Arcjet
+docs](https://docs.arcjet.com/) for more integrations and guides.
 
 ## Contributing
 

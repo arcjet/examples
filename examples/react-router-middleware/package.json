@@ -1,0 +1,44 @@
+{
+  "name": "@arcjet-examples/react-router-middleware",
+  "description": "An example React Router application demonstrating Arcjet protection using React Router v8 middleware.",
+  "license": "Apache-2.0",
+  "homepage": "https://arcjet.com",
+  "repository": "github:arcjet/example-react-router-middleware",
+  "bugs": {
+    "url": "https://github.com/arcjet/examples/issues",
+    "email": "support@arcjet.com"
+  },
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "check": "react-router typegen && tsc",
+    "dev": "react-router dev --host",
+    "start": "react-router-serve ./build/server/index.js"
+  },
+  "dependencies": {
+    "@arcjet/react-router": "1.8.0",
+    "@react-router/node": "7.16.0",
+    "@react-router/serve": "7.16.0",
+    "isbot": "5.1.40",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-router": "7.16.0"
+  },
+  "devDependencies": {
+    "@react-router/dev": "7.16.0",
+    "@types/node": "22.20.0",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3",
+    "vite": "7.3.6"
+  }
+}

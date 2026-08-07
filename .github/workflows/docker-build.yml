@@ -22,7 +22,9 @@ jobs:
       matrix:
         example:
           - astro
+          - bun
           - deno
+          - express-newman
           - expressjs
           - fastapi
           - fastify
@@ -30,12 +32,14 @@ jobs:
           - flask
           - nestjs
           - nextjs
+          - nextjs-bot-categories
           - nextjs-bot-protection
           - nextjs-fly
           - nextjs-form
           - nextjs-server-action
           - nuxt
           - react-router
+          - react-router-middleware
           - sveltekit
           - tanstack-start
     steps:

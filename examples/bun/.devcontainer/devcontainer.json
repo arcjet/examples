@@ -1,0 +1,13 @@
+{
+  "name": "Arcjet example for Bun",
+  "build": { "dockerfile": "Dockerfile" },
+  "features": {
+    "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": ["oven.bun-vscode", "trunk.io"]
+    }
+  }
+}
