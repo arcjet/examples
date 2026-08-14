@@ -1,0 +1,102 @@
+import { mastraAgentContext } from "@arcjet/guard/mastra/v1";
+import {
+  MASTRA_RESOURCE_ID_KEY,
+  MASTRA_THREAD_ID_KEY,
+  RequestContext,
+} from "@mastra/core/request-context";
+import { readFile } from "node:fs/promises";
+import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
+import { z } from "zod";
+import { agent } from "./lib/agent.ts";
+
+const requestSchema = z.object({
+  message: z.string().min(1),
+  // Caller-owned ids only. mastraAgentContext reads them; it never mints one.
+  conversationId: z.string().min(1).max(256).optional(),
+  userId: z.string().min(1).max(256).optional(),
+});
+
+const page = await readFile(new URL("./index.html", import.meta.url), "utf8");
+
+async function readJson(request: IncomingMessage): Promise<unknown> {
+  const chunks: Buffer[] = [];
+  for await (const chunk of request) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+}
+
+function sendJson(response: ServerResponse, status: number, value: unknown) {
+  response.writeHead(status, { "content-type": "application/json" });
+  response.end(JSON.stringify(value));
+}
+
+function asPrintableId(value: string | undefined): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  // Same 1–256 printable-ASCII window mastraAgentContext accepts.
+  if (value.length < 1 || value.length > 256 || /[^\x20-\x7E]/.test(value)) {
+    return undefined;
+  }
+  return value;
+}
+
+const server = createServer(async (request, response) => {
+  if (request.method === "GET" && request.url === "/") {
+    response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+    response.end(page);
+    return;
+  }
+
+  if (request.method !== "POST" || request.url !== "/api/agent") {
+    response.writeHead(404).end();
+    return;
+  }
+
+  try {
+    const input = requestSchema.parse(await readJson(request));
+    if (!process.env.AI_GATEWAY_API_KEY && !process.env.OPENAI_API_KEY) {
+      throw new Error("AI_GATEWAY_API_KEY is required");
+    }
+
+    const requestContext = new RequestContext();
+    const threadId = asPrintableId(input.conversationId);
+    const resourceId = asPrintableId(input.userId);
+
+    // Preference order inside mastraAgentContext: thread → resource → run.
+    // Do not call createAgentContext — that would mint a second id and split
+    // the Sequence. If neither id is valid the call is uncorrelated.
+    if (threadId !== undefined) {
+      requestContext.set(MASTRA_THREAD_ID_KEY, threadId);
+    }
+    if (resourceId !== undefined) {
+      requestContext.set(MASTRA_RESOURCE_ID_KEY, resourceId);
+    }
+
+    const ctx = mastraAgentContext(requestContext);
+    const generated = await agent.generate(input.message, { requestContext });
+    const tripwire = generated.tripwire;
+
+    sendJson(response, 200, {
+      message: generated.text,
+      tripwire: tripwire
+        ? {
+            reason: tripwire.reason,
+            processorId: tripwire.processorId,
+          }
+        : undefined,
+      toolResults: generated.toolResults ?? [],
+      correlationId: ctx.correlationId,
+    });
+  } catch (error) {
+    sendJson(response, 500, {
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+const port = Number(process.env.PORT ?? 3000);
+server.listen(port, "0.0.0.0", () => {
+  console.log(`Mastra agent example listening on http://localhost:${port}`);
+});
