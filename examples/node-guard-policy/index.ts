@@ -121,10 +121,18 @@ function denialOutput(decision: DecisionDeny) {
 
 const page = await readFile(new URL("./index.html", import.meta.url), "utf8");
 
+const MAX_JSON_BODY_BYTES = 32 * 1024;
+
 async function readJson(request: IncomingMessage): Promise<unknown> {
   const chunks: Buffer[] = [];
+  let size = 0;
   for await (const chunk of request) {
-    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+    const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+    size += buffer.byteLength;
+    if (size > MAX_JSON_BODY_BYTES) {
+      throw new Error("Request body too large");
+    }
+    chunks.push(buffer);
   }
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
@@ -272,8 +280,9 @@ const server = createServer(async (request, response) => {
       trace,
     });
   } catch (error) {
-    sendJson(response, 500, {
-      message: error instanceof Error ? error.message : "Unknown error",
+    const message = error instanceof Error ? error.message : "Unknown error";
+    sendJson(response, message === "Request body too large" ? 413 : 500, {
+      message,
     });
   }
 });

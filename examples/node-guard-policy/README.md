@@ -21,6 +21,13 @@ evaluates the model-selected recipient and body before the simulated email side
 effect can run. Because the policy lives in the Arcjet dashboard, you can change
 enforcement without redeploying the app.
 
+> [!WARNING]
+> This is a policy-matrix demo, not a production authentication pattern. The
+> `/evaluate` and `/context` routes are unauthenticated so the page can drive
+> the matrix. A hosted version must add authentication and/or rate limiting
+> before calling the model, and must not return raw records or tool traces.
+> JSON bodies are capped at 32 KiB.
+
 > [!IMPORTANT]
 > This example depends on the Arcjet Guard **remote policy** API
 > (`policyInput`, `guardTool`'s `actor` option,

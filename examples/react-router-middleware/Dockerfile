@@ -2,7 +2,7 @@ FROM node:24-bookworm
 
 WORKDIR /app
 
-EXPOSE 4321
+EXPOSE 3000
 
 COPY package*.json ./
 RUN npm ci

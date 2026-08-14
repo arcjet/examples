@@ -13,6 +13,8 @@ import { arcjet } from "@/lib/arcjet";
 
 export interface SupportAgentInput {
   question: string;
+  // Plain { correlationId, metadata } record from createAgentContext — JSON
+  // serializable for Workflow DevKit replay. Do not pass class instances.
   ctx: ArcjetAgentContext;
 }
 

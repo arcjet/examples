@@ -52,6 +52,8 @@ npm run dev
 ```
 
 5. Open [http://localhost:5173](http://localhost:5173) in your browser.
+   `npm run dev` and the example's compose service both use Vite's port
+   `5173`. `npm start` (the production image) listens on port `3000`.
 
 ## Need help?
 

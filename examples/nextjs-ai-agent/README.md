@@ -19,6 +19,13 @@ inside a [Vercel Workflow](https://vercel.com/docs/workflows) with a
 rate-limited tool, a guarded external action, and a captured side effect, all
 joined by a shared correlation ID.
 
+> [!WARNING]
+> This is a local demo, not a production authentication pattern. The `/api/agent`
+> route is unauthenticated so you can trigger a run from the page. A hosted
+> version must add authentication and/or rate limiting before starting the
+> workflow or calling the model. The route rejects questions longer than 2,000
+> characters; that is a demo bound, not abuse protection.
+
 ## Features
 
 - [AI guardrails](https://docs.arcjet.com/ai-guardrails) with the

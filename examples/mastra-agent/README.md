@@ -19,6 +19,13 @@ injection, rate-limits tool calls, scans free-text tool arguments for PII, and
 fails closed when the guard cannot be evaluated. Every decision is correlated
 from Mastra's thread / resource / run ids — the example never mints a new one.
 
+> [!WARNING]
+> This is a local demo, not a production authentication pattern. The
+> `/api/agent` route is unauthenticated so you can trigger a run from the page.
+> A hosted version must add authentication and/or rate limiting before calling
+> the model. The route caps JSON bodies at 32 KiB and messages at 2,000
+> characters; those are demo bounds, not abuse protection.
+
 > [!IMPORTANT]
 > This example depends on the Arcjet Guard **Mastra** integration
 > (`@arcjet/guard/mastra/v1`, which provides `guardTool`, `guardProcessor`,

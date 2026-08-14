@@ -21,9 +21,15 @@ export async function POST(request: Request) {
     return new Response("Missing or invalid question parameter", { status: 400 });
   }
 
+  if (question.length > 2000) {
+    return new Response("Question is too long", { status: 400 });
+  }
+
   // One context per run; its correlation ID joins every guard decision and
   // capture event this run produces. Pass an existing ID (e.g. a ticket or
   // request ID) instead to join Arcjet data to your own systems.
+  // createAgentContext returns a plain { correlationId, metadata } record so
+  // the workflow input stays JSON-serializable for durable replay.
   const ctx = createAgentContext({
     metadata: securityMetadata({
       agent: "support-agent",

@@ -49,6 +49,12 @@ npm run dev
 The `/api/arcjet` route is protected by the bot detection rule configured in
 [`lib/arcjet.ts`](./lib/arcjet.ts).
 
+> [!WARNING]
+> The route echoes `X-Arcjet-Bot-Allowed` and `X-Arcjet-Bot-Denied` so this
+> demo can show which identifiers matched. That disclosure can help someone
+> tune evasion. Keep it for local learning; do not ship those headers from a
+> production API.
+
 1. Request the API as `curl`, which belongs to `CATEGORY:TOOL` and is allowed:
 
    ```bash
