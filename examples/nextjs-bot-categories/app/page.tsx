@@ -50,8 +50,8 @@ export default async function IndexPage() {
         </p>
         <pre className="codeblock">{`curl -v ${url}`}</pre>
         <p className="typography-secondary">
-          The response includes headers showing which bots were allowed and
-          denied:
+          With <code>ARCJET_DEMO_BOT_HEADERS=1</code>, the response includes
+          headers showing which bots were allowed and denied:
         </p>
         <pre className="codeblock">{`x-arcjet-bot-allowed: CATEGORY:TOOL, CURL
 x-arcjet-bot-denied:`}</pre>

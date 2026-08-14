@@ -35,6 +35,8 @@ npm ci
 ```
 
 3. Rename `.env.local.example` to `.env.local` and add your Arcjet key.
+   The example file sets `ARCJET_DEMO_BOT_HEADERS=1` so the curl steps below
+   show the diagnostic headers. Leave it unset (or `0`) to keep them off.
 
 4. Start the dev server
 
@@ -50,9 +52,10 @@ The `/api/arcjet` route is protected by the bot detection rule configured in
 [`lib/arcjet.ts`](./lib/arcjet.ts).
 
 > [!WARNING]
-> The route echoes `X-Arcjet-Bot-Allowed` and `X-Arcjet-Bot-Denied` so this
-> demo can show which identifiers matched. That disclosure can help someone
-> tune evasion. Keep it for local learning; do not ship those headers from a
+> Diagnostic bot headers are off unless `ARCJET_DEMO_BOT_HEADERS=1`. When that
+> flag is set, the route echoes `X-Arcjet-Bot-Allowed` and
+> `X-Arcjet-Bot-Denied` so you can see which identifiers matched. That
+> disclosure can help someone tune evasion. Do not enable those headers on a
 > production API.
 
 1. Request the API as `curl`, which belongs to `CATEGORY:TOOL` and is allowed:

@@ -70,3 +70,20 @@ export const scenarios = {
 export type ClientId = keyof typeof clients;
 export type ModelId = keyof typeof models;
 export type ScenarioId = keyof typeof scenarios;
+
+/** Public `/api/context` payload — labels only, never records or prompts. */
+export function publicDemoContext() {
+  return {
+    clients: Object.fromEntries(
+      Object.entries(clients).map(([id, client]) => [id, { label: client.label }]),
+    ),
+    models: Object.fromEntries(
+      Object.entries(models).map(([id, model]) => [id, { label: model.label }]),
+    ),
+    defaultModel,
+    defaultInjectionModel,
+    scenarios: Object.fromEntries(
+      Object.entries(scenarios).map(([id, scenario]) => [id, { label: scenario.label }]),
+    ),
+  };
+}

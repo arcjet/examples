@@ -24,11 +24,12 @@ detection.
 > selected client is an untrusted fixture selector, not an authenticated
 > identity. Production code must derive `actor` from an authenticated
 > server-side session, and any hosted version must add authentication and/or
-> rate limiting before calling the model. The context endpoint and tool trace
-> intentionally expose their raw values to make policy evaluation visible;
-> production APIs must instead return display-safe data and redact or omit tool
-> inputs, tool results, prompts, and sensitive values. All people, records, and
-> identifiers in this example are synthetic demo fixtures.
+> rate limiting before calling the model. `/api/context` returns display labels
+> only — client records, allowed recipients, and scenario prompts stay on the
+> server. The evaluate tool trace can still include fixture values after a run;
+> production APIs must redact or omit tool inputs, tool results, prompts, and
+> sensitive values. All people, records, and identifiers in this example are
+> synthetic demo fixtures.
 
 > [!IMPORTANT]
 > This example depends on the Arcjet Guard **remote policy** API

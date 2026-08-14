@@ -27,7 +27,8 @@ export default function Home() {
       });
 
       if (!res.ok) {
-        throw new Error(`Error: ${res.statusText}`);
+        const detail = await res.text();
+        throw new Error(detail || `Error: ${res.status} ${res.statusText}`);
       }
 
       const data = await res.json();

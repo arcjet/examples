@@ -13,9 +13,9 @@ export async function GET(req: Request) {
   }
 
   const headers = new Headers();
-  if (decision.reason.isBot()) {
-    // WARNING: This is illustrative! Don't share this metadata with users;
-    // otherwise they may use it to subvert bot detection!
+  // Off unless ARCJET_DEMO_BOT_HEADERS=1. These headers disclose allow/deny
+  // classifications and can help someone tune evasion.
+  if (process.env.ARCJET_DEMO_BOT_HEADERS === "1" && decision.reason.isBot()) {
     headers.set("X-Arcjet-Bot-Allowed", decision.reason.allowed.join(", "));
     headers.set("X-Arcjet-Bot-Denied", decision.reason.denied.join(", "));
   }

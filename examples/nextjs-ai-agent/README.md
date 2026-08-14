@@ -21,10 +21,10 @@ joined by a shared correlation ID.
 
 > [!WARNING]
 > This is a local demo, not a production authentication pattern. The `/api/agent`
-> route is unauthenticated so you can trigger a run from the page. A hosted
-> version must add authentication and/or rate limiting before starting the
-> workflow or calling the model. The route rejects questions longer than 2,000
-> characters; that is a demo bound, not abuse protection.
+> route is unauthenticated so you can trigger a run from the page. It applies an
+> Arcjet sliding-window rate limit (5 starts / 60s per client IP) and rejects
+> questions longer than 2,000 characters **before** `start(workflow)`. A hosted
+> version must still add authentication.
 
 ## Features
 

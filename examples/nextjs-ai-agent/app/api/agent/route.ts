@@ -1,7 +1,19 @@
 import { createAgentContext, securityMetadata } from "@arcjet/guard/vercel-ai/v7";
 import { start } from "workflow/api";
 import { NextResponse } from "next/server";
+import { arcjet, startLimit } from "@/lib/arcjet";
 import { supportAgentWorkflow } from "@/workflows/support-agent";
+
+const MAX_QUESTION_LENGTH = 2000;
+
+function clientKey(request: Request) {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    const first = forwarded.split(",")[0]?.trim();
+    if (first) return first;
+  }
+  return request.headers.get("x-real-ip") ?? "anonymous";
+}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -21,7 +33,7 @@ export async function POST(request: Request) {
     return new Response("Missing or invalid question parameter", { status: 400 });
   }
 
-  if (question.length > 2000) {
+  if (question.length > MAX_QUESTION_LENGTH) {
     return new Response("Question is too long", { status: 400 });
   }
 
@@ -36,6 +48,16 @@ export async function POST(request: Request) {
       workflow: "support-request",
     }),
   });
+
+  const decision = await arcjet.guard({
+    label: "workflow.started",
+    rules: [startLimit({ key: clientKey(request) })],
+    correlationId: ctx.correlationId,
+  });
+
+  if (decision.conclusion === "DENY") {
+    return new Response("Too many requests", { status: 429 });
+  }
 
   const run = await start(supportAgentWorkflow, [{ question, ctx }]);
 

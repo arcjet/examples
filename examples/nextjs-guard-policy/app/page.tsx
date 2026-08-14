@@ -3,18 +3,10 @@
 import { useEffect, useState, type FormEvent } from "react";
 
 interface DemoContext {
-  clients: Record<
-    string,
-    {
-      label: string;
-      actor: string;
-      record: Record<string, string>;
-      allowedRecipients: readonly string[];
-    }
-  >;
+  clients: Record<string, { label: string }>;
   models: Record<string, { label: string }>;
   defaultInjectionModel: string;
-  scenarios: Record<string, { label: string; message: string }>;
+  scenarios: Record<string, { label: string }>;
 }
 
 interface TraceEvent {
@@ -139,27 +131,17 @@ export default function Home() {
           </p>
         )}
         <section aria-live="polite">
-          <h2>Run context</h2>
-          <h3>Inbound customer message (untrusted)</h3>
-          <pre>{selectedScenario?.message ?? "Loading…"}</pre>
-          <h3>
-            <code>getClientRecord</code> returns
-          </h3>
-          <pre>
-            {selectedClient === undefined
+          <h2>Selected scenario</h2>
+          <p>
+            {selectedClient === undefined || selectedScenario === undefined
               ? "Loading…"
-              : JSON.stringify(
-                  { clientId: selectedClient.actor, record: selectedClient.record },
-                  null,
-                  2,
-                )}
-          </pre>
-          <h3>Allowed recipients for this client</h3>
-          <pre>
-            {selectedClient === undefined
-              ? "Loading…"
-              : JSON.stringify(selectedClient.allowedRecipients, null, 2)}
-          </pre>
+              : `${selectedClient.label} — ${selectedScenario.label}`}
+          </p>
+          <p>
+            Client records, allowed recipients, and inbound prompts stay on the
+            server. The evaluate route uses those fixtures; this page only lists
+            labels.
+          </p>
         </section>
         <button disabled={loading || context === undefined}>
           {loading ? "Generating and evaluating…" : "Handle latest support request"}
