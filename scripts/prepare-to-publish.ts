@@ -51,6 +51,10 @@ if (!status.isClean()) {
 // TODO(#31): Add an improved loading mechanism for workspaces
 const workspaces = [
   ["@arcjet-examples/astro", path.join(BASE_PATH, "./examples/astro")],
+  [
+    "@arcjet-examples/claude-agent-sdk",
+    path.join(BASE_PATH, "./examples/claude-agent-sdk"),
+  ],
   ["@arcjet-examples/deno", path.join(BASE_PATH, "./examples/deno")],
   ["@arcjet-examples/expressjs", path.join(BASE_PATH, "./examples/expressjs")],
   ["@arcjet-examples/fastapi", path.join(BASE_PATH, "./examples/fastapi")],
