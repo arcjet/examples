@@ -1,0 +1,3 @@
+Built from https://github.com/arcjet/arcjet-js/commit/69dd601018e39e649d473645246da438c42b01cc
+Branch: david/cursor/guard-claude-agent-sdk-v0-16a6
+Package: @arcjet/guard (unpublished claude-agent-sdk/v0 adapter)
