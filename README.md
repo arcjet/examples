@@ -39,8 +39,8 @@ frameworks.
 
 ### Use cases
 
-- [Claude Agent SDK example](https://github.com/arcjet/example-claude-agent-sdk)
-  ([`./examples/claude-agent-sdk`](./examples/claude-agent-sdk))
+- [Claude agent example](https://github.com/arcjet/example-claude-agent)
+  ([`./examples/claude-agent`](./examples/claude-agent))
 - [Firebase functions example](https://github.com/arcjet/example-firebase-functions)
   ([`./examples/firebase-functions`](./examples/firebase-functions))
 - [Next.js bot protection example](https://github.com/arcjet/example-nextjs-bot-protection)
