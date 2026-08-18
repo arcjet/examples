@@ -16,7 +16,6 @@ import {
   guardToolNode,
   langgraphAgentContext,
 } from "@arcjet/guard/langgraph/v1";
-import type { LangGraphTool, LangGraphToolNodeLike } from "@arcjet/guard/langgraph/v1";
 import { z } from "zod";
 import {
   arcjet,
@@ -55,10 +54,7 @@ const lookupOrderTool = tool(
 
 const lookupOrder = guardTool(
   arcjet,
-  // LangGraphTool.invoke is `(input: unknown) => unknown`. LangChain's
-  // DynamicStructuredTool.invoke is stricter under strictFunctionTypes;
-  // the runtime object is the same.
-  lookupOrderTool as typeof lookupOrderTool & LangGraphTool,
+  lookupOrderTool,
   {
     action: "order.looked-up",
     // Fail closed: if Arcjet is unreachable the handler does not run and
@@ -102,7 +98,7 @@ const tools = [lookupOrder, notifyWarehouse];
 // closure, so a copy would leave the original tools unguarded.
 const toolNode = guardToolNode(
   arcjet,
-  new ToolNode(tools) as ToolNode & LangGraphToolNodeLike,
+  new ToolNode(tools),
   {
   action: ({ toolName }) => `${toolName}.invoked`,
   onGuardError: "deny",
@@ -317,11 +313,11 @@ function collectToolResults(messages: BaseMessage[]): unknown[] {
       continue;
     }
     const payload = parseToolPayload(message.content);
+    // ToolNode wraps a non-throwing denial as ToolMessage status
+    // "success". Do not read message.status — the denial is
+    // arcjetDenied on the payload.
     results.push({
       name: message.name,
-      // ToolNode.status is "success" when the tool did not throw. Do not
-      // treat the envelope as a denial — check arcjetDenied on the payload.
-      status: "status" in message ? message.status : undefined,
       arcjetDenied: isArcjetDenial(payload),
       content: payload,
     });
