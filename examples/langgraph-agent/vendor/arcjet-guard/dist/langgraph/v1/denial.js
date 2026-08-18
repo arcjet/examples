@@ -44,41 +44,5 @@ function unavailableResult() {
 		retryAfterSeconds: 5
 	};
 }
-function denialToolResult(decision, extras) {
-	return asToolResult(denialResult(decision), extras);
-}
-function unavailableToolResult(extras) {
-	return asToolResult(unavailableResult(), extras);
-}
-/**
-* Lift a denial payload (or a caller `onDeny` object) into the tool-result
-* shape. A value that already looks like a tool result is returned as-is.
-*/
-function asToolResult(value, extras) {
-	if (isToolResult(value)) return value;
-	const denial = isDenialResult(value) ? value : {
-		arcjetDenied: true,
-		reason: "ERROR",
-		message: typeof value === "string" ? value : unavailableReason(),
-		retryable: false
-	};
-	const name = extras?.name ?? "";
-	const toolCallId = extras?.toolCallId ?? "";
-	return {
-		...denial,
-		status: "error",
-		content: denial.message,
-		type: "tool",
-		name,
-		tool_call_id: toolCallId,
-		getType: () => "tool"
-	};
-}
-function isDenialResult(value) {
-	return value !== null && typeof value === "object" && "arcjetDenied" in value && value.arcjetDenied === true && "reason" in value && typeof value.reason === "string" && "message" in value && typeof value.message === "string";
-}
-function isToolResult(value) {
-	return isDenialResult(value) && "status" in value && value.status === "error" && "getType" in value && typeof value.getType === "function";
-}
 //#endregion
-export { UNAVAILABLE_RETRY_AFTER_SECONDS, asToolResult, denialResult, denialToolResult, deniedReason, unavailableReason, unavailableResult, unavailableToolResult };
+export { UNAVAILABLE_RETRY_AFTER_SECONDS, denialResult, deniedReason, unavailableReason, unavailableResult };

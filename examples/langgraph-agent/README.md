@@ -39,7 +39,7 @@ This is Graph API, not LangChain `createAgent` / `wrapToolCall`.
 > [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
 > [`david/cursor/guard-langgraph-v1-e852`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-langgraph-v1-e852)
 > at SHA
-> [`baa23e7fb90b1fe391f2e5c400b37fde90f01d38`](https://github.com/arcjet/arcjet-js/commit/baa23e7fb90b1fe391f2e5c400b37fde90f01d38)
+> [`d14434ddc590c114a367da0971832f302edea0e7`](https://github.com/arcjet/arcjet-js/commit/d14434ddc590c114a367da0971832f302edea0e7)
 > (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
 > git, so the built package is vendored. Do not invent a published version
 > number for this subpath. Repin to the stable release once
@@ -74,8 +74,9 @@ tools you invoke yourself).
 
 The authored `lookup_order` tool is wrapped with `guardTool`. The unwrapped
 `notify_warehouse` tool is passed into the same `ToolNode`, then
-`guardToolNode(arcjet, toolNode, …)` gates it. Already-branded `lookup_order`
-is skipped so Guard is not double-called.
+`guardToolNode(arcjet, toolNode, …)` gates it **in place** and returns that
+same node. Already-branded `lookup_order` is skipped so Guard is not
+double-called.
 
 ## Features
 
@@ -87,8 +88,11 @@ is skipped so Guard is not double-called.
   `graph.invoke`. There is no `guardInbound`.
 - An authored tool (`lookup_order`) wrapped with `guardTool` uses a
   [token bucket rate limit](https://docs.arcjet.com/rate-limiting/quick-start)
-  keyed by order id. A denial is a tool result with `status: "error"` — the
-  wrapper does not throw.
+  keyed by order id. A denial is a plain `ArcjetDenialResult` with
+  `arcjetDenied: true` — the wrapper does not throw. `ToolNode` wraps it
+  into a real `ToolMessage` whose `status` is `success` because the tool
+  did not throw. Check `arcjetDenied` on the payload, not
+  `ToolMessage.status`.
 - The same tool scans its free-text `note` argument with
   [sensitive information
   detection](https://docs.arcjet.com/sensitive-info/quick-start).
@@ -161,11 +165,11 @@ Watch the Arcjet Console for the captured decisions, filtered by the returned
 - **Inbound decision:** `detectPromptInjection` screening the user message
   before `graph.invoke`. A DENY skips the graph.
 - **Authored tool:** `guardTool` on `lookup_order` — rate limit and PII on
-  the `note` argument. The model receives a tool result with
-  `status: "error"` and `{ arcjetDenied, reason, message, retryable }` and
-  should explain the denial instead of retrying.
+  the `note` argument. The model receives a `ToolMessage` (`status:
+  "success"`) whose content is `{ arcjetDenied, reason, message, retryable }`
+  and should explain the denial instead of retrying.
 - **Unwrapped tool:** `guardToolNode` on `notify_warehouse`. DENY is the
-  same tool-result shape so the warehouse side effect never runs.
+  same payload shape so the warehouse side effect never runs.
 - **HITL:** `interrupt()` paused before `ToolNode`, then the server resumed.
   That is not a policy decision.
 - **Fail closed:** an invalid `ARCJET_KEY` or unreachable guard denies inbound
@@ -182,10 +186,12 @@ new id:
 
 1. **`configurable.thread_id`** — the checkpointer thread. Prefer this so
    every turn in a conversation joins one Sequence.
-2. **`configurable.checkpoint_ns`** — subgraph namespace, used when no
-   valid thread id is present.
-3. **Run id** — used only when neither thread nor checkpoint namespace is a
-   valid 1–256 printable-ASCII string.
+2. **Run id** — `runId` / `configurable.run_id`, used when no valid thread
+   id is present. A run id covers the whole run; sibling subgraphs would
+   otherwise land under different `checkpoint_ns` values.
+3. **`configurable.checkpoint_ns`** — subgraph namespace, a last resort
+   (`""` for the parent graph is skipped as empty). Must still be a valid
+   1–256 printable-ASCII string.
 
 If none of those is valid, the call is uncorrelated rather than joined to a
 generated id nobody has. Do not call `createAgentContext` inside a LangGraph

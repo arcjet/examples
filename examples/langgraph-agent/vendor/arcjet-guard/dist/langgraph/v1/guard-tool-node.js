@@ -37,39 +37,52 @@ function wrapUnbrandedTool(client, tool, policy) {
 	if (arcjetProtectedTool in tool) return tool;
 	return guardTool(client, tool, policyForTool(tool, policy));
 }
-function ensureToolsGuarded(client, tools, policy) {
-	let changed = false;
-	const next = tools.map((tool) => {
-		if (arcjetProtectedTool in tool) return tool;
-		changed = true;
-		return wrapUnbrandedTool(client, tool, policy);
-	});
-	return changed ? next : tools;
+/**
+* Replace every unguarded entry of `tools` with a guarded one, in place.
+*
+* In place is the whole point. `ToolNode`'s constructor registers
+* `func: (input, config) => this.run(input, config)` — an arrow bound to the
+* instance being constructed — and `run` reads `this.tools`. Assigning a new
+* array to a copied node therefore changes nothing the node actually
+* executes: the captured closure keeps reaching the original array. Mutating
+* the array the node already holds is what the running graph observes, and it
+* also means a caller holding the same node (or the same array) cannot
+* bypass Guard through a stale reference.
+*/
+function guardToolsInPlace(client, tools, policy) {
+	for (let index = 0; index < tools.length; index += 1) {
+		const tool = tools[index];
+		if (tool === void 0 || arcjetProtectedTool in tool) continue;
+		tools[index] = guardTool(client, tool, policyForTool(tool, policy));
+	}
 }
 function guardToolNode(client, toolsOrNode, policy = {}) {
 	if (Array.isArray(toolsOrNode)) return toolsOrNode.map((tool) => wrapUnbrandedTool(client, tool, policy));
 	if (!isToolNodeLike(toolsOrNode)) throw new Error("@arcjet/guard: guardToolNode() requires a ToolNode or an array of tools");
-	if (arcjetProtectedTool in toolsOrNode) throw new Error("@arcjet/guard: guardToolNode() cannot wrap a ToolNode that is already guarded; do not double-wrap with @arcjet/guard/langgraph/v1");
-	const originalInvoke = toolsOrNode.invoke;
-	const proto = Object.getPrototypeOf(toolsOrNode);
-	const wrapped = Object.defineProperties(Object.create(proto), Object.getOwnPropertyDescriptors(toolsOrNode));
-	wrapped.tools = ensureToolsGuarded(client, wrapped.tools, policy);
-	const newInvoke = (input, config) => {
-		wrapped.tools = ensureToolsGuarded(client, wrapped.tools, policy);
-		return originalInvoke.call(wrapped, input, config);
-	};
-	Object.defineProperty(wrapped, "invoke", {
-		value: newInvoke,
-		writable: true,
-		enumerable: true,
-		configurable: true
-	});
-	Object.defineProperty(wrapped, arcjetProtectedTool, {
+	const node = toolsOrNode;
+	if (arcjetProtectedTool in node) throw new Error("@arcjet/guard: guardToolNode() cannot wrap a ToolNode that is already guarded; do not double-wrap with @arcjet/guard/langgraph/v1");
+	if (Object.isFrozen(node.tools)) throw new Error("@arcjet/guard: guardToolNode() cannot guard a ToolNode with a frozen tools array; pass the tools through guardToolNode() before constructing the ToolNode");
+	guardToolsInPlace(client, node.tools, policy);
+	const originalInvoke = node.invoke;
+	if (originalInvoke !== void 0) {
+		const ownInvoke = Object.getOwnPropertyDescriptor(node, "invoke");
+		const newInvoke = (input, config) => {
+			guardToolsInPlace(client, node.tools, policy);
+			return originalInvoke.call(node, input, config);
+		};
+		Object.defineProperty(node, "invoke", {
+			value: newInvoke,
+			writable: true,
+			enumerable: ownInvoke?.enumerable ?? false,
+			configurable: true
+		});
+	}
+	Object.defineProperty(node, arcjetProtectedTool, {
 		value: true,
 		enumerable: false,
 		configurable: true
 	});
-	return wrapped;
+	return node;
 }
 //#endregion
 export { guardToolNode };

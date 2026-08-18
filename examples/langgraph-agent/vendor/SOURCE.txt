@@ -1,3 +1,3 @@
-Built from https://github.com/arcjet/arcjet-js/commit/baa23e7fb90b1fe391f2e5c400b37fde90f01d38
+Built from https://github.com/arcjet/arcjet-js/commit/d14434ddc590c114a367da0971832f302edea0e7
 Branch: david/cursor/guard-langgraph-v1-e852
 Package: @arcjet/guard (unpublished langgraph/v1 adapter)

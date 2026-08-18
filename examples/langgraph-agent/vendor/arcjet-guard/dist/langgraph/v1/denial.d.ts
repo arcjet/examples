@@ -3,10 +3,26 @@ import { DecisionDeny } from "../../types.js";
 /**
  * Structured tool result returned to the model when a call is denied.
  *
- * Intentionally structurally identical to `vercel-ai/v7`'s ArcjetDenialResult
- * so the model trained on denial objects sees the same shape regardless of
- * which integration is in use. Both declarations exist to avoid putting the
- * `ai` SDK in this namespace's import graph.
+ * Intentionally structurally identical to `vercel-ai/v7`'s and `mastra/v1`'s
+ * ArcjetDenialResult so the model trained on denial objects sees the same
+ * shape regardless of which integration is in use. Each declaration exists
+ * separately to avoid putting another vendor's SDK in this namespace's import
+ * graph.
+ *
+ * **Why this is not a `ToolMessage`.** `ToolNode` returns a tool's output
+ * unchanged when `isBaseMessage(output)` holds, and otherwise wraps it in a
+ * real `ToolMessage` carrying the tool call id. Passing that check needs a
+ * `_getType` method, and an object that fakes it is then handed to
+ * `messagesStateReducer`, which forwards anything `isBaseMessage` accepts and
+ * assigns `m.lc_kwargs.id` — throwing on a duck-typed message and taking the
+ * graph down. Constructing a genuine `ToolMessage` would need a value import
+ * of `@langchain/core`, which this namespace must not have. So a denial is a
+ * plain object: `ToolNode` wraps it, the model reads these fields as the tool
+ * result content, and no graph internals are faked.
+ *
+ * A consequence worth knowing: because the tool does not throw, the
+ * `ToolMessage` `ToolNode` builds carries `status: "success"`. The denial is
+ * in the payload (`arcjetDenied: true`), not the envelope.
  */
 interface ArcjetDenialResult {
   arcjetDenied: true;
@@ -18,24 +34,6 @@ interface ArcjetDenialResult {
   retryable: boolean;
   /** Seconds until a rate-limited call may be retried. */
   retryAfterSeconds?: number;
-}
-/**
- * Tool-result shape `ToolNode` / the model can read on DENY.
- *
- * LangGraph's `ToolNode` treats a returned object with `getType() === "tool"`
- * as a `ToolMessage` and otherwise wraps the value in one with
- * `status: "success"`. This object carries `status: "error"` plus the
- * structured denial so either path is readable. We do not construct a
- * `@langchain/core` `ToolMessage` — that would be a value import, and CI
- * must pass with the peer absent.
- */
-interface LangGraphToolResult extends ArcjetDenialResult {
-  status: "error";
-  content: string;
-  type: "tool";
-  name: string;
-  tool_call_id: string;
-  getType: () => "tool";
 }
 /** Model- and user-readable explanation of a denial. */
 declare function deniedReason(decision: DecisionDeny): string;
@@ -51,21 +49,5 @@ declare function unavailableReason(): string;
 declare const UNAVAILABLE_RETRY_AFTER_SECONDS: number;
 declare function denialResult(decision: DecisionDeny): ArcjetDenialResult;
 declare function unavailableResult(): ArcjetDenialResult;
-declare function denialToolResult(decision: DecisionDeny, extras?: {
-  name?: string;
-  toolCallId?: string;
-}): LangGraphToolResult;
-declare function unavailableToolResult(extras?: {
-  name?: string;
-  toolCallId?: string;
-}): LangGraphToolResult;
-/**
- * Lift a denial payload (or a caller `onDeny` object) into the tool-result
- * shape. A value that already looks like a tool result is returned as-is.
- */
-declare function asToolResult(value: unknown, extras?: {
-  name?: string;
-  toolCallId?: string;
-}): LangGraphToolResult;
 //#endregion
-export { ArcjetDenialResult, LangGraphToolResult, UNAVAILABLE_RETRY_AFTER_SECONDS, asToolResult, denialResult, denialToolResult, deniedReason, unavailableReason, unavailableResult, unavailableToolResult };
+export { ArcjetDenialResult, UNAVAILABLE_RETRY_AFTER_SECONDS, denialResult, deniedReason, unavailableReason, unavailableResult };

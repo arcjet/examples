@@ -39,9 +39,9 @@ interface LangGraphAgentContext {
  * Preference order for `correlationId`:
  * 1. `configurable.thread_id` — the checkpointer thread, what the graph
  *    already has
- * 2. `configurable.checkpoint_ns` — subgraph namespace (`""` for the parent
- *    is skipped as empty)
- * 3. `runId` / `configurable.run_id` — only if the graph already set one
+ * 2. `runId` / `configurable.run_id` — only if the graph already set one
+ * 3. `configurable.checkpoint_ns` — subgraph namespace, a last resort
+ *    (`""` for the parent graph is skipped as empty)
  *
  * An invalid candidate is skipped (and warned when `ARCJET_LOG_LEVEL` asks
  * for warnings). If nothing valid remains, `correlationId` is omitted so the

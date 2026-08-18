@@ -47,17 +47,29 @@ interface GuardToolNodePolicy {
  * Structural `ToolNode` surface this helper wraps. Matches
  * `@langchain/langgraph/prebuilt` `ToolNode` (`tools` + `invoke`) without
  * constructing one — CI must pass with the peer absent.
+ *
+ * `invoke` uses method syntax so a real `ToolNode`, whose `invoke` is
+ * generic, stays assignable; see the note on {@link LangGraphTool}.
  */
 interface LangGraphToolNodeLike {
   tools: LangGraphTool[];
-  invoke: (input: unknown, config?: unknown) => unknown;
+  invoke?(input: unknown, config?: unknown): unknown;
 }
 /**
- * Wraps a LangGraph `ToolNode` (or the tools you will pass to one) so MCP /
+ * Guards the tools a LangGraph `ToolNode` executes, so MCP /
  * runtime-discovered / unwrapped tools still hit Guard before execute.
  *
- * Already-branded tools (`guardTool`) are left alone so Guard is not
- * double-called. Wrapping a `ToolNode` that is already branded throws.
+ * Given a `ToolNode`, the node's tools are guarded **in place** and the same
+ * node is returned: `ToolNode` resolves tools through a closure captured at
+ * construction, so a copy with a fresh tools array would leave the original
+ * tools running unguarded. Mutating in place also means a caller still
+ * holding that node cannot bypass Guard. Given an array of tools, a new
+ * array of guarded tools is returned and the input array is left alone.
+ *
+ * Already-branded tools (`guardTool`) are left as they are, so Guard is not
+ * double-called. Wrapping a `ToolNode` that is already guarded throws. Tools
+ * appended after wrapping — MCP discovered mid-run — are guarded on the next
+ * `invoke`.
  *
  * Prefer this for tools that only run through `ToolNode`. Use `guardTool`
  * for authored tools invoked outside `ToolNode`.

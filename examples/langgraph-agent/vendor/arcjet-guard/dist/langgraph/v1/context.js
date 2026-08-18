@@ -26,8 +26,8 @@ function firstString(values) {
 }
 function readConfigurable(source) {
 	if (source === void 0) return;
-	if (source.configurable !== void 0 && typeof source.configurable === "object") return source.configurable;
-	if (source.config?.configurable !== void 0 && typeof source.config.configurable === "object") return source.config.configurable;
+	if (source.configurable !== null && typeof source.configurable === "object") return source.configurable;
+	if (source.config?.configurable !== null && typeof source.config?.configurable === "object") return source.config.configurable;
 	if (source.thread_id !== void 0 || source.checkpoint_ns !== void 0) {
 		const configurable = {};
 		if (source.thread_id !== void 0) configurable["thread_id"] = source.thread_id;
@@ -42,9 +42,9 @@ function readConfigurable(source) {
 * Preference order for `correlationId`:
 * 1. `configurable.thread_id` — the checkpointer thread, what the graph
 *    already has
-* 2. `configurable.checkpoint_ns` — subgraph namespace (`""` for the parent
-*    is skipped as empty)
-* 3. `runId` / `configurable.run_id` — only if the graph already set one
+* 2. `runId` / `configurable.run_id` — only if the graph already set one
+* 3. `configurable.checkpoint_ns` — subgraph namespace, a last resort
+*    (`""` for the parent graph is skipped as empty)
 *
 * An invalid candidate is skipped (and warned when `ARCJET_LOG_LEVEL` asks
 * for warnings). If nothing valid remains, `correlationId` is omitted so the
@@ -71,12 +71,12 @@ function langgraphAgentContext(source, init) {
 			label: "thread_id"
 		},
 		{
-			value: checkpointNs,
-			label: "checkpoint_ns"
-		},
-		{
 			value: runId,
 			label: "run id"
+		},
+		{
+			value: checkpointNs,
+			label: "checkpoint_ns"
 		}
 	]);
 	if (rejected !== void 0 && correlationId === void 0 && shouldWarn()) console.warn(`@arcjet/guard: LangGraph ${rejected} rejected; no valid thread/checkpoint/run id, leaving the call uncorrelated`);

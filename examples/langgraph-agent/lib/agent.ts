@@ -35,8 +35,10 @@ const SYSTEM_PROMPT =
   "If a tool call is denied by security policy, do not retry it; explain " +
   "the denial to the user or try a different approach.";
 
-// Authored tool: wrap with guardTool. DENY is a tool result with
-// status: "error" — do not throw.
+// Authored tool: wrap with guardTool. DENY is a plain ArcjetDenialResult
+// with arcjetDenied: true — the helper does not throw. ToolNode wraps
+// that into a real ToolMessage whose status is "success" (the tool did
+// not throw). The denial is in the payload, not the envelope.
 const lookupOrderTool = tool(
   async ({ orderId, note }: { orderId: string; note?: string }) =>
     lookupOrderRecord(orderId, note),
@@ -60,7 +62,7 @@ const lookupOrder = guardTool(
   {
     action: "order.looked-up",
     // Fail closed: if Arcjet is unreachable the handler does not run and
-    // the model receives status: "error" with reason ERROR.
+    // the model receives an ArcjetDenialResult with reason ERROR.
     onGuardError: "deny",
     rules: (input) => {
       const orderId = readOrderId(input) ?? "unknown";
@@ -95,6 +97,9 @@ const notifyWarehouse = tool(
 
 const tools = [lookupOrder, notifyWarehouse];
 
+// guardToolNode guards tools in place and returns the same node. Do not
+// copy the node: ToolNode resolves tools through a constructor-captured
+// closure, so a copy would leave the original tools unguarded.
 const toolNode = guardToolNode(
   arcjet,
   new ToolNode(tools) as ToolNode & LangGraphToolNodeLike,
@@ -201,10 +206,10 @@ export interface AgentRunResult {
 }
 
 export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
-  // Preference order inside langgraphAgentContext: thread_id →
-  // checkpoint_ns → run id. Do not call createAgentContext — that would
-  // mint a second id and split the Sequence. If no valid id is present
-  // the call is uncorrelated.
+  // Preference order inside langgraphAgentContext: thread_id → run id →
+  // checkpoint_ns. Do not call createAgentContext — that would mint a
+  // second id and split the Sequence. If no valid id is present the call
+  // is uncorrelated.
   const config =
     input.threadId === undefined
       ? {}
@@ -311,13 +316,37 @@ function collectToolResults(messages: BaseMessage[]): unknown[] {
     if (message.getType() !== "tool") {
       continue;
     }
+    const payload = parseToolPayload(message.content);
     results.push({
       name: message.name,
+      // ToolNode.status is "success" when the tool did not throw. Do not
+      // treat the envelope as a denial — check arcjetDenied on the payload.
       status: "status" in message ? message.status : undefined,
-      content: message.content,
+      arcjetDenied: isArcjetDenial(payload),
+      content: payload,
     });
   }
   return results;
+}
+
+function parseToolPayload(content: unknown): unknown {
+  if (typeof content !== "string") {
+    return content;
+  }
+  try {
+    return JSON.parse(content);
+  } catch {
+    return content;
+  }
+}
+
+function isArcjetDenial(value: unknown): boolean {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "arcjetDenied" in value &&
+    value.arcjetDenied === true
+  );
 }
 
 function readInterrupts(result: unknown): unknown[] {

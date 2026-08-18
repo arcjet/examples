@@ -150,6 +150,7 @@
         </p>
         <p id="inbound-block" hidden></p>
         <p id="hitl-pause" hidden></p>
+        <p id="tool-denial" hidden></p>
         <h3>Tool results</h3>
         <pre id="tool-results"></pre>
       </section>
@@ -166,6 +167,7 @@
       const correlation = document.getElementById("correlation-id");
       const inboundBlock = document.getElementById("inbound-block");
       const hitlPause = document.getElementById("hitl-pause");
+      const toolDenial = document.getElementById("tool-denial");
       const toolResults = document.getElementById("tool-results");
       const error = document.getElementById("error");
 
@@ -186,6 +188,7 @@
         result.hidden = true;
         inboundBlock.hidden = true;
         hitlPause.hidden = true;
+        toolDenial.hidden = true;
 
         try {
           const response = await fetch("/api/agent", {
@@ -215,6 +218,17 @@
             hitlPause.textContent =
               "HITL interrupt() paused before tools, then resumed. " +
               "That pause is not a deny — Guard still ran in ToolNode.";
+          }
+          const denied = (data.toolResults ?? []).filter(
+            (item) => item && item.arcjetDenied === true,
+          );
+          if (denied.length > 0) {
+            toolDenial.hidden = false;
+            toolDenial.textContent =
+              "Guard denied " +
+              denied.length +
+              " tool call(s). ToolMessage.status is success because the " +
+              "tool did not throw; the denial is arcjetDenied on the payload.";
           }
           result.hidden = false;
         } catch (err) {
