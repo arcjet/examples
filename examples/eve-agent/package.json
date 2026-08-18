@@ -1,0 +1,38 @@
+{
+  "name": "@arcjet-examples/eve-agent",
+  "description": "An example Vercel Eve agent protected by Arcjet Guard AI guardrails.",
+  "license": "Apache-2.0",
+  "homepage": "https://arcjet.com",
+  "repository": "github:arcjet/example-eve-agent",
+  "bugs": {
+    "url": "https://github.com/arcjet/examples/issues",
+    "email": "support@arcjet.com"
+  },
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "eve build",
+    "dev": "eve dev",
+    "start": "eve start",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@arcjet/guard": "1.10.0-rc.0",
+    "@opentelemetry/api": "^1.9.1",
+    "ai": "^7",
+    "eve": "0.31.0",
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "@types/json-schema": "^7.0.15",
+    "@types/node": "24.10.9",
+    "typescript": "5.9.3"
+  }
+}

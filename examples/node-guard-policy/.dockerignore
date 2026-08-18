@@ -1,0 +1,5 @@
+*
+!index.ts
+!index.html
+!package*.json
+!tsconfig.json

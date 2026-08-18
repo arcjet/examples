@@ -51,7 +51,20 @@ if (!status.isClean()) {
 // TODO(#31): Add an improved loading mechanism for workspaces
 const workspaces = [
   ["@arcjet-examples/astro", path.join(BASE_PATH, "./examples/astro")],
+  ["@arcjet-examples/bun", path.join(BASE_PATH, "./examples/bun")],
+  [
+    "@arcjet-examples/claude-agent",
+    path.join(BASE_PATH, "./examples/claude-agent"),
+  ],
   ["@arcjet-examples/deno", path.join(BASE_PATH, "./examples/deno")],
+  [
+    "@arcjet-examples/eve-agent",
+    path.join(BASE_PATH, "./examples/eve-agent"),
+  ],
+  [
+    "@arcjet-examples/express-newman",
+    path.join(BASE_PATH, "./examples/express-newman"),
+  ],
   ["@arcjet-examples/expressjs", path.join(BASE_PATH, "./examples/expressjs")],
   ["@arcjet-examples/fastapi", path.join(BASE_PATH, "./examples/fastapi")],
   ["@arcjet-examples/fastify", path.join(BASE_PATH, "./examples/fastify")],
@@ -60,7 +73,23 @@ const workspaces = [
     path.join(BASE_PATH, "./examples/firebase-functions"),
   ],
   ["@arcjet-examples/flask", path.join(BASE_PATH, "./examples/flask")],
+  [
+    "@arcjet-examples/langgraph-agent",
+    path.join(BASE_PATH, "./examples/langgraph-agent"),
+  ],
+  [
+    "@arcjet-examples/mastra-agent",
+    path.join(BASE_PATH, "./examples/mastra-agent"),
+  ],
   ["@arcjet-examples/nestjs", path.join(BASE_PATH, "./examples/nestjs")],
+  [
+    "@arcjet-examples/nextjs-ai-agent",
+    path.join(BASE_PATH, "./examples/nextjs-ai-agent"),
+  ],
+  [
+    "@arcjet-examples/nextjs-bot-categories",
+    path.join(BASE_PATH, "./examples/nextjs-bot-categories"),
+  ],
   [
     "@arcjet-examples/nextjs-bot-protection",
     path.join(BASE_PATH, "./examples/nextjs-bot-protection"),
@@ -74,14 +103,30 @@ const workspaces = [
     path.join(BASE_PATH, "./examples/nextjs-form"),
   ],
   [
+    "@arcjet-examples/nextjs-guard-policy",
+    path.join(BASE_PATH, "./examples/nextjs-guard-policy"),
+  ],
+  [
+    "@arcjet-examples/nextjs-sensitive-info",
+    path.join(BASE_PATH, "./examples/nextjs-sensitive-info"),
+  ],
+  [
     "@arcjet-examples/nextjs-server-action",
     path.join(BASE_PATH, "./examples/nextjs-server-action"),
   ],
   ["@arcjet-examples/nextjs", path.join(BASE_PATH, "./examples/nextjs")],
+  [
+    "@arcjet-examples/node-guard-policy",
+    path.join(BASE_PATH, "./examples/node-guard-policy"),
+  ],
   ["@arcjet-examples/nuxt", path.join(BASE_PATH, "./examples/nuxt")],
   [
     "@arcjet-examples/react-router",
     path.join(BASE_PATH, "./examples/react-router"),
+  ],
+  [
+    "@arcjet-examples/react-router-middleware",
+    path.join(BASE_PATH, "./examples/react-router-middleware"),
   ],
   ["@arcjet-examples/sveltekit", path.join(BASE_PATH, "./examples/sveltekit")],
   [

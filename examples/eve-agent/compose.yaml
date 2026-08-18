@@ -1,0 +1,16 @@
+services:
+  eve-agent:
+    build: .
+    command: npm run dev
+    labels:
+      - dev.orbstack.domains=eve-agent.arcjet-examples.orb.local
+    env_file:
+      - .env.local
+    ports:
+      - 3000
+    volumes:
+      - .:/app
+      - eve_agent_node_modules:/app/node_modules
+
+volumes:
+  eve_agent_node_modules:

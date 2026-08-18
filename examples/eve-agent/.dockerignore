@@ -1,0 +1,4 @@
+*
+!agent
+!package*.json
+!tsconfig.json

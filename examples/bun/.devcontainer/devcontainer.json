@@ -1,0 +1,14 @@
+{
+  "name": "Arcjet example for Bun",
+  // Official Bun image — do not pipe bun.sh/install into bash.
+  "image": "oven/bun:1",
+  "features": {
+    "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": ["oven.bun-vscode", "trunk.io"]
+    }
+  }
+}

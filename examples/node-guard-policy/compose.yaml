@@ -1,0 +1,16 @@
+services:
+  node-guard-policy:
+    build: .
+    command: node --watch index.ts
+    env_file:
+      - .env.local
+    labels:
+      - dev.orbstack.domains=node-guard-policy.arcjet-examples.orb.local
+    ports:
+      - 3000
+    volumes:
+      - .:/app
+      - node-guard-policy_node_modules:/app/node_modules
+
+volumes:
+  node-guard-policy_node_modules:

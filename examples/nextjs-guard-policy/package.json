@@ -1,0 +1,45 @@
+{
+  "name": "@arcjet-examples/nextjs-guard-policy",
+  "description": "An example Next.js AI agent demonstrating a remotely-configured Arcjet Guard policy for tool calls.",
+  "license": "Apache-2.0",
+  "homepage": "https://arcjet.com",
+  "repository": "github:arcjet/example-nextjs-guard-policy",
+  "bugs": {
+    "url": "https://github.com/arcjet/examples/issues",
+    "email": "support@arcjet.com"
+  },
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ai-sdk/provider-utils": "5.0.12",
+    "@arcjet/guard": "1.10.0-rc.0",
+    "@arcjet/sensitive-info-rampart": "1.10.0-rc.0",
+    "ai": "7.0.36",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.0",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "postcss": ">=8.5.10"
+  }
+}

@@ -1,0 +1,5 @@
+*
+!index.js
+!package*.json
+!tests
+!tsconfig.json

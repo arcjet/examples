@@ -1,0 +1,16 @@
+services:
+  express-newman:
+    build: .
+    command: node --watch index.js
+    env_file:
+      - .env.local
+    labels:
+      - dev.orbstack.domains=express-newman.arcjet-examples.orb.local
+    ports:
+      - 8080
+    volumes:
+      - .:/app
+      - express-newman_node_modules:/app/node_modules
+
+volumes:
+  express-newman_node_modules:

@@ -1,0 +1,44 @@
+{
+  "name": "@arcjet-examples/nextjs-ai-agent",
+  "description": "An example Next.js AI agent application using Arcjet Guard for AI agent guardrails.",
+  "license": "Apache-2.0",
+  "homepage": "https://arcjet.com",
+  "repository": "github:arcjet/example-nextjs-ai-agent",
+  "bugs": {
+    "url": "https://github.com/arcjet/examples/issues",
+    "email": "support@arcjet.com"
+  },
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@arcjet/guard": "1.10.0-rc.0",
+    "ai": "7.0.57",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "workflow": "4.8.1",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.0",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "sharp": "^0.35.0"
+  }
+}
