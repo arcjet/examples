@@ -11,14 +11,22 @@ function isContextSource(value) {
 * The model-produced arguments. The runner invokes with
 * `toolCall.arguments` (a JSON string). Scan the parsed args, not
 * `details.toolCall.callId`.
+*
+* Every tool from `tool()` has an object parameter schema — `tool()` rejects
+* `parameters: undefined` at construction even though the type admits it — so
+* a parse failure means malformed model output, not a free-text tool whose
+* arguments were dropped. Rules see `{}` for it, and the original `invoke`
+* then raises the SDK's own invalid-input failure. Anything that is neither a
+* string nor an object cannot come from the runner at all, so it warns.
 */
-function toolArgs(input) {
+function toolArgs(input, action) {
 	if (typeof input === "string") try {
 		return JSON.parse(input);
 	} catch {
 		return {};
 	}
 	if (input !== null && typeof input === "object") return input;
+	if (shouldWarn()) console.warn("@arcjet/guard: guardTool() for \"%s\" was invoked with a %s input; expected the JSON string the runner passes, so no arguments were scanned.", action, input === null ? "null" : typeof input);
 	return {};
 }
 function resolveSessionId(policy, input) {
@@ -48,6 +56,13 @@ function resolveSessionId(policy, input) {
 * Correlation is read from `runContext.context` (and documented copies
 * on the envelope). No id is minted. `session.getSessionId()` is never
 * called.
+*
+* The runner treats whatever this returns as the tool's output, so two
+* per-tool options see a denial as they would any other result: a
+* `timeoutMs` race covers the guard round trip as well as `execute`, and
+* `outputGuardrails` / `customDataExtractor` receive the denial object.
+* Keep `timeoutMs` wide enough for a guard call, and do not assume your own
+* output shape in those callbacks.
 *
 * Hosted tools, MCP (`mcpToFunctionTool`), handoffs, `agent.asTool()`,
 * and computer / shell / apply_patch are not on this path. Do not also
@@ -106,7 +121,7 @@ function guardTool(client, tool, policy) {
 	return wrapped;
 }
 function runGuardedTool(client, tool, policy, runContext, input, execute) {
-	const args = toolArgs(input);
+	const args = toolArgs(input, policy.action);
 	let sessionId;
 	let rules;
 	let policyMetadata;

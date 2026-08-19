@@ -36,11 +36,10 @@ hosted tools, MCP, `agent.asTool()`, or computer / shell.
 > (`@arcjet/guard/openai-agents/v0`, which provides `guardTool` and
 > `openaiAgentsContext`), which is **not yet published to npm**.
 > `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
-> [`david/cursor/guard-openai-agents-v0-7c2a`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-openai-agents-v0-7c2a)
-> at SHA
-> [`891bc92eb9b028b1ae54370987dafe7140940ee1`](https://github.com/arcjet/arcjet-js/commit/891bc92eb9b028b1ae54370987dafe7140940ee1)
-> (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
+> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) `main` at SHA
+> [`0099fb76e9229fa0b5922f938f4f1ce2e1033ce1`](https://github.com/arcjet/arcjet-js/commit/0099fb76e9229fa0b5922f938f4f1ce2e1033ce1)
+> ([#6233](https://github.com/arcjet/arcjet-js/pull/6233); see
+> `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
 > git, so the built package is vendored. Do not invent a published version
 > number for this subpath. Repin to the stable release once
 > `@arcjet/guard/openai-agents/v0` ships.
@@ -54,9 +53,10 @@ There is no first-class inbound channel, so there is no `guardInbound`. Put
 gate.
 
 This example screens the user message in the server before `run()`. A DENY
-skips the agent. The same path fails closed: if the guard throws or
-`hasFailedOpen()`, the turn is blocked instead of sending untrusted text to
-the model.
+skips the agent. `guard()` itself fails open — an ALLOW is not proof the
+rules ran — so the inbound screen still fails closed: if the guard throws
+or `hasFailedOpen()`, the turn is blocked instead of sending untrusted
+text to the model.
 
 ## `needsApproval` is not a policy gate
 
@@ -82,7 +82,10 @@ The authored `lookup_order` tool is wrapped with `guardTool`. On DENY the
 wrapper returns `{ arcjetDenied: true, reason, message, retryable,
 retryAfterSeconds? }` and does **not** throw. The runner stringifies that
 onto a `function_call_result` with `status: "completed"`. Detect deny via
-`arcjetDenied` on the payload, not a status / error envelope.
+`arcjetDenied` on the payload, not a status / error envelope. A tool-level
+`timeoutMs` race covers the guard round trip as well as `execute`, so
+leave headroom for it. `outputGuardrails` / `customDataExtractor` receive
+the denial object and must not assume the tool's own shape.
 
 ## Features
 
