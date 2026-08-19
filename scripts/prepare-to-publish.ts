@@ -121,6 +121,10 @@ const workspaces = [
   ],
   ["@arcjet-examples/nuxt", path.join(BASE_PATH, "./examples/nuxt")],
   [
+    "@arcjet-examples/openai-agent",
+    path.join(BASE_PATH, "./examples/openai-agent"),
+  ],
+  [
     "@arcjet-examples/react-router",
     path.join(BASE_PATH, "./examples/react-router"),
   ],

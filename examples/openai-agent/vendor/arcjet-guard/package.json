@@ -1,0 +1,88 @@
+{
+  "name": "@arcjet/guard",
+  "version": "1.10.0",
+  "description": "Arcjet Guards SDK — AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored unpublished build from arcjet-js@891bc92eb9b028b1ae54370987dafe7140940ee1 (david/cursor/guard-openai-agents-v0-7c2a).",
+  "homepage": "https://arcjet.com",
+  "bugs": {
+    "url": "https://github.com/arcjet/arcjet-js/issues",
+    "email": "support@arcjet.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcjet/arcjet-js.git",
+    "directory": "arcjet-guard"
+  },
+  "files": ["dist/", "skills/"],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": {
+        "types": "./dist/bun.d.ts",
+        "import": "./dist/bun.js"
+      },
+      "edge-light": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "workerd": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "deno": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "node": {
+        "types": "./dist/node.d.ts",
+        "import": "./dist/node.js"
+      },
+      "default": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      }
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.js"
+    },
+    "./bun": {
+      "types": "./dist/bun.d.ts",
+      "import": "./dist/bun.js"
+    },
+    "./fetch": {
+      "types": "./dist/fetch.d.ts",
+      "import": "./dist/fetch.js"
+    },
+    "./openai-agents/v0": {
+      "types": "./dist/openai-agents/v0/index.d.ts",
+      "import": "./dist/openai-agents/v0/index.js"
+    }
+  },
+  "dependencies": {
+    "@arcjet/analyze": "1.10.0",
+    "@arcjet/logger": "1.10.0",
+    "@bufbuild/protobuf": "2.12.1",
+    "@connectrpc/connect": "2.1.2",
+    "@connectrpc/connect-node": "2.1.2",
+    "@connectrpc/connect-web": "2.1.2"
+  },
+  "peerDependencies": {
+    "@openai/agents": ">=0.17.0 <1"
+  },
+  "peerDependenciesMeta": {
+    "@openai/agents": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22.21.0 <23 || >=24.5.0"
+  }
+}

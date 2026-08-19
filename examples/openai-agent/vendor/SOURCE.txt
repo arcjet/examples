@@ -1,0 +1,3 @@
+Built from https://github.com/arcjet/arcjet-js/commit/891bc92eb9b028b1ae54370987dafe7140940ee1
+Branch: david/cursor/guard-openai-agents-v0-7c2a
+Package: @arcjet/guard (unpublished openai-agents/v0 adapter)

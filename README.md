@@ -69,6 +69,8 @@ frameworks.
   ([`./examples/nextjs-server-action`](./examples/nextjs-server-action))
 - [Node.js Guard policy example](https://github.com/arcjet/example-node-guard-policy)
   ([`./examples/node-guard-policy`](./examples/node-guard-policy))
+- [OpenAI agent example](https://github.com/arcjet/example-openai-agent)
+  ([`./examples/openai-agent`](./examples/openai-agent))
 - [React Router middleware example](https://github.com/arcjet/example-react-router-middleware)
   ([`./examples/react-router-middleware`](./examples/react-router-middleware))
 - [Vercel Eve agent example](https://github.com/arcjet/example-eve-agent)
