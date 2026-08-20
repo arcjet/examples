@@ -1,0 +1,3 @@
+Built from https://github.com/arcjet/arcjet-js/commit/f7619e4c1c2a4f48a3342b7f8ab74a928ceb7309
+Branch: david/cursor/guard-genkit-v1-8e4b
+Package: @arcjet/guard (unpublished genkit/v1 adapter; not on main; no PR number)

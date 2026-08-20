@@ -1,0 +1,89 @@
+{
+  "name": "@arcjet/guard",
+  "version": "1.10.0",
+  "description": "Arcjet Guards SDK — AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored unpublished build from arcjet-js@f7619e4c1c2a4f48a3342b7f8ab74a928ceb7309 (david/cursor/guard-genkit-v1-8e4b).",
+  "homepage": "https://arcjet.com",
+  "bugs": {
+    "url": "https://github.com/arcjet/arcjet-js/issues",
+    "email": "support@arcjet.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcjet/arcjet-js.git",
+    "directory": "arcjet-guard"
+  },
+  "files": ["dist/", "skills/"],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": {
+        "types": "./dist/bun.d.ts",
+        "import": "./dist/bun.js"
+      },
+      "edge-light": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "workerd": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "deno": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "node": {
+        "types": "./dist/node.d.ts",
+        "import": "./dist/node.js"
+      },
+      "default": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      }
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.js"
+    },
+    "./bun": {
+      "types": "./dist/bun.d.ts",
+      "import": "./dist/bun.js"
+    },
+    "./fetch": {
+      "types": "./dist/fetch.d.ts",
+      "import": "./dist/fetch.js"
+    },
+    "./genkit/v1": {
+      "types": "./dist/genkit/v1/index.d.ts",
+      "import": "./dist/genkit/v1/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@arcjet/analyze": "1.10.0",
+    "@arcjet/logger": "1.10.0",
+    "@bufbuild/protobuf": "2.12.1",
+    "@connectrpc/connect": "2.1.2",
+    "@connectrpc/connect-node": "2.1.2",
+    "@connectrpc/connect-web": "2.1.2"
+  },
+  "peerDependencies": {
+    "genkit": ">=1.0.0 <2"
+  },
+  "peerDependenciesMeta": {
+    "genkit": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22.21.0 <23 || >=24.5.0"
+  }
+}
