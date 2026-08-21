@@ -81,23 +81,9 @@
     <main>
       <h1>Arcjet Genkit agent example</h1>
       <p>
-        A Genkit JS <code>genkit()</code> + <code>ai.generate()</code> support
-        agent looks up orders. Arcjet screens inbound prompt injection
-        <strong>before</strong> <code>generate()</code>, rate-limits and scans
-        authored tool arguments with <code>guardTool</code>, and gates the
-        unwrapped <code>notify_warehouse</code> tool with
-        <code>guardMiddleware</code>'s <code>tool</code> hook. It fails closed
-        when the guard cannot be evaluated.
-      </p>
-      <p>
-        <code>interrupt()</code> / <code>defineInterrupt</code> /
-        <code>toolApproval</code> is a human-in-the-loop <em>pause</em>, not a
-        deny. Same trap as Mastra <code>requireApproval</code>, Claude
-        <code>canUseTool</code>, LangGraph <code>interrupt()</code>, and OpenAI
-        Agents <code>needsApproval</code>. There is no
-        <code>guardApproval</code>. A Guard denial is a completed
-        <code>toolResponse.output</code> with <code>arcjetDenied: true</code> —
-        confirm <code>finishReason !== "interrupted"</code>.
+        A Genkit support agent looks up orders and notifies the warehouse.
+        Arcjet screens inbound prompt injection, rate-limits and scans tool
+        arguments, and fails closed when the guard cannot be evaluated.
       </p>
 
       <form id="agent-form">
@@ -109,7 +95,7 @@
             type="button"
             data-prompt="Look up order 42 and add this note: card 4111111111111111"
           >
-            PII on note
+            PII on args
           </button>
           <button
             type="button"
@@ -152,12 +138,7 @@
           <strong>Correlation ID:</strong>
           <code id="correlation-id"></code>
         </p>
-        <p>
-          <strong>finishReason:</strong>
-          <code id="finish-reason"></code>
-        </p>
         <p id="inbound-block" hidden></p>
-        <p id="tool-denial" hidden></p>
         <h3>Tool results</h3>
         <pre id="tool-results"></pre>
       </section>
@@ -172,9 +153,7 @@
       const result = document.getElementById("result");
       const resultMessage = document.getElementById("result-message");
       const correlation = document.getElementById("correlation-id");
-      const finishReason = document.getElementById("finish-reason");
       const inboundBlock = document.getElementById("inbound-block");
-      const toolDenial = document.getElementById("tool-denial");
       const toolResults = document.getElementById("tool-results");
       const error = document.getElementById("error");
 
@@ -194,7 +173,6 @@
         error.hidden = true;
         result.hidden = true;
         inboundBlock.hidden = true;
-        toolDenial.hidden = true;
 
         try {
           const response = await fetch("/api/agent", {
@@ -212,26 +190,12 @@
 
           resultMessage.textContent = data.message || "(no model text)";
           correlation.textContent = data.correlationId || "(uncorrelated)";
-          finishReason.textContent = data.finishReason || "(none — inbound blocked)";
           toolResults.textContent = JSON.stringify(data.toolResults ?? [], null, 2);
           if (data.inboundBlocked) {
             inboundBlock.hidden = false;
             inboundBlock.textContent =
               "Inbound screen before generate(): " +
               (data.inboundBlocked.reason || "blocked");
-          }
-          const denied = (data.toolResults ?? []).filter(
-            (item) => item && item.arcjetDenied === true,
-          );
-          if (denied.length > 0) {
-            toolDenial.hidden = false;
-            toolDenial.textContent =
-              "Guard denied " +
-              denied.length +
-              " tool call(s). finishReason is " +
-              (data.finishReason || "unset") +
-              " (not interrupted). The denial is arcjetDenied on " +
-              "toolResponse.output.";
           }
           result.hidden = false;
         } catch (err) {

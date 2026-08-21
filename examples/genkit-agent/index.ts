@@ -6,8 +6,7 @@ import { runAgent } from "./lib/agent.ts";
 
 const requestSchema = z.object({
   message: z.string().min(1).max(2000),
-  // Caller-owned ids only. Copied onto generate({ context: { sessionId } }).
-  // genkitContext reads them; it never mints one.
+  // Caller-owned ids only. genkitContext reads them; it never mints one.
   conversationId: z.string().min(1).max(256).optional(),
 });
 
@@ -63,11 +62,8 @@ const server = createServer(async (request, response) => {
       throw new Error("AI_GATEWAY_API_KEY is required");
     }
 
-    // The page may generate a conversation id in the browser. The server
-    // only copies that value onto generate({ context: { sessionId } }).
-    // Never randomUUID() per request here. Never call createAgentContext.
-    // Never read Session.sessionId from a Session constructed without
-    // an id — that class mints a UUID.
+    // The page may generate a conversation id. The server only copies it
+    // onto generate({ context: { sessionId } }). Never randomUUID() here.
     const sessionId = asPrintableId(input.conversationId);
     const ctx = genkitContext(
       sessionId === undefined ? undefined : { context: { sessionId } },
@@ -81,7 +77,6 @@ const server = createServer(async (request, response) => {
     sendJson(response, 200, {
       message: generated.message,
       inboundBlocked: generated.inboundBlocked,
-      finishReason: generated.finishReason,
       toolResults: generated.toolResults,
       correlationId: ctx.correlationId ?? generated.correlationId,
     });

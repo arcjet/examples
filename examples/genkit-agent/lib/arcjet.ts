@@ -26,14 +26,11 @@ export const lookupLimit = tokenBucket({
   maxTokens: 10,
 });
 
-// The unwrapped notify_warehouse tool is gated only by guardMiddleware.
-// Ask for more tokens than the bucket holds so the first notify is
-// denied — that is the generate()-wide deny point in one click.
 export const warehouseLimit = tokenBucket({
   bucket: "warehouse-notices",
-  refillRate: 1,
+  refillRate: 3,
   intervalSeconds: 60,
-  maxTokens: 1,
+  maxTokens: 5,
 });
 
 // Factory then text — same shape as `detectPromptInjection()(text)`.
