@@ -1,4 +1,4 @@
-Built from https://github.com/arcjet/arcjet-js/commit/8005e9a17d63bf051bdda88b7f307b940b7b15ca
-Branch: david/cursor/guard-langchain-v1-f9b3
+Built from https://github.com/arcjet/arcjet-js/commit/c49abcc1f9afce7d284b6c294d0dcee5916ada86
+Branch: main
 PR: https://github.com/arcjet/arcjet-js/pull/6248
-Package: @arcjet/guard (unpublished langchain/v1 adapter)
+Package: @arcjet/guard (langchain/v1 adapter)

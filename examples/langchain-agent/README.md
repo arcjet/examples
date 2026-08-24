@@ -39,11 +39,10 @@ use the Python docs slug `/guards/langchain/` — this is
 > (`@arcjet/guard/langchain/v1`, which provides `guardTool`, `guardMiddleware`,
 > and `langchainContext`), which is **not yet published to npm**.
 > `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
-> [`david/cursor/guard-langchain-v1-f9b3`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-langchain-v1-f9b3)
-> at SHA
-> [`8005e9a17d63bf051bdda88b7f307b940b7b15ca`](https://github.com/arcjet/arcjet-js/commit/8005e9a17d63bf051bdda88b7f307b940b7b15ca)
-> (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
+> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) `main` at SHA
+> [`c49abcc1f9afce7d284b6c294d0dcee5916ada86`](https://github.com/arcjet/arcjet-js/commit/c49abcc1f9afce7d284b6c294d0dcee5916ada86)
+> ([#6248](https://github.com/arcjet/arcjet-js/pull/6248); see
+> `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
 > git, so the built package is vendored. Do not invent a published version
 > number for this subpath. Repin to the stable release once
 > `@arcjet/guard/langchain/v1` ships. Peers: `langchain` `>=1.2.0 <2` and
