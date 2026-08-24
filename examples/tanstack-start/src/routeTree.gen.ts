@@ -10,39 +10,19 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SignupIndexRouteImport } from './routes/signup/index'
-import { Route as SensitiveInfoIndexRouteImport } from './routes/sensitive-info/index'
-import { Route as RateLimitingIndexRouteImport } from './routes/rate-limiting/index'
-import { Route as BotsIndexRouteImport } from './routes/bots/index'
 import { Route as AttackIndexRouteImport } from './routes/attack/index'
-import { Route as SignupSubmittedRouteImport } from './routes/signup/submitted'
-import { Route as SensitiveInfoSubmittedRouteImport } from './routes/sensitive-info/submitted'
-import { Route as BotsTestRouteImport } from './routes/bots/test'
 import { Route as AttackTestRouteImport } from './routes/attack/test'
+import { Route as BotsIndexRouteImport } from './routes/bots/index'
+import { Route as BotsTestRouteImport } from './routes/bots/test'
+import { Route as RateLimitingIndexRouteImport } from './routes/rate-limiting/index'
+import { Route as SensitiveInfoIndexRouteImport } from './routes/sensitive-info/index'
+import { Route as SensitiveInfoSubmittedRouteImport } from './routes/sensitive-info/submitted'
+import { Route as SignupIndexRouteImport } from './routes/signup/index'
+import { Route as SignupSubmittedRouteImport } from './routes/signup/submitted'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignupIndexRoute = SignupIndexRouteImport.update({
-  id: '/signup/',
-  path: '/signup/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SensitiveInfoIndexRoute = SensitiveInfoIndexRouteImport.update({
-  id: '/sensitive-info/',
-  path: '/sensitive-info/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RateLimitingIndexRoute = RateLimitingIndexRouteImport.update({
-  id: '/rate-limiting/',
-  path: '/rate-limiting/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BotsIndexRoute = BotsIndexRouteImport.update({
-  id: '/bots/',
-  path: '/bots/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AttackIndexRoute = AttackIndexRouteImport.update({
@@ -50,14 +30,14 @@ const AttackIndexRoute = AttackIndexRouteImport.update({
   path: '/attack/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignupSubmittedRoute = SignupSubmittedRouteImport.update({
-  id: '/signup/submitted',
-  path: '/signup/submitted',
+const AttackTestRoute = AttackTestRouteImport.update({
+  id: '/attack/test',
+  path: '/attack/test',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SensitiveInfoSubmittedRoute = SensitiveInfoSubmittedRouteImport.update({
-  id: '/sensitive-info/submitted',
-  path: '/sensitive-info/submitted',
+const BotsIndexRoute = BotsIndexRouteImport.update({
+  id: '/bots/',
+  path: '/bots/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BotsTestRoute = BotsTestRouteImport.update({
@@ -65,9 +45,29 @@ const BotsTestRoute = BotsTestRouteImport.update({
   path: '/bots/test',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AttackTestRoute = AttackTestRouteImport.update({
-  id: '/attack/test',
-  path: '/attack/test',
+const RateLimitingIndexRoute = RateLimitingIndexRouteImport.update({
+  id: '/rate-limiting/',
+  path: '/rate-limiting/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SensitiveInfoIndexRoute = SensitiveInfoIndexRouteImport.update({
+  id: '/sensitive-info/',
+  path: '/sensitive-info/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SensitiveInfoSubmittedRoute = SensitiveInfoSubmittedRouteImport.update({
+  id: '/sensitive-info/submitted',
+  path: '/sensitive-info/submitted',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupIndexRoute = SignupIndexRouteImport.update({
+  id: '/signup/',
+  path: '/signup/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupSubmittedRoute = SignupSubmittedRouteImport.update({
+  id: '/signup/submitted',
+  path: '/signup/submitted',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -169,25 +169,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signup/': {
-      id: '/signup/'
-      path: '/signup'
-      fullPath: '/signup/'
-      preLoaderRoute: typeof SignupIndexRouteImport
+    '/attack/': {
+      id: '/attack/'
+      path: '/attack'
+      fullPath: '/attack/'
+      preLoaderRoute: typeof AttackIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sensitive-info/': {
-      id: '/sensitive-info/'
-      path: '/sensitive-info'
-      fullPath: '/sensitive-info/'
-      preLoaderRoute: typeof SensitiveInfoIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rate-limiting/': {
-      id: '/rate-limiting/'
-      path: '/rate-limiting'
-      fullPath: '/rate-limiting/'
-      preLoaderRoute: typeof RateLimitingIndexRouteImport
+    '/attack/test': {
+      id: '/attack/test'
+      path: '/attack/test'
+      fullPath: '/attack/test'
+      preLoaderRoute: typeof AttackTestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bots/': {
@@ -197,18 +190,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BotsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/attack/': {
-      id: '/attack/'
-      path: '/attack'
-      fullPath: '/attack/'
-      preLoaderRoute: typeof AttackIndexRouteImport
+    '/bots/test': {
+      id: '/bots/test'
+      path: '/bots/test'
+      fullPath: '/bots/test'
+      preLoaderRoute: typeof BotsTestRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signup/submitted': {
-      id: '/signup/submitted'
-      path: '/signup/submitted'
-      fullPath: '/signup/submitted'
-      preLoaderRoute: typeof SignupSubmittedRouteImport
+    '/rate-limiting/': {
+      id: '/rate-limiting/'
+      path: '/rate-limiting'
+      fullPath: '/rate-limiting/'
+      preLoaderRoute: typeof RateLimitingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sensitive-info/': {
+      id: '/sensitive-info/'
+      path: '/sensitive-info'
+      fullPath: '/sensitive-info/'
+      preLoaderRoute: typeof SensitiveInfoIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sensitive-info/submitted': {
@@ -218,18 +218,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SensitiveInfoSubmittedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bots/test': {
-      id: '/bots/test'
-      path: '/bots/test'
-      fullPath: '/bots/test'
-      preLoaderRoute: typeof BotsTestRouteImport
+    '/signup/': {
+      id: '/signup/'
+      path: '/signup'
+      fullPath: '/signup/'
+      preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/attack/test': {
-      id: '/attack/test'
-      path: '/attack/test'
-      fullPath: '/attack/test'
-      preLoaderRoute: typeof AttackTestRouteImport
+    '/signup/submitted': {
+      id: '/signup/submitted'
+      path: '/signup/submitted'
+      fullPath: '/signup/submitted'
+      preLoaderRoute: typeof SignupSubmittedRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
