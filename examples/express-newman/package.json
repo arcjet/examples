@@ -25,13 +25,13 @@
     "test": "node --test --env-file .env.local"
   },
   "dependencies": {
-    "@arcjet/node": "1.8.0",
+    "@arcjet/node": "1.10.0",
     "express": "5.2.1"
   },
   "devDependencies": {
     "@types/express": "5.0.6",
     "@types/newman": "5.3.6",
-    "@types/node": "22.20.0",
+    "@types/node": "22.20.1",
     "newman": "6.2.2",
     "typescript": "5.9.3"
   },
@@ -42,6 +42,18 @@
     "qs": "^6.14.1",
     "flatted": ">=3.4.2",
     "handlebars": ">=4.7.9",
-    "underscore": ">=1.13.8"
+    "underscore": ">=1.13.8",
+    "postman-collection": {
+      "uuid": "11.1.1"
+    },
+    "postman-request": {
+      "uuid": "11.1.1"
+    },
+    "postman-runtime": {
+      "uuid": "11.1.1"
+    },
+    "serialised-error": {
+      "uuid": "11.1.1"
+    }
   }
 }

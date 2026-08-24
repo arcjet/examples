@@ -1,16 +1,16 @@
 {
   "dependencies": {
     "@arcjet/next": "1.10.0",
-    "@fontsource-variable/figtree": "5.2.10",
-    "@fontsource/ibm-plex-mono": "5.2.7",
-    "next": "16.3.0",
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "@fontsource-variable/figtree": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@types/node": "22.20.1",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "typescript": "5.9.3"
   },
   "description": "An example Next.js form + server action protected by Arcjet bot detection, rate limiting, and Shield WAF.",
