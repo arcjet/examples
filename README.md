@@ -47,6 +47,8 @@ frameworks.
   ([`./examples/express-newman`](./examples/express-newman))
 - [Firebase functions example](https://github.com/arcjet/example-firebase-functions)
   ([`./examples/firebase-functions`](./examples/firebase-functions))
+- [LangChain agent example](https://github.com/arcjet/example-langchain-agent)
+  ([`./examples/langchain-agent`](./examples/langchain-agent))
 - [LangGraph agent example](https://github.com/arcjet/example-langgraph-agent)
   ([`./examples/langgraph-agent`](./examples/langgraph-agent))
 - [Mastra agent example](https://github.com/arcjet/example-mastra-agent)
