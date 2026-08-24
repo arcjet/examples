@@ -1481,14 +1481,19 @@ importing only core guards are not forced to install unneeded packages:
   `@arcjet/guard/claude-agent-sdk/v0`). The peer range is `>=0.1.0 <1`.
 - **`@arcjet/guard/langgraph/v1`** requires `@langchain/langgraph` and
   `@langchain/core` (optional peers, installed only to use
-  `@arcjet/guard/langgraph/v1`). The peer range is `>=1 <2` for
-  `@langchain/langgraph` and `>=1.2.0 <2` for `@langchain/core`.
+  `@arcjet/guard/langgraph/v1`). The peer range is `>=1 <2` for both
+  `@langchain/langgraph` and `@langchain/core`.
 - **`@arcjet/guard/langchain/v1`** requires `langchain` and
   `@langchain/core` (optional peers, installed only to use
   `@arcjet/guard/langchain/v1`). The peer range is `>=1.2.0 <2` for
-  both. `wrapToolCall` only sees `runtime.configurable.thread_id` as of
-  langchain 1.2.34. This namespace does not add `@langchain/langgraph`
-  as a new peer.
+  `langchain` and `>=1 <2` for `@langchain/core`. `wrapToolCall` only
+  sees `runtime.configurable.thread_id` as of langchain 1.2.34, which is
+  why `langchain` carries the higher floor. `@langchain/core` keeps the
+  range `langgraph/v1` already shipped: tightening the shared peer would
+  constrain langgraph-only consumers for no reason, since
+  `@langchain/langgraph` itself asks only for core `^1.1.48`, and anyone
+  installing `langchain` is already held to its own `^1.2.9` peer on
+  core. This namespace does not add `@langchain/langgraph` as a new peer.
 - **`@arcjet/guard/openai-agents/v0`** requires `@openai/agents` (optional
   peer, installed only to use `@arcjet/guard/openai-agents/v0`). The peer
   range is `>=0.17.0 <1`. Zod is their peer, not ours.
@@ -1584,6 +1589,7 @@ with its own ADR; there is still no public `@arcjet/guard/agents`.
 | Mastra `guardProcessor` / `guardHooks`  | Deny (fail closed)                          | `onGuardError: "allow"`            |
 | Claude `guardTool` / `guardHooks`       | Deny (fail closed)                          | `onGuardError: "allow"`            |
 | LangGraph `guardTool` / `guardToolNode` | Deny (fail closed)                          | `onGuardError: "allow"`            |
+| LangChain `guardTool` / `guardMiddleware` | Deny (fail closed)                        | `onGuardError: "allow"`            |
 | OpenAI Agents `guardTool`               | Deny (fail closed)                          | `onGuardError: "allow"`            |
 | Genkit `guardTool` / `guardMiddleware`  | Deny (fail closed)                          | `onGuardError: "allow"`            |
 
@@ -1856,6 +1862,7 @@ that a tool did not run:
 | AI SDK / Mastra  | Return `{ arcjetDenied: true, … }` as the tool result                                               | A throw becomes a generic tool error and drops the fields                                    |
 | OpenAI Agents    | Return `{ arcjetDenied: true, … }` from `invoke`                                                    | A throw hits `errorFunction` or `ToolCallError` and can kill the run                         |
 | LangGraph        | Return `{ arcjetDenied: true, … }`; `ToolNode` wraps it as a `ToolMessage` with `status: "success"` | Faking a `ToolMessage` to force `status: "error"` crashes the graph reducer                  |
+| LangChain        | Two envelopes: `guardTool` returns `{ arcjetDenied: true, … }` and `baseHandler` wraps it as a success `ToolMessage`; `guardMiddleware`'s `wrapToolCall` returns a real `ToolMessage` carrying the payload as `content` | `wrapToolCall`'s return skips `baseHandler`, so a bare object crashes the messages reducer, and a throw bubbles out of `invoke` and drops the fields |
 | Claude Agent SDK | MCP `CallToolResult` with `isError: true` and the payload on `structuredContent`                    | A throw is a raw exception; omitting `isError` looks like success                            |
 | Vercel Eve       | Throw `ArcjetDeniedError`. Opt in to a returned payload with `onDeny: "result"`                     | Eve projects a throw as a failed `action.result`. A silent return can violate `outputSchema` |
 

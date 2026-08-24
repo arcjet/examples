@@ -28,12 +28,29 @@ function firstValidId(candidates) {
 function firstString(values) {
 	for (const value of values) if (typeof value === "string" && value.length > 0) return value;
 }
-function readConfigurable(source) {
-	if (source === void 0) return;
-	if (source.configurable !== null && typeof source.configurable === "object") return source.configurable;
-	if (source.runtime?.configurable !== null && typeof source.runtime?.configurable === "object") return source.runtime.configurable;
-	if (source.config?.configurable !== null && typeof source.config?.configurable === "object") return source.config.configurable;
-	if (source.thread_id !== void 0) return { thread_id: source.thread_id };
+/**
+* Every place a thread id may live, in preference order.
+*
+* A list rather than the first match: a caller threading a
+* partially-built config can carry an empty `configurable` alongside the
+* real id on `config.configurable`, and returning the empty one would
+* leave the decision uncorrelated. A candidate that carries no
+* `thread_id` at all is not an answer, so the search continues. One that
+* carries an invalid id still is, so it is reported rather than skipped.
+*/
+function readConfigurables(source) {
+	if (source === void 0) return [];
+	const candidates = [];
+	for (const value of [
+		source.configurable,
+		source.runtime?.configurable,
+		source.config?.configurable
+	]) if (value !== null && typeof value === "object") candidates.push(value);
+	if (source.thread_id !== void 0) candidates.push({ thread_id: source.thread_id });
+	return candidates;
+}
+function readThreadId(candidates) {
+	for (const candidate of candidates) if (candidate["thread_id"] !== void 0) return candidate["thread_id"];
 }
 function readAppContext(source) {
 	if (source === void 0) return;
@@ -71,9 +88,8 @@ function readAppContext(source) {
 */
 function langchainContext(source, init) {
 	const envelope = asContextSource(source);
-	const configurable = readConfigurable(envelope);
 	const app = readAppContext(envelope);
-	const threadId = configurable?.["thread_id"];
+	const threadId = readThreadId(readConfigurables(envelope));
 	const fromApp = {
 		correlationId: app?.correlationId,
 		sessionId: app?.sessionId,

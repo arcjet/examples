@@ -1,4 +1,3 @@
-import { langchainContext } from "@arcjet/guard/langchain/v1";
 import { readFile } from "node:fs/promises";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { z } from "zod";
@@ -6,13 +5,11 @@ import { runAgent } from "./lib/agent.ts";
 
 const requestSchema = z.object({
   message: z.string().min(1).max(2000),
-  // Caller-owned ids only. Copied onto configurable.thread_id.
-  // langchainContext reads them; it never mints one.
+  // Caller-owned id only. Copied onto configurable.thread_id. Never minted.
   conversationId: z.string().min(1).max(256).optional(),
 });
 
 const page = await readFile(new URL("./index.html", import.meta.url), "utf8");
-
 const MAX_JSON_BODY_BYTES = 32 * 1024;
 
 async function readJson(request: IncomingMessage): Promise<unknown> {
@@ -38,7 +35,6 @@ function asPrintableId(value: string | undefined): string | undefined {
   if (value === undefined) {
     return undefined;
   }
-  // Same 1–256 printable-ASCII window langchainContext accepts.
   if (value.length < 1 || value.length > 256 || /[^\x20-\x7E]/.test(value)) {
     return undefined;
   }
@@ -63,24 +59,16 @@ const server = createServer(async (request, response) => {
       throw new Error("AI_GATEWAY_API_KEY is required");
     }
 
-    // The page may generate a conversation id in the browser. The server
-    // only copies that value onto configurable.thread_id. Never
-    // randomUUID() per request here. Never call createAgentContext.
-    const threadId = asPrintableId(input.conversationId);
-    const ctx = langchainContext(
-      threadId === undefined ? undefined : { configurable: { thread_id: threadId } },
-    );
-
     const generated = await runAgent({
       prompt: input.message,
-      threadId,
+      threadId: asPrintableId(input.conversationId),
     });
 
     sendJson(response, 200, {
       message: generated.message,
       inboundBlocked: generated.inboundBlocked,
       toolResults: generated.toolResults,
-      correlationId: ctx.correlationId ?? generated.correlationId,
+      correlationId: generated.correlationId,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";

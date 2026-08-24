@@ -28,11 +28,25 @@ async function loadToolMessage() {
 	toolMessageCtor = ctor;
 	return toolMessageCtor;
 }
+/**
+* `createAgent` always supplies a string id, so this is a degenerate
+* input rather than a live path. There is also no id to correlate to
+* when it is missing, and neither escape hatch is available: throwing
+* bubbles out of `invoke` and drops `arcjetDenied`, and returning a
+* bare object crashes the messages reducer. So the denial is still
+* emitted — the tool must not run — and the anomaly is warned about
+* instead of being passed off as a correlated message.
+*/
+function denialToolCallId(toolCall) {
+	if (typeof toolCall.id === "string" && toolCall.id.length > 0) return toolCall.id;
+	if (shouldWarn()) console.warn("@arcjet/guard: LangChain tool call \"%s\" carried no tool_call_id; denying with a blank id, which the model cannot pair with its request.", toolCall.name);
+	return "";
+}
 async function denialToolMessage(request, payload) {
 	const ToolMessage = await loadToolMessage();
 	const fields = {
 		content: JSON.stringify(payload),
-		tool_call_id: typeof request.toolCall.id === "string" ? request.toolCall.id : ""
+		tool_call_id: denialToolCallId(request.toolCall)
 	};
 	if (request.toolCall.name.length > 0) fields.name = request.toolCall.name;
 	return new ToolMessage(fields);
@@ -149,7 +163,8 @@ function guardMiddleware(client, policy = {}) {
 			if (policy.onGuardError === "allow") return handler(request);
 			return denialToolMessage(request, unavailableResult());
 		}
-		const agentCtx = langchainContext(isContextSource(request.runtime) ? request.runtime : void 0, sessionId === void 0 ? void 0 : { sessionId });
+		const source = isContextSource(request.runtime) ? request.runtime : void 0;
+		const agentCtx = langchainContext(source, sessionId === void 0 ? void 0 : { sessionId });
 		const mergedMetadata = {
 			...agentCtx.metadata,
 			...toolName.length > 0 && { "langchain.tool": toolName },

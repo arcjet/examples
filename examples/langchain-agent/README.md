@@ -42,12 +42,12 @@ use the Python docs slug `/guards/langchain/` — this is
 > [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
 > [`david/cursor/guard-langchain-v1-f9b3`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-langchain-v1-f9b3)
 > at SHA
-> [`ce4051a6fd70ac92d56d91713726a5796a32cd65`](https://github.com/arcjet/arcjet-js/commit/ce4051a6fd70ac92d56d91713726a5796a32cd65)
+> [`8005e9a17d63bf051bdda88b7f307b940b7b15ca`](https://github.com/arcjet/arcjet-js/commit/8005e9a17d63bf051bdda88b7f307b940b7b15ca)
 > (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
 > git, so the built package is vendored. Do not invent a published version
 > number for this subpath. Repin to the stable release once
-> `@arcjet/guard/langchain/v1` ships. Peers are `langchain` and
-> `@langchain/core` `>=1.2.0 <2`.
+> `@arcjet/guard/langchain/v1` ships. Peers: `langchain` `>=1.2.0 <2` and
+> `@langchain/core` `>=1 <2`.
 
 ## Screen inbound before `agent.invoke`
 

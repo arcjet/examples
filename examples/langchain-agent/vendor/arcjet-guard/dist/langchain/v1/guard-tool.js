@@ -136,7 +136,8 @@ function runGuardedTool(client, tool, policy, input, config, execute) {
 		if (policy.onGuardError === "allow") return execute();
 		return Promise.resolve(unavailableResult());
 	}
-	const agentCtx = langchainContext(isContextSource(config) ? config : void 0, sessionId === void 0 ? void 0 : { sessionId });
+	const source = isContextSource(config) ? config : void 0;
+	const agentCtx = langchainContext(source, sessionId === void 0 ? void 0 : { sessionId });
 	const mergedMetadata = {
 		...agentCtx.metadata,
 		...typeof tool.name === "string" && tool.name.length > 0 && { "langchain.tool": tool.name },

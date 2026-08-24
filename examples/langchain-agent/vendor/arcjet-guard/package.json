@@ -1,7 +1,7 @@
 {
   "name": "@arcjet/guard",
   "version": "1.10.0",
-  "description": "Arcjet Guards SDK — AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored unpublished build from arcjet-js@ce4051a6fd70ac92d56d91713726a5796a32cd65 (david/cursor/guard-langchain-v1-f9b3).",
+  "description": "Arcjet Guards SDK — AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored unpublished build from arcjet-js@8005e9a17d63bf051bdda88b7f307b940b7b15ca (david/cursor/guard-langchain-v1-f9b3, arcjet/arcjet-js#6248).",
   "homepage": "https://arcjet.com",
   "bugs": {
     "url": "https://github.com/arcjet/arcjet-js/issues",
@@ -69,13 +69,13 @@
   "dependencies": {
     "@arcjet/analyze": "1.10.0",
     "@arcjet/logger": "1.10.0",
-    "@bufbuild/protobuf": "2.12.1",
+    "@bufbuild/protobuf": "2.14.0",
     "@connectrpc/connect": "2.1.2",
     "@connectrpc/connect-node": "2.1.2",
     "@connectrpc/connect-web": "2.1.2"
   },
   "peerDependencies": {
-    "@langchain/core": ">=1.2.0 <2",
+    "@langchain/core": ">=1 <2",
     "langchain": ">=1.2.0 <2"
   },
   "peerDependenciesMeta": {

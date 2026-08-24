@@ -11,8 +11,8 @@ import { GetGuardPolicyRequestSchema, GuardConclusion, GuardLocalPolicyResultSch
 * @internal Exported for use by `client.ts`; not part of the public API.
 */
 const policyCapabilities = ["guard-policy-v1", "local-sensitive-info-v1"];
-const policyRefreshIntervalMs = 300 * 1e3;
-const policyUnavailableRetryIntervalMs = 5 * 1e3;
+const policyRefreshIntervalMs = 3e5;
+const policyUnavailableRetryIntervalMs = 5e3;
 const policyUnavailableJitterRatio = .2;
 /**
 * Fetches and caches SDK-local Guard policy projections, evaluates LOCAL inputs
@@ -90,7 +90,8 @@ var RemotePolicyRuntime = class {
 				}));
 				continue;
 			}
-			const body = (await ruleToProto(localDetectSensitiveInfo(sensitiveInfoConfig(rule.entityFilter, this.#sensitiveInfoBackend))(local.value), signal)).rule?.rule;
+			const config = sensitiveInfoConfig(rule.entityFilter, this.#sensitiveInfoBackend);
+			const body = (await ruleToProto(localDetectSensitiveInfo(config)(local.value), signal)).rule?.rule;
 			if (body?.case !== "localSensitiveInfo") continue;
 			const localResult = body.value.localResult;
 			const result = create(GuardLocalPolicyResultSchema, {
@@ -249,7 +250,6 @@ function serverInput(name, input) {
 				case: "stringListValue",
 				value: create(GuardStringListSchema, { values: value })
 			};
-			break;
 	}
 	return create(GuardPolicyInputSchema, { representation: {
 		case: "server",

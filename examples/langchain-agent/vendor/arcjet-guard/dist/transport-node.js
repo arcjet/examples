@@ -39,10 +39,11 @@ function createTransport(baseUrl) {
 		keepAlive: true,
 		proxyEnv: isHttps ? { HTTPS_PROXY: proxyUrl } : { HTTP_PROXY: proxyUrl }
 	};
+	const agent = isHttps ? new https.Agent(options) : new http.Agent(options);
 	return createConnectTransport({
 		baseUrl,
 		httpVersion: "1.1",
-		nodeOptions: { agent: isHttps ? new https.Agent(options) : new http.Agent(options) }
+		nodeOptions: { agent }
 	});
 }
 //#endregion

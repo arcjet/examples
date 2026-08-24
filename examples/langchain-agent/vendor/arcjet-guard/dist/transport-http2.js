@@ -15,10 +15,10 @@ import { Http2SessionManager, createConnectTransport } from "@connectrpc/connect
 */
 function createHttp2Transport(baseUrl) {
 	const sessionManager = new Http2SessionManager(baseUrl, {
-		pingIntervalMs: 55 * 1e3,
-		pingTimeoutMs: 5 * 1e3,
+		pingIntervalMs: 55e3,
+		pingTimeoutMs: 5e3,
 		pingIdleConnection: true,
-		idleConnectionTimeoutMs: 340 * 1e3
+		idleConnectionTimeoutMs: 34e4
 	});
 	sessionManager.connect().catch(() => {});
 	return {

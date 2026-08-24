@@ -21,7 +21,7 @@ const MAX_REPORTED_KEYS = 10;
 * keys plus JSON-encoded values before compression, so the estimate is
 * conservative.
 */
-const MAX_METADATA_BYTES = 768 * 1024;
+const MAX_METADATA_BYTES = 786432;
 /**
 * Whether `value` is a plain object usable as metadata.
 *
