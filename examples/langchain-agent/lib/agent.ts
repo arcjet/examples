@@ -2,8 +2,9 @@ import {
   guardMiddleware,
   guardTool,
   langchainContext,
+  type LangChainAgentContext,
 } from "@arcjet/guard/langchain/v1";
-import { type BaseMessage } from "@langchain/core/messages";
+import type { BaseMessage } from "@langchain/core/messages";
 import { tool } from "@langchain/core/tools";
 import { ChatOpenAI } from "@langchain/openai";
 import { createAgent } from "langchain";
@@ -16,8 +17,12 @@ import {
   warehouseLimit,
 } from "./arcjet.ts";
 
-const LOOKUP_ORDER = "lookup_order";
+// Referenced by the middleware policy below, so it is a constant rather
+// than a repeated literal.
 const NOTIFY_WAREHOUSE = "notify_warehouse";
+
+const GUARD_UNAVAILABLE =
+  "Arcjet security check could not be completed; please retry later.";
 
 // guardTool DENY is a plain ArcjetDenialResult. It does not throw and does
 // not fabricate a ToolMessage. createAgent's baseHandler wraps that object
@@ -35,7 +40,7 @@ const lookupOrder = guardTool(
       ...(note ? { note } : {}),
     }),
     {
-      name: LOOKUP_ORDER,
+      name: "lookup_order",
       description:
         "Look up an order by ID. Include a note when the user supplies one.",
       schema: z.object({
@@ -70,22 +75,18 @@ const notifyWarehouse = tool(
   },
 );
 
-const tools = [lookupOrder, notifyWarehouse];
-
-// humanInTheLoopMiddleware / interrupt() is HITL, not a policy gate.
-// Do not deny in afterModel. wrapToolCall is the deny point for unwrapped tools.
-
-type AgentModel = NonNullable<Parameters<typeof createAgent>[0]["model"]>;
-
-function createSupportAgent(model: AgentModel) {
+function createSupportAgent() {
   return createAgent({
-    model,
-    tools,
+    model: chatModel(),
+    tools: [lookupOrder, notifyWarehouse],
     systemPrompt:
       "You are a support agent. Use lookup_order for order questions and " +
       "notify_warehouse when the user asks to notify the warehouse. " +
       "If a tool call is denied by security policy, do not retry it; explain " +
       "the denial to the user or try a different approach.",
+    // Policy sits on wrapToolCall only. humanInTheLoopMiddleware /
+    // interrupt() is HITL, not a policy gate, so it is absent here and
+    // nothing denies in afterModel.
     middleware: [
       // wrapToolCall DENY returns a real ToolMessage without calling handler.
       // Already-branded guardTool tools are skipped so Guard is not double-called.
@@ -96,7 +97,7 @@ function createSupportAgent(model: AgentModel) {
           if (toolName !== NOTIFY_WAREHOUSE) {
             return [];
           }
-          const orderId = readStringField(input, "orderId") ?? toolName;
+          const orderId = readOrderId(input) ?? toolName;
           return [warehouseLimit({ key: `order:${orderId}`, requested: 1 })];
         },
       }),
@@ -120,11 +121,11 @@ function chatModel() {
   });
 }
 
-let defaultAgent: ReturnType<typeof createSupportAgent> | undefined;
+let agent: ReturnType<typeof createSupportAgent> | undefined;
 
 function getAgent() {
-  defaultAgent ??= createSupportAgent(chatModel());
-  return defaultAgent;
+  agent ??= createSupportAgent();
+  return agent;
 }
 
 export interface AgentRunInput {
@@ -145,11 +146,13 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
     input.threadId === undefined
       ? {}
       : { configurable: { thread_id: input.threadId } };
+  // Derived once and reused: langchainContext reads configurable.thread_id
+  // and never mints an id, so a second call would be redundant work.
   const ctx = langchainContext(config);
 
   // No guardInbound. Screen before agent.invoke. wrapModelCall /
   // beforeModel / afterModel are not this gate. Fail closed.
-  const inbound = await screenInbound(input.prompt, config);
+  const inbound = await screenInbound(input.prompt, ctx);
   if (inbound !== undefined) {
     return {
       message: inbound.message,
@@ -173,30 +176,28 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
 
 async function screenInbound(
   text: string,
-  config: { configurable?: { thread_id?: string } },
+  ctx: LangChainAgentContext,
 ): Promise<{ reason: string; message: string } | undefined> {
   try {
     const decision = await arcjet.guard({
       label: "message.received",
       rules: [detectInjection(text)],
-      ...langchainContext(config),
+      ...ctx,
     });
-    if (decision.conclusion === "DENY" || decision.hasFailedOpen()) {
+    if (decision.conclusion === "DENY") {
       return {
-        reason: decision.conclusion === "DENY" ? decision.reason : "ERROR",
-        message:
-          decision.conclusion === "DENY"
-            ? `Arcjet denied this call (${decision.reason}). Do not retry; explain the denial to the user or try a different approach.`
-            : "Arcjet security check could not be completed; please retry later.",
+        reason: decision.reason,
+        message: `Arcjet denied this call (${decision.reason}). Do not retry; explain the denial to the user or try a different approach.`,
       };
+    }
+    // An ALLOW the guard could not actually evaluate. Fail closed rather
+    // than sending untrusted text to the model.
+    if (decision.hasFailedOpen()) {
+      return { reason: "ERROR", message: GUARD_UNAVAILABLE };
     }
     return undefined;
   } catch {
-    return {
-      reason: "ERROR",
-      message:
-        "Arcjet security check could not be completed; please retry later.",
-    };
+    return { reason: "ERROR", message: GUARD_UNAVAILABLE };
   }
 }
 
@@ -248,10 +249,10 @@ function isArcjetDenial(value: unknown): boolean {
   );
 }
 
-function readStringField(input: unknown, key: string): string | undefined {
-  if (typeof input !== "object" || input === null || !(key in input)) {
+function readOrderId(input: unknown): string | undefined {
+  if (typeof input !== "object" || input === null || !("orderId" in input)) {
     return undefined;
   }
-  const value = (input as Record<string, unknown>)[key];
-  return typeof value === "string" && value.length > 0 ? value : undefined;
+  const { orderId } = input as { orderId: unknown };
+  return typeof orderId === "string" && orderId.length > 0 ? orderId : undefined;
 }
