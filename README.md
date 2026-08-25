@@ -71,6 +71,8 @@ frameworks.
   ([`./examples/node-guard-policy`](./examples/node-guard-policy))
 - [React Router middleware example](https://github.com/arcjet/example-react-router-middleware)
   ([`./examples/react-router-middleware`](./examples/react-router-middleware))
+- [Strands agent example](https://github.com/arcjet/example-strands-agent)
+  ([`./examples/strands-agent`](./examples/strands-agent))
 - [Vercel Eve agent example](https://github.com/arcjet/example-eve-agent)
   ([`./examples/eve-agent`](./examples/eve-agent))
 

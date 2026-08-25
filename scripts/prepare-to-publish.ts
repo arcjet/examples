@@ -128,6 +128,10 @@ const workspaces = [
     "@arcjet-examples/react-router-middleware",
     path.join(BASE_PATH, "./examples/react-router-middleware"),
   ],
+  [
+    "@arcjet-examples/strands-agent",
+    path.join(BASE_PATH, "./examples/strands-agent"),
+  ],
   ["@arcjet-examples/sveltekit", path.join(BASE_PATH, "./examples/sveltekit")],
   [
     "@arcjet-examples/tanstack-start",

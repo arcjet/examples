@@ -1,0 +1,149 @@
+/**
+ * `@arcjet/guard/bun` — Bun entrypoint.
+ *
+ * Bun resolves the `"."` export here. Uses HTTP/2 via `node:http2`
+ * (`@connectrpc/connect-node`) for optimal performance with long-lived
+ * connections and optimistic pre-connect — Bun's `fetch` does not support
+ * HTTP/2 ({@link https://github.com/oven-sh/bun/issues/7194}). When a proxy is
+ * configured, it falls back to the fetch transport so Bun's native `fetch`
+ * performs the proxying.
+ *
+ * **Lifecycle:** Create the client once at module scope and reuse it.
+ * The underlying HTTP/2 transport maintains a persistent connection;
+ * creating a new client per request wastes that connection.
+ *
+ * @example
+ * ```ts
+ * import { launchArcjet, tokenBucket, detectPromptInjection } from "@arcjet/guard";
+ *
+ * // Create the client once at module scope
+ * const arcjet = launchArcjet({ key: "ajkey_..." });
+ *
+ * // Configure reusable rules (also at module scope)
+ * const limitRule = tokenBucket({ bucket: "user-tokens", refillRate: 10, intervalSeconds: 60, maxTokens: 100 });
+ * const piRule = detectPromptInjection();
+ *
+ * // Per request — create rule inputs each time
+ * const rl = limitRule({ key: userId, requested: tokenCount });
+ * const decision = await arcjet.guard({
+ *   label: "tools.weather",
+ *   rules: [rl, piRule(userMessage)],
+ * });
+ *
+ * // Overall decision
+ * if (decision.conclusion === "DENY") {
+ *   console.log(decision.reason); // "RATE_LIMIT", "PROMPT_INJECTION", etc.
+ * }
+ *
+ * // Check for errors (fail-open — errors don't cause denials)
+ * if (decision.hasError()) {
+ *   console.warn("At least one rule errored");
+ * }
+ *
+ * // Per-rule results
+ * for (const result of decision.results) {
+ *   console.log(result.type, result.conclusion);
+ * }
+ *
+ * // From a RuleWithInput — result for this specific submission
+ * const r = rl.result(decision);
+ * if (r) {
+ *   console.log(r.remainingTokens, r.maxTokens);
+ * }
+ *
+ * // From a RuleWithConfig — first denied result across all submissions
+ * const denied = limitRule.deniedResult(decision);
+ * if (denied) {
+ *   console.log(denied.remainingTokens); // 0
+ * }
+ * ```
+ *
+ * Unlike some other `@arcjet/*` packages, `@arcjet/guard` never reads
+ * environment variables directly. All configuration must be passed
+ * explicitly via `launchArcjet()` options, `.guard()`, or rule inputs.
+ *
+ * @packageDocumentation
+ */
+export { 
+// Rule factories
+tokenBucket, fixedWindow, slidingWindow, detectPromptInjection, moderateContent, localDetectSensitiveInfo, defineCustomRule, policyInput, 
+// Transport-agnostic factory
+launchArcjetWithTransport, 
+// Optional registration, and the free calls it enables
+registerArcjet, unregisterArcjet, guard, capture, flush, 
+// Internal
+_launchWithTransportFactory, } from "./index.js";
+// oxlint-disable-next-line typescript/no-deprecated -- public deprecated alias
+export { experimental_moderateContent } from "./index.js";
+import { _launchWithTransportFactory } from "./index.js";
+import { createTransport } from "./transport-bun.js";
+/**
+ * Create an Arcjet guard client using the Bun transport.
+ *
+ * Connects over HTTP/2 by default, falling back to a fetch-based transport when
+ * a proxy is configured so Bun's native `fetch` performs the proxying.
+ *
+ * Connect to the Arcjet MCP server at `https://api.arcjet.com/mcp` to manage
+ * sites, retrieve SDK keys, and more. Learn more at
+ * {@link https://docs.arcjet.com/mcp-server}.
+ *
+ * **Create once, reuse everywhere.** The returned client holds a
+ * persistent HTTP/2 connection that is optimistically pre-connected.
+ * Wrapping this in a function that creates a new client per request
+ * defeats connection reuse and adds latency.
+ *
+ * Three lifetimes to keep in mind:
+ * 1. **Client** (`launchArcjet`) — create once at module scope.
+ * 2. **Rule config** (`tokenBucket(...)`) — create once at module scope (recommended).
+ * 3. **Rule input** (`limitRule({ key })`) — create per request / tool call.
+ *
+ * @example
+ * ```ts
+ * import { launchArcjet, tokenBucket, detectPromptInjection } from "@arcjet/guard";
+ *
+ * // Create the client once at module scope
+ * const arcjet = launchArcjet({ key: "ajkey_..." });
+ *
+ * // Configure reusable rules (also at module scope)
+ * const limitRule = tokenBucket({ bucket: "user-tokens", refillRate: 10, intervalSeconds: 60, maxTokens: 100 });
+ * const piRule = detectPromptInjection();
+ *
+ * // Per request — create rule inputs each time
+ * const rl = limitRule({ key: userId, requested: tokenCount });
+ * const decision = await arcjet.guard({
+ *   label: "tools.weather",
+ *   rules: [rl, piRule(userMessage)],
+ * });
+ *
+ * // Overall decision
+ * if (decision.conclusion === "DENY") {
+ *   console.log(decision.reason); // "RATE_LIMIT", "PROMPT_INJECTION", etc.
+ * }
+ *
+ * // Check for errors (fail-open — errors don't cause denials)
+ * if (decision.hasError()) {
+ *   console.warn("At least one rule errored");
+ * }
+ *
+ * // Per-rule results
+ * for (const result of decision.results) {
+ *   console.log(result.type, result.conclusion);
+ * }
+ *
+ * // From a RuleWithInput — result for this specific submission
+ * const r = rl.result(decision);
+ * if (r) {
+ *   console.log(r.remainingTokens, r.maxTokens);
+ * }
+ *
+ * // From a RuleWithConfig — first denied result across all submissions
+ * const denied = limitRule.deniedResult(decision);
+ * if (denied) {
+ *   console.log(denied.remainingTokens); // 0
+ * }
+ * ```
+ */
+export function launchArcjet(options) {
+    return _launchWithTransportFactory(createTransport, options);
+}
+export { createTransport } from "./transport-bun.js";
