@@ -1,4 +1,6 @@
-import type { ArcjetMetadata } from "../types.ts";
+import { ArcjetMetadata } from "../metadata.js";
+import "../types.js";
+//#region src/agents/context.d.ts
 /**
  * Name what is wrong with a caller-supplied correlation ID, or `undefined` if
  * it is valid.
@@ -9,7 +11,7 @@ import type { ArcjetMetadata } from "../types.ts";
  * @internal Exported for use by the vendor namespaces, so every one of them
  * rejects the same correlation ids; not part of the public API.
  */
-export declare function correlationIdProblem(value: unknown): string | undefined;
+declare function correlationIdProblem(value: unknown): string | undefined;
 /**
  * Security context threaded through guard evaluations.
  *
@@ -22,17 +24,17 @@ export declare function correlationIdProblem(value: unknown): string | undefined
  * Generated automatically as a ULID if not provided; validation ensures
  * caller-supplied IDs fit within 1–256 printable ASCII characters.
  */
-export interface ArcjetAgentContext {
-    /**
-     * Correlation ID for tracing this request across services.
-     * Generated as a ULID if not supplied; validates to 1–256 printable ASCII
-     * characters when supplied by the caller.
-     */
-    correlationId: string;
-    /**
-     * Optional metadata fields (security dimensions, audit context, etc.).
-     */
-    metadata?: ArcjetMetadata;
+interface ArcjetAgentContext {
+  /**
+   * Correlation ID for tracing this request across services.
+   * Generated as a ULID if not supplied; validates to 1–256 printable ASCII
+   * characters when supplied by the caller.
+   */
+  correlationId: string;
+  /**
+   * Optional metadata fields (security dimensions, audit context, etc.).
+   */
+  metadata?: ArcjetMetadata;
 }
 /**
  * Create an ArcjetAgentContext with a correlation ID and optional metadata.
@@ -69,7 +71,9 @@ export interface ArcjetAgentContext {
  * @returns A new ArcjetAgentContext with validated correlation ID and metadata
  * @throws {Error} If a supplied correlationId is invalid (too long, non-ASCII, empty)
  */
-export declare function createAgentContext(init?: {
-    correlationId?: string;
-    metadata?: ArcjetMetadata;
+declare function createAgentContext(init?: {
+  correlationId?: string;
+  metadata?: ArcjetMetadata;
 }): ArcjetAgentContext;
+//#endregion
+export { ArcjetAgentContext, correlationIdProblem, createAgentContext };

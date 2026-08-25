@@ -1,14 +1,5 @@
-/**
- * The global slot a registered client lives in, and the checks guarding it.
- *
- * Split out from `registry.ts` so the test-only registration path can reach
- * these primitives without `registry.ts` — which is in every production import
- * graph — having to export anything only tests use.
- *
- * @packageDocumentation
- * @internal
- */
-import type { ArcjetGuard } from "./index.ts";
+import { ArcjetGuard } from "./index.js";
+//#region src/registration-slot.d.ts
 /**
  * What actually goes in the global slot.
  *
@@ -17,9 +8,9 @@ import type { ArcjetGuard } from "./index.ts";
  *
  * @internal
  */
-export type Registration = {
-    version: string;
-    client: ArcjetGuard;
+type Registration = {
+  version: string;
+  client: ArcjetGuard;
 };
 /**
  * Whether a registration was written by this exact build of the SDK.
@@ -40,7 +31,7 @@ export type Registration = {
  *
  * @internal
  */
-export declare function isCurrentVersion(registration: Registration): boolean;
+declare function isCurrentVersion(registration: Registration): boolean;
 /**
  * Read and validate whatever is in the global slot.
  *
@@ -57,21 +48,21 @@ export declare function isCurrentVersion(registration: Registration): boolean;
  *
  * @internal
  */
-export declare function readRegistration(): Registration | undefined;
+declare function readRegistration(): Registration | undefined;
 /**
  * The registered client, if this build wrote it.
  *
  * @internal
  */
-export declare function registeredClient(): ArcjetGuard | undefined;
+declare function registeredClient(): ArcjetGuard | undefined;
 /**
  * Stamp a client with this build's version and put it in the slot.
  *
  * @internal
  */
-export declare function writeRegistration(client: ArcjetGuard): void;
+declare function writeRegistration(client: ArcjetGuard): void;
 /** Empty the slot. @internal */
-export declare function clearRegistration(): void;
+declare function clearRegistration(): void;
 /**
  * Whether the slot holds anything at all, valid or not.
  *
@@ -81,7 +72,7 @@ export declare function clearRegistration(): void;
  *
  * @internal
  */
-export declare function hasRegistration(): boolean;
+declare function hasRegistration(): boolean;
 /**
  * Whether a value can actually serve the free calls.
  *
@@ -91,4 +82,6 @@ export declare function hasRegistration(): boolean;
  *
  * @internal
  */
-export declare function isClient(value: unknown): value is ArcjetGuard;
+declare function isClient(value: unknown): value is ArcjetGuard;
+//#endregion
+export { Registration, clearRegistration, hasRegistration, isClient, isCurrentVersion, readRegistration, registeredClient, writeRegistration };

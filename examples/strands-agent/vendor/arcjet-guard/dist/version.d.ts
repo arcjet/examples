@@ -1,5 +1,6 @@
+//#region src/version.d.ts
 /** SDK version. Updated by the release process. */
-export declare const VERSION = "1.10.0";
+declare const VERSION = "1.10.0";
 /**
  * Build a user-agent string with SDK version, runtime key, and navigator info.
  *
@@ -18,4 +19,6 @@ export declare const VERSION = "1.10.0";
  * @see https://runtime-keys.proposal.wintercg.org/
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
  */
-export declare function userAgent(): string;
+declare function userAgent(): string;
+//#endregion
+export { VERSION, userAgent };

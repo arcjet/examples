@@ -37,11 +37,10 @@ This is the JS SDK, not the Python SDK. Docs slug:
 > (`@arcjet/guard/strands-agents/v1`, which provides `guardTool`, `guardHooks`,
 > and `strandsAgentContext`), which is **not yet published to npm**.
 > `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
-> [`david/cursor/guard-strands-agents-v1-hooks-cancel`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-strands-agents-v1-hooks-cancel)
-> at SHA
-> [`23d5a85d1207ab999e1bb883cc1dca1ddb78a858`](https://github.com/arcjet/arcjet-js/commit/23d5a85d1207ab999e1bb883cc1dca1ddb78a858)
-> (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
+> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) `main` at SHA
+> [`f3a07ee675cbdd812a36dcb778ee4325d2f89617`](https://github.com/arcjet/arcjet-js/commit/f3a07ee675cbdd812a36dcb778ee4325d2f89617)
+> ([#6251](https://github.com/arcjet/arcjet-js/pull/6251); see
+> `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
 > git, so the built package is vendored. Do not invent a published version
 > number for this subpath. Repin to the stable release once
 > `@arcjet/guard/strands-agents/v1` ships. Peer: `@strands-agents/sdk`

@@ -1,3 +1,4 @@
+//#region src/detect-proxy.d.ts
 /**
  * Outbound proxy detection shared by the `@arcjet/guard` transports.
  *
@@ -9,7 +10,7 @@
  * @packageDocumentation
  */
 /** Map of environment variables used to detect an outbound proxy. */
-export type ProxyEnvironment = Record<string, string | undefined>;
+type ProxyEnvironment = Record<string, string | undefined>;
 /**
  * Detect the proxy that applies to a URL and log a line when one is found.
  *
@@ -26,4 +27,6 @@ export type ProxyEnvironment = Record<string, string | undefined>;
  *   runtime's environment when available).
  * @returns Proxy URL that applies to `url`, or `undefined` when none does.
  */
-export declare function detectProxy(url: URL, proxyEnv?: ProxyEnvironment | undefined): string | undefined;
+declare function detectProxy(url: URL, proxyEnv?: ProxyEnvironment | undefined): string | undefined;
+//#endregion
+export { ProxyEnvironment, detectProxy };

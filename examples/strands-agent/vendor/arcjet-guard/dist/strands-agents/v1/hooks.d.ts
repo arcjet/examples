@@ -1,14 +1,16 @@
-import type { Plugin } from "@strands-agents/sdk";
-import type { ArcjetAgentClient } from "../../agents/capture.ts";
-import type { OnGuardError } from "../../agents/guard-action.ts";
-import type { ArcjetMetadata, DecisionDeny, RuleWithInput } from "../../types.ts";
+import { ArcjetMetadata } from "../../metadata.js";
+import { DecisionDeny, RuleWithInput } from "../../types.js";
+import { ArcjetAgentClient } from "../../agents/capture.js";
+import { OnGuardError } from "../../agents/guard-action.js";
+import { Plugin } from "@strands-agents/sdk";
+//#region src/strands-agents/v1/hooks.d.ts
 /**
  * Input passed to `rules` / `metadata` / `action` callbacks on `guardHooks`.
  * `input` is the tool's free-text args, not the opaque `toolUseId`.
  */
-export interface GuardHooksCall {
-    toolName: string;
-    input: unknown;
+interface GuardHooksCall {
+  toolName: string;
+  input: unknown;
 }
 /**
  * Policy for `guardHooks()` — a Plugin whose `initAgent` registers
@@ -35,77 +37,77 @@ export interface GuardHooksCall {
  * aborts the invocation and drops the envelope, so this helper never
  * throws.
  */
-export interface GuardHooksPolicy {
-    /**
-     * Guard label and capture action. Defaults to `"tool.invoked"`. May be a
-     * function of the tool name and input.
-     */
-    action?: string | ((call: GuardHooksCall) => string);
-    /**
-     * Rules to evaluate before an unwrapped tool runs. Omitting this still
-     * performs the guard call.
-     */
-    rules?: RuleWithInput[] | ((call: GuardHooksCall) => RuleWithInput[]);
-    /** Metadata merged over the derived Strands context. */
-    metadata?: ArcjetMetadata | ((call: GuardHooksCall) => ArcjetMetadata);
-    /**
-     * Fallback session id when `invocationState` does not carry one.
-     * Prefer putting the id you already chose on
-     * `agent.invoke(..., { invocationState: { sessionId } })`. Never mint
-     * a new id here.
-     */
-    sessionId?: string | ((call: GuardHooksCall) => string | undefined);
-    /** How to respond when guard evaluation is unavailable. Default `"deny"`. */
-    onGuardError?: OnGuardError;
-    /**
-     * Reshape the denial payload JSON-stringified onto `event.cancel` for
-     * a real DENY decision. Unavailable guards take the `onUnavailable`
-     * path instead.
-     */
-    onDeny?: (decision: DecisionDeny) => unknown;
+interface GuardHooksPolicy {
+  /**
+   * Guard label and capture action. Defaults to `"tool.invoked"`. May be a
+   * function of the tool name and input.
+   */
+  action?: string | ((call: GuardHooksCall) => string);
+  /**
+   * Rules to evaluate before an unwrapped tool runs. Omitting this still
+   * performs the guard call.
+   */
+  rules?: RuleWithInput[] | ((call: GuardHooksCall) => RuleWithInput[]);
+  /** Metadata merged over the derived Strands context. */
+  metadata?: ArcjetMetadata | ((call: GuardHooksCall) => ArcjetMetadata);
+  /**
+   * Fallback session id when `invocationState` does not carry one.
+   * Prefer putting the id you already chose on
+   * `agent.invoke(..., { invocationState: { sessionId } })`. Never mint
+   * a new id here.
+   */
+  sessionId?: string | ((call: GuardHooksCall) => string | undefined);
+  /** How to respond when guard evaluation is unavailable. Default `"deny"`. */
+  onGuardError?: OnGuardError;
+  /**
+   * Reshape the denial payload JSON-stringified onto `event.cancel` for
+   * a real DENY decision. Unavailable guards take the `onUnavailable`
+   * path instead.
+   */
+  onDeny?: (decision: DecisionDeny) => unknown;
 }
 /**
  * Structural `BeforeToolCallEvent` this helper mutates. Declared here
  * so tests can drive the handler without constructing the SDK class.
  */
-export interface StrandsBeforeToolCallEvent {
-    toolUse?: {
-        name?: unknown;
-        input?: unknown;
-        toolUseId?: unknown;
-    };
-    tool?: object;
-    invocationState?: unknown;
-    cancel?: boolean | string;
-    interrupt?: (...args: never[]) => unknown;
+interface StrandsBeforeToolCallEvent {
+  toolUse?: {
+    name?: unknown;
+    input?: unknown;
+    toolUseId?: unknown;
+  };
+  tool?: object;
+  invocationState?: unknown;
+  cancel?: boolean | string;
+  interrupt?: (...args: never[]) => unknown;
 }
 /**
  * Structural `AfterToolCallEvent` this helper reads for capture.
  */
-export interface StrandsAfterToolCallEvent {
-    toolUse?: {
-        name?: unknown;
-        input?: unknown;
-    };
-    error?: unknown;
-    invocationState?: unknown;
+interface StrandsAfterToolCallEvent {
+  toolUse?: {
+    name?: unknown;
+    input?: unknown;
+  };
+  error?: unknown;
+  invocationState?: unknown;
 }
 /**
  * The Plugin this helper returns. Matches the SDK `Plugin` interface
  * (`name` + `initAgent`) via `import type` only.
  */
-export type StrandsGuardPlugin = Plugin;
+type StrandsGuardPlugin = Plugin;
 /**
  * The `BeforeToolCallEvent` handler. Exported for src tests so the
  * deny / allow / brand-skip path can run without loading the peer
  * (the Plugin's `initAgent` is the only place that value-imports).
  */
-export declare function createBeforeToolCallHandler(client: ArcjetAgentClient, policy?: GuardHooksPolicy): (event: StrandsBeforeToolCallEvent) => Promise<void>;
+declare function createBeforeToolCallHandler(client: ArcjetAgentClient, policy?: GuardHooksPolicy): (event: StrandsBeforeToolCallEvent) => Promise<void>;
 /**
  * The `AfterToolCallEvent` handler. Capture only; never sets cancel
  * and never throws.
  */
-export declare function createAfterToolCallHandler(client: ArcjetAgentClient, policy?: GuardHooksPolicy): (event: StrandsAfterToolCallEvent) => void;
+declare function createAfterToolCallHandler(client: ArcjetAgentClient, policy?: GuardHooksPolicy): (event: StrandsAfterToolCallEvent) => void;
 /**
  * A Plugin registered on `new Agent({ plugins })`.
  *
@@ -147,4 +149,6 @@ export declare function createAfterToolCallHandler(client: ArcjetAgentClient, po
  * });
  * ```
  */
-export declare function guardHooks(client: ArcjetAgentClient, policy?: GuardHooksPolicy): StrandsGuardPlugin;
+declare function guardHooks(client: ArcjetAgentClient, policy?: GuardHooksPolicy): StrandsGuardPlugin;
+//#endregion
+export { GuardHooksCall, GuardHooksPolicy, StrandsAfterToolCallEvent, StrandsBeforeToolCallEvent, StrandsGuardPlugin, createAfterToolCallHandler, createBeforeToolCallHandler, guardHooks };

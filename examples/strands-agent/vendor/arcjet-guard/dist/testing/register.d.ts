@@ -1,13 +1,5 @@
-/**
- * The test-only registration path.
- *
- * Lives under `testing/` rather than in `registry.ts` so nothing only tests use
- * sits in a module every production import graph pulls in.
- *
- * @packageDocumentation
- * @internal
- */
-import type { ArcjetGuard } from "../index.ts";
+import { ArcjetGuard } from "../index.js";
+//#region src/testing/register.d.ts
 /**
  * Register a client, refusing to displace or share with an incumbent.
  *
@@ -24,4 +16,6 @@ import type { ArcjetGuard } from "../index.ts";
  *
  * @internal
  */
-export declare function registerArcjetForTesting(client: ArcjetGuard): void;
+declare function registerArcjetForTesting(client: ArcjetGuard): void;
+//#endregion
+export { registerArcjetForTesting };

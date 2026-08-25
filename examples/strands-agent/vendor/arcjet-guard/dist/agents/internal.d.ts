@@ -1,3 +1,4 @@
+//#region src/agents/internal.d.ts
 /**
  * Brand stamped on tools wrapped by `guardTool()` so context helpers can
  * recognize them. Registry-scoped so duplicate copies of this package
@@ -7,4 +8,6 @@
  * API. The symbol itself is observable on a wrapped tool, but the binding is
  * not a supported import.
  */
-export declare const arcjetProtectedTool: symbol;
+declare const arcjetProtectedTool: symbol;
+//#endregion
+export { arcjetProtectedTool };

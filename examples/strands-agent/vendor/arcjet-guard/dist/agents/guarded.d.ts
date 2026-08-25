@@ -1,6 +1,8 @@
-import type { PolicyInputMap } from "../policy-input.ts";
-import type { ArcjetMetadata, DecisionAllow, DecisionDeny, RuleWithInput } from "../types.ts";
-import type { ArcjetAgentClient } from "./capture.ts";
+import { ArcjetMetadata } from "../metadata.js";
+import { PolicyInputMap } from "../policy-input.js";
+import { DecisionAllow, DecisionDeny, RuleWithInput } from "../types.js";
+import { ArcjetAgentClient } from "./capture.js";
+//#region src/agents/guarded.d.ts
 /**
  * The guard → deny → execute → capture sequence shared by `guardTool()` and
  * `guardAction()`. Callers resolve `rules`, `metadata`, and `correlationId`
@@ -21,25 +23,27 @@ import type { ArcjetAgentClient } from "./capture.ts";
  * envelope; `guardAction` throws `ArcjetDeniedError`. Those are different
  * handlers — they must not be the same function.
  */
-export declare function runGuarded<T>(client: ArcjetAgentClient, params: {
-    action: string;
-    rules: RuleWithInput[] | undefined;
-    correlationId: string | undefined;
-    metadata: ArcjetMetadata;
+declare function runGuarded<T>(client: ArcjetAgentClient, params: {
+  action: string;
+  rules: RuleWithInput[] | undefined;
+  correlationId: string | undefined;
+  metadata: ArcjetMetadata;
+  actor?: string;
+  inputs?: PolicyInputMap;
+  resolvePolicy?: () => Promise<{
     actor?: string;
     inputs?: PolicyInputMap;
-    resolvePolicy?: () => Promise<{
-        actor?: string;
-        inputs?: PolicyInputMap;
-    }>;
-    onDeny: (decision: DecisionDeny) => T;
-    onUnavailable: (unavailable: {
-        kind: "threw";
-        error: unknown;
-    } | {
-        kind: "failed-open";
-        decision: DecisionAllow;
-    }) => T;
-    execute: () => Promise<T>;
-    onGuardError?: "allow" | "deny";
+  }>;
+  onDeny: (decision: DecisionDeny) => T;
+  onUnavailable: (unavailable: {
+    kind: "threw";
+    error: unknown;
+  } | {
+    kind: "failed-open";
+    decision: DecisionAllow;
+  }) => T;
+  execute: () => Promise<T>;
+  onGuardError?: "allow" | "deny";
 }): Promise<T>;
+//#endregion
+export { runGuarded };

@@ -1,4 +1,5 @@
-import type { CaptureOptions, Decision, GuardOptions } from "../types.ts";
+import { CaptureOptions, Decision, GuardOptions } from "../types.js";
+//#region src/agents/capture.d.ts
 /**
  * The guard client surface the agent helpers need, typed structurally.
  *
@@ -8,9 +9,9 @@ import type { CaptureOptions, Decision, GuardOptions } from "../types.ts";
  * rather than importing the client type keeps a caller free to substitute their
  * own object.
  */
-export interface ArcjetAgentClient {
-    guard(opts: GuardOptions): Promise<Decision>;
-    capture(opts: CaptureOptions): void;
+interface ArcjetAgentClient {
+  guard(opts: GuardOptions): Promise<Decision>;
+  capture(opts: CaptureOptions): void;
 }
 /**
  * True when `ARCJET_LOG_LEVEL` asks for warnings (guard's convention:
@@ -19,7 +20,7 @@ export interface ArcjetAgentClient {
  * @internal Exported for use by the vendor namespaces, so every one of them
  * honours the same log level; not part of the public API.
  */
-export declare function shouldWarn(): boolean;
+declare function shouldWarn(): boolean;
 /**
  * Fire-and-forget capture. Never throws.
  *
@@ -30,4 +31,6 @@ export declare function shouldWarn(): boolean;
  * @internal Exported for use by the vendor namespaces; not part of the public
  * API.
  */
-export declare function captureEvent(client: ArcjetAgentClient, opts: CaptureOptions): void;
+declare function captureEvent(client: ArcjetAgentClient, opts: CaptureOptions): void;
+//#endregion
+export { ArcjetAgentClient, captureEvent, shouldWarn };

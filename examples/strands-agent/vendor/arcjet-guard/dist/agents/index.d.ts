@@ -1,25 +1,7 @@
-/**
- * @packageDocumentation
- *
- * Framework-agnostic guard helpers: context, metadata vocabulary, and
- * guard/capture functions that never reach an AI SDK.
- *
- * @internal This barrel has no export map entry. Every symbol below reaches
- * users re-exported from a vendor namespace — `@arcjet/guard/vercel-ai/v7`,
- * `@arcjet/guard/vercel-eve/v0`, `@arcjet/guard/mastra/v1`,
- * `@arcjet/guard/claude-agent-sdk/v0`, `@arcjet/guard/langchain/v1`,
- * `@arcjet/guard/langgraph/v1`, `@arcjet/guard/openai-agents/v0`,
- * `@arcjet/guard/genkit/v1`, and `@arcjet/guard/strands-agents/v1`. The
- * layer stays agnostic so multiple
- * vendor namespaces can share the same code. A public `@arcjet/guard/agents`
- * path is still a follow-up with its own ADR.
- */
-export { createAgentContext } from "./context.ts";
-export type { ArcjetAgentContext } from "./context.ts";
-export { securityMetadata } from "./vocabulary.ts";
-export type { SecurityMetadataFields } from "./vocabulary.ts";
-export { ArcjetDeniedError, ArcjetGuardUnavailableError, captureAction, guardAction, } from "./guard-action.ts";
-export type { CaptureActionOptions, GuardActionPolicy, OnGuardError } from "./guard-action.ts";
-export type { ArcjetDenialResult } from "./denial.ts";
-export type { ArcjetAgentClient } from "./capture.ts";
-export type { CaptureOptions } from "../types.ts";
+import { CaptureOptions } from "../types.js";
+import { ArcjetAgentClient } from "./capture.js";
+import { ArcjetAgentContext, createAgentContext } from "./context.js";
+import { ArcjetDenialResult } from "./denial.js";
+import { ArcjetDeniedError, ArcjetGuardUnavailableError, CaptureActionOptions, GuardActionPolicy, OnGuardError, captureAction, guardAction } from "./guard-action.js";
+import { SecurityMetadataFields, securityMetadata } from "./vocabulary.js";
+export { type ArcjetAgentClient, type ArcjetAgentContext, type ArcjetDenialResult, ArcjetDeniedError, ArcjetGuardUnavailableError, type CaptureActionOptions, type CaptureOptions, type GuardActionPolicy, type OnGuardError, type SecurityMetadataFields, captureAction, createAgentContext, guardAction, securityMetadata };

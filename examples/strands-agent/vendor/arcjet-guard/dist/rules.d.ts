@@ -1,13 +1,6 @@
-/**
- * Rule factory functions for `@arcjet/guard`.
- *
- * Each exported function creates a concrete `RuleWithConfig*` type.
- * Calling the returned value with input produces the corresponding
- * `RuleWithInput*` ready for `.guard()`.
- *
- * @packageDocumentation
- */
-import type { ArcjetMetadata, TokenBucketConfig, FixedWindowConfig, SlidingWindowConfig, DetectPromptInjectionConfig, ModerateContentConfig, LocalDetectSensitiveInfoConfig, RuleWithConfigTokenBucket, RuleWithConfigFixedWindow, RuleWithConfigSlidingWindow, RuleWithConfigPromptInjection, RuleWithConfigModerateContent, RuleWithConfigSensitiveInfo, RuleWithConfigCustom, CustomEvaluateResult } from "./types.ts";
+import { ArcjetMetadata } from "./metadata.js";
+import { CustomEvaluateResult, DetectPromptInjectionConfig, FixedWindowConfig, LocalDetectSensitiveInfoConfig, ModerateContentConfig, RuleWithConfigCustom, RuleWithConfigFixedWindow, RuleWithConfigModerateContent, RuleWithConfigPromptInjection, RuleWithConfigSensitiveInfo, RuleWithConfigSlidingWindow, RuleWithConfigTokenBucket, SlidingWindowConfig, TokenBucketConfig } from "./types.js";
+//#region src/rules.d.ts
 /**
  * Create a token bucket rate limiting rule.
  *
@@ -30,7 +23,7 @@ import type { ArcjetMetadata, TokenBucketConfig, FixedWindowConfig, SlidingWindo
  * });
  * ```
  */
-export declare function tokenBucket(config: TokenBucketConfig): RuleWithConfigTokenBucket;
+declare function tokenBucket(config: TokenBucketConfig): RuleWithConfigTokenBucket;
 /**
  * Create a fixed window rate limiting rule.
  *
@@ -53,7 +46,7 @@ export declare function tokenBucket(config: TokenBucketConfig): RuleWithConfigTo
  * });
  * ```
  */
-export declare function fixedWindow(config: FixedWindowConfig): RuleWithConfigFixedWindow;
+declare function fixedWindow(config: FixedWindowConfig): RuleWithConfigFixedWindow;
 /**
  * Create a sliding window rate limiting rule.
  *
@@ -75,7 +68,7 @@ export declare function fixedWindow(config: FixedWindowConfig): RuleWithConfigFi
  * });
  * ```
  */
-export declare function slidingWindow(config: SlidingWindowConfig): RuleWithConfigSlidingWindow;
+declare function slidingWindow(config: SlidingWindowConfig): RuleWithConfigSlidingWindow;
 /**
  * Create a server-side prompt injection detection rule.
  *
@@ -98,7 +91,7 @@ export declare function slidingWindow(config: SlidingWindowConfig): RuleWithConf
  * });
  * ```
  */
-export declare function detectPromptInjection(config?: DetectPromptInjectionConfig): RuleWithConfigPromptInjection;
+declare function detectPromptInjection(config?: DetectPromptInjectionConfig): RuleWithConfigPromptInjection;
 /**
  * Create a content moderation rule.
  *
@@ -138,13 +131,13 @@ export declare function detectPromptInjection(config?: DetectPromptInjectionConf
  * });
  * ```
  */
-export declare function moderateContent(config?: ModerateContentConfig): RuleWithConfigModerateContent;
+declare function moderateContent(config?: ModerateContentConfig): RuleWithConfigModerateContent;
 /**
  * Create a content moderation rule.
  *
  * @deprecated Use {@link moderateContent} instead.
  */
-export declare const experimental_moderateContent: typeof moderateContent;
+declare const experimental_moderateContent: typeof moderateContent;
 /**
  * Create a sensitive information detection rule.
  *
@@ -169,7 +162,7 @@ export declare const experimental_moderateContent: typeof moderateContent;
  * });
  * ```
  */
-export declare function localDetectSensitiveInfo(config?: LocalDetectSensitiveInfoConfig): RuleWithConfigSensitiveInfo;
+declare function localDetectSensitiveInfo(config?: LocalDetectSensitiveInfoConfig): RuleWithConfigSensitiveInfo;
 /**
  * Define a typed custom rule.
  *
@@ -210,13 +203,15 @@ export declare function localDetectSensitiveInfo(config?: LocalDetectSensitiveIn
  * }
  * ```
  */
-export declare function defineCustomRule<TConfig extends Record<string, string>, TInput extends Record<string, string>, TData extends Record<string, string> = Record<string, string>>(options: {
-    evaluate: (config: Readonly<TConfig>, input: Readonly<TInput>, options: {
-        signal?: AbortSignal;
-    }) => CustomEvaluateResult<TData> | Promise<CustomEvaluateResult<TData>>;
+declare function defineCustomRule<TConfig extends Record<string, string>, TInput extends Record<string, string>, TData extends Record<string, string> = Record<string, string>>(options: {
+  evaluate: (config: Readonly<TConfig>, input: Readonly<TInput>, options: {
+    signal?: AbortSignal;
+  }) => CustomEvaluateResult<TData> | Promise<CustomEvaluateResult<TData>>;
 }): (config: {
-    data: TConfig;
-    mode?: "LIVE" | "DRY_RUN";
-    label?: string;
-    metadata?: ArcjetMetadata;
+  data: TConfig;
+  mode?: "LIVE" | "DRY_RUN";
+  label?: string;
+  metadata?: ArcjetMetadata;
 }) => RuleWithConfigCustom<TData, TInput>;
+//#endregion
+export { defineCustomRule, detectPromptInjection, experimental_moderateContent, fixedWindow, localDetectSensitiveInfo, moderateContent, slidingWindow, tokenBucket };

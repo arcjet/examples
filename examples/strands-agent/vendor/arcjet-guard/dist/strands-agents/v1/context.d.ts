@@ -1,4 +1,6 @@
-import type { ArcjetMetadata } from "../../types.ts";
+import { ArcjetMetadata } from "../../metadata.js";
+import "../../types.js";
+//#region src/strands-agents/v1/context.d.ts
 /**
  * Structural source `strandsAgentContext` can read.
  *
@@ -13,19 +15,19 @@ import type { ArcjetMetadata } from "../../types.ts";
  * - the `invocationState` bag itself
  * - a tool / hook envelope (`{ invocationState }`, plus documented copies)
  */
-export interface StrandsContextSource {
-    invocationState?: unknown;
-    correlationId?: unknown;
-    sessionId?: unknown;
-    requestId?: unknown;
+interface StrandsContextSource {
+  invocationState?: unknown;
+  correlationId?: unknown;
+  sessionId?: unknown;
+  requestId?: unknown;
 }
 /**
  * Context derived from a Strands Agents invocation. `correlationId` is
  * omitted when nothing valid was present — this helper never mints one.
  */
-export interface StrandsAgentContext {
-    correlationId?: string;
-    metadata?: ArcjetMetadata;
+interface StrandsAgentContext {
+  correlationId?: string;
+  metadata?: ArcjetMetadata;
 }
 /**
  * Derive correlation and metadata from a Strands `invocationState` bag
@@ -54,8 +56,10 @@ export interface StrandsAgentContext {
  * }
  * ```
  */
-export declare function strandsAgentContext(source?: StrandsContextSource, init?: {
-    sessionId?: string;
-    correlationId?: string;
-    metadata?: ArcjetMetadata;
+declare function strandsAgentContext(source?: StrandsContextSource, init?: {
+  sessionId?: string;
+  correlationId?: string;
+  metadata?: ArcjetMetadata;
 }): StrandsAgentContext;
+//#endregion
+export { StrandsAgentContext, StrandsContextSource, strandsAgentContext };

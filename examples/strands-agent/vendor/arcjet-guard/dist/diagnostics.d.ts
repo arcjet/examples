@@ -1,4 +1,5 @@
 import { Logger } from "@arcjet/logger";
+//#region src/diagnostics.d.ts
 /**
  * A local SDK diagnostic that cannot be reported over the wire.
  *
@@ -6,17 +7,17 @@ import { Logger } from "@arcjet/logger";
  * and length-bounded key names. They never include metadata values, capture
  * actions, credentials, headers, or request bodies.
  */
-export type ArcjetDiagnostic = {
-    /** Stable machine-readable code. */
-    code: "AJ1001" | "AJ1017" | "AJ3000" | "AJ3001" | "AJ3002" | "AJ3003" | "AJ3004" | "AJ3006";
-    /** Static human-readable description. */
-    message: string;
-    /** Number of events affected, when relevant. */
-    count?: number;
+type ArcjetDiagnostic = {
+  /** Stable machine-readable code. */
+  code: "AJ1001" | "AJ1017" | "AJ3000" | "AJ3001" | "AJ3002" | "AJ3003" | "AJ3004" | "AJ3006";
+  /** Static human-readable description. */
+  message: string;
+  /** Number of events affected, when relevant. */
+  count?: number;
 };
 /** Logger methods used for local SDK diagnostics. */
-export type DiagnosticLogger = Pick<Logger, "warn">;
-export type DiagnosticHandler = (diagnostic: ArcjetDiagnostic) => void;
+type DiagnosticLogger = Pick<Logger, "warn">;
+type DiagnosticHandler = (diagnostic: ArcjetDiagnostic) => void;
 /**
  * Where a client keeps its diagnostics channel so the registry can reach it.
  *
@@ -31,23 +32,23 @@ export type DiagnosticHandler = (diagnostic: ArcjetDiagnostic) => void;
  *
  * @internal
  */
-export declare const symbolArcjetDiagnostics: unique symbol;
+declare const symbolArcjetDiagnostics: unique symbol;
 /** A handler that holds counts back and can be asked to release them. */
-export type CoalescingDiagnosticHandler = DiagnosticHandler & {
-    /** Report every count still held back, ignoring the quiet period. */
-    drain(): void;
+type CoalescingDiagnosticHandler = DiagnosticHandler & {
+  /** Report every count still held back, ignoring the quiet period. */
+  drain(): void;
 };
 /** Internal tuning, exposed for deterministic tests. */
-export type DiagnosticOptions = {
-    /**
-     * Where to report. A supplied logger receives every diagnostic; without one,
-     * the default `@arcjet/logger` sink coalesces.
-     */
-    logger?: DiagnosticLogger;
-    /** Clock used for the quiet period. */
-    now?: () => number;
-    /** Quiet period per code, in milliseconds. `0` reports everything. */
-    coalesceMs?: number;
+type DiagnosticOptions = {
+  /**
+   * Where to report. A supplied logger receives every diagnostic; without one,
+   * the default `@arcjet/logger` sink coalesces.
+   */
+  logger?: DiagnosticLogger;
+  /** Clock used for the quiet period. */
+  now?: () => number;
+  /** Quiet period per code, in milliseconds. `0` reports everything. */
+  coalesceMs?: number;
 };
 /**
  * Build the diagnostics channel for one client.
@@ -73,4 +74,6 @@ export type DiagnosticOptions = {
  * under-reports. That is the residual cost of bounding log volume, and it is why
  * the figure is a count of events seen rather than a guaranteed total.
  */
-export declare function createDiagnosticHandler(options?: DiagnosticOptions): CoalescingDiagnosticHandler;
+declare function createDiagnosticHandler(options?: DiagnosticOptions): CoalescingDiagnosticHandler;
+//#endregion
+export { ArcjetDiagnostic, CoalescingDiagnosticHandler, DiagnosticHandler, DiagnosticLogger, DiagnosticOptions, createDiagnosticHandler, symbolArcjetDiagnostics };

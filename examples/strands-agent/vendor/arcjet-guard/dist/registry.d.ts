@@ -1,17 +1,6 @@
-/**
- * Optional process-wide registration for an Arcjet client.
- *
- * Registering exists for one reason: so code that cannot reach a client handle
- * can still call `guard()` and `capture()`. Passing a client explicitly always
- * works and is the recommended path — this is the shortcut, not the default.
- *
- * Nothing here runs unless an application calls {@link registerArcjet}.
- * `launchArcjet()` has no global side effects.
- *
- * @packageDocumentation
- */
-import type { ArcjetGuard } from "./index.ts";
-import type { CaptureOptions, Decision, GuardOptions } from "./types.ts";
+import { CaptureOptions, Decision, GuardOptions } from "./types.js";
+import { ArcjetGuard } from "./index.js";
+//#region src/registry.d.ts
 /**
  * Register a client for the free {@link guard}, {@link capture} and
  * {@link flush} functions.
@@ -30,7 +19,7 @@ import type { CaptureOptions, Decision, GuardOptions } from "./types.ts";
  * registerArcjet(launchArcjet({ key: process.env.ARCJET_KEY! }));
  * ```
  */
-export declare function registerArcjet(client: ArcjetGuard): void;
+declare function registerArcjet(client: ArcjetGuard): void;
 /**
  * Clear the registered client, if any.
  *
@@ -43,7 +32,7 @@ export declare function registerArcjet(client: ArcjetGuard): void;
  * every free call after it fails open. Libraries should not call it — they take
  * a client explicitly. That is a convention, not something enforced here.
  */
-export declare function unregisterArcjet(): void;
+declare function unregisterArcjet(): void;
 /**
  * Evaluate guard rules through the registered client.
  *
@@ -62,7 +51,7 @@ export declare function unregisterArcjet(): void;
  * });
  * ```
  */
-export declare function guard(options: GuardOptions): Promise<Decision>;
+declare function guard(options: GuardOptions): Promise<Decision>;
 /**
  * Record a fact about what the application did, through the registered client.
  *
@@ -87,10 +76,12 @@ export declare function guard(options: GuardOptions): Promise<Decision>;
  * }
  * ```
  */
-export declare function capture(options: CaptureOptions): void;
+declare function capture(options: CaptureOptions): void;
 /**
  * Drain the registered client's buffered capture events within a deadline.
  *
  * Resolves immediately with nothing registered — there is no queue to drain.
  */
-export declare function flush(timeoutMs?: number): Promise<void>;
+declare function flush(timeoutMs?: number): Promise<void>;
+//#endregion
+export { capture, flush, guard, registerArcjet, unregisterArcjet };

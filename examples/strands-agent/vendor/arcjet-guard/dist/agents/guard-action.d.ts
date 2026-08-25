@@ -1,7 +1,9 @@
-import type { PolicyInputMap } from "../policy-input.ts";
-import type { ArcjetMetadata, DecisionAllow, DecisionDeny, RuleWithInput } from "../types.ts";
-import type { ArcjetAgentClient } from "./capture.ts";
-import type { ArcjetAgentContext } from "./context.ts";
+import { ArcjetMetadata } from "../metadata.js";
+import { PolicyInputMap } from "../policy-input.js";
+import { DecisionAllow, DecisionDeny, RuleWithInput } from "../types.js";
+import { ArcjetAgentClient } from "./capture.js";
+import { ArcjetAgentContext } from "./context.js";
+//#region src/agents/guard-action.d.ts
 /**
  * Thrown by `guardAction()` when guard denies the action. Carries the
  * denying decision so callers can branch on `error.decision.reason`,
@@ -45,9 +47,9 @@ import type { ArcjetAgentContext } from "./context.ts";
  * }
  * ```
  */
-export declare class ArcjetDeniedError extends Error {
-    readonly decision: DecisionDeny;
-    constructor(action: string, decision: DecisionDeny);
+declare class ArcjetDeniedError extends Error {
+  readonly decision: DecisionDeny;
+  constructor(action: string, decision: DecisionDeny);
 }
 /**
  * Thrown by `guardAction()` when the guard policy could not be evaluated due to
@@ -59,14 +61,14 @@ export declare class ArcjetDeniedError extends Error {
  * signals are caught and result in this error. This is distinct from
  * `ArcjetDeniedError`, which is thrown when a rule actively denies the action.
  */
-export declare class ArcjetGuardUnavailableError extends Error {
-    readonly action: string;
-    readonly decision?: DecisionAllow;
-    constructor(action: string, init: {
-        cause: unknown;
-    } | {
-        decision: DecisionAllow;
-    });
+declare class ArcjetGuardUnavailableError extends Error {
+  readonly action: string;
+  readonly decision?: DecisionAllow;
+  constructor(action: string, init: {
+    cause: unknown;
+  } | {
+    decision: DecisionAllow;
+  });
 }
 /**
  * Whether to fail open or closed when guard evaluation is unavailable.
@@ -76,7 +78,7 @@ export declare class ArcjetGuardUnavailableError extends Error {
  * - `"deny"` (default): Do not execute; throw `ArcjetGuardUnavailableError` and
  *   capture the outcome as `"unavailable"` rather than executing.
  */
-export type OnGuardError = "allow" | "deny";
+type OnGuardError = "allow" | "deny";
 /**
  * Policy for `guardAction()` — how to guard an app-invoked action.
  *
@@ -86,44 +88,44 @@ export type OnGuardError = "allow" | "deny";
  * happens, so the action is recorded and remains reachable by policy
  * configured outside the code, but nothing local is enforced.
  */
-export interface GuardActionPolicy {
-    /** Guard label and capture action: `"resource.verb"`, past tense. */
-    action: string;
-    /**
-     * Rules to evaluate. Omitting this, or passing `[]`, submits no rules — it
-     * does not skip the guard call, which still costs a round trip and returns a
-     * decision.
-     */
-    rules?: RuleWithInput[];
-    /**
-     * Opaque identity asserted by trusted application code. Derive this from an
-     * authenticated server-side identity; never pass user-controlled input — a
-     * policy can be conditioned on the actor, so an attacker who controls it can
-     * escape their own policy scope.
-     */
-    actor?: string;
-    /**
-     * Explicitly typed remote-policy inputs. Build each value with
-     * {@link policyInput}.
-     *
-     * @example
-     * ```ts
-     * inputs: {
-     *   recipient: policyInput.server.string(recipient),
-     *   body: policyInput.local.string(body),
-     * },
-     * ```
-     */
-    inputs?: PolicyInputMap;
-    /** Metadata merged over the context's. */
-    metadata?: ArcjetMetadata;
-    /**
-     * How to respond when guard evaluation is unavailable (the default is
-     * `"deny"`). With `"allow"`, the wrapped action executes on any guard
-     * error or failed-open decision, and a warning is emitted. With `"deny"`,
-     * `ArcjetGuardUnavailableError` is thrown instead.
-     */
-    onGuardError?: OnGuardError;
+interface GuardActionPolicy {
+  /** Guard label and capture action: `"resource.verb"`, past tense. */
+  action: string;
+  /**
+   * Rules to evaluate. Omitting this, or passing `[]`, submits no rules — it
+   * does not skip the guard call, which still costs a round trip and returns a
+   * decision.
+   */
+  rules?: RuleWithInput[];
+  /**
+   * Opaque identity asserted by trusted application code. Derive this from an
+   * authenticated server-side identity; never pass user-controlled input — a
+   * policy can be conditioned on the actor, so an attacker who controls it can
+   * escape their own policy scope.
+   */
+  actor?: string;
+  /**
+   * Explicitly typed remote-policy inputs. Build each value with
+   * {@link policyInput}.
+   *
+   * @example
+   * ```ts
+   * inputs: {
+   *   recipient: policyInput.server.string(recipient),
+   *   body: policyInput.local.string(body),
+   * },
+   * ```
+   */
+  inputs?: PolicyInputMap;
+  /** Metadata merged over the context's. */
+  metadata?: ArcjetMetadata;
+  /**
+   * How to respond when guard evaluation is unavailable (the default is
+   * `"deny"`). With `"allow"`, the wrapped action executes on any guard
+   * error or failed-open decision, and a warning is emitted. With `"deny"`,
+   * `ArcjetGuardUnavailableError` is thrown instead.
+   */
+  onGuardError?: OnGuardError;
 }
 /**
  * Guard an action and run a callback, throwing `ArcjetDeniedError` on denial or
@@ -170,13 +172,13 @@ export interface GuardActionPolicy {
  * );
  * ```
  */
-export declare function guardAction<T>(client: ArcjetAgentClient, ctx: ArcjetAgentContext, policy: GuardActionPolicy, fn: () => Promise<T>): Promise<T>;
+declare function guardAction<T>(client: ArcjetAgentClient, ctx: ArcjetAgentContext, policy: GuardActionPolicy, fn: () => Promise<T>): Promise<T>;
 /** Options for `captureAction()`. */
-export interface CaptureActionOptions {
-    /** Capture action: `"resource.verb"`, past tense. */
-    action: string;
-    /** Metadata merged over the context's. */
-    metadata?: ArcjetMetadata;
+interface CaptureActionOptions {
+  /** Capture action: `"resource.verb"`, past tense. */
+  action: string;
+  /** Metadata merged over the context's. */
+  metadata?: ArcjetMetadata;
 }
 /**
  * Observe-only sugar over the client's `capture()`: records that the
@@ -199,4 +201,6 @@ export interface CaptureActionOptions {
  * });
  * ```
  */
-export declare function captureAction(client: ArcjetAgentClient, ctx: ArcjetAgentContext, opts: CaptureActionOptions): void;
+declare function captureAction(client: ArcjetAgentClient, ctx: ArcjetAgentContext, opts: CaptureActionOptions): void;
+//#endregion
+export { ArcjetDeniedError, ArcjetGuardUnavailableError, CaptureActionOptions, GuardActionPolicy, OnGuardError, captureAction, guardAction };

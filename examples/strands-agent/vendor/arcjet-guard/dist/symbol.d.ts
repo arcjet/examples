@@ -1,3 +1,4 @@
+//#region src/symbol.d.ts
 /**
  * Internal symbols used for SDK bookkeeping.
  *
@@ -9,7 +10,7 @@
  * @internal
  */
 /** @internal Single symbol key for correlation IDs. */
-export declare const symbolArcjetInternal: unique symbol;
+declare const symbolArcjetInternal: unique symbol;
 /**
  * The `globalThis` slot holding the registered client.
  *
@@ -26,4 +27,6 @@ export declare const symbolArcjetInternal: unique symbol;
  *
  * @internal
  */
-export declare const symbolArcjetClient: unique symbol;
+declare const symbolArcjetClient: unique symbol;
+//#endregion
+export { symbolArcjetClient, symbolArcjetInternal };

@@ -1,4 +1,5 @@
-import type { DecisionDeny } from "../types.ts";
+import { DecisionDeny } from "../types.js";
+//#region src/agents/denial.d.ts
 /**
  * The one model-visible denial payload used by every JS adapter.
  *
@@ -37,16 +38,16 @@ import type { DecisionDeny } from "../types.ts";
  * module imports no SDK, so sharing it does not put one vendor's SDK in
  * another vendor namespace's import graph.
  */
-export interface ArcjetDenialResult {
-    arcjetDenied: true;
-    /** Denial reason, e.g. `"RATE_LIMIT"` or `"PROMPT_INJECTION"`. */
-    reason: string;
-    /** Human/model-readable explanation of the denial. */
-    message: string;
-    /** Whether retrying later can succeed (true for rate limits). */
-    retryable: boolean;
-    /** Seconds until a rate-limited call may be retried. */
-    retryAfterSeconds?: number;
+interface ArcjetDenialResult {
+  arcjetDenied: true;
+  /** Denial reason, e.g. `"RATE_LIMIT"` or `"PROMPT_INJECTION"`. */
+  reason: string;
+  /** Human/model-readable explanation of the denial. */
+  message: string;
+  /** Whether retrying later can succeed (true for rate limits). */
+  retryable: boolean;
+  /** Seconds until a rate-limited call may be retried. */
+  retryAfterSeconds?: number;
 }
 /**
  * Seconds until a rate-limited call may be retried, or `undefined` when the
@@ -60,11 +61,11 @@ export interface ArcjetDenialResult {
  * @internal Exported for use by the vendor namespaces, so every one of them
  * reports the same retry-after; not part of the public API.
  */
-export declare function retryAfterSeconds(decision: DecisionDeny): number | undefined;
+declare function retryAfterSeconds(decision: DecisionDeny): number | undefined;
 /** Model- and user-readable explanation of a denial. */
-export declare function deniedReason(decision: DecisionDeny): string;
+declare function deniedReason(decision: DecisionDeny): string;
 /** Explanation used when the policy could not be evaluated. */
-export declare function unavailableReason(): string;
+declare function unavailableReason(): string;
 /**
  * Backoff hint returned to the model when the guard is unavailable.
  *
@@ -72,6 +73,8 @@ export declare function unavailableReason(): string;
  * `resetAtUnixSeconds`. This path has nothing to derive from. Five seconds
  * paces a model's retry loop.
  */
-export declare const UNAVAILABLE_RETRY_AFTER_SECONDS: number;
-export declare function denialResult(decision: DecisionDeny): ArcjetDenialResult;
-export declare function unavailableResult(): ArcjetDenialResult;
+declare const UNAVAILABLE_RETRY_AFTER_SECONDS: number;
+declare function denialResult(decision: DecisionDeny): ArcjetDenialResult;
+declare function unavailableResult(): ArcjetDenialResult;
+//#endregion
+export { ArcjetDenialResult, UNAVAILABLE_RETRY_AFTER_SECONDS, denialResult, deniedReason, retryAfterSeconds, unavailableReason, unavailableResult };

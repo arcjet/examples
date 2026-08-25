@@ -1,3 +1,4 @@
+//#region src/policy-input.d.ts
 /** Typed inputs for remotely configured Guard policies. */
 declare const policyInputBrand: unique symbol;
 type ServerPolicyInputValue = string | boolean | number | bigint | readonly string[];
@@ -15,14 +16,14 @@ type ServerPolicyInputValue = string | boolean | number | bigint | readonly stri
  * const body: PolicyInput = policyInput.local.string(emailBody);
  * ```
  */
-export type PolicyInput = {
-    readonly exposure: "SERVER";
-    readonly kind: "STRING" | "BOOLEAN" | "INTEGER" | "NUMBER" | "STRING_LIST";
-    readonly [policyInputBrand]: ServerPolicyInputValue;
+type PolicyInput = {
+  readonly exposure: "SERVER";
+  readonly kind: "STRING" | "BOOLEAN" | "INTEGER" | "NUMBER" | "STRING_LIST";
+  readonly [policyInputBrand]: ServerPolicyInputValue;
 } | {
-    readonly exposure: "LOCAL";
-    readonly kind: "STRING";
-    readonly [policyInputBrand]: string;
+  readonly exposure: "LOCAL";
+  readonly kind: "STRING";
+  readonly [policyInputBrand]: string;
 };
 /**
  * Named, explicitly typed policy inputs keyed by the name the policy references.
@@ -38,35 +39,35 @@ export type PolicyInput = {
  * };
  * ```
  */
-export type PolicyInputMap = Readonly<Record<string, PolicyInput>>;
+type PolicyInputMap = Readonly<Record<string, PolicyInput>>;
 type PolicyInputFactory = {
-    readonly server: {
-        /** Transmit a string value to Arcjet for policy evaluation and evidence. */
-        string(value: string): PolicyInput;
-        /** Transmit a boolean value to Arcjet for policy evaluation and evidence. */
-        boolean(value: boolean): PolicyInput;
-        /** Transmit an integer value (number or bigint) to Arcjet for policy evaluation. */
-        integer(value: number | bigint): PolicyInput;
-        /** Transmit a finite number value to Arcjet for policy evaluation. */
-        number(value: number): PolicyInput;
-        /** Transmit a list of strings to Arcjet, e.g. for list-membership policies. */
-        stringList(value: readonly string[]): PolicyInput;
-    };
-    readonly local: {
-        /**
-         * Keep a string local while sending a stable SHA-256 digest for policy
-         * correlation. The digest is correlation data, not anonymization or a
-         * privacy guarantee: low-entropy or enumerable values can be guessed.
-         *
-         * @example
-         * ```ts
-         * // The email body never leaves the SDK; only its digest is sent so the
-         * // policy can correlate the same body across requests.
-         * const body = policyInput.local.string(emailBody);
-         * ```
-         */
-        string(value: string): PolicyInput;
-    };
+  readonly server: {
+    /** Transmit a string value to Arcjet for policy evaluation and evidence. */
+    string(value: string): PolicyInput;
+    /** Transmit a boolean value to Arcjet for policy evaluation and evidence. */
+    boolean(value: boolean): PolicyInput;
+    /** Transmit an integer value (number or bigint) to Arcjet for policy evaluation. */
+    integer(value: number | bigint): PolicyInput;
+    /** Transmit a finite number value to Arcjet for policy evaluation. */
+    number(value: number): PolicyInput;
+    /** Transmit a list of strings to Arcjet, e.g. for list-membership policies. */
+    stringList(value: readonly string[]): PolicyInput;
+  };
+  readonly local: {
+    /**
+     * Keep a string local while sending a stable SHA-256 digest for policy
+     * correlation. The digest is correlation data, not anonymization or a
+     * privacy guarantee: low-entropy or enumerable values can be guessed.
+     *
+     * @example
+     * ```ts
+     * // The email body never leaves the SDK; only its digest is sent so the
+     * // policy can correlate the same body across requests.
+     * const body = policyInput.local.string(emailBody);
+     * ```
+     */
+    string(value: string): PolicyInput;
+  };
 };
 /**
  * Constructors for wire-typed remote-policy inputs.
@@ -89,7 +90,8 @@ type PolicyInputFactory = {
  * });
  * ```
  */
-export declare const policyInput: PolicyInputFactory;
+declare const policyInput: PolicyInputFactory;
 /** @internal */
-export declare function policyInputValue(input: PolicyInput): ServerPolicyInputValue;
-export {};
+declare function policyInputValue(input: PolicyInput): ServerPolicyInputValue;
+//#endregion
+export { PolicyInput, PolicyInputMap, policyInput, policyInputValue };

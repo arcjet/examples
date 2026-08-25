@@ -1,3 +1,4 @@
+//#region src/metadata.d.ts
 /**
  * Nested-JSON `metadata` encoding for `@arcjet/guard`.
  *
@@ -41,23 +42,23 @@
  *   loses precision before it reaches the wire. Pass such values as strings.
  * - `BigInt` cannot be JSON-encoded and is dropped; convert it yourself.
  */
-export type ArcjetMetadata = Record<string, unknown>;
+type ArcjetMetadata = Record<string, unknown>;
 /**
  * A client-side validation warning reported to the server in `local_warnings`.
  */
-export interface LocalWarning {
-    /** Machine-readable code. */
-    code: "AJ1001" | "AJ1017";
-    /**
-     * Human-readable description. Names only the offending keys, never the
-     * values, and only after escaping and length-bounding them — warnings are
-     * persisted and reach application logs, so they must not become a PII sink or
-     * a log-forging vector.
-     */
-    message: string;
+interface LocalWarning {
+  /** Machine-readable code. */
+  code: "AJ1001" | "AJ1017";
+  /**
+   * Human-readable description. Names only the offending keys, never the
+   * values, and only after escaping and length-bounding them — warnings are
+   * persisted and reach application logs, so they must not become a PII sink or
+   * a log-forging vector.
+   */
+  message: string;
 }
 /** Warning code for a metadata key the SDK dropped before sending. */
-export declare const METADATA_ENCODE_FAILED_CODE = "AJ1017";
+declare const METADATA_ENCODE_FAILED_CODE = "AJ1017";
 /**
  * SDK-side ceiling on the total metadata bytes in one request.
  *
@@ -74,7 +75,7 @@ export declare const METADATA_ENCODE_FAILED_CODE = "AJ1017";
  * keys plus JSON-encoded values before compression, so the estimate is
  * conservative.
  */
-export declare const MAX_METADATA_BYTES: number;
+declare const MAX_METADATA_BYTES: number;
 /**
  * JSON-encode each top-level value of `metadata` for the wire.
  *
@@ -90,9 +91,9 @@ export declare const MAX_METADATA_BYTES: number;
  *   warning channel. Both are empty when `metadata` is missing, empty, or not a
  *   plain object.
  */
-export declare function encodeMetadata(metadata: ArcjetMetadata | undefined, messagePrefix?: string): {
-    metadataJson: Record<string, string>;
-    localWarnings: LocalWarning[];
+declare function encodeMetadata(metadata: ArcjetMetadata | undefined, messagePrefix?: string): {
+  metadataJson: Record<string, string>;
+  localWarnings: LocalWarning[];
 };
 /**
  * Trim already-encoded metadata maps to {@linkcode MAX_METADATA_BYTES} in total.
@@ -111,4 +112,6 @@ export declare function encodeMetadata(metadata: ArcjetMetadata | undefined, mes
  * @returns
  *   At most one warning, naming the keys that were dropped.
  */
-export declare function enforceMetadataBudget(maps: ReadonlyArray<Record<string, string>>): LocalWarning[];
+declare function enforceMetadataBudget(maps: ReadonlyArray<Record<string, string>>): LocalWarning[];
+//#endregion
+export { ArcjetMetadata, LocalWarning, MAX_METADATA_BYTES, METADATA_ENCODE_FAILED_CODE, encodeMetadata, enforceMetadataBudget };

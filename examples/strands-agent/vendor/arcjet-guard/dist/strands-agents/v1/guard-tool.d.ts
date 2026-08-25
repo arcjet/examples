@@ -1,6 +1,8 @@
-import type { ArcjetAgentClient } from "../../agents/capture.ts";
-import type { OnGuardError } from "../../agents/guard-action.ts";
-import type { ArcjetMetadata, DecisionDeny, RuleWithInput } from "../../types.ts";
+import { ArcjetMetadata } from "../../metadata.js";
+import { DecisionDeny, RuleWithInput } from "../../types.js";
+import { ArcjetAgentClient } from "../../agents/capture.js";
+import { OnGuardError } from "../../agents/guard-action.js";
+//#region src/strands-agents/v1/guard-tool.d.ts
 /**
  * Structural `tool({ callback })` result. Declared here so `guardTool`
  * does not value-import `@strands-agents/sdk`.
@@ -15,22 +17,22 @@ import type { ArcjetMetadata, DecisionDeny, RuleWithInput } from "../../types.ts
  * `ZodTool` / `FunctionTool` stays assignable under
  * `strictFunctionTypes`.
  */
-export interface StrandsTool {
+interface StrandsTool {
+  name?: string;
+  description?: string;
+  toolSpec?: {
     name?: string;
-    description?: string;
-    toolSpec?: {
-        name?: string;
-    };
-    stream?(...args: never[]): unknown;
-    invoke?(...args: never[]): unknown;
+  };
+  stream?(...args: never[]): unknown;
+  invoke?(...args: never[]): unknown;
 }
 /**
  * Input type of a Strands `tool({ callback })`. Used so `guardTool` can
  * keep the concrete tool type while still typing `policy.rules` against
  * the callback args (not opaque tool-use ids).
  */
-export type StrandsToolInput<TTool> = TTool extends {
-    invoke?(input: infer TInput, context?: unknown): unknown;
+type StrandsToolInput<TTool> = TTool extends {
+  invoke?(input: infer TInput, context?: unknown): unknown;
 } ? TInput : unknown;
 /**
  * Policy for `guardTool()` — how to guard an authored
@@ -40,42 +42,42 @@ export type StrandsToolInput<TTool> = TTool extends {
  * context, and optional denial handler. Rules can be static or computed
  * from the tool's free-text args. Do not scan opaque `toolUseId`s.
  */
-export interface GuardToolPolicy<TInput> {
-    /** Guard label and capture action: `"resource.verb"`, past tense. */
-    action: string;
-    /**
-     * Rules to evaluate, static or computed from the tool's parsed args.
-     * Omitting this, or returning `[]`, submits no rules — it does not skip
-     * the guard call, which still costs a round trip and returns a decision.
-     */
-    rules?: RuleWithInput[] | ((input: TInput) => RuleWithInput[]);
-    /** Metadata merged over the context's (object, or per-call function of the tool input). */
-    metadata?: ArcjetMetadata | ((input: TInput) => ArcjetMetadata);
-    /**
-     * Fallback session id when `invocationState` does not carry one.
-     * Prefer putting the id you already chose on
-     * `agent.invoke(..., { invocationState: { sessionId } })`. Never mint
-     * a new id here. Never pass `agent.id` or a `SessionManager` id.
-     */
-    sessionId?: string | ((input: TInput) => string | undefined);
-    /** How to respond when guard evaluation is unavailable. Default `"deny"`. */
-    onGuardError?: OnGuardError;
-    /**
-     * Reshape the denial payload the model sees for a real DENY decision.
-     * The value is returned from the authored `callback` as-is, which
-     * `FunctionTool.stream()` wraps in a `ToolResultBlock` / `JsonBlock`.
-     * This helper does not fabricate an SDK message type. Unavailable
-     * guards take the `onUnavailable` path instead and return the fixed
-     * `{ reason: "ERROR", retryable: true, retryAfterSeconds: 5 }` result;
-     * this callback does not fire for outages.
-     *
-     * **Warning:** A tool created with `outputSchema` validates the
-     * authored callback's return *inside* `FunctionTool`. A denial is
-     * not schema-checked. Prefer omitting `outputSchema` on guarded
-     * tools, or verify the schema accepts `ArcjetDenialResult` / your
-     * `onDeny` shape.
-     */
-    onDeny?: (decision: DecisionDeny) => unknown;
+interface GuardToolPolicy<TInput> {
+  /** Guard label and capture action: `"resource.verb"`, past tense. */
+  action: string;
+  /**
+   * Rules to evaluate, static or computed from the tool's parsed args.
+   * Omitting this, or returning `[]`, submits no rules — it does not skip
+   * the guard call, which still costs a round trip and returns a decision.
+   */
+  rules?: RuleWithInput[] | ((input: TInput) => RuleWithInput[]);
+  /** Metadata merged over the context's (object, or per-call function of the tool input). */
+  metadata?: ArcjetMetadata | ((input: TInput) => ArcjetMetadata);
+  /**
+   * Fallback session id when `invocationState` does not carry one.
+   * Prefer putting the id you already chose on
+   * `agent.invoke(..., { invocationState: { sessionId } })`. Never mint
+   * a new id here. Never pass `agent.id` or a `SessionManager` id.
+   */
+  sessionId?: string | ((input: TInput) => string | undefined);
+  /** How to respond when guard evaluation is unavailable. Default `"deny"`. */
+  onGuardError?: OnGuardError;
+  /**
+   * Reshape the denial payload the model sees for a real DENY decision.
+   * The value is returned from the authored `callback` as-is, which
+   * `FunctionTool.stream()` wraps in a `ToolResultBlock` / `JsonBlock`.
+   * This helper does not fabricate an SDK message type. Unavailable
+   * guards take the `onUnavailable` path instead and return the fixed
+   * `{ reason: "ERROR", retryable: true, retryAfterSeconds: 5 }` result;
+   * this callback does not fire for outages.
+   *
+   * **Warning:** A tool created with `outputSchema` validates the
+   * authored callback's return *inside* `FunctionTool`. A denial is
+   * not schema-checked. Prefer omitting `outputSchema` on guarded
+   * tools, or verify the schema accepts `ArcjetDenialResult` / your
+   * `onDeny` shape.
+   */
+  onDeny?: (decision: DecisionDeny) => unknown;
 }
 /**
  * Wraps an authored `tool({ callback })` so the side-effect never runs
@@ -108,6 +110,11 @@ export interface GuardToolPolicy<TInput> {
  * shared `arcjetProtectedTool` brand throws on a second `guardTool`
  * wrap and lets `guardHooks` skip an already-guarded tool.
  *
+ * Register only the value this helper returns on `Agent({ tools })`.
+ * Passing the original `tool()` reference alongside the wrapped copy
+ * leaves the inner `_functionTool._callback` unguarded on the
+ * original's `stream()` path.
+ *
  * @example
  * ```ts
  * import { launchArcjet, tokenBucket } from "@arcjet/guard";
@@ -137,4 +144,6 @@ export interface GuardToolPolicy<TInput> {
  * );
  * ```
  */
-export declare function guardTool<TInput = unknown, TTool extends StrandsTool = StrandsTool>(client: ArcjetAgentClient, tool: TTool, policy: GuardToolPolicy<TInput>): TTool;
+declare function guardTool<TInput = unknown, TTool extends StrandsTool = StrandsTool>(client: ArcjetAgentClient, tool: TTool, policy: GuardToolPolicy<TInput>): TTool;
+//#endregion
+export { GuardToolPolicy, StrandsTool, StrandsToolInput, guardTool };

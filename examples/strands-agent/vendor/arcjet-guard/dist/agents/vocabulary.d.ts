@@ -1,10 +1,6 @@
-/**
- * Security metadata vocabulary for guard calls.
- *
- * Field names and their server-side wire keys for audit, policy decisions,
- * and integration with Arcjet's security model.
- */
-import type { ArcjetMetadata } from "../types.ts";
+import { ArcjetMetadata } from "../metadata.js";
+import "../types.js";
+//#region src/agents/vocabulary.d.ts
 /**
  * Security dimensions passed to guard evaluations.
  *
@@ -17,35 +13,35 @@ import type { ArcjetMetadata } from "../types.ts";
  *
  * Thread via `securityMetadata()` or merge directly into `ArcjetAgentContext.metadata`.
  */
-export interface SecurityMetadataFields {
-    /**
-     * Whose authority the agent acts under (opaque ID, not PII).
-     */
-    user?: string;
-    /**
-     * Type or identity of the AI agent performing the action.
-     */
-    agent?: string;
-    /**
-     * Workflow stage or process name this request belongs to.
-     */
-    workflow?: string;
-    /**
-     * Data classification level (suggested: public, internal, confidential, regulated).
-     */
-    dataClass?: string;
-    /**
-     * Where the result or action is sent (service, system, user, external).
-     */
-    destination?: string;
-    /**
-     * Whether the action can be reversed (suggested: reversible, compensable, irreversible).
-     */
-    reversibility?: string;
-    /**
-     * Resource identifier affected by this action.
-     */
-    resource?: string;
+interface SecurityMetadataFields {
+  /**
+   * Whose authority the agent acts under (opaque ID, not PII).
+   */
+  user?: string;
+  /**
+   * Type or identity of the AI agent performing the action.
+   */
+  agent?: string;
+  /**
+   * Workflow stage or process name this request belongs to.
+   */
+  workflow?: string;
+  /**
+   * Data classification level (suggested: public, internal, confidential, regulated).
+   */
+  dataClass?: string;
+  /**
+   * Where the result or action is sent (service, system, user, external).
+   */
+  destination?: string;
+  /**
+   * Whether the action can be reversed (suggested: reversible, compensable, irreversible).
+   */
+  reversibility?: string;
+  /**
+   * Resource identifier affected by this action.
+   */
+  resource?: string;
 }
 /**
  * Map security metadata fields to their wire keys for Arcjet guard evaluation.
@@ -72,4 +68,6 @@ export interface SecurityMetadataFields {
  * // → context has metadata: { user: "user_alice", "data-class": "confidential", destination: "audit_service" }
  * ```
  */
-export declare function securityMetadata(fields: SecurityMetadataFields): ArcjetMetadata;
+declare function securityMetadata(fields: SecurityMetadataFields): ArcjetMetadata;
+//#endregion
+export { SecurityMetadataFields, securityMetadata };

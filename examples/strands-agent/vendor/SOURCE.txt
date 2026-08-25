@@ -1,3 +1,4 @@
-Built from https://github.com/arcjet/arcjet-js/commit/23d5a85d1207ab999e1bb883cc1dca1ddb78a858
-Branch: david/cursor/guard-strands-agents-v1-hooks-cancel
-Package: @arcjet/guard (unpublished strands-agents/v1 adapter)
+Built from https://github.com/arcjet/arcjet-js/commit/f3a07ee675cbdd812a36dcb778ee4325d2f89617
+Branch: main
+PR: https://github.com/arcjet/arcjet-js/pull/6251
+Package: @arcjet/guard (strands-agents/v1 adapter)

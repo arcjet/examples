@@ -1,13 +1,5 @@
-/**
- * Connect RPC transport factory for `@arcjet/guard` — fetch runtimes.
- *
- * Uses the Connect-Web transport which works in Deno, Bun,
- * Cloudflare Workers, Vercel Edge, and any runtime with a standard
- * `fetch` API (WinterTC minimum common API).
- *
- * @packageDocumentation
- */
-import type { Transport } from "@connectrpc/connect";
+import { Transport } from "@connectrpc/connect";
+//#region src/transport-fetch.d.ts
 /**
  * Create a Connect transport using the web (fetch-based) protocol.
  *
@@ -24,7 +16,7 @@ import type { Transport } from "@connectrpc/connect";
  * @see https://github.com/connectrpc/connect-es/issues/749
  * @see https://github.com/connectrpc/connect-es/pull/1082
  */
-export declare function createTransport(baseUrl: string): Transport;
+declare function createTransport(baseUrl: string): Transport;
 /**
  * Build the fetch-based Connect transport without detecting a proxy.
  *
@@ -36,4 +28,6 @@ export declare function createTransport(baseUrl: string): Transport;
  * Overrides `redirect` to `"follow"` because some edge runtimes (workerd,
  * edge-light) reject the `"error"` default set by connect-web.
  */
-export declare function createFetchTransport(baseUrl: string): Transport;
+declare function createFetchTransport(baseUrl: string): Transport;
+//#endregion
+export { createFetchTransport, createTransport };
