@@ -25,7 +25,7 @@
     "test": "node --test --env-file .env.local"
   },
   "dependencies": {
-    "@arcjet/node": "1.10.0",
+    "@arcjet/node": "1.11.0",
     "express": "5.2.1"
   },
   "devDependencies": {
