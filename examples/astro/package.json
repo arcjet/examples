@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arcjet/astro": "1.10.0",
+    "@arcjet/astro": "1.11.0",
     "@astrojs/node": "11.1.2",
     "@fontsource-variable/figtree": "5.3.0",
     "@fontsource/ibm-plex-mono": "5.3.0",

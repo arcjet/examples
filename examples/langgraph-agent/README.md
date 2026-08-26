@@ -31,19 +31,8 @@ This is Graph API, not LangChain `createAgent` / `wrapToolCall`.
 > the model. The route caps JSON bodies at 32 KiB and messages at 2,000
 > characters; those are demo bounds, not abuse protection.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **LangGraph** integration
-> (`@arcjet/guard/langgraph/v1`, which provides `guardTool`, `guardToolNode`,
-> and `langgraphAgentContext`), which is **not yet published to npm**.
-> `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
-> [`david/cursor/guard-langgraph-v1-e852`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-langgraph-v1-e852)
-> at SHA
-> [`d14434ddc590c114a367da0971832f302edea0e7`](https://github.com/arcjet/arcjet-js/commit/d14434ddc590c114a367da0971832f302edea0e7)
-> (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
-> git, so the built package is vendored. Do not invent a published version
-> number for this subpath. Repin to the stable release once
-> `@arcjet/guard/langgraph/v1` ships.
+This example requires `@arcjet/guard` 1.11.0 or later for the
+`@arcjet/guard/langgraph/v1` integration.
 
 ## Screen inbound before `invoke` (or at the first graph node)
 

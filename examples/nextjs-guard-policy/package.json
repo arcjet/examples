@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@ai-sdk/provider-utils": "5.0.27",
-    "@arcjet/guard": "1.10.0",
-    "@arcjet/sensitive-info-rampart": "1.10.0",
+    "@arcjet/guard": "1.11.0",
+    "@arcjet/sensitive-info-rampart": "1.11.0",
     "ai": "7.0.66",
     "next": "16.3.1",
     "react": "19.2.8",

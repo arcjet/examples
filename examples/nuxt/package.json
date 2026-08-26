@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arcjet/nuxt": "1.10.0",
+    "@arcjet/nuxt": "1.11.0",
     "@fontsource-variable/figtree": "5.3.0",
     "@nuxt/kit": "4.5.2",
     "@nuxt/schema": "4.5.2",

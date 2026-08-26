@@ -26,19 +26,8 @@ correlated from the Claude session id — the example never mints a new one.
 > the model. The route caps JSON bodies at 32 KiB and messages at 2,000
 > characters; those are demo bounds, not abuse protection.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **Claude Agent SDK** integration
-> (`@arcjet/guard/claude-agent-sdk/v0`, which provides `guardTool`,
-> `guardHooks`, and `claudeAgentContext`), which is **not yet published to
-> npm**. `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
-> [`david/cursor/guard-claude-agent-sdk-v0-16a6`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-claude-agent-sdk-v0-16a6)
-> at SHA
-> [`69dd601018e39e649d473645246da438c42b01cc`](https://github.com/arcjet/arcjet-js/commit/69dd601018e39e649d473645246da438c42b01cc)
-> (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
-> git, so the built package is vendored. Do not invent a published version
-> number for this subpath. Repin to the stable release once
-> `@arcjet/guard/claude-agent-sdk/v0` ships.
+This example requires `@arcjet/guard` 1.11.0 or later for the
+`@arcjet/guard/claude-agent-sdk/v0` integration.
 
 ## Screen inbound with UserPromptSubmit
 
