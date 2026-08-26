@@ -11,7 +11,7 @@ def arcjet_with_rule(rules: Sequence[RuleSpec]) -> Arcjet:
     TODO: Use Ad hoc rules when supported in Python SDK.
     """
     return arcjet_python(
-        # Get your key from https://app.arcjet.com
+        # Get your key from https://console.arcjet.com
         key=settings.arcjet_key.get_secret_value(),
         rules=rules,
     )

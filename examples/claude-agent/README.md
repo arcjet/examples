@@ -93,7 +93,7 @@ double-gated.
 
 ## Run locally
 
-1. [Register for a free Arcjet account](https://app.arcjet.com).
+1. [Register for a free Arcjet account](https://console.arcjet.com).
 
 2. Install dependencies:
 
@@ -133,7 +133,7 @@ double-gated.
 This example needs two keys, both set in `.env.local`:
 
 - `ARCJET_KEY` — your Arcjet site key. Get it from
-  [https://app.arcjet.com](https://app.arcjet.com) by creating a free dev site.
+  [https://console.arcjet.com](https://console.arcjet.com) by creating a free dev site.
 - `ANTHROPIC_API_KEY` — used by the Claude Agent SDK to call the model that
   powers the support agent. Get it from the
   [Anthropic Console](https://console.anthropic.com).

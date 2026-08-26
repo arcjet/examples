@@ -2,7 +2,7 @@ import { launchArcjet, tokenBucket } from "@arcjet/guard";
 
 // Create the Arcjet client once at module scope
 export const arcjet = launchArcjet({
-  // Get your site key from https://app.arcjet.com
+  // Get your site key from https://console.arcjet.com
   key: process.env.ARCJET_KEY ?? "",
 });
 
