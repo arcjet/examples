@@ -34,7 +34,7 @@ export default async function plugin(
 
   if (!fastify.config.ARCJET_KEY) {
     fastify.log.warn(
-      "Sign up for free at https://app.arcjet.com to get your key.",
+      "Sign up for free at https://console.arcjet.com to get your key.",
     );
     throw new Error("Missing the ARCJET_KEY environment variable.");
   }

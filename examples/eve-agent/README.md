@@ -17,14 +17,6 @@ This is an example [Vercel Eve](https://eve.vercel.com/) agent protected by
 simple agent that looks up orders, consults an API, receives inbound webhook
 messages, and records every guard decision with Arcjet.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **Vercel Eve** integration
-> (`@arcjet/guard/vercel-eve/v0`, which provides `guardTool`, `guardApproval`,
-> `guardInbound`, and `arcjetHooks`), which is **not yet published to npm**. The
-> Arcjet packages are pinned to `1.10.0-rc.0` as the closest published release,
-> but `npm ci` and the build will not succeed until the Vercel Eve integration
-> ships. Repin to the stable release once it is available.
-
 ## Features
 
 - [AI guardrails](https://docs.arcjet.com/ai-guardrails) with the
@@ -44,7 +36,7 @@ messages, and records every guard decision with Arcjet.
 
 ## Run locally
 
-1. [Register for a free Arcjet account](https://app.arcjet.com).
+1. [Register for a free Arcjet account](https://console.arcjet.com).
 
 2. Install dependencies:
 
@@ -79,7 +71,7 @@ messages, and records every guard decision with Arcjet.
 This example needs two keys, both set in `.env.local`:
 
 - `ARCJET_KEY` — your Arcjet site key. Get it from
-  [https://app.arcjet.com](https://app.arcjet.com) by creating a free dev site.
+  [https://console.arcjet.com](https://console.arcjet.com) by creating a free dev site.
 - `AI_GATEWAY_API_KEY` — used by Eve to call the model that powers the agent.
   Get it from the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway).
 

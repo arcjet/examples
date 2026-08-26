@@ -1,7 +1,7 @@
 import express from "express";
 import arcjet, { detectBot, fixedWindow } from "@arcjet/node";
 
-// Get your Arcjet key at <https://app.arcjet.com>.
+// Get your Arcjet key at <https://console.arcjet.com>.
 // Set it as an environment variable instead of hard coding it.
 const arcjetKey = process.env.ARCJET_KEY;
 

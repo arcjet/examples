@@ -2,7 +2,7 @@
   <div class="section">
     <h2 class="heading-secondary">What next?</h2>
     <div class="list-actions">
-      <a href="https://app.arcjet.com" target="_blank" class="button-secondary">
+      <a href="https://console.arcjet.com" target="_blank" class="button-secondary">
         Sign up for Arcjet
       </a>
     </div>

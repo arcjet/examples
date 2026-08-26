@@ -19,7 +19,7 @@ if (!arcjetKey) {
 }
 
 const arcjet = arcjetNode({
-  // Get your site key from https://app.arcjet.com
+  // Get your site key from https://console.arcjet.com
   key: arcjetKey,
   rules: [
     // Shield protects your app from common attacks e.g. SQL injection

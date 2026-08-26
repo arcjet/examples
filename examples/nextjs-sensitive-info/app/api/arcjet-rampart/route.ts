@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const aj = arcjet({
-  // Get your Arcjet key from https://app.arcjet.com and set it as an
+  // Get your Arcjet key from https://console.arcjet.com and set it as an
   // environment variable rather than hard coding it.
   // See: https://nextjs.org/docs/app/building-your-application/configuring/environment-variables
   key: process.env.ARCJET_KEY!,

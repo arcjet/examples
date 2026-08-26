@@ -97,7 +97,7 @@ double-called.
 
 ## Run locally
 
-1. [Register for a free Arcjet account](https://app.arcjet.com).
+1. [Register for a free Arcjet account](https://console.arcjet.com).
 
 2. Install dependencies:
 
@@ -138,7 +138,7 @@ double-called.
 This example needs two keys, both set in `.env.local`:
 
 - `ARCJET_KEY` — your Arcjet site key. Get it from
-  [https://app.arcjet.com](https://app.arcjet.com) by creating a free dev site.
+  [https://console.arcjet.com](https://console.arcjet.com) by creating a free dev site.
 - `AI_GATEWAY_API_KEY` — used by LangGraph to call the model that powers the
   support agent. Get it from the
   [Vercel AI Gateway](https://vercel.com/docs/ai-gateway).
