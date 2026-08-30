@@ -2,7 +2,6 @@
 !index.ts
 !index.html
 !lib
-!vendor
 !environment.d.ts
 !package*.json
 !tsconfig.json

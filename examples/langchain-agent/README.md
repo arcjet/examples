@@ -34,20 +34,6 @@ use the Python docs slug `/guards/langchain/` — this is
 > the model. The route caps JSON bodies at 32 KiB and messages at 2,000
 > characters; those are demo bounds, not abuse protection.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **LangChain JS** integration
-> (`@arcjet/guard/langchain/v1`, which provides `guardTool`, `guardMiddleware`,
-> and `langchainContext`), which is **not yet published to npm**.
-> `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) `main` at SHA
-> [`c49abcc1f9afce7d284b6c294d0dcee5916ada86`](https://github.com/arcjet/arcjet-js/commit/c49abcc1f9afce7d284b6c294d0dcee5916ada86)
-> ([#6248](https://github.com/arcjet/arcjet-js/pull/6248); see
-> `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
-> git, so the built package is vendored. Do not invent a published version
-> number for this subpath. Repin to the stable release once
-> `@arcjet/guard/langchain/v1` ships. Peers: `langchain` `>=1.2.0 <2` and
-> `@langchain/core` `>=1 <2`.
-
 ## Screen inbound before `agent.invoke`
 
 There is no first-class LangChain channel for inbound screening, so there is

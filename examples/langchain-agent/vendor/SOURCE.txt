@@ -1,4 +1,0 @@
-Built from https://github.com/arcjet/arcjet-js/commit/c49abcc1f9afce7d284b6c294d0dcee5916ada86
-Branch: main
-PR: https://github.com/arcjet/arcjet-js/pull/6248
-Package: @arcjet/guard (langchain/v1 adapter)
