@@ -1,0 +1,37 @@
+{
+  "name": "@arcjet-examples/langchain-agent",
+  "type": "module",
+  "description": "An example LangChain createAgent agent protected by Arcjet Guard AI guardrails.",
+  "license": "Apache-2.0",
+  "homepage": "https://arcjet.com",
+  "repository": "github:arcjet/example-langchain-agent",
+  "bugs": {
+    "url": "https://github.com/arcjet/examples/issues",
+    "email": "support@arcjet.com"
+  },
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file-if-exists=.env.local index.ts",
+    "start": "node --env-file-if-exists=.env.local index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@arcjet/guard": "^1.11.0",
+    "@langchain/core": "1.2.9",
+    "@langchain/openai": "1.2.8",
+    "langchain": "1.5.10",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "typescript": "5.9.3"
+  }
+}
