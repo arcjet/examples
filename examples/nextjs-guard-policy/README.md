@@ -31,15 +31,6 @@ detection.
 > sensitive values. All people, records, and identifiers in this example are
 > synthetic demo fixtures.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **remote policy** API
-> (`policyInput`, `guardTool`'s `actor` option,
-> `launchArcjet({ sensitiveInfoBackend })`, and `decision.policyResults`), which
-> is **not yet published to npm**. The Arcjet packages are pinned to
-> `1.10.0-rc.0` as the closest published release, but `npm ci` and the build
-> will not succeed until the Guard policy API ships. Repin to the stable release
-> once it is available.
-
 ## Features
 
 - [Arcjet Guard](https://docs.arcjet.com/guard/concepts) evaluates a
@@ -58,7 +49,7 @@ detection.
 
 ## Run locally
 
-1. [Register for a free Arcjet account](https://app.arcjet.com).
+1. [Register for a free Arcjet account](https://console.arcjet.com).
 
 2. Install dependencies:
 
@@ -69,7 +60,7 @@ npm ci
 3. Rename `.env.local.example` to `.env.local` and set:
 
    - `ARCJET_KEY` — your Arcjet site key from
-     [the Arcjet dashboard](https://app.arcjet.com).
+     [the Arcjet dashboard](https://console.arcjet.com).
    - `AI_GATEWAY_API_KEY` — a [Vercel AI
      Gateway](https://vercel.com/docs/ai-gateway) API key used to call the
      model.
@@ -90,7 +81,7 @@ npm run dev
 ## Setup: configure the Guard policy
 
 This example evaluates a remote Guard policy that you configure in the
-[Arcjet dashboard](https://app.arcjet.com). No policy rules are defined in code,
+[Arcjet dashboard](https://console.arcjet.com). No policy rules are defined in code,
 so you can change and publish the policy to demonstrate enforcement without an
 application deployment.
 

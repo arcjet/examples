@@ -28,15 +28,6 @@ enforcement without redeploying the app.
 > before calling the model, and must not return raw records or tool traces.
 > JSON bodies are capped at 32 KiB.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **remote policy** API
-> (`policyInput`, `guardTool`'s `actor` option,
-> `launchArcjet({ sensitiveInfoBackend })`, and `decision.policyResults`), which
-> is **not yet published to npm**. The Arcjet packages are pinned to
-> `1.10.0-rc.0` as the closest published release, but `npm ci` and the build
-> will not succeed until the Guard policy API ships. Repin to the stable release
-> once it is available.
-
 ## Features
 
 - [Arcjet Guard remote policies](https://docs.arcjet.com/guards/remote-policies)
@@ -53,7 +44,7 @@ enforcement without redeploying the app.
 
 ## Run locally
 
-1. [Register for a free Arcjet account](https://app.arcjet.com).
+1. [Register for a free Arcjet account](https://console.arcjet.com).
 
 2. Install dependencies:
 

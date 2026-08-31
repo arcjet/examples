@@ -26,14 +26,6 @@ from Mastra's thread / resource / run ids — the example never mints a new one.
 > the model. The route caps JSON bodies at 32 KiB and messages at 2,000
 > characters; those are demo bounds, not abuse protection.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **Mastra** integration
-> (`@arcjet/guard/mastra/v1`, which provides `guardTool`, `guardProcessor`,
-> `guardHooks`, and `mastraAgentContext`), which is **not yet published to
-> npm**. The Arcjet packages are pinned to `1.10.0-rc.0` as the closest
-> published release, but `npm ci` and the build will not succeed until the
-> Mastra integration ships. Repin to the stable release once it is available.
-
 ## Features
 
 - [AI guardrails](https://docs.arcjet.com/ai-guardrails) with the
@@ -65,7 +57,7 @@ example does not use `guardApproval`.
 
 ## Run locally
 
-1. [Register for a free Arcjet account](https://app.arcjet.com).
+1. [Register for a free Arcjet account](https://console.arcjet.com).
 
 2. Install dependencies:
 
@@ -104,7 +96,7 @@ example does not use `guardApproval`.
 This example needs two keys, both set in `.env.local`:
 
 - `ARCJET_KEY` — your Arcjet site key. Get it from
-  [https://app.arcjet.com](https://app.arcjet.com) by creating a free dev site.
+  [https://console.arcjet.com](https://console.arcjet.com) by creating a free dev site.
 - `AI_GATEWAY_API_KEY` — used by Mastra to call the model that powers the
   support agent. Get it from the
   [Vercel AI Gateway](https://vercel.com/docs/ai-gateway).

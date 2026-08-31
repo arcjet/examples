@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 
     arcjet_key: SecretStr
     """
-    Arcjet Key. Get your key from <https://app.arcjet.com>
+    Arcjet Key. Get your key from <https://console.arcjet.com>
     """
 
 

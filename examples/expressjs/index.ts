@@ -17,12 +17,12 @@ const port = 3000;
 
 if (!process.env.ARCJET_KEY) {
   throw new Error(
-    "ARCJET_KEY environment variable is required. Sign up for your Arcjet key at https://app.arcjet.com",
+    "ARCJET_KEY environment variable is required. Sign up for your Arcjet key at https://console.arcjet.com",
   );
 }
 
 const aj = arcjet({
-  // Get your site key from https://app.arcjet.com
+  // Get your site key from https://console.arcjet.com
   key: process.env.ARCJET_KEY,
   rules: [
     // Shield protects your app from common attacks e.g. SQL injection

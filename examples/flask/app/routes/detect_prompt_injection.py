@@ -9,7 +9,7 @@ blueprint = Blueprint("detect_prompt_injection", __name__)
 
 arcjet = arcjet_with_rule(
     [
-        detect_prompt_injection(mode=Mode.LIVE, threshold=0.5),
+        detect_prompt_injection(mode=Mode.LIVE),
     ]
 )
 

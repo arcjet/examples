@@ -24,18 +24,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.10.0-rc.0",
-    "ai": "7.0.57",
-    "next": "16.2.6",
-    "react": "19.2.6",
-    "react-dom": "19.2.6",
-    "workflow": "4.8.1",
+    "@arcjet/guard": "1.11.0",
+    "ai": "7.0.66",
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "workflow": "4.8.3",
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@types/node": "22.20.0",
-    "@types/react": "19.2.15",
-    "@types/react-dom": "19.2.3",
+    "@types/node": "22.20.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "typescript": "5.9.3"
   },
   "overrides": {
