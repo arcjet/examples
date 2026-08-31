@@ -16,8 +16,8 @@ example, publish it to its own repository, and keep dependencies up to date.
 6. [Publishing an example (semi‑automated)](#publishing-an-example-semiautomated)
 7. [Updating dependencies](#updating-dependencies)
    - [npm](#npm)
-   - [Deno](#deno)
    - [npm overrides](#npm-overrides)
+   - [Deno](#deno)
 8. [Helpful commands](#helpful-commands)
 
 ---
