@@ -30,27 +30,12 @@ Genkit.
 > the model. The route caps JSON bodies at 32 KiB and messages at 2,000
 > characters; those are demo bounds, not abuse protection.
 
-> [!IMPORTANT]
-> This example depends on the Arcjet Guard **Genkit** integration
-> (`@arcjet/guard/genkit/v1`, which provides `guardTool`, `guardMiddleware`,
-> and `genkitContext`), which is **not yet published to npm**.
-> `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) branch
-> [`david/cursor/guard-genkit-v1-8e4b`](https://github.com/arcjet/arcjet-js/tree/david/cursor/guard-genkit-v1-8e4b)
-> at SHA
-> [`f7619e4c1c2a4f48a3342b7f8ab74a928ceb7309`](https://github.com/arcjet/arcjet-js/commit/f7619e4c1c2a4f48a3342b7f8ab74a928ceb7309)
-> (see `vendor/SOURCE.txt`). There is no PR number — the adapter is not on
-> `main`. npm cannot install a monorepo subdirectory from git, so the built
-> package is vendored. Do not invent a published version number for this
-> subpath. The import path is `@arcjet/guard/genkit/v1`;
-> `@arcjet/guard/genkit` does not resolve. Repin to the stable release once
-> `@arcjet/guard/genkit/v1` ships.
-
 ## Features
 
 - [AI guardrails](https://docs.arcjet.com/ai-guardrails) with the
   [`@arcjet/guard`](https://docs.arcjet.com/ai-guardrails) package protect a
-  Genkit agent's inbound messages and tools from abuse.
+  Genkit agent's inbound messages and tools from abuse. Helpers come from
+  `@arcjet/guard/genkit/v1` — `@arcjet/guard/genkit` does not resolve.
 - Inbound [prompt injection
   detection](https://docs.arcjet.com/prompt-injection) runs in the app before
   `generate()`. There is no `guardInbound`. Middleware `model` is not Guard.
