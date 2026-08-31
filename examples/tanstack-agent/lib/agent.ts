@@ -3,8 +3,8 @@ import {
   tanstackAiContext,
   type TanStackAiAgentContext,
 } from "@arcjet/guard/tanstack-ai/v0";
-import { chat, toolDefinition } from "@tanstack/ai";
-import { createOpenaiChatCompletions } from "@tanstack/ai-openai";
+import { chat, streamToText, toolDefinition } from "@tanstack/ai";
+import { openaiCompatibleText } from "@tanstack/ai-openai/compatible";
 import { z } from "zod";
 import {
   arcjet,
@@ -51,13 +51,14 @@ function chatAdapter() {
   if (!apiKey) {
     throw new Error("AI_GATEWAY_API_KEY is required");
   }
-  return createOpenaiChatCompletions(
-    id as "gpt-4o-mini",
+  return openaiCompatibleText(id, {
+    name: gatewayKey ? "vercel-ai-gateway" : "openai",
     apiKey,
-    gatewayKey
-      ? { baseURL: "https://ai-gateway.vercel.sh/v1" }
-      : {},
-  );
+    api: "chat-completions",
+    baseURL: gatewayKey
+      ? "https://ai-gateway.vercel.sh/v1"
+      : "https://api.openai.com/v1",
+  });
 }
 
 export interface AgentRunInput {
@@ -154,7 +155,8 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
   });
 
   return {
-    message: await collectAssistantText(stream),
+    // streamToText throws on RUN_ERROR instead of returning an empty 200.
+    message: await streamToText(stream),
     toolResults,
     correlationId: ctx.correlationId,
   };
@@ -188,19 +190,6 @@ async function screenInbound(
   }
 }
 
-async function collectAssistantText(stream: AsyncIterable<unknown>): Promise<string> {
-  let text = "";
-  for await (const chunk of stream) {
-    if (!isRecord(chunk) || chunk.type !== "TEXT_MESSAGE_CONTENT") {
-      continue;
-    }
-    if (typeof chunk.delta === "string") {
-      text += chunk.delta;
-    }
-  }
-  return text;
-}
-
 function isArcjetDenial(value: unknown): boolean {
   return (
     typeof value === "object" &&
@@ -208,10 +197,6 @@ function isArcjetDenial(value: unknown): boolean {
     "arcjetDenied" in value &&
     value.arcjetDenied === true
   );
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
 }
 
 function readOrderId(input: unknown): string | undefined {

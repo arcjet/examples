@@ -28,7 +28,11 @@ async function readJson(request: IncomingMessage): Promise<unknown> {
     }
     chunks.push(buffer);
   }
-  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  } catch {
+    throw new SyntaxError("Invalid JSON body");
+  }
 }
 
 function sendJson(response: ServerResponse, status: number, value: unknown) {
@@ -78,11 +82,19 @@ const server = createServer(async (request, response) => {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    sendJson(response, message === "Request body too large" ? 413 : 500, {
-      message,
-    });
+    sendJson(response, statusForError(error), { message });
   }
 });
+
+function statusForError(error: unknown): number {
+  if (error instanceof Error && error.message === "Request body too large") {
+    return 413;
+  }
+  if (error instanceof SyntaxError || error instanceof z.ZodError) {
+    return 400;
+  }
+  return 500;
+}
 
 const port = Number(process.env.PORT ?? 3000);
 server.listen(port, "0.0.0.0", () => {
