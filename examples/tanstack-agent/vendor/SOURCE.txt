@@ -1,0 +1,3 @@
+Built from https://github.com/arcjet/arcjet-js/commit/3e81a91c5a97832b523305f2f7df281c12cf58d3
+Branch: david/cursor/guard-tanstack-ai-v0
+Package: @arcjet/guard (tanstack-ai/v0 adapter)
