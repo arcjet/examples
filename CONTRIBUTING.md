@@ -17,6 +17,7 @@ example, publish it to its own repository, and keep dependencies up to date.
 7. [Updating dependencies](#updating-dependencies)
    - [npm](#npm)
    - [Deno](#deno)
+   - [npm overrides](#npm-overrides)
 8. [Helpful commands](#helpful-commands)
 
 ---
@@ -191,6 +192,13 @@ We use [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates#coo
   ```sh
   npx --no -- npm-check-updates --interactive --packageFile 'examples/*/package.json' --cooldown 30 --target @latest
   ```
+
+### npm overrides
+
+When a parent package cannot be updated past a Socket or `npm audit`
+finding, pin the transitive with `overrides` in that example's
+`package.json`. See [OVERRIDES.md](./OVERRIDES.md) for the current pins and
+why they exist.
 
 ### Deno
 
