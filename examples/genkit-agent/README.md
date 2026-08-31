@@ -81,6 +81,10 @@ The model is called through the [Vercel AI
 Gateway](https://vercel.com/docs/ai-gateway) with Genkit's OpenAI-compatible
 plugin. One `AI_GATEWAY_API_KEY` is enough.
 
+`@genkit-ai/compat-oai` still depends on `openai@^4.95.0`. Socket flags
+`openai@4.104.0`, so this example overrides `openai` to `7.8.0`. See
+[`OVERRIDES.md`](../../OVERRIDES.md) in the examples monorepo.
+
 ## Run locally
 
 1. [Register for a free Arcjet account](https://app.arcjet.com).
