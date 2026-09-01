@@ -1,0 +1,76 @@
+{
+  "name": "@arcjet/transport",
+  "version": "1.11.0",
+  "description": "Transport mechanisms for the Arcjet protocol. Vendored build from arcjet-js@d730d57a124f03843f085d41f64b0355a09d1eab (main, includes ./http2 which npm @arcjet/transport@1.11.0 does not export).",
+  "keywords": [
+    "arcjet",
+    "transport",
+    "util",
+    "utility"
+  ],
+  "homepage": "https://arcjet.com",
+  "bugs": {
+    "url": "https://github.com/arcjet/arcjet-js/issues",
+    "email": "support@arcjet.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcjet/arcjet-js.git",
+    "directory": "transport"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": {
+        "types": "./dist/bun.d.ts",
+        "default": "./dist/bun.js"
+      },
+      "deno": {
+        "types": "./dist/deno.d.ts",
+        "default": "./dist/deno.js"
+      },
+      "edge-light": {
+        "types": "./dist/edge-light.d.ts",
+        "default": "./dist/edge-light.js"
+      },
+      "workerd": {
+        "types": "./dist/workerd.d.ts",
+        "default": "./dist/workerd.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./http2": {
+      "types": "./dist/http2.d.ts",
+      "default": "./dist/http2.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@arcjet/env": "1.11.0",
+    "@arcjet/logger": "1.11.0",
+    "@bufbuild/protobuf": "2.14.0",
+    "@connectrpc/connect": "2.1.2",
+    "@connectrpc/connect-node": "2.1.2",
+    "@connectrpc/connect-web": "2.1.2"
+  },
+  "engines": {
+    "node": ">=22.21.0 <23 || >=24.5.0"
+  }
+}

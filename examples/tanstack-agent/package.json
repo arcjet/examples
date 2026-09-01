@@ -29,6 +29,9 @@
     "@tanstack/ai-openai": "0.22.3",
     "zod": "4.4.3"
   },
+  "overrides": {
+    "@arcjet/transport": "file:./vendor/arcjet-transport"
+  },
   "devDependencies": {
     "@types/node": "24.10.1",
     "typescript": "5.9.3"

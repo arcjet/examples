@@ -1,4 +1,6 @@
 Built from https://github.com/arcjet/arcjet-js/commit/d730d57a124f03843f085d41f64b0355a09d1eab
 Branch: main
 PR: https://github.com/arcjet/arcjet-js/pull/6260
-Package: @arcjet/guard (tanstack-ai/v0 adapter)
+Packages:
+  - @arcjet/guard (tanstack-ai/v0 adapter)
+  - @arcjet/transport (./http2 export used by Guard on main; not in npm 1.11.0)
