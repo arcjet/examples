@@ -72,16 +72,26 @@ type TanStackAiGuardMiddleware = ChatMiddleware & {
  *
  * Default DENY is `{ type: "skip", result: ArcjetDenialResult }` so
  * the tool never runs and the model sees the payload. Optional
- * `onDeny: "abort"` returns `{ type: "abort", reason }` and stops the
- * chat run. This helper does **not** throw from the hook (TanStack
+ * `onDeny: "abort"` returns `{ type: "abort", reason }` (the denial
+ * `message` string) and stops the chat run. Abort does **not** hand
+ * the model `ArcjetDenialResult` — prefer default skip when it
+ * should. `onDeny: "abort"` applies to real DENY only; unavailable
+ * stays skip. This helper does **not** throw from the hook (TanStack
  * swallows a throw from `execute` into `{ error }`, and a throw from
  * this hook would abort the run as an error rather than a policy
  * denial).
  *
- * Already-branded tools (`arcjetProtectedTool` from a preceding
- * `guard()` wrap) are skipped so Guard is not double-called. Tools
- * that are not branded — including when `hookCtx.tool` is undefined —
- * are still gated.
+ * Already-branded tools (`arcjetProtectedTool` from a sibling
+ * `guardTool`) are skipped so Guard is not double-called. This
+ * namespace has no `guardTool`, and inbound `guard()` before
+ * `chat()` does not stamp that brand — it is a separate call and
+ * tools are still gated. Tools that are not branded — including
+ * when `hookCtx.tool` is undefined — are still gated.
+ *
+ * On ALLOW this helper captures `outcome: "success"` when the
+ * policy lets the tool run, not when `execute` finishes.
+ * `onBeforeToolCall` cannot wrap the tool; a later tool throw does
+ * not flip that capture.
  *
  * There is no `guardTool`. Throwing from `execute` is swallowed into
  * `{ error }` and is not a usable deny envelope.

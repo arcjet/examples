@@ -15,8 +15,9 @@ import { ArcjetAgentClient } from "./capture.js";
  *    `onUnavailable` without executing; with `"allow"`, both fail open and
  *    proceed to execute.
  * 2. On DENY, capture `outcome: "denied"` and return `onDeny(decision)`.
- * 3. Otherwise run `execute()`, capturing `outcome: "success"` — or, if it
- *    throws, `outcome: "error"` before rethrowing.
+ * 3. Otherwise run `execute()`, capturing `outcome: "success"` when policy
+ *    judged the action, or `outcome: "degraded"` when `"allow"` let it run
+ *    unjudged — or, if it throws, `outcome: "error"` before rethrowing.
  *
  * `onDeny` returns the value the caller hands back on denial. Model-facing
  * helpers wrap the shared `ArcjetDenialResult` in a framework-idiomatic

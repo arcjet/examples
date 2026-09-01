@@ -12,8 +12,9 @@ import { captureEvent, shouldWarn } from "./capture.js";
 *    `onUnavailable` without executing; with `"allow"`, both fail open and
 *    proceed to execute.
 * 2. On DENY, capture `outcome: "denied"` and return `onDeny(decision)`.
-* 3. Otherwise run `execute()`, capturing `outcome: "success"` — or, if it
-*    throws, `outcome: "error"` before rethrowing.
+* 3. Otherwise run `execute()`, capturing `outcome: "success"` when policy
+*    judged the action, or `outcome: "degraded"` when `"allow"` let it run
+*    unjudged — or, if it throws, `outcome: "error"` before rethrowing.
 *
 * `onDeny` returns the value the caller hands back on denial. Model-facing
 * helpers wrap the shared `ArcjetDenialResult` in a framework-idiomatic
@@ -24,6 +25,7 @@ async function runGuarded(client, params) {
 	const { action, rules, correlationId, metadata, actor, inputs, resolvePolicy, onDeny, onUnavailable, execute, onGuardError = "deny" } = params;
 	const correlation = correlationId === void 0 ? {} : { correlationId };
 	const failClosed = onGuardError === "deny";
+	let judgedFully = true;
 	let decisionId;
 	let decision;
 	try {
@@ -57,6 +59,7 @@ async function runGuarded(client, params) {
 		}
 		warnUnavailable(action, "threw", false, error);
 		decision = void 0;
+		judgedFully = false;
 	}
 	if (decision !== void 0) {
 		if (decision.id !== "") decisionId = decision.id;
@@ -76,7 +79,10 @@ async function runGuarded(client, params) {
 				decision
 			});
 		}
-		if (decision.conclusion === "ALLOW" && decision.hasFailedOpen()) warnUnavailable(action, "failed-open", false);
+		if (decision.conclusion === "ALLOW" && decision.hasFailedOpen()) {
+			warnUnavailable(action, "failed-open", false);
+			judgedFully = false;
+		}
 		if (decision.conclusion === "DENY") {
 			captureEvent(client, {
 				action,
@@ -111,7 +117,7 @@ async function runGuarded(client, params) {
 		...decisionId !== void 0 && { decisionId },
 		metadata: {
 			...metadata,
-			outcome: "success"
+			outcome: judgedFully ? "success" : "degraded"
 		}
 	});
 	return result;

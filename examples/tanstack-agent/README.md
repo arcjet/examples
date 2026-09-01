@@ -38,14 +38,14 @@ The only adapter path is `@arcjet/guard/tanstack-ai/v0`.
 > (`@arcjet/guard/tanstack-ai/v0`, which provides `guardMiddleware` and
 > `tanstackAiContext`), which is **not yet published to npm**.
 > `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js)
-> `david/cursor/guard-tanstack-ai-v0` at SHA
-> [`3e81a91c5a97832b523305f2f7df281c12cf58d3`](https://github.com/arcjet/arcjet-js/commit/3e81a91c5a97832b523305f2f7df281c12cf58d3)
-> (see `vendor/SOURCE.txt`). npm cannot install a monorepo subdirectory from
-> git, so the built package is vendored. Do not invent a published version
-> number for this subpath. Repin to the stable release once
-> `@arcjet/guard/tanstack-ai/v0` ships. Peer: `@tanstack/ai`
-> `>=0.8.0 <1` (this example pins `0.52.0`).
+> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) `main` at SHA
+> [`d730d57a124f03843f085d41f64b0355a09d1eab`](https://github.com/arcjet/arcjet-js/commit/d730d57a124f03843f085d41f64b0355a09d1eab)
+> ([#6260](https://github.com/arcjet/arcjet-js/pull/6260); see
+> `vendor/SOURCE.txt`). The subpath is on `main` but **not yet published to
+> npm**. npm cannot install a monorepo subdirectory from git, so the built
+> package is vendored. Do not invent a published version number for this
+> subpath. Repin to the stable release once `@arcjet/guard/tanstack-ai/v0`
+> ships. Peer: `@tanstack/ai` `>=0.8.0 <1` (this example pins `0.52.0`).
 
 ## Screen inbound before `chat()`
 

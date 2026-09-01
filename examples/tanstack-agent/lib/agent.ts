@@ -124,6 +124,8 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
       //
       //   guardMiddleware(arcjet, { onDeny: "abort", ... })
       //
+      // onDeny: "abort" applies to real DENY only; unavailable stays skip.
+      //
       // Do not also wrap with @arcjet/guard/vercel-ai/v7. Do not
       // name anything contentGuardMiddleware (TanStack already has
       // that name).

@@ -46,8 +46,12 @@ function firstValidId(candidates) {
 		rejected
 	};
 }
-function firstString(values) {
-	for (const value of values) if (typeof value === "string" && value.length > 0) return value;
+function validMetadataString(values) {
+	for (const value of values) {
+		if (typeof value !== "string" || value.length === 0) continue;
+		if (correlationIdProblem(value) !== void 0) continue;
+		return value;
+	}
 }
 /**
 * Derive correlation and metadata from a TanStack AI `chat({ context })`
@@ -61,6 +65,11 @@ function firstString(values) {
 *    `correlationId`, then `sessionId`, then `conversationId`
 * 2. Documented copies on a bare app object (not a middleware envelope)
 * 3. `init.sessionId` / `init.correlationId` (a caller-owned fallback)
+*
+* Prefer `tanstackAiContext({ context: appContext })`. A bare object
+* that also has string `requestId` and `streamId` is treated as a
+* `ChatMiddlewareContext` envelope, so a top-level `sessionId` on
+* that object is ignored.
 *
 * An invalid candidate is skipped (and warned when `ARCJET_LOG_LEVEL`
 * asks for warnings). If nothing valid remains, `correlationId` is
@@ -131,13 +140,13 @@ function tanstackAiContext(source, init) {
 	]);
 	if (rejected !== void 0 && correlationId === void 0 && shouldWarn()) console.warn(`@arcjet/guard: TanStack AI ${rejected} rejected; no valid session/conversation id, leaving the call uncorrelated`);
 	const derivedMetadata = {};
-	const session = firstString([
+	const session = validMetadataString([
 		fromApp.sessionId,
 		fromEnvelope.sessionId,
 		init?.sessionId
 	]);
 	if (session !== void 0) derivedMetadata["tanstack-ai.session"] = session;
-	const conversation = firstString([fromApp.conversationId, fromEnvelope.conversationId]);
+	const conversation = validMetadataString([fromApp.conversationId, fromEnvelope.conversationId]);
 	if (conversation !== void 0) derivedMetadata["tanstack-ai.conversation"] = conversation;
 	const metadata = {
 		...derivedMetadata,

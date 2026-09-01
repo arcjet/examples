@@ -47,6 +47,11 @@ interface TanStackAiAgentContext {
  * 2. Documented copies on a bare app object (not a middleware envelope)
  * 3. `init.sessionId` / `init.correlationId` (a caller-owned fallback)
  *
+ * Prefer `tanstackAiContext({ context: appContext })`. A bare object
+ * that also has string `requestId` and `streamId` is treated as a
+ * `ChatMiddlewareContext` envelope, so a top-level `sessionId` on
+ * that object is ignored.
+ *
  * An invalid candidate is skipped (and warned when `ARCJET_LOG_LEVEL`
  * asks for warnings). If nothing valid remains, `correlationId` is
  * omitted so the decision is uncorrelated rather than joined to a

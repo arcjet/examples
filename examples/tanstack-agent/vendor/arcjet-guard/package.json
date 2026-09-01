@@ -1,7 +1,7 @@
 {
   "name": "@arcjet/guard",
   "version": "1.11.0",
-  "description": "Arcjet Guards SDK \u2014 AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored build from arcjet-js@3e81a91c5a97832b523305f2f7df281c12cf58d3 (david/cursor/guard-tanstack-ai-v0).",
+  "description": "Arcjet Guards SDK \u2014 AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored build from arcjet-js@d730d57a124f03843f085d41f64b0355a09d1eab (main, arcjet/arcjet-js#6260).",
   "homepage": "https://arcjet.com",
   "bugs": {
     "url": "https://github.com/arcjet/arcjet-js/issues",

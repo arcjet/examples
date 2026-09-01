@@ -1531,27 +1531,29 @@ Correlation is a field the integrator puts on `invocationState`
 (`correlationId`, then `sessionId`, then `requestId`). Never mint.
 Never read `traceId`. Never use `SessionManager` or `agent.id`.
 
-- **`@arcjet/guard/tanstack-ai/v0`** — TanStack AI `chat({ middleware })`
-  - `ChatMiddleware.onBeforeToolCall` integration. Exports
-    `guardMiddleware` and `tanstackAiContext`. This is **not** the
-    Vercel AI SDK — do not also wrap with `@arcjet/guard/vercel-ai/v7`.
-    There is no `guardTool` (a throw from `execute` is swallowed into
-    `{ error }` and is not a usable deny envelope), no `guardInbound`
-    (screen with `guard()` before `chat()`; `guard()` fails open —
-    check `hasFailedOpen()`), and no `guardApproval` (`needsApproval` /
-    `defineInterrupt` / `onInterruptBoundary` is human HITL, not
-    policy). After a human yes, Guard still runs. Do not name anything
-    `contentGuardMiddleware` (TanStack already has that name). Docs
-    live at
-    [`/guards/tanstack-ai/`](https://docs.arcjet.com/guards/tanstack-ai/).
+- **`@arcjet/guard/tanstack-ai/v0`** — TanStack AI `chat({ middleware })` +
+  `ChatMiddleware.onBeforeToolCall` integration. Exports `guardMiddleware`
+  and `tanstackAiContext`. This is **not** the Vercel AI SDK — do not also
+  wrap with `@arcjet/guard/vercel-ai/v7`. There is no `guardTool` (a throw
+  from `execute` is swallowed into `{ error }` and is not a usable deny
+  envelope), no `guardInbound` (screen with `guard()` before `chat()`;
+  `guard()` fails open — check `hasFailedOpen()`), and no `guardApproval`
+  (`needsApproval` / `defineInterrupt` / `onInterruptBoundary` is human
+  HITL, not policy). After a human yes, Guard still runs. Do not name
+  anything `contentGuardMiddleware` (TanStack already has that name). Docs
+  live at
+  [`/guards/tanstack-ai/`](https://docs.arcjet.com/guards/tanstack-ai/).
 
   Put Arcjet **first** in the middleware array. `onBeforeToolCall` is
   first-win; if `toolCacheMiddleware` (or anything else) skips first,
   Guard never runs. Default DENY is `{ type: "skip", result:
 ArcjetDenialResult }` so the tool never runs and the model sees the
-  payload. Optional `onDeny: "abort"` stops the run. The hook does
-  not throw. Already-branded tools are skipped so a preceding
-  `guard()` is not double-called. Correlation is a caller-owned id
+  payload. Optional `onDeny: "abort"` stops the run with a reason
+  string — the model does not get `ArcjetDenialResult`. The hook
+  does not throw. Tools already branded by a sibling `guardTool`
+  are skipped so Guard is not double-called. Inbound `guard()`
+  before `chat()` does not brand tools and does not skip this
+  gate. Correlation is a caller-owned id
   from helper options or `chat({ context })`. Never mint. Never
   `ctx.threadId`. Never `traceId` / `requestId` / `streamId`. Client
   tools and provider-native tools with no local `execute` are out of
@@ -1621,9 +1623,14 @@ There is no `guardApproval`.
 
 `onBeforeToolCall` is the deny point. Default DENY is
 `{ type: "skip", result: ArcjetDenialResult }`. Optional
-`onDeny: "abort"` returns `{ type: "abort", reason }`. Do not throw
-from the hook. Put Arcjet first — first-win composition means a
-preceding `toolCacheMiddleware` skip skips Guard too.
+`onDeny: "abort"` returns `{ type: "abort", reason }` (the denial
+`message` string) and stops the run — the model does not get
+`ArcjetDenialResult`. `onDeny: "abort"` applies to real DENY only;
+unavailable stays skip. Do not throw from the hook. Put Arcjet
+first — first-win composition means a preceding
+`toolCacheMiddleware` skip skips Guard too. Sibling `guardTool`
+brands are skipped; inbound `guard()` is a separate call and does
+not skip this gate.
 
 ### Naming and versions
 
