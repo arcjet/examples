@@ -1,0 +1,5 @@
+Built from https://github.com/arcjet/arcjet-js/commit/58a7d8b82f2a360c67eced13e9899f0c1799289f
+Branch: david/cursor/cloudflare-think-guard-v0-1b24
+Packages:
+  - @arcjet/guard (cloudflare-think/v0 adapter)
+  - @arcjet/transport (./http2 export used by Guard at this SHA; not in npm 1.11.0)

@@ -1,0 +1,97 @@
+{
+  "name": "@arcjet/guard",
+  "version": "1.11.0",
+  "description": "Arcjet Guards SDK — AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored build from arcjet-js@58a7d8b82f2a360c67eced13e9899f0c1799289f (david/cursor/cloudflare-think-guard-v0-1b24).",
+  "homepage": "https://arcjet.com",
+  "bugs": {
+    "url": "https://github.com/arcjet/arcjet-js/issues",
+    "email": "support@arcjet.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcjet/arcjet-js.git",
+    "directory": "arcjet-guard"
+  },
+  "files": [
+    "dist/",
+    "skills/"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": {
+        "types": "./dist/bun.d.ts",
+        "import": "./dist/bun.js"
+      },
+      "edge-light": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "workerd": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "deno": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      },
+      "node": {
+        "types": "./dist/node.d.ts",
+        "import": "./dist/node.js"
+      },
+      "default": {
+        "types": "./dist/fetch.d.ts",
+        "import": "./dist/fetch.js"
+      }
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.js"
+    },
+    "./bun": {
+      "types": "./dist/bun.d.ts",
+      "import": "./dist/bun.js"
+    },
+    "./fetch": {
+      "types": "./dist/fetch.d.ts",
+      "import": "./dist/fetch.js"
+    },
+    "./testing": {
+      "types": "./dist/testing/index.d.ts",
+      "import": "./dist/testing/index.js"
+    },
+    "./cloudflare-think/v0": {
+      "types": "./dist/cloudflare-think/v0/index.d.ts",
+      "import": "./dist/cloudflare-think/v0/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@arcjet/analyze": "1.11.0",
+    "@arcjet/logger": "1.11.0",
+    "@arcjet/transport": "file:../arcjet-transport",
+    "@bufbuild/protobuf": "2.14.0",
+    "@connectrpc/connect": "2.1.2",
+    "@connectrpc/connect-node": "2.1.2",
+    "@connectrpc/connect-web": "2.1.2"
+  },
+  "peerDependencies": {
+    "@cloudflare/think": ">=0.3.0 <1"
+  },
+  "peerDependenciesMeta": {
+    "@cloudflare/think": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22.21.0 <23 || >=24.5.0"
+  }
+}

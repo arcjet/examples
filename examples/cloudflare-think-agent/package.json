@@ -1,0 +1,38 @@
+{
+  "name": "@arcjet-examples/cloudflare-think-agent",
+  "type": "module",
+  "description": "An example Cloudflare Think agent protected by Arcjet Guard AI guardrails.",
+  "license": "Apache-2.0",
+  "homepage": "https://arcjet.com",
+  "repository": "github:arcjet/example-cloudflare-think-agent",
+  "bugs": {
+    "url": "https://github.com/arcjet/examples/issues",
+    "email": "support@arcjet.com"
+  },
+  "author": {
+    "name": "Arcjet",
+    "email": "support@arcjet.com",
+    "url": "https://arcjet.com"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file-if-exists=.env.local index.ts",
+    "start": "node --env-file-if-exists=.env.local index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@arcjet/guard": "file:./vendor/arcjet-guard",
+    "@cloudflare/think": "0.17.0",
+    "zod": "4.4.3"
+  },
+  "overrides": {
+    "@arcjet/transport": "file:./vendor/arcjet-transport"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "typescript": "5.9.3"
+  }
+}
