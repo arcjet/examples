@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import {
   googleAdkContext,
   guardPlugin,
@@ -114,7 +115,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
   // not provide one, mint a per-run id for ADK bookkeeping only — it is
   // never passed to googleAdkContext or guardPlugin. Unique per request
   // so a later module-scoped SessionService would not join turns.
-  const adkSessionId = input.sessionId ?? `adk-local-${crypto.randomUUID()}`;
+  const adkSessionId = input.sessionId ?? `adk-local-${randomUUID()}`;
   await sessionService.createSession({
     appName: APP_NAME,
     userId: USER_ID,

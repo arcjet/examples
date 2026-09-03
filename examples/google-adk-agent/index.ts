@@ -7,6 +7,13 @@ import {
 import { z } from "zod";
 import { hasGeminiKey, runAgent } from "./lib/agent.ts";
 
+function requestPath(url: string | undefined): string {
+  if (url === undefined) {
+    return "";
+  }
+  return new URL(url, "http://localhost").pathname;
+}
+
 const requestSchema = z.object({
   message: z.string().min(1).max(2000),
   // Caller-owned id only. Copied onto googleAdkContext / guardPlugin
@@ -52,13 +59,15 @@ function asPrintableId(value: string | undefined): string | undefined {
 }
 
 const server = createServer(async (request, response) => {
-  if (request.method === "GET" && request.url === "/") {
+  const pathname = requestPath(request.url);
+
+  if (request.method === "GET" && pathname === "/") {
     response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
     response.end(page);
     return;
   }
 
-  if (request.method !== "POST" || request.url !== "/api/agent") {
+  if (request.method !== "POST" || pathname !== "/api/agent") {
     response.writeHead(404).end();
     return;
   }
@@ -96,7 +105,12 @@ function statusForError(error: unknown): number {
   return 500;
 }
 
-const port = Number(process.env.PORT ?? 3000);
+const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+if (!Number.isInteger(port) || port < 0 || port > 65535) {
+  throw new Error(
+    `PORT must be an integer between 0 and 65535, got ${process.env.PORT}`,
+  );
+}
 server.listen(port, "0.0.0.0", () => {
   console.log(`Google ADK agent example listening on http://localhost:${port}`);
 });
