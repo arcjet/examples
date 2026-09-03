@@ -8,6 +8,8 @@ import {
   InMemorySessionService,
   LlmAgent,
   Runner,
+  isFinalResponse,
+  type Event,
 } from "@google/adk";
 import { z } from "zod";
 import {
@@ -68,9 +70,20 @@ export interface AgentRunResult {
   correlationId?: string;
 }
 
+export function hasGeminiKey(): boolean {
+  return (
+    isPresent(process.env.GOOGLE_GENAI_API_KEY) ||
+    isPresent(process.env.GOOGLE_API_KEY) ||
+    isPresent(process.env.GEMINI_API_KEY)
+  );
+}
+
+function isPresent(value: string | undefined): boolean {
+  return typeof value === "string" && value.length > 0;
+}
+
 export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
-  const geminiKey = process.env.GOOGLE_GENAI_API_KEY ?? process.env.GEMINI_API_KEY;
-  if (!geminiKey) {
+  if (!hasGeminiKey()) {
     throw new Error("GOOGLE_GENAI_API_KEY is required");
   }
 
@@ -98,9 +111,10 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
 
   const sessionService = new InMemorySessionService();
   // ADK requires a session id for Runner.runAsync. When the caller did
-  // not provide one, this local id is for ADK bookkeeping only — it is
-  // never passed to googleAdkContext or guardPlugin.
-  const adkSessionId = input.sessionId ?? "uncorrelated";
+  // not provide one, mint a per-run id for ADK bookkeeping only — it is
+  // never passed to googleAdkContext or guardPlugin. Unique per request
+  // so a later module-scoped SessionService would not join turns.
+  const adkSessionId = input.sessionId ?? `adk-local-${crypto.randomUUID()}`;
   await sessionService.createSession({
     appName: APP_NAME,
     userId: USER_ID,
@@ -137,6 +151,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
       // a deny dict, never undefined.
       guardPlugin(arcjet, {
         action: ({ toolName }) => `${toolName}.invoked`,
+        onGuardError: "deny",
         sessionId: input.sessionId,
         rules: ({ input: args }) => {
           const orderId = readOrderId(args) ?? LOOKUP_ORDER_TOOL;
@@ -199,13 +214,24 @@ async function screenInbound(
 function collectMessageText(events: unknown[]): string {
   const parts: string[] = [];
   for (const event of events) {
-    for (const block of eventParts(event)) {
+    const adkEvent = asEvent(event);
+    if (adkEvent === undefined || !isFinalResponse(adkEvent)) {
+      continue;
+    }
+    for (const block of eventParts(adkEvent)) {
       if (typeof block.text === "string" && block.text.length > 0) {
         parts.push(block.text);
       }
     }
   }
   return parts.join("");
+}
+
+function asEvent(value: unknown): Event | undefined {
+  if (!isRecord(value) || !isRecord(value.actions)) {
+    return undefined;
+  }
+  return value as unknown as Event;
 }
 
 function collectToolResults(events: unknown[]): unknown[] {

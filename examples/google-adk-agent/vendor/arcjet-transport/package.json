@@ -1,7 +1,7 @@
 {
   "name": "@arcjet/transport",
   "version": "1.11.0",
-  "description": "Transport mechanisms for the Arcjet protocol. Vendored build of @arcjet/transport with ./http2 (needed by Guard at arcjet-js@41ef36816e7174f1b0288d28217e63fa14114307; npm @arcjet/transport@1.11.0 does not export ./http2).",
+  "description": "Transport mechanisms for the Arcjet protocol. Vendored build from arcjet-js@41ef36816e7174f1b0288d28217e63fa14114307 (david/cursor/guard-google-adk-v2; includes ./http2 which npm @arcjet/transport@1.11.0 does not export).",
   "keywords": [
     "arcjet",
     "transport",

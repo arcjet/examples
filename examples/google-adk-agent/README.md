@@ -46,7 +46,8 @@ import `@arcjet/guard/google-adk` (unversioned). The only adapter path is
 > (see `vendor/SOURCE.txt`). The subpath is on that branch but **not yet
 > published to npm**. Guard on that SHA imports `@arcjet/transport/http2`,
 > which npm `@arcjet/transport@1.11.0` does not export, so
-> `@arcjet/transport` is also vendored as `file:./vendor/arcjet-transport`.
+> `@arcjet/transport` is also vendored from the **same SHA** as
+> `file:./vendor/arcjet-transport`.
 > npm cannot install a monorepo subdirectory from git, so the built packages
 > are vendored. Do not invent a published version number for this subpath.
 > Repin to the stable release once `@arcjet/guard/google-adk/v2` ships. Peer:
@@ -163,10 +164,10 @@ This example needs two keys, both set in `.env.local`:
 - `GOOGLE_GENAI_API_KEY` — used by Google ADK JS to call the Gemini model
   that powers the support agent. Get it from
   [Google AI Studio](https://aistudio.google.com/app/apikey).
-  `GEMINI_API_KEY` is accepted as an alias.
+  ADK also accepts `GOOGLE_API_KEY` or `GEMINI_API_KEY` as aliases.
 
 Both keys are required to run the agent: `ARCJET_KEY` authenticates the guard
-decisions and `GOOGLE_GENAI_API_KEY` authenticates the model calls.
+decisions and a Gemini key authenticates the model calls.
 
 ## Observing the run
 
@@ -215,6 +216,12 @@ id to filter on. The server only copies that value onto
 `googleAdkContext({ context: { sessionId } })` and
 `guardPlugin({ sessionId })`. It never calls `randomUUID()` per request
 for Guard.
+
+That conversation id is Guard Sequence correlation only. Each `/api/agent`
+request builds a fresh `InMemorySessionService`, so ADK does not persist
+multi-turn memory across HTTP requests. When the page omits an id, the
+server mints an `adk-local-…` session id for ADK bookkeeping and does not
+pass it to Guard.
 
 ## Need help?
 

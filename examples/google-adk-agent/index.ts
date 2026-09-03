@@ -5,7 +5,7 @@ import {
   type ServerResponse,
 } from "node:http";
 import { z } from "zod";
-import { runAgent } from "./lib/agent.ts";
+import { hasGeminiKey, runAgent } from "./lib/agent.ts";
 
 const requestSchema = z.object({
   message: z.string().min(1).max(2000),
@@ -65,7 +65,7 @@ const server = createServer(async (request, response) => {
 
   try {
     const input = requestSchema.parse(await readJson(request));
-    if (!process.env.GOOGLE_GENAI_API_KEY && !process.env.GEMINI_API_KEY) {
+    if (!hasGeminiKey()) {
       throw new Error("GOOGLE_GENAI_API_KEY is required");
     }
 

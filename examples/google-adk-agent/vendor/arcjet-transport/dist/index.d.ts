@@ -1,6 +1,6 @@
-import type { Transport } from "@connectrpc/connect";
-export type { ProxyEnvironment, TransportLogger, TransportOptions } from "./detect-proxy.js";
-import type { TransportOptions } from "./detect-proxy.js";
+import { ProxyEnvironment, TransportLogger, TransportOptions } from "./detect-proxy.js";
+import { Transport } from "@connectrpc/connect";
+//#region src/index.d.ts
 /**
  * Create a transport that talks to the Arcjet API using Connect RPC.
  *
@@ -21,4 +21,6 @@ import type { TransportOptions } from "./detect-proxy.js";
  * @returns
  *   Connect transport used to make RPC calls.
  */
-export declare function createTransport(baseUrl: string, options?: TransportOptions): Transport;
+declare function createTransport(baseUrl: string, options?: TransportOptions): Transport;
+//#endregion
+export { type ProxyEnvironment, type TransportLogger, type TransportOptions, createTransport };

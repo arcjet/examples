@@ -1,4 +1,6 @@
-import type { Transport } from "@connectrpc/connect";
-export type { ProxyEnvironment, TransportLogger, TransportOptions } from "./detect-proxy.js";
-import type { TransportOptions } from "./detect-proxy.js";
-export declare function createTransport(baseUrl: string, _options?: TransportOptions): Transport;
+import { ProxyEnvironment, TransportLogger, TransportOptions } from "./detect-proxy.js";
+import { Transport } from "@connectrpc/connect";
+//#region src/edge-light.d.ts
+declare function createTransport(baseUrl: string, _options?: TransportOptions): Transport;
+//#endregion
+export { type ProxyEnvironment, type TransportLogger, type TransportOptions, createTransport };

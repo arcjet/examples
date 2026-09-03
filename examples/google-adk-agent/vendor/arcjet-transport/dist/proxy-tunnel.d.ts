@@ -1,5 +1,6 @@
-import type { SecureClientSessionOptions } from "node:http2";
 import { Duplex } from "node:stream";
+import { SecureClientSessionOptions } from "node:http2";
+//#region src/proxy-tunnel.d.ts
 /**
  * Route an HTTP/2 session through a forward proxy using an HTTP `CONNECT`
  * tunnel, preserving HTTP/2 to the origin.
@@ -32,4 +33,6 @@ import { Duplex } from "node:stream";
  *   A `createConnection` callback for `http2.connect(..., { createConnection })`
  *   (and therefore for connect-node's `nodeOptions.createConnection`).
  */
-export declare function createTunnelingConnection(proxyUrl: string): (authority: URL, options: SecureClientSessionOptions) => Duplex;
+declare function createTunnelingConnection(proxyUrl: string): (authority: URL, options: SecureClientSessionOptions) => Duplex;
+//#endregion
+export { createTunnelingConnection };

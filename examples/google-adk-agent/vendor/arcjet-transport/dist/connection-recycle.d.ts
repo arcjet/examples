@@ -1,22 +1,5 @@
-/**
- * Dead-connection recovery for Arcjet HTTP/2 transports.
- *
- * A long-lived HTTP/2 session can die silently: an intermediary (NAT gateway,
- * L4 load balancer, connection-tracking table) can drop the connection state
- * during an idle period without sending a FIN or RST to either end. The client
- * then holds a session that looks open but black-holes every write, so every
- * RPC times out — and keeps timing out until TCP retransmission gives up many
- * minutes later, because nothing else tears the session down.
- *
- * The PING keep-alive configured in `http2.ts` detects most of this, but as a
- * backstop this wrapper watches RPC outcomes: after a run of consecutive
- * deadline failures with no success in between, it aborts the managed session
- * so the next call dials a fresh connection.
- *
- * Shared by `@arcjet/transport` (main SDK) and `@arcjet/guard` so both stay on
- * the same recovery behavior.
- */
-import type { Transport } from "@connectrpc/connect";
+import { Transport } from "@connectrpc/connect";
+//#region src/connection-recycle.d.ts
 /**
  * Consecutive deadline failures after which the connection is recycled.
  *
@@ -24,15 +7,15 @@ import type { Transport } from "@connectrpc/connect";
  * connection (aborting also kills any concurrent in-flight streams), low
  * enough that a dead session costs only a few failed-open calls.
  */
-export declare const RECYCLE_AFTER_CONSECUTIVE_DEADLINES = 3;
+declare const RECYCLE_AFTER_CONSECUTIVE_DEADLINES = 3;
 /**
  * The subset of `Http2SessionManager` the wrapper needs.
  *
  * Narrowed so tests can inject a fake.
  */
-export interface RecyclableSession {
-    abort(reason?: Error): void;
-    connect(): Promise<unknown>;
+interface RecyclableSession {
+  abort(reason?: Error): void;
+  connect(): Promise<unknown>;
 }
 /**
  * Wrap a transport so consecutive deadline failures recycle the connection.
@@ -67,4 +50,6 @@ export interface RecyclableSession {
  * @param session Session manager to abort when the threshold is reached.
  * @returns A transport with the same behavior plus connection recycling.
  */
-export declare function withConnectionRecycling(transport: Transport, session: RecyclableSession): Transport;
+declare function withConnectionRecycling(transport: Transport, session: RecyclableSession): Transport;
+//#endregion
+export { RECYCLE_AFTER_CONSECUTIVE_DEADLINES, RecyclableSession, withConnectionRecycling };
