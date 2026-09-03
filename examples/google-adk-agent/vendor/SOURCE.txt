@@ -1,0 +1,5 @@
+Built from https://github.com/arcjet/arcjet-js/commit/41ef36816e7174f1b0288d28217e63fa14114307
+Branch: david/cursor/guard-google-adk-v2
+Packages:
+  - @arcjet/guard (google-adk/v2 adapter)
+  - @arcjet/transport (./http2 export used by Guard at this SHA; not in npm 1.11.0)
