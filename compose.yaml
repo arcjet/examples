@@ -19,4 +19,5 @@ include:
   - examples/react-router/compose.yaml
   - examples/react-router-middleware/compose.yaml
   - examples/sveltekit/compose.yaml
+  - examples/tanstack-agent/compose.yaml
   - examples/tanstack-start/compose.yaml

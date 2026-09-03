@@ -138,6 +138,10 @@ const workspaces = [
   ],
   ["@arcjet-examples/sveltekit", path.join(BASE_PATH, "./examples/sveltekit")],
   [
+    "@arcjet-examples/tanstack-agent",
+    path.join(BASE_PATH, "./examples/tanstack-agent"),
+  ],
+  [
     "@arcjet-examples/tanstack-start",
     path.join(BASE_PATH, "./examples/tanstack-start"),
   ],
