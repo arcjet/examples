@@ -34,6 +34,12 @@ That sibling is
 > A hosted version must add authentication and/or rate limiting before calling
 > the model. The route caps JSON bodies at 32 KiB and messages at 2,000
 > characters; those are demo bounds, not abuse protection.
+>
+> If `CLAUDE_MANAGED_AGENT_ID` and `CLAUDE_MANAGED_ENVIRONMENT_ID` are unset,
+> the first request **creates** a hosted agent and a cloud environment with
+> **unrestricted networking**. That is a demo convenience, not a production
+> pattern. Copy the created IDs into `.env.local` after the first run, or
+> provision the agent and environment yourself.
 
 > [!IMPORTANT]
 > This example depends on the Arcjet Guard **Claude Managed Agents**
@@ -118,8 +124,10 @@ the app executes can be gated.
 - `ARCJET_KEY` — from [https://app.arcjet.com](https://app.arcjet.com).
 - `ANTHROPIC_API_KEY` — from [Anthropic Console](https://console.anthropic.com/).
 
-On first request the example creates a Claude Managed Agent and environment
-unless you set `CLAUDE_MANAGED_AGENT_ID` and `CLAUDE_MANAGED_ENVIRONMENT_ID`.
+On first request the example creates a Claude Managed Agent and a cloud
+environment with unrestricted networking unless you set
+`CLAUDE_MANAGED_AGENT_ID` and `CLAUDE_MANAGED_ENVIRONMENT_ID`. Reuse those
+IDs after the first create.
 
 Optional: `PORT`, `ARCJET_LOG_LEVEL`, `CLAUDE_MANAGED_MODEL`.
 

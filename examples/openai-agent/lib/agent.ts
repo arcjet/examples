@@ -3,8 +3,13 @@ import {
   openaiAgentsContext,
   type OpenAIAgentsAgentContext,
 } from "@arcjet/guard/openai-agents/v0";
-import { OpenAIProvider } from "@openai/agents-openai";
-import { Agent, run, setDefaultModelProvider, tool } from "@openai/agents";
+import {
+  Agent,
+  OpenAIProvider,
+  Runner,
+  tool,
+  type RunItem,
+} from "@openai/agents";
 import { z } from "zod";
 import {
   arcjet,
@@ -101,33 +106,32 @@ function createSupportAgent() {
   });
 }
 
-let providerConfigured = false;
+let agent: ReturnType<typeof createSupportAgent> | undefined;
+let runner: Runner | undefined;
 
-function ensureModelProvider() {
-  if (providerConfigured) {
-    return;
+function getAgent() {
+  agent ??= createSupportAgent();
+  return agent;
+}
+
+function getRunner(): Runner {
+  if (runner !== undefined) {
+    return runner;
   }
   const gatewayKey = process.env.AI_GATEWAY_API_KEY;
   const apiKey = gatewayKey ?? process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error("AI_GATEWAY_API_KEY is required");
   }
-  setDefaultModelProvider(
-    new OpenAIProvider({
+  runner = new Runner({
+    modelProvider: new OpenAIProvider({
       apiKey,
       ...(gatewayKey
         ? { baseURL: "https://ai-gateway.vercel.sh/v1" }
         : {}),
     }),
-  );
-  providerConfigured = true;
-}
-
-let agent: ReturnType<typeof createSupportAgent> | undefined;
-
-function getAgent() {
-  agent ??= createSupportAgent();
-  return agent;
+  });
+  return runner;
 }
 
 export interface AgentRunInput {
@@ -144,7 +148,6 @@ export interface AgentRunResult {
 }
 
 export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
-  ensureModelProvider();
   const appContext =
     input.sessionId === undefined ? {} : { sessionId: input.sessionId };
   // Derived once and reused: openaiAgentsContext reads context.sessionId
@@ -166,7 +169,9 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
     };
   }
 
-  const result = await run(getAgent(), input.prompt, { context: appContext });
+  const result = await getRunner().run(getAgent(), input.prompt, {
+    context: appContext,
+  });
 
   return {
     message: result.finalOutput ?? "",
@@ -200,13 +205,13 @@ async function screenInbound(
   }
 }
 
-function collectToolResults(items: ReadonlyArray<{ type?: string }>): unknown[] {
+function collectToolResults(items: ReadonlyArray<RunItem>): unknown[] {
   const results: unknown[] = [];
   for (const item of items) {
     if (item.type !== "tool_call_output_item") {
       continue;
     }
-    const payload = readToolOutput(item);
+    const payload = readToolOutput(item.output);
     results.push({
       name: readToolName(item),
       arcjetDenied: isArcjetDenial(payload),
@@ -216,11 +221,7 @@ function collectToolResults(items: ReadonlyArray<{ type?: string }>): unknown[] 
   return results;
 }
 
-function readToolOutput(item: unknown): unknown {
-  if (!isRecord(item)) {
-    return item;
-  }
-  const raw = "output" in item ? item.output : item;
+function readToolOutput(raw: unknown): unknown {
   if (typeof raw !== "string") {
     return raw;
   }
@@ -231,15 +232,12 @@ function readToolOutput(item: unknown): unknown {
   }
 }
 
-function readToolName(item: unknown): string {
-  if (!isRecord(item)) {
+function readToolName(item: RunItem): string {
+  if (item.type !== "tool_call_output_item") {
     return "unknown";
   }
-  if (typeof item.name === "string" && item.name.length > 0) {
-    return item.name;
-  }
-  const rawItem = isRecord(item.rawItem) ? item.rawItem : undefined;
-  if (rawItem !== undefined && typeof rawItem.name === "string") {
+  const rawItem = item.rawItem;
+  if ("name" in rawItem && typeof rawItem.name === "string" && rawItem.name.length > 0) {
     return rawItem.name;
   }
   return "unknown";
@@ -269,8 +267,4 @@ function readLookupInput(input: unknown): { orderId: string; note?: string } {
   }
   const { note } = input as { note: unknown };
   return typeof note === "string" && note.length > 0 ? { orderId, note } : { orderId };
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
 }

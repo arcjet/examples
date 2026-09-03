@@ -147,7 +147,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
 
   return {
     message: readAgentText(result),
-    toolResults: collectToolResults(result),
+    toolResults: collectToolResults(agent),
     correlationId: ctx.correlationId,
   };
 }
@@ -190,11 +190,64 @@ function readAgentText(result: unknown): string {
   return "";
 }
 
-function collectToolResults(_result: unknown): unknown[] {
-  // Strands surfaces tool outcomes on the assistant turn; the demo page focuses
-  // on inbound blocks and model text. Tool denials still appear in the Arcjet
-  // Console via guardTool / guardHooks capture.
-  return [];
+function collectToolResults(agent: Agent): unknown[] {
+  const namesById = new Map<string, string>();
+  const results: unknown[] = [];
+  for (const message of agent.messages) {
+    for (const block of message.content) {
+      if (block.type === "toolUseBlock") {
+        namesById.set(block.toolUseId, block.name);
+        continue;
+      }
+      if (block.type !== "toolResultBlock") {
+        continue;
+      }
+      const payload = readToolResultPayload(block.content);
+      results.push({
+        name: namesById.get(block.toolUseId) ?? "unknown",
+        arcjetDenied: isArcjetDenial(payload),
+        content: payload,
+      });
+    }
+  }
+  return results;
+}
+
+function readToolResultPayload(content: ReadonlyArray<{ type?: string }>): unknown {
+  const parts: unknown[] = [];
+  for (const item of content) {
+    if (item.type === "jsonBlock" && "json" in item) {
+      parts.push(item.json);
+      continue;
+    }
+    if (item.type === "textBlock" && "text" in item && typeof item.text === "string") {
+      parts.push(parseJsonIfString(item.text));
+    }
+  }
+  if (parts.length === 1) {
+    return parts[0];
+  }
+  if (parts.length > 1) {
+    return parts;
+  }
+  return content;
+}
+
+function parseJsonIfString(value: string): unknown {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+}
+
+function isArcjetDenial(value: unknown): boolean {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "arcjetDenied" in value &&
+    value.arcjetDenied === true
+  );
 }
 
 function openAiModel() {

@@ -41,7 +41,9 @@ export interface AgentRunResult {
 }
 
 let client: Anthropic | undefined;
-let harness: { agentId: string; environmentId: string } | undefined;
+let harnessPromise:
+  | Promise<{ agentId: string; environmentId: string }>
+  | undefined;
 
 function getClient(): Anthropic {
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -58,7 +60,7 @@ export function hasAnthropicKey(): boolean {
   );
 }
 
-async function getHarness(): Promise<{ agentId: string; environmentId: string }> {
+function harnessFromEnv(): { agentId: string; environmentId: string } | undefined {
   const agentId = process.env.CLAUDE_MANAGED_AGENT_ID;
   const environmentId = process.env.CLAUDE_MANAGED_ENVIRONMENT_ID;
   if (
@@ -69,11 +71,26 @@ async function getHarness(): Promise<{ agentId: string; environmentId: string }>
   ) {
     return { agentId, environmentId };
   }
+  return undefined;
+}
 
-  if (harness !== undefined) {
-    return harness;
+async function getHarness(): Promise<{ agentId: string; environmentId: string }> {
+  const fromEnv = harnessFromEnv();
+  if (fromEnv !== undefined) {
+    return fromEnv;
   }
 
+  harnessPromise ??= createHarness().catch((error: unknown) => {
+    harnessPromise = undefined;
+    throw error;
+  });
+  return harnessPromise;
+}
+
+async function createHarness(): Promise<{
+  agentId: string;
+  environmentId: string;
+}> {
   const anthropic = getClient();
   const model = process.env.CLAUDE_MANAGED_MODEL ?? "claude-sonnet-4-5";
 
@@ -127,8 +144,7 @@ async function getHarness(): Promise<{ agentId: string; environmentId: string }>
     }),
   ]);
 
-  harness = { agentId: agent.id, environmentId: environment.id };
-  return harness;
+  return { agentId: agent.id, environmentId: environment.id };
 }
 
 export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
@@ -158,59 +174,85 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
   // Open the stream before sending so we do not miss custom_tool_use.
   const stream = await anthropic.beta.sessions.events.stream(session.id);
 
-  // There is no guardInbound and no UserPromptSubmit. Screen on
-  // guardEvents before events.send. On DENY, send is not called.
-  const verdict = await guardEvents(
-    arcjet,
-    {
-      events,
-      inbound: {
-        action: "message.received",
-        onGuardError: "deny",
-        rules: ({ text }) => [detectInjection(text)],
+  try {
+    // There is no guardInbound and no UserPromptSubmit. Screen on
+    // guardEvents before events.send. On DENY, send is not called.
+    const verdict = await guardEvents(
+      arcjet,
+      {
+        events,
+        inbound: {
+          action: "message.received",
+          onGuardError: "deny",
+          rules: ({ text }) => [detectInjection(text)],
+        },
+        context: ctx,
       },
-      context: ctx,
-    },
-    (body) => anthropic.beta.sessions.events.send(session.id, body),
-  );
+      (body) => anthropic.beta.sessions.events.send(session.id, body),
+    );
 
-  if (!verdict.allowed) {
+    if (!verdict.allowed) {
+      return {
+        message: verdict.message,
+        toolResults: [],
+        inboundBlocked: { reason: verdict.outcome },
+        correlationId: ctx.correlationId,
+      };
+    }
+
+    const toolResults: unknown[] = [];
+    const messageParts: string[] = [];
+    let pendingCustomTools = 0;
+
+    for await (const event of stream) {
+      if (event.type === "session.error") {
+        throw new Error(sessionErrorMessage(event));
+      }
+
+      if (event.type === "session.status_terminated") {
+        break;
+      }
+
+      if (event.type === "agent.message") {
+        collectMessageText(event, messageParts);
+        continue;
+      }
+
+      if (isCustomToolUseEvent(event)) {
+        pendingCustomTools += 1;
+        try {
+          const handled = await handleCustomTool(
+            anthropic,
+            session.id,
+            event,
+            ctx,
+          );
+          toolResults.push(handled);
+        } finally {
+          pendingCustomTools -= 1;
+        }
+        continue;
+      }
+
+      // requires_action idle means the session is waiting for a custom
+      // tool result. Only end_turn (or terminated above) finishes the turn.
+      if (
+        event.type === "session.status_idle" &&
+        pendingCustomTools === 0 &&
+        isEndTurnIdle(event)
+      ) {
+        break;
+      }
+    }
+
     return {
-      message: verdict.message,
-      toolResults: [],
-      inboundBlocked: { reason: verdict.outcome },
+      message: messageParts.join(""),
+      toolResults,
       correlationId: ctx.correlationId,
     };
+  } finally {
+    stream.controller.abort();
   }
-
-  const toolResults: unknown[] = [];
-  const messageParts: string[] = [];
-  let pendingCustomTools = 0;
-
-  for await (const event of stream) {
-    if (event.type === "agent.message") {
-      collectMessageText(event, messageParts);
-      continue;
-    }
-
-    if (isCustomToolUseEvent(event)) {
-      pendingCustomTools += 1;
-      const handled = await handleCustomTool(anthropic, session.id, event, ctx);
-      toolResults.push(handled);
-      pendingCustomTools -= 1;
-      continue;
-    }
-
-    if (event.type === "session.status_idle" && pendingCustomTools === 0) {
-      break;
-    }
-  }
-
-  return {
-    message: messageParts.join(""),
-    toolResults,
-    correlationId: ctx.correlationId,
-  };
 }
 
 async function handleCustomTool(
@@ -366,4 +408,21 @@ function isCustomToolUseEvent(value: unknown): value is AgentCustomToolUseEvent 
     typeof value.processed_at === "string" &&
     isRecord(value.input)
   );
+}
+
+function isEndTurnIdle(event: unknown): boolean {
+  if (!isRecord(event) || !isRecord(event.stop_reason)) {
+    return false;
+  }
+  return event.stop_reason.type === "end_turn";
+}
+
+function sessionErrorMessage(event: unknown): string {
+  if (!isRecord(event) || !isRecord(event.error)) {
+    return "Claude Managed Agents session error";
+  }
+  if (typeof event.error.message === "string" && event.error.message.length > 0) {
+    return event.error.message;
+  }
+  return "Claude Managed Agents session error";
 }

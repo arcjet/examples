@@ -1,8 +1,19 @@
 import { strandsAgentContext } from "@arcjet/guard/strands-agents/v1";
 import { readFile } from "node:fs/promises";
-import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
+import {
+  createServer,
+  type IncomingMessage,
+  type ServerResponse,
+} from "node:http";
 import { z } from "zod";
 import { runAgent } from "./lib/agent.ts";
+
+function requestPath(url: string | undefined): string {
+  if (url === undefined) {
+    return "";
+  }
+  return new URL(url, "http://localhost").pathname;
+}
 
 const requestSchema = z.object({
   message: z.string().min(1).max(2000),
@@ -11,7 +22,6 @@ const requestSchema = z.object({
 });
 
 const page = await readFile(new URL("./index.html", import.meta.url), "utf8");
-
 const MAX_JSON_BODY_BYTES = 32 * 1024;
 
 async function readJson(request: IncomingMessage): Promise<unknown> {
@@ -25,7 +35,11 @@ async function readJson(request: IncomingMessage): Promise<unknown> {
     }
     chunks.push(buffer);
   }
-  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  } catch {
+    throw new SyntaxError("Invalid JSON body");
+  }
 }
 
 function sendJson(response: ServerResponse, status: number, value: unknown) {
@@ -45,13 +59,15 @@ function asPrintableId(value: string | undefined): string | undefined {
 }
 
 const server = createServer(async (request, response) => {
-  if (request.method === "GET" && request.url === "/") {
+  const pathname = requestPath(request.url);
+
+  if (request.method === "GET" && pathname === "/") {
     response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
     response.end(page);
     return;
   }
 
-  if (request.method !== "POST" || request.url !== "/api/agent") {
+  if (request.method !== "POST" || pathname !== "/api/agent") {
     response.writeHead(404).end();
     return;
   }
@@ -82,13 +98,26 @@ const server = createServer(async (request, response) => {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    sendJson(response, message === "Request body too large" ? 413 : 500, {
-      message,
-    });
+    sendJson(response, statusForError(error), { message });
   }
 });
 
-const port = Number(process.env.PORT ?? 3000);
+function statusForError(error: unknown): number {
+  if (error instanceof Error && error.message === "Request body too large") {
+    return 413;
+  }
+  if (error instanceof SyntaxError || error instanceof z.ZodError) {
+    return 400;
+  }
+  return 500;
+}
+
+const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+if (!Number.isInteger(port) || port < 0 || port > 65535) {
+  throw new Error(
+    `PORT must be an integer between 0 and 65535, got ${process.env.PORT}`,
+  );
+}
 server.listen(port, "0.0.0.0", () => {
   console.log(`Strands Agents example listening on http://localhost:${port}`);
 });
