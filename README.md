@@ -43,6 +43,8 @@ frameworks.
 
 - [Claude agent example](https://github.com/arcjet/example-claude-agent)
   ([`./examples/claude-agent`](./examples/claude-agent))
+- [Claude Managed Agents example](https://github.com/arcjet/example-claude-managed-agents)
+  ([`./examples/claude-managed-agents`](./examples/claude-managed-agents))
 - [Express.js with Newman tests example](https://github.com/arcjet/example-express-newman)
   ([`./examples/express-newman`](./examples/express-newman))
 - [Firebase functions example](https://github.com/arcjet/example-firebase-functions)

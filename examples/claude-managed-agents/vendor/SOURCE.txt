@@ -1,0 +1,5 @@
+Built from https://github.com/arcjet/arcjet-js/commit/cb35c8f92c3a2fb63fbeb9b386d79b1878c19d92
+Branch: david/cursor/claude-managed-agents-v0-3e87
+Packages:
+  - @arcjet/guard (claude-managed-agents/v0 adapter)
+  - @arcjet/transport (./http2 export used by Guard at this SHA; not in npm 1.11.0)

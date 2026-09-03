@@ -1,0 +1,16 @@
+services:
+  claude-managed-agents:
+    build: .
+    command: npm run dev
+    env_file:
+      - .env.local
+    labels:
+      - dev.orbstack.domains=claude-managed-agents.arcjet-examples.orb.local
+    ports:
+      - 3000
+    volumes:
+      - .:/app
+      - claude-managed-agents_node_modules:/app/node_modules
+
+volumes:
+  claude-managed-agents_node_modules:
