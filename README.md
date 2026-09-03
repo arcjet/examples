@@ -45,6 +45,8 @@ frameworks.
   ([`./examples/claude-agent`](./examples/claude-agent))
 - [Claude Managed Agents example](https://github.com/arcjet/example-claude-managed-agent)
   ([`./examples/claude-managed-agent`](./examples/claude-managed-agent))
+- [Cloudflare Think agent example](https://github.com/arcjet/example-cloudflare-think-agent)
+  ([`./examples/cloudflare-think-agent`](./examples/cloudflare-think-agent))
 - [Express.js with Newman tests example](https://github.com/arcjet/example-express-newman)
   ([`./examples/express-newman`](./examples/express-newman))
 - [Firebase functions example](https://github.com/arcjet/example-firebase-functions)

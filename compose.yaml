@@ -2,6 +2,7 @@ include:
   - examples/astro/compose.yaml
   - examples/bun/compose.yaml
   - examples/claude-managed-agent/compose.yaml
+  - examples/cloudflare-think-agent/compose.yaml
   - examples/deno/compose.yaml
   - examples/express-newman/compose.yaml
   - examples/expressjs/compose.yaml

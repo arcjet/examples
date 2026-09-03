@@ -60,6 +60,10 @@ const workspaces = [
     "@arcjet-examples/claude-managed-agent",
     path.join(BASE_PATH, "./examples/claude-managed-agent"),
   ],
+  [
+    "@arcjet-examples/cloudflare-think-agent",
+    path.join(BASE_PATH, "./examples/cloudflare-think-agent"),
+  ],
   ["@arcjet-examples/deno", path.join(BASE_PATH, "./examples/deno")],
   [
     "@arcjet-examples/eve-agent",
