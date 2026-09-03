@@ -49,6 +49,8 @@ frameworks.
   ([`./examples/firebase-functions`](./examples/firebase-functions))
 - [Genkit agent example](https://github.com/arcjet/example-genkit-agent)
   ([`./examples/genkit-agent`](./examples/genkit-agent))
+- [Google ADK agent example](https://github.com/arcjet/example-google-adk-agent)
+  ([`./examples/google-adk-agent`](./examples/google-adk-agent))
 - [LangChain agent example](https://github.com/arcjet/example-langchain-agent)
   ([`./examples/langchain-agent`](./examples/langchain-agent))
 - [LangGraph agent example](https://github.com/arcjet/example-langgraph-agent)

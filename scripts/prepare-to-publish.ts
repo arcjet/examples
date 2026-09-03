@@ -78,6 +78,10 @@ const workspaces = [
     path.join(BASE_PATH, "./examples/genkit-agent"),
   ],
   [
+    "@arcjet-examples/google-adk-agent",
+    path.join(BASE_PATH, "./examples/google-adk-agent"),
+  ],
+  [
     "@arcjet-examples/langchain-agent",
     path.join(BASE_PATH, "./examples/langchain-agent"),
   ],
