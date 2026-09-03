@@ -49,7 +49,7 @@ function chatAdapter() {
   const gatewayKey = process.env.AI_GATEWAY_API_KEY;
   const apiKey = gatewayKey ?? process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    throw new Error("AI_GATEWAY_API_KEY is required");
+    throw new Error("AI_GATEWAY_API_KEY or OPENAI_API_KEY is required");
   }
   return openaiCompatibleText(id, {
     name: gatewayKey ? "vercel-ai-gateway" : "openai",
@@ -132,6 +132,9 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
       guardMiddleware(arcjet, {
         action: ({ toolName }) => `${toolName}.invoked`,
         sessionId: input.sessionId,
+        // Default is already deny; set it explicitly so tool-call
+        // outages fail closed via skip-deny.
+        onGuardError: "deny",
         rules: ({ input: args }) => {
           const orderId = readOrderId(args) ?? LOOKUP_ORDER_TOOL;
           const note = readNote(args);
@@ -187,7 +190,8 @@ async function screenInbound(
       return { reason: "ERROR", message: GUARD_UNAVAILABLE };
     }
     return undefined;
-  } catch {
+  } catch (error) {
+    console.error("Inbound guard failed:", error);
     return { reason: "ERROR", message: GUARD_UNAVAILABLE };
   }
 }

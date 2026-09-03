@@ -157,16 +157,16 @@ so `onBeforeToolCall` actually runs.
 
 ### Setup
 
-This example needs two keys, both set in `.env.local`:
+This example needs keys set in `.env.local`:
 
 - `ARCJET_KEY` — your Arcjet site key. Get it from
   [https://app.arcjet.com](https://app.arcjet.com) by creating a free dev site.
-- `AI_GATEWAY_API_KEY` — used by TanStack AI to call the model that powers the
-  support agent. Get it from the
+- `AI_GATEWAY_API_KEY` **or** `OPENAI_API_KEY` — used by TanStack AI to call
+  the model that powers the support agent. Get a gateway key from the
   [Vercel AI Gateway](https://vercel.com/docs/ai-gateway).
 
-Both keys are required to run the agent: `ARCJET_KEY` authenticates the guard
-decisions and `AI_GATEWAY_API_KEY` authenticates the model calls.
+`ARCJET_KEY` authenticates the guard decisions. One of the model keys
+authenticates the model calls.
 
 ## Observing the run
 

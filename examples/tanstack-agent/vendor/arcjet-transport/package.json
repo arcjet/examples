@@ -1,6 +1,6 @@
 {
   "name": "@arcjet/transport",
-  "version": "1.11.0",
+  "version": "1.11.1-vendor.d730d57",
   "description": "Transport mechanisms for the Arcjet protocol. Vendored build from arcjet-js@d730d57a124f03843f085d41f64b0355a09d1eab (main, includes ./http2 which npm @arcjet/transport@1.11.0 does not export).",
   "keywords": [
     "arcjet",
