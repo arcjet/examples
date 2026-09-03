@@ -56,6 +56,10 @@ const workspaces = [
     "@arcjet-examples/claude-agent",
     path.join(BASE_PATH, "./examples/claude-agent"),
   ],
+  [
+    "@arcjet-examples/claude-managed-agent",
+    path.join(BASE_PATH, "./examples/claude-managed-agent"),
+  ],
   ["@arcjet-examples/deno", path.join(BASE_PATH, "./examples/deno")],
   [
     "@arcjet-examples/eve-agent",
@@ -131,6 +135,10 @@ const workspaces = [
     "@arcjet-examples/node-guard-policy",
     path.join(BASE_PATH, "./examples/node-guard-policy"),
   ],
+  [
+    "@arcjet-examples/openai-agent",
+    path.join(BASE_PATH, "./examples/openai-agent"),
+  ],
   ["@arcjet-examples/nuxt", path.join(BASE_PATH, "./examples/nuxt")],
   [
     "@arcjet-examples/react-router",
@@ -139,6 +147,10 @@ const workspaces = [
   [
     "@arcjet-examples/react-router-middleware",
     path.join(BASE_PATH, "./examples/react-router-middleware"),
+  ],
+  [
+    "@arcjet-examples/strands-agent",
+    path.join(BASE_PATH, "./examples/strands-agent"),
   ],
   ["@arcjet-examples/sveltekit", path.join(BASE_PATH, "./examples/sveltekit")],
   [

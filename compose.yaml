@@ -1,6 +1,7 @@
 include:
   - examples/astro/compose.yaml
   - examples/bun/compose.yaml
+  - examples/claude-managed-agent/compose.yaml
   - examples/deno/compose.yaml
   - examples/express-newman/compose.yaml
   - examples/expressjs/compose.yaml
@@ -17,8 +18,10 @@ include:
   - examples/nextjs-server-action/compose.yaml
   - examples/nextjs/compose.yaml
   - examples/nuxt/compose.yaml
+  - examples/openai-agent/compose.yaml
   - examples/react-router/compose.yaml
   - examples/react-router-middleware/compose.yaml
+  - examples/strands-agent/compose.yaml
   - examples/sveltekit/compose.yaml
   - examples/tanstack-agent/compose.yaml
   - examples/tanstack-start/compose.yaml
