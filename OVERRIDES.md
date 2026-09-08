@@ -78,3 +78,4 @@ accepts the patched release.
 | `google-adk-agent` | `adm-zip: 0.6.0` | Google ADK 2.0.0 pins adm-zip 0.5.16. Remove when ADK permits adm-zip 0.6.0 or later. | [GHSA-xcpc-8h2w-3j85](https://github.com/advisories/GHSA-xcpc-8h2w-3j85) |
 | `google-adk-agent` | `uuid: 11.1.1` | Google ADK brings an affected uuid through gaxios. Remove when its resolved uuid is 11.1.1 or later. | [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
 | `genkit-agent` | `uuid: 11.1.1` | Genkit and its Google clients pin uuid 8/9/10. The APIs used here remain available in 11.1.1. Remove when all parents permit uuid 11.1.1 or later. | [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| `nextjs-guard-policy` | `adm-zip: 0.6.0` | Rampart uses ONNX Runtime, whose installer pins adm-zip 0.5.x. Remove when ONNX Runtime permits adm-zip 0.6.0 or later. | [GHSA-xcpc-8h2w-3j85](https://github.com/advisories/GHSA-xcpc-8h2w-3j85) |
