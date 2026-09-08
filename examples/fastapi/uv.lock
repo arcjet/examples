@@ -52,7 +52,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "arcjet", specifier = "==1.0.0" },
+    { name = "arcjet", specifier = "==1.1.0" },
     { name = "fastapi", extras = ["standard"], specifier = "==0.138.0" },
     { name = "pydantic-settings", specifier = "==2.14.2" },
     { name = "uvicorn", specifier = "==0.49.0" },
@@ -60,16 +60,16 @@ requires-dist = [
 
 [[package]]
 name = "arcjet"
-version = "1.0.0"
+version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "connect-python" },
     { name = "pyqwest" },
     { name = "wasmtime" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/95/af/354e403abd805d15f776e6ffe048b2011d6c53c763afea55eb3311519477/arcjet-1.0.0.tar.gz", hash = "sha256:d12218985f02437630f48ad5d22b6f035363b808a940c5665523706c4942b882", size = 998361, upload-time = "2026-08-26T19:45:22.487Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/25/8f/727624ad399b87fe2c8b7827a0b4196ab909ea0fc117375981fdc9526277/arcjet-1.1.0.tar.gz", hash = "sha256:8ec2f25e3541703c52a85ece813a262a8390878743b3f9e78d8d30e7cab13c25", size = 1054175, upload-time = "2026-09-08T16:57:09.834Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/23/9f/cea416ddbcb0518a6c693d5ae1eb9dc16c56ae9fc9ecce74ad9889553524/arcjet-1.0.0-py3-none-any.whl", hash = "sha256:615b84b3085bfc92b17890d5326df06f08cc20d2cc522fe46d68af695d5a4dd4", size = 1011525, upload-time = "2026-08-26T19:45:20.944Z" },
+    { url = "https://files.pythonhosted.org/packages/d2/03/4343ee996f07d401935bcdd80d0a7cf38ef8fbf45a26ff05fd9f8e7655b2/arcjet-1.1.0-py3-none-any.whl", hash = "sha256:9d72c91e913ca1d0015c06b493cfa48905cba125611cbb73059689cd3dbc8f39", size = 1081734, upload-time = "2026-09-08T16:57:07.9Z" },
 ]
 
 [[package]]
