@@ -25,11 +25,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.123.0",
-    "@arcjet/guard": "file:./vendor/arcjet-guard",
+    "@arcjet/guard": "1.12.0",
     "zod": "4.4.3"
-  },
-  "overrides": {
-    "@arcjet/transport": "file:./vendor/arcjet-transport"
   },
   "devDependencies": {
     "@types/node": "24.13.3",

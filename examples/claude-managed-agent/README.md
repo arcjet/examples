@@ -42,18 +42,9 @@ That sibling is
 > provision the agent and environment yourself.
 
 > [!IMPORTANT]
-> This example depends on the Arcjet Guard **Claude Managed Agents**
-> integration (`@arcjet/guard/claude-managed-agents/v0`, which provides
-> `guardEvents`, `guardCustomTool`, and `claudeManagedAgentsContext`), which is
-> **not yet published to npm**. `@arcjet/guard` is pinned to a
-> `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js) at SHA
-> [`cb35c8f92c3a2fb63fbeb9b386d79b1878c19d92`](https://github.com/arcjet/arcjet-js/commit/cb35c8f92c3a2fb63fbeb9b386d79b1878c19d92)
-> (see `vendor/SOURCE.txt`). Guard on that SHA imports `@arcjet/transport/http2`,
-> which npm `@arcjet/transport@1.11.0` does not export, so `@arcjet/transport`
-> is also vendored from the **same SHA** as `file:./vendor/arcjet-transport`.
-> Repin to the stable release once `@arcjet/guard/claude-managed-agents/v0`
-> ships. Peer: `@anthropic-ai/sdk` `>=0.86.0 <1` (this example pins `0.123.0`).
+> This example uses the published Arcjet Guard 1.12.0 Claude Managed Agents
+> integration (`@arcjet/guard/claude-managed-agents/v0`). Peer:
+> `@anthropic-ai/sdk` `>=0.86.0 <1` (this example pins `0.123.0`).
 
 ## Screen inbound with `guardEvents`
 
@@ -77,7 +68,7 @@ the app executes can be gated.
 ## Features
 
 - [AI guardrails](https://docs.arcjet.com/guards/claude-managed-agents/) with
-  vendored `@arcjet/guard/claude-managed-agents/v0`.
+  `@arcjet/guard/claude-managed-agents/v0` from Arcjet Guard 1.12.0.
 - Inbound [prompt injection
   detection](https://docs.arcjet.com/prompt-injection) via `guardEvents`.
 - `lookup_order` gated with `guardCustomTool` — token bucket rate limit and PII

@@ -55,7 +55,7 @@ before `invoke()` / `stream()`. `guard()` fails open — check
 ## Features
 
 - [AI guardrails](https://docs.arcjet.com/guards/strands-agents/) with
-  [`@arcjet/guard`](https://docs.arcjet.com/ai-guardrails) `@1.11.0`.
+  [`@arcjet/guard`](https://docs.arcjet.com/ai-guardrails) `@1.12.0`.
 - Inbound [prompt injection
   detection](https://docs.arcjet.com/prompt-injection) before `invoke()`.
 - `lookup_order` wrapped with `guardTool` — token bucket rate limit and PII on
