@@ -36,22 +36,9 @@ import `@arcjet/guard/google-adk` (unversioned). The only adapter path is
 > characters; those are demo bounds, not abuse protection.
 
 > [!IMPORTANT]
-> This example depends on the Arcjet Guard **Google ADK** integration
-> (`@arcjet/guard/google-adk/v2`, which provides `guardPlugin` and
-> `googleAdkContext`), which is **not yet published to npm**.
-> `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
-> [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js)
-> `david/cursor/guard-google-adk-v2` at SHA
-> [`41ef36816e7174f1b0288d28217e63fa14114307`](https://github.com/arcjet/arcjet-js/commit/41ef36816e7174f1b0288d28217e63fa14114307)
-> (see `vendor/SOURCE.txt`). The subpath is on that branch but **not yet
-> published to npm**. Guard on that SHA imports `@arcjet/transport/http2`,
-> which npm `@arcjet/transport@1.11.0` does not export, so
-> `@arcjet/transport` is also vendored from the **same SHA** as
-> `file:./vendor/arcjet-transport`.
-> npm cannot install a monorepo subdirectory from git, so the built packages
-> are vendored. Do not invent a published version number for this subpath.
-> Repin to the stable release once `@arcjet/guard/google-adk/v2` ships. Peer:
-> `@google/adk` `>=2 <3` (this example pins `2.0.0`).
+> This example uses the published Arcjet Guard 1.12.0 Google ADK integration
+> (`@arcjet/guard/google-adk/v2`). Peer: `@google/adk` `>=2 <3`
+> (this example pins `2.0.0`).
 
 ## Screen inbound before `Runner.runAsync`
 
