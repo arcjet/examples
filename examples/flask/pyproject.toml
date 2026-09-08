@@ -2,7 +2,7 @@
 dependencies = [
     "arcjet==1.1.0",
     "flask==3.1.3",
-    "gunicorn==26.0.0"
+    "gunicorn==26.2.0"
 ]
 description = "Arcjet Flask example app. Arcjet helps developers protect their apps in just a few lines of code. Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security."
 name = "app"
