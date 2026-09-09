@@ -59,3 +59,13 @@ Several other examples already pin transitives the same way (for example
 `postcss` in the Next.js apps, `uuid` in `firebase-functions`). Those pins
 live in the example `package.json`. Add a section above when you introduce
 a new override that needs an explanation.
+
+## Security maintenance overrides
+
+These pins preserve the APIs used by the examples while upstream dependency
+constraints still select affected versions. Remove each pin once its parent
+accepts the patched release.
+
+| Example | Override | Reason and removal condition | Advisory |
+| --- | --- | --- | --- |
+| `firebase-functions` | `qs: 6.16.0` | Express/body-parser pins keep an affected qs 6 release. Remove once their resolved qs is 6.16.0 or later. | [GHSA-4mjr-xmp4-gh2g](https://github.com/advisories/GHSA-4mjr-xmp4-gh2g), [GHSA-x5fp-wj9c-mxmx](https://github.com/advisories/GHSA-x5fp-wj9c-mxmx) |
