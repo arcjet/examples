@@ -43,5 +43,10 @@
     "@types/node": "22.20.1",
     "prettier": "3.9.6",
     "typescript": "5.9.3"
+  },
+  "overrides": {
+    "@nestjs/platform-express": {
+      "multer": "2.3.0"
+    }
   }
 }
