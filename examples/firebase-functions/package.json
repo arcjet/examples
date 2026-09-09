@@ -38,6 +38,9 @@
     "qs": "6.16.0",
     "@google-cloud/pubsub": {
       "@opentelemetry/core": "2.11.0"
+    },
+    "firebase-tools": {
+      "csv-parse": "7.0.2"
     }
   }
 }
