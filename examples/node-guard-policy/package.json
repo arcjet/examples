@@ -32,5 +32,9 @@
   "devDependencies": {
     "@types/node": "^24.13.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "sharp": "0.35.4",
+    "adm-zip": "0.6.0"
   }
 }
