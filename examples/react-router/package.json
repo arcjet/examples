@@ -29,5 +29,8 @@
     "start": "react-router-serve ./build/server/index.js"
   },
   "type": "module",
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "overrides": {
+    "qs": "6.16.0"
+  }
 }
