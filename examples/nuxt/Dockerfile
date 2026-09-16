@@ -9,11 +9,9 @@ RUN npm ci
 
 COPY . .
 
-# Note: Nuxt requires `ARCJET_KEY` to be set during build. Here we set it to a
-#       dummy value if not set to allow builds to succeed.
-ENV ARCJET_KEY=${ARCJET_KEY:-ajkey_dummy}
-
-# NOTE: Have to run postinstall as it handles automatic import resolution
-RUN npm run postinstall && npm run build
+# Nuxt requires `ARCJET_KEY` at build time. Keep the placeholder on this RUN
+# only — do not persist it as a runtime ENV or the image ships a dummy key.
+ARG ARCJET_KEY=ajkey_yourkey
+RUN ARCJET_KEY=$ARCJET_KEY npm run postinstall && npm run build
 
 CMD ["npm", "run", "start"]

@@ -11,11 +11,11 @@ import * as logger from "firebase-functions/logger";
 
 setGlobalOptions({ maxInstances: 10, secrets: ["ARCJET_KEY"] });
 
-let arcjetKey = process.env.ARCJET_KEY;
+const arcjetKey = process.env.ARCJET_KEY;
 if (!arcjetKey) {
-  // In your app this should be a hard error! Here for the sake of the
-  // example we just use an intentionally invalid key.
-  arcjetKey = "";
+  throw new Error(
+    "ARCJET_KEY environment variable is required. Sign up for your Arcjet key at https://console.arcjet.com",
+  );
 }
 
 const arcjet = arcjetNode({

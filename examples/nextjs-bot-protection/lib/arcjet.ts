@@ -1,23 +1,11 @@
 import arcjetNextjs, { detectBot } from "@arcjet/next";
 
-// Get your site key from https://console.arcjet.com
-// and set it as an environment variable rather than hard coding.
-// See: https://nextjs.org/docs/app/building-your-application/configuring/environment-variables
-let key = process.env.ARCJET_KEY;
-if (!key) {
-  // Normally we would throw an error here, but for the sake of the example
-  // application we will just log a warning and use a dummy key.
-
-  console.warn("Warning: ARCJET_KEY environment variable is not set.");
-  console.warn(
-    "Please set it to your Arcjet site key to enable bot protection.",
-  );
-  key = "arcjet_dummykey";
-}
-
 // Create a base Arcjet instance for use by each handler
 export const arcjet = arcjetNextjs({
-  key,
+  // Get your site key from https://console.arcjet.com
+  // and set it as an environment variable rather than hard coding.
+  // See: https://nextjs.org/docs/app/building-your-application/configuring/environment-variables
+  key: process.env.ARCJET_KEY!,
   rules: [
     detectBot({
       mode: "LIVE", // will block requests. Use "DRY_RUN" to log only

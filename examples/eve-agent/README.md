@@ -17,6 +17,14 @@ This is an example [Vercel Eve](https://eve.vercel.com/) agent protected by
 simple agent that looks up orders, consults an API, receives inbound webhook
 messages, and records every guard decision with Arcjet.
 
+> [!WARNING]
+> This is a local demo, not a production authentication pattern. The
+> `/webhook` channel is unauthenticated so you can POST a message from curl or
+> a test client. `from(conversationId)` resolves that id to whichever session
+> currently owns it, so a hosted version must authenticate the caller before
+> `guardInbound` — otherwise anyone who can guess a conversation id can post
+> into it.
+
 ## Features
 
 - [AI guardrails](https://docs.arcjet.com/ai-guardrails) with the

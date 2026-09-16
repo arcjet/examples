@@ -1,9 +1,16 @@
 import { launchArcjet, tokenBucket } from "@arcjet/guard";
 
+const key = process.env.ARCJET_KEY;
+if (!key) {
+  throw new Error(
+    "ARCJET_KEY is required. Copy .env.local.example to .env.local and set it.",
+  );
+}
+
 // Create the Arcjet client once at module scope
 export const arcjet = launchArcjet({
   // Get your site key from https://console.arcjet.com
-  key: process.env.ARCJET_KEY ?? "",
+  key,
 });
 
 // Define rate limit rules at module scope
