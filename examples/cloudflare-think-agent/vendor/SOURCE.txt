@@ -3,3 +3,8 @@ Branch: david/cursor/cloudflare-think-guard-v0-1b24
 Packages:
   - @arcjet/guard (cloudflare-think/v0 adapter)
   - @arcjet/transport (./http2 export used by Guard at this SHA; not in npm 1.11.0)
+
+NOTE: This examples branch was rebased onto origin/main (JS examples now
+publish @arcjet/* 1.12.0). The vendor pin above is still the pre-rebase
+adapter SHA. After the JS adapter rebase lands, this pin may need updating.
+New SHA TBD — do not invent one.

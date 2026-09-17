@@ -47,6 +47,8 @@ path is `@arcjet/guard/cloudflare-think/v0`.
 > which npm `@arcjet/transport@1.11.0` does not export, so
 > `@arcjet/transport` is also vendored from the **same SHA** as
 > `file:./vendor/arcjet-transport`.
+> After the JS adapter rebase lands, this vendor pin may need updating
+> (new SHA TBD — do not invent one).
 > npm cannot install a monorepo subdirectory from git, so the built packages
 > are vendored. Do not invent a published version number for this subpath.
 > Repin to the stable release once `@arcjet/guard/cloudflare-think/v0` ships.
