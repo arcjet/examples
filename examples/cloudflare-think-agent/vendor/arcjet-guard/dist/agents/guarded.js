@@ -1,3 +1,4 @@
+import { labelRejectedByService } from "./label.js";
 import { captureEvent, shouldWarn } from "./capture.js";
 //#region src/agents/guarded.ts
 /**
@@ -80,6 +81,26 @@ async function runGuarded(client, params) {
 			});
 		}
 		if (decision.conclusion === "ALLOW" && decision.hasFailedOpen()) {
+			warnUnavailable(action, "failed-open", false);
+			judgedFully = false;
+		}
+		if (decision.conclusion === "ALLOW" && labelRejectedByService(decision) && failClosed) {
+			warnUnavailable(action, "failed-open", true);
+			captureEvent(client, {
+				action,
+				...correlation,
+				...decisionId !== void 0 && { decisionId },
+				metadata: {
+					...metadata,
+					outcome: "unavailable"
+				}
+			});
+			return onUnavailable({
+				kind: "failed-open",
+				decision
+			});
+		}
+		if (decision.conclusion === "ALLOW" && labelRejectedByService(decision)) {
 			warnUnavailable(action, "failed-open", false);
 			judgedFully = false;
 		}

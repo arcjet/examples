@@ -1,3 +1,4 @@
+import { ArcjetInvalidLabelError, validateGuardLabel } from "./agents/label.js";
 import { symbolArcjetDiagnostics } from "./diagnostics.js";
 import { policyInput } from "./policy-input.js";
 import { defineCustomRule, detectPromptInjection, experimental_moderateContent, fixedWindow, localDetectSensitiveInfo, moderateContent, slidingWindow, tokenBucket } from "./rules.js";
@@ -42,4 +43,4 @@ function _launchWithTransportFactory(createTransport, options) {
 	});
 }
 //#endregion
-export { _launchWithTransportFactory, capture, defineCustomRule, detectPromptInjection, experimental_moderateContent, fixedWindow, flush, guard, launchArcjetWithTransport, localDetectSensitiveInfo, moderateContent, policyInput, registerArcjet, slidingWindow, tokenBucket, unregisterArcjet };
+export { ArcjetInvalidLabelError, _launchWithTransportFactory, capture, defineCustomRule, detectPromptInjection, experimental_moderateContent, fixedWindow, flush, guard, launchArcjetWithTransport, localDetectSensitiveInfo, moderateContent, policyInput, registerArcjet, slidingWindow, tokenBucket, unregisterArcjet, validateGuardLabel };

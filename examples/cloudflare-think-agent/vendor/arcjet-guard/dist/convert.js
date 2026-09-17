@@ -365,6 +365,14 @@ function policyResultFromProto(pr) {
 				code: pr.result.value.code || "UNKNOWN"
 			};
 			break;
+		case "policyExpression":
+			result = {
+				conclusion: conclusionFromProto(pr.result.value.conclusion),
+				reason: "POLICY_EXPRESSION",
+				type: "POLICY_EXPRESSION",
+				warnings
+			};
+			break;
 		case "notRun":
 			result = {
 				conclusion: "ALLOW",

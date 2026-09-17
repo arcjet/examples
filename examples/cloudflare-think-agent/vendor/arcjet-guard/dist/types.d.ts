@@ -1,14 +1,14 @@
-import { ArcjetMetadata } from "./metadata.js";
 import { PolicyInputMap } from "./policy-input.js";
+import { ArcjetMetadata } from "./metadata.js";
 import { symbolArcjetInternal } from "./symbol.js";
 import { DetectSensitiveInfoFunction, SensitiveInfoEntities, SensitiveInfoResult } from "@arcjet/analyze";
 //#region src/types.d.ts
 /** The outcome of a guard decision — only `"ALLOW"` or `"DENY"`. */
-type Conclusion = "ALLOW" | "DENY";
+export type Conclusion = "ALLOW" | "DENY";
 /** Broad reason category for a decision or rule result. */
-type Reason = "RATE_LIMIT" | "PROMPT_INJECTION" | "MODERATE_CONTENT" | "SENSITIVE_INFO" | "INPUT_CONSTRAINT" | "CUSTOM" | "ERROR" | "NOT_RUN" | "UNKNOWN";
+export type Reason = "RATE_LIMIT" | "PROMPT_INJECTION" | "MODERATE_CONTENT" | "SENSITIVE_INFO" | "INPUT_CONSTRAINT" | "CUSTOM" | "ERROR" | "NOT_RUN" | "UNKNOWN";
 /** Rule evaluation mode. */
-type Mode = "LIVE" | "DRY_RUN";
+export type Mode = "LIVE" | "DRY_RUN";
 /**
  * A warning means the decision (or a single rule result) was processed
  * correctly — the result is trustworthy — but something should be fixed, e.g.
@@ -17,7 +17,7 @@ type Mode = "LIVE" | "DRY_RUN";
  * Contrast with an errored result ({@link RuleResultError}), which means a rule
  * or the decision _could not_ be processed and the security signal is degraded.
  */
-type Warning = {
+export type Warning = {
   /** Machine-readable code (e.g. `"AJ1100"`). */
   readonly code: string;
   /** Human-readable description. */
@@ -34,7 +34,7 @@ type Warning = {
  * backend produces a rule that can never match, and is a compile error rather
  * than a throw at module load.
  */
-type NativeSensitiveInfoEntityType = "EMAIL" | "PHONE_NUMBER" | "IP_ADDRESS" | "CREDIT_CARD_NUMBER";
+export type NativeSensitiveInfoEntityType = "EMAIL" | "PHONE_NUMBER" | "IP_ADDRESS" | "CREDIT_CARD_NUMBER";
 /**
  * Sensitive information entity types.
  *
@@ -72,7 +72,7 @@ type NativeSensitiveInfoEntityType = "EMAIL" | "PHONE_NUMBER" | "IP_ADDRESS" | "
  * - `"STATE"` — States/regions
  * - `"ZIP_CODE"` — Postal/ZIP codes
  */
-type SensitiveInfoEntityType = NativeSensitiveInfoEntityType | "GIVEN_NAME" | "SURNAME" | "SSN" | "URL" | "TAX_ID" | "BANK_ACCOUNT" | "ROUTING_NUMBER" | "GOVERNMENT_ID" | "PASSPORT" | "DRIVERS_LICENSE" | "BUILDING_NUMBER" | "STREET_NAME" | "SECONDARY_ADDRESS" | "CITY" | "STATE" | "ZIP_CODE";
+export type SensitiveInfoEntityType = NativeSensitiveInfoEntityType | "GIVEN_NAME" | "SURNAME" | "SSN" | "URL" | "TAX_ID" | "BANK_ACCOUNT" | "ROUTING_NUMBER" | "GOVERNMENT_ID" | "PASSPORT" | "DRIVERS_LICENSE" | "BUILDING_NUMBER" | "STREET_NAME" | "SECONDARY_ADDRESS" | "CITY" | "STATE" | "ZIP_CODE";
 /**
  * Logger passed to a {@link SensitiveInfoBackend} via
  * {@link SensitiveInfoBackendContext}.
@@ -81,7 +81,7 @@ type SensitiveInfoEntityType = NativeSensitiveInfoEntityType | "GIVEN_NAME" | "S
  * Arcjet SDK, so a backend written against `arcjet` (such as
  * `@arcjet/sensitive-info-rampart`) works here unchanged.
  */
-interface SensitiveInfoBackendLogger {
+export interface SensitiveInfoBackendLogger {
   /** Log at debug level. */
   debug(message: string, ...args: unknown[]): void;
   /** Log at debug level with a merging object. */
@@ -102,7 +102,7 @@ interface SensitiveInfoBackendLogger {
 /**
  * Minimal context passed to a {@link SensitiveInfoBackend}.
  */
-interface SensitiveInfoBackendContext {
+export interface SensitiveInfoBackendContext {
   /** Logger. */
   log: SensitiveInfoBackendLogger;
 }
@@ -113,7 +113,7 @@ interface SensitiveInfoBackendContext {
  * reads the ones it understands and ignores the rest, so the interface stays
  * stable as options are added.
  */
-interface SensitiveInfoBackendOptions {
+export interface SensitiveInfoBackendOptions {
   /** Number of tokens to pass to `detect`. */
   contextWindowSize?: number | undefined;
   /** Custom detection function (optional). */
@@ -139,7 +139,7 @@ interface SensitiveInfoBackendOptions {
  * Backends may be asynchronous (such as model inference). They run in the
  * request path, so their latency directly affects `.guard()` latency.
  */
-interface SensitiveInfoBackend {
+export interface SensitiveInfoBackend {
   /**
    * Detect sensitive information in `value`.
    *
@@ -157,7 +157,7 @@ interface SensitiveInfoBackend {
   detect(context: SensitiveInfoBackendContext, value: string, entities: SensitiveInfoEntities, options?: SensitiveInfoBackendOptions): Promise<SensitiveInfoResult>;
 }
 /** Result from a token bucket rate limit evaluation. */
-type RuleResultTokenBucket = {
+export type RuleResultTokenBucket = {
   /** Whether the request was allowed or denied by this rule. */
   readonly conclusion: "ALLOW" | "DENY";
   /** The reason category — always `"RATE_LIMIT"` for token bucket rules. */
@@ -183,7 +183,7 @@ type RuleResultTokenBucket = {
   readonly refillIntervalSeconds: number;
 };
 /** Result from a fixed window rate limit evaluation. */
-type RuleResultFixedWindow = {
+export type RuleResultFixedWindow = {
   /** Whether the request was allowed or denied by this rule. */
   readonly conclusion: "ALLOW" | "DENY";
   /** The reason category — always `"RATE_LIMIT"` for fixed window rules. */
@@ -202,7 +202,7 @@ type RuleResultFixedWindow = {
   readonly windowSeconds: number;
 };
 /** Result from a sliding window rate limit evaluation. */
-type RuleResultSlidingWindow = {
+export type RuleResultSlidingWindow = {
   /** Whether the request was allowed or denied by this rule. */
   readonly conclusion: "ALLOW" | "DENY";
   /** The reason category — always `"RATE_LIMIT"` for sliding window rules. */
@@ -221,14 +221,14 @@ type RuleResultSlidingWindow = {
   readonly intervalSeconds: number;
 };
 /** Usage charged for a Guard rule evaluation. */
-type Billing = {
+export type Billing = {
   /** Billing unit, such as `tokens` or `text_units`. */
   readonly unit: string;
   /** Number of units charged. */
   readonly count: bigint;
 };
 /** Result from a prompt injection detection evaluation. */
-type RuleResultPromptInjection = {
+export type RuleResultPromptInjection = {
   /** Whether the request was allowed or denied by this rule. */
   readonly conclusion: "ALLOW" | "DENY";
   /** The reason category — always `"PROMPT_INJECTION"` for this rule. */
@@ -246,7 +246,7 @@ type RuleResultPromptInjection = {
  * See {@link moderateContent}. The public result shape is `detected` plus
  * optional {@link Billing}; per-category scores are not part of this type.
  */
-type RuleResultModerateContent = {
+export type RuleResultModerateContent = {
   /** Whether the request was allowed or denied by this rule. */
   readonly conclusion: "ALLOW" | "DENY";
   /** The reason category — always `"MODERATE_CONTENT"` for this rule. */
@@ -261,7 +261,7 @@ type RuleResultModerateContent = {
   readonly billing?: Billing | undefined;
 };
 /** Result from a sensitive information detection evaluation. */
-type RuleResultSensitiveInfo = {
+export type RuleResultSensitiveInfo = {
   /** Whether the request was allowed or denied by this rule. */
   readonly conclusion: "ALLOW" | "DENY";
   /** The reason category — always `"SENSITIVE_INFO"` for this rule. */
@@ -283,7 +283,7 @@ type RuleResultSensitiveInfo = {
   readonly detectedEntityTypes: readonly string[];
 };
 /** Result from a custom local rule evaluation. */
-type RuleResultCustom<TData extends Record<string, string> = Record<string, string>> = {
+export type RuleResultCustom<TData extends Record<string, string> = Record<string, string>> = {
   /** Whether the request was allowed or denied by this rule. */
   readonly conclusion: "ALLOW" | "DENY";
   /** The reason category — always `"CUSTOM"` for custom rules. */
@@ -295,8 +295,26 @@ type RuleResultCustom<TData extends Record<string, string> = Record<string, stri
   /** Key-value data returned by the custom rule's `evaluate` function. */
   readonly data: Readonly<TData>;
 };
+/**
+ * Result for a remote-policy rule decided by the policy's expression language.
+ *
+ * A v2 policy states its rules as an expression over the inputs it declares,
+ * rather than as a typed rule variant, so this carries the conclusion and
+ * nothing more. Which conditions fired is a property of the compiled artifact
+ * named by `policyRevision`, not something the result restates.
+ */
+export type RuleResultPolicyExpression = {
+  /** Whether the request was allowed or denied by this rule. */
+  readonly conclusion: "ALLOW" | "DENY";
+  /** The reason category — always `"POLICY_EXPRESSION"`. */
+  readonly reason: "POLICY_EXPRESSION";
+  /** Discriminant — always `"POLICY_EXPRESSION"`. */
+  readonly type: "POLICY_EXPRESSION";
+  /** Per-rule warnings. Informational; never changes the conclusion. */
+  readonly warnings: readonly Warning[];
+};
 /** Result for a rule that was not evaluated. */
-type RuleResultNotRun = {
+export type RuleResultNotRun = {
   /** Always `"ALLOW"` — unevaluated rules never deny. */
   readonly conclusion: "ALLOW";
   /** The reason category — always `"NOT_RUN"` for skipped rules. */
@@ -310,7 +328,7 @@ type RuleResultNotRun = {
  * Result for a rule that encountered an error during evaluation.
  * Errors are fail-open: conclusion is always `"ALLOW"`.
  */
-type RuleResultError = {
+export type RuleResultError = {
   /** Always `"ALLOW"` — errors are fail-open. */
   readonly conclusion: "ALLOW";
   /** The reason category — always `"ERROR"` for errored rules. */
@@ -325,7 +343,7 @@ type RuleResultError = {
   readonly code: string;
 };
 /** Fallback result for unrecognized rule types. */
-type RuleResultUnknown = {
+export type RuleResultUnknown = {
   /** Whether the request was allowed or denied. */
   readonly conclusion: Conclusion;
   /** The reason category — always `"UNKNOWN"` for unrecognized rules. */
@@ -340,7 +358,7 @@ type RuleResultUnknown = {
  * whole-string match, `"EMAIL_DOMAIN"` match on the domain part of an email, or
  * `"UNKNOWN"` for an operator this SDK version does not recognise.
  */
-type StringMatchOperator = "EXACT" | "EMAIL_DOMAIN" | "UNKNOWN";
+export type StringMatchOperator = "EXACT" | "EMAIL_DOMAIN" | "UNKNOWN";
 /**
  * Result from a remotely configured typed input constraint (e.g. an allowed- or
  * denied-value list, a length bound, or list membership). Appears in
@@ -355,7 +373,7 @@ type StringMatchOperator = "EXACT" | "EMAIL_DOMAIN" | "UNKNOWN";
  * }
  * ```
  */
-type RuleResultInputConstraint = {
+export type RuleResultInputConstraint = {
   readonly conclusion: Conclusion;
   readonly reason: "INPUT_CONSTRAINT";
   readonly type: "ALLOWED_STRING_VALUES" | "DENIED_STRING_VALUES" | "STRING_LENGTH" | "STRING_LIST_MEMBERSHIP";
@@ -366,7 +384,7 @@ type RuleResultInputConstraint = {
   readonly warnings: readonly Warning[];
 };
 /** Union of all possible rule result types. */
-type RuleResult = RuleResultTokenBucket | RuleResultFixedWindow | RuleResultSlidingWindow | RuleResultPromptInjection | RuleResultModerateContent | RuleResultSensitiveInfo | RuleResultCustom | RuleResultNotRun | RuleResultError | RuleResultInputConstraint | RuleResultUnknown;
+export type RuleResult = RuleResultTokenBucket | RuleResultFixedWindow | RuleResultSlidingWindow | RuleResultPromptInjection | RuleResultModerateContent | RuleResultSensitiveInfo | RuleResultCustom | RuleResultPolicyExpression | RuleResultNotRun | RuleResultError | RuleResultInputConstraint | RuleResultUnknown;
 /**
  * Which remote policy Guard applied and how completely, reported on every
  * decision once the server supports policies (absent on older servers).
@@ -377,7 +395,7 @@ type RuleResult = RuleResultTokenBucket | RuleResultFixedWindow | RuleResultSlid
  * status this SDK version does not recognise. `refreshRequired` signals the
  * cached projection is stale and will be refetched.
  */
-type PolicyEvaluation = {
+export type PolicyEvaluation = {
   readonly revision: string;
   readonly status: "NOT_CONFIGURED" | "APPLIED" | "INCOMPLETE" | "UNAVAILABLE" | "UNKNOWN";
   readonly refreshRequired: boolean;
@@ -394,7 +412,7 @@ type PolicyEvaluation = {
  * );
  * ```
  */
-type PolicyRuleResult = {
+export type PolicyRuleResult = {
   readonly policyId: string;
   readonly policyRevision: string;
   readonly ruleId: string;
@@ -404,7 +422,7 @@ type PolicyRuleResult = {
   readonly result: RuleResult;
 };
 /** Base shape shared by all decisions. */
-type DecisionBase = {
+export type DecisionBase = {
   /** Per-rule results, one per submission, in submission order. */
   readonly results: readonly RuleResult[];
   /** Remote-policy status; absent when the server predates policy support. */
@@ -442,7 +460,7 @@ type DecisionBase = {
   hasError(): boolean;
 };
 /** The request was allowed. */
-type DecisionAllow = DecisionBase & {
+export type DecisionAllow = DecisionBase & {
   /** The outcome — always `"ALLOW"`. */
   readonly conclusion: "ALLOW";
   /**
@@ -452,29 +470,29 @@ type DecisionAllow = DecisionBase & {
   readonly reason?: undefined;
 };
 /** The request was denied. */
-type DecisionDeny = DecisionBase & {
+export type DecisionDeny = DecisionBase & {
   /** The outcome — always `"DENY"`. */
   readonly conclusion: "DENY";
   /** Broad reason category for the denial (e.g. `"RATE_LIMIT"`, `"PROMPT_INJECTION"`). */
   readonly reason: Reason;
 };
 /** A guard decision — either `"ALLOW"` or `"DENY"`. */
-type Decision = DecisionAllow | DecisionDeny;
+export type Decision = DecisionAllow | DecisionDeny;
 /** @internal */
-type InternalResult = RuleResult & {
+export type InternalResult = RuleResult & {
   readonly [symbolArcjetInternal]: {
     readonly configId: string;
     readonly inputId: string;
   };
 };
 /** @internal */
-type InternalDecision = Decision & {
+export type InternalDecision = Decision & {
   readonly [symbolArcjetInternal]: {
     readonly results: readonly InternalResult[];
   };
 };
 /** Token bucket rate limiting config. */
-interface TokenBucketConfig {
+export interface TokenBucketConfig {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -569,7 +587,7 @@ interface TokenBucketConfig {
   bucket?: string;
 }
 /** Token bucket rate limiting input. */
-interface TokenBucketInput {
+export interface TokenBucketInput {
   /**
    * Unique key identifying the rate-limited entity (e.g. user ID, IP address).
    *
@@ -610,7 +628,7 @@ interface TokenBucketInput {
   metadata?: ArcjetMetadata;
 }
 /** Fixed window rate limiting config. */
-interface FixedWindowConfig {
+export interface FixedWindowConfig {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -693,7 +711,7 @@ interface FixedWindowConfig {
   bucket?: string;
 }
 /** Fixed window rate limiting input. */
-interface FixedWindowInput {
+export interface FixedWindowInput {
   /**
    * Unique key identifying the rate-limited entity (e.g. user ID, IP address).
    *
@@ -734,7 +752,7 @@ interface FixedWindowInput {
   metadata?: ArcjetMetadata;
 }
 /** Sliding window rate limiting config. */
-interface SlidingWindowConfig {
+export interface SlidingWindowConfig {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -817,7 +835,7 @@ interface SlidingWindowConfig {
   bucket?: string;
 }
 /** Sliding window rate limiting input. */
-interface SlidingWindowInput {
+export interface SlidingWindowInput {
   /**
    * Unique key identifying the rate-limited entity (e.g. user ID, IP address).
    *
@@ -858,7 +876,7 @@ interface SlidingWindowInput {
   metadata?: ArcjetMetadata;
 }
 /** Prompt injection detection config. */
-interface DetectPromptInjectionConfig {
+export interface DetectPromptInjectionConfig {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -900,7 +918,7 @@ interface DetectPromptInjectionConfig {
  *
  * See {@link moderateContent}.
  */
-interface ModerateContentConfig {
+export interface ModerateContentConfig {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -932,14 +950,14 @@ interface ModerateContentConfig {
 /**
  * Alias of {@link ModerateContentConfig}.
  */
-type ExperimentalModerateContentConfig = ModerateContentConfig;
+export type ExperimentalModerateContentConfig = ModerateContentConfig;
 /**
  * Prompt injection detection input.
  *
  * Bind it by passing the object to the configured rule. A bare string is
  * accepted as shorthand for `{ inputText }`.
  */
-interface DetectPromptInjectionInput {
+export interface DetectPromptInjectionInput {
   /** The user prompt text to evaluate for prompt injection. */
   inputText: string;
   /**
@@ -966,7 +984,7 @@ interface DetectPromptInjectionInput {
  * Bind it by passing the object to the configured rule. A bare string is
  * accepted as shorthand for `{ inputText }`.
  */
-interface ModerateContentInput {
+export interface ModerateContentInput {
   /** The text to moderate. */
   inputText: string;
   /**
@@ -990,14 +1008,14 @@ interface ModerateContentInput {
 /**
  * Alias of {@link ModerateContentInput}.
  */
-type ExperimentalModerateContentInput = ModerateContentInput;
+export type ExperimentalModerateContentInput = ModerateContentInput;
 /**
  * Sensitive info detection input.
  *
  * Bind it by passing the object to the configured rule. A bare string is
  * accepted as shorthand for `{ inputText }`.
  */
-interface LocalDetectSensitiveInfoInput {
+export interface LocalDetectSensitiveInfoInput {
   /** The input text to scan for sensitive information. */
   inputText: string;
   /**
@@ -1030,7 +1048,7 @@ interface LocalDetectSensitiveInfoInput {
  * localDetectSensitiveInfo({ allow: ["EMAIL"] })
  * ```
  */
-interface LocalDetectSensitiveInfoConfigAllow<TEntity extends SensitiveInfoEntityType = SensitiveInfoEntityType> {
+export interface LocalDetectSensitiveInfoConfigAllow<TEntity extends SensitiveInfoEntityType = SensitiveInfoEntityType> {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -1101,7 +1119,7 @@ interface LocalDetectSensitiveInfoConfigAllow<TEntity extends SensitiveInfoEntit
  * localDetectSensitiveInfo({ deny: ["CREDIT_CARD_NUMBER"] })
  * ```
  */
-interface LocalDetectSensitiveInfoConfigDeny<TEntity extends SensitiveInfoEntityType = SensitiveInfoEntityType> {
+export interface LocalDetectSensitiveInfoConfigDeny<TEntity extends SensitiveInfoEntityType = SensitiveInfoEntityType> {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -1190,7 +1208,7 @@ interface LocalDetectSensitiveInfoConfigDeny<TEntity extends SensitiveInfoEntity
  *   : localDetectSensitiveInfo({ deny: ["EMAIL"] });
  * ```
  */
-type LocalDetectSensitiveInfoConfig = (LocalDetectSensitiveInfoConfigAllow & {
+export type LocalDetectSensitiveInfoConfig = (LocalDetectSensitiveInfoConfigAllow & {
   backend: SensitiveInfoBackend;
 }) | (LocalDetectSensitiveInfoConfigDeny & {
   backend: SensitiveInfoBackend;
@@ -1215,7 +1233,7 @@ type LocalDetectSensitiveInfoConfig = (LocalDetectSensitiveInfoConfigAllow & {
   backend?: SensitiveInfoBackend;
 };
 /** Result returned by a custom rule's `evaluate` function. */
-interface CustomEvaluateResult<TData extends Record<string, string> = Record<string, string>> {
+export interface CustomEvaluateResult<TData extends Record<string, string> = Record<string, string>> {
   /** Whether the rule allows or denies. */
   conclusion: "ALLOW" | "DENY";
   /** Optional key-value data to include in the result. */
@@ -1227,11 +1245,11 @@ interface CustomEvaluateResult<TData extends Record<string, string> = Record<str
  * Receives the config data and the per-request input data.
  * Can be synchronous or asynchronous.
  */
-type CustomEvaluateFn<TConfig extends Record<string, string> = Record<string, string>, TInput extends Record<string, string> = Record<string, string>, TData extends Record<string, string> = Record<string, string>> = (config: Readonly<TConfig>, input: Readonly<TInput>, options: {
+export type CustomEvaluateFn<TConfig extends Record<string, string> = Record<string, string>, TInput extends Record<string, string> = Record<string, string>, TData extends Record<string, string> = Record<string, string>> = (config: Readonly<TConfig>, input: Readonly<TInput>, options: {
   signal?: AbortSignal;
 }) => CustomEvaluateResult<TData> | Promise<CustomEvaluateResult<TData>>;
 /** Custom local rule config. */
-interface LocalCustomConfig {
+export interface LocalCustomConfig {
   /**
    * Evaluation mode. `"LIVE"` enforces the rule; `"DRY_RUN"` evaluates
    * without blocking.
@@ -1276,7 +1294,7 @@ interface LocalCustomConfig {
   evaluate?: CustomEvaluateFn;
 }
 /** Custom local rule input. */
-interface LocalCustomInput {
+export interface LocalCustomInput {
   /** Key-value data passed to the custom rule's `evaluate` function. */
   data: Record<string, string>;
   /**
@@ -1300,7 +1318,7 @@ interface LocalCustomInput {
   metadata?: ArcjetMetadata;
 }
 /** A configured token bucket rule. */
-type RuleWithConfigTokenBucket = {
+export type RuleWithConfigTokenBucket = {
   /** Discriminant — always `"TOKEN_BUCKET"`. */
   readonly type: "TOKEN_BUCKET";
   /** The token bucket configuration for this rule instance. */
@@ -1325,7 +1343,7 @@ type RuleWithConfigTokenBucket = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A configured fixed window rule. */
-type RuleWithConfigFixedWindow = {
+export type RuleWithConfigFixedWindow = {
   /** Discriminant — always `"FIXED_WINDOW"`. */
   readonly type: "FIXED_WINDOW";
   /** The fixed window configuration for this rule instance. */
@@ -1350,7 +1368,7 @@ type RuleWithConfigFixedWindow = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A configured sliding window rule. */
-type RuleWithConfigSlidingWindow = {
+export type RuleWithConfigSlidingWindow = {
   /** Discriminant — always `"SLIDING_WINDOW"`. */
   readonly type: "SLIDING_WINDOW";
   /** The sliding window configuration for this rule instance. */
@@ -1375,7 +1393,7 @@ type RuleWithConfigSlidingWindow = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A configured prompt injection detection rule. */
-type RuleWithConfigPromptInjection = {
+export type RuleWithConfigPromptInjection = {
   /** Discriminant — always `"PROMPT_INJECTION"`. */
   readonly type: "PROMPT_INJECTION";
   /** The prompt injection detection configuration for this rule instance. */
@@ -1408,7 +1426,7 @@ type RuleWithConfigPromptInjection = {
  *
  * See {@link moderateContent}.
  */
-type RuleWithConfigModerateContent = {
+export type RuleWithConfigModerateContent = {
   /** Discriminant — always `"MODERATE_CONTENT"`. */
   readonly type: "MODERATE_CONTENT";
   /** The content moderation configuration for this rule instance. */
@@ -1437,7 +1455,7 @@ type RuleWithConfigModerateContent = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A configured sensitive info detection rule. */
-type RuleWithConfigSensitiveInfo = {
+export type RuleWithConfigSensitiveInfo = {
   /** Discriminant — always `"SENSITIVE_INFO"`. */
   readonly type: "SENSITIVE_INFO";
   /** The sensitive info detection configuration for this rule instance. */
@@ -1466,7 +1484,7 @@ type RuleWithConfigSensitiveInfo = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A configured custom rule. */
-type RuleWithConfigCustom<TData extends Record<string, string> = Record<string, string>, TInput extends Record<string, string> = Record<string, string>> = {
+export type RuleWithConfigCustom<TData extends Record<string, string> = Record<string, string>, TInput extends Record<string, string> = Record<string, string>> = {
   /** Discriminant — always `"CUSTOM"`. */
   readonly type: "CUSTOM";
   /** The custom rule configuration for this rule instance. */
@@ -1494,9 +1512,9 @@ type RuleWithConfigCustom<TData extends Record<string, string> = Record<string, 
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** Union of all configured rule types. */
-type RuleWithConfig = RuleWithConfigTokenBucket | RuleWithConfigFixedWindow | RuleWithConfigSlidingWindow | RuleWithConfigPromptInjection | RuleWithConfigModerateContent | RuleWithConfigSensitiveInfo | RuleWithConfigCustom;
+export type RuleWithConfig = RuleWithConfigTokenBucket | RuleWithConfigFixedWindow | RuleWithConfigSlidingWindow | RuleWithConfigPromptInjection | RuleWithConfigModerateContent | RuleWithConfigSensitiveInfo | RuleWithConfigCustom;
 /** A token bucket rule with bound input. */
-type RuleWithInputTokenBucket = {
+export type RuleWithInputTokenBucket = {
   /** Discriminant — always `"TOKEN_BUCKET"`. */
   readonly type: "TOKEN_BUCKET";
   /** The token bucket configuration for this rule instance. */
@@ -1522,7 +1540,7 @@ type RuleWithInputTokenBucket = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A fixed window rule with bound input. */
-type RuleWithInputFixedWindow = {
+export type RuleWithInputFixedWindow = {
   /** Discriminant — always `"FIXED_WINDOW"`. */
   readonly type: "FIXED_WINDOW";
   /** The fixed window configuration for this rule instance. */
@@ -1548,7 +1566,7 @@ type RuleWithInputFixedWindow = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A sliding window rule with bound input. */
-type RuleWithInputSlidingWindow = {
+export type RuleWithInputSlidingWindow = {
   /** Discriminant — always `"SLIDING_WINDOW"`. */
   readonly type: "SLIDING_WINDOW";
   /** The sliding window configuration for this rule instance. */
@@ -1574,7 +1592,7 @@ type RuleWithInputSlidingWindow = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A prompt injection rule with bound input. */
-type RuleWithInputPromptInjection = {
+export type RuleWithInputPromptInjection = {
   /** Discriminant — always `"PROMPT_INJECTION"`. */
   readonly type: "PROMPT_INJECTION";
   /** The prompt injection detection configuration for this rule instance. */
@@ -1604,7 +1622,7 @@ type RuleWithInputPromptInjection = {
  *
  * See {@link moderateContent}.
  */
-type RuleWithInputModerateContent = {
+export type RuleWithInputModerateContent = {
   /** Discriminant — always `"MODERATE_CONTENT"`. */
   readonly type: "MODERATE_CONTENT";
   /** The content moderation configuration for this rule instance. */
@@ -1630,7 +1648,7 @@ type RuleWithInputModerateContent = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A sensitive info rule with bound input. */
-type RuleWithInputSensitiveInfo = {
+export type RuleWithInputSensitiveInfo = {
   /** Discriminant — always `"SENSITIVE_INFO"`. */
   readonly type: "SENSITIVE_INFO";
   /** The sensitive info detection configuration for this rule instance. */
@@ -1656,7 +1674,7 @@ type RuleWithInputSensitiveInfo = {
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** A custom rule with bound input. */
-type RuleWithInputCustom<TData extends Record<string, string> = Record<string, string>> = {
+export type RuleWithInputCustom<TData extends Record<string, string> = Record<string, string>> = {
   /** Discriminant — always `"CUSTOM"`. */
   readonly type: "CUSTOM";
   /** The custom rule configuration for this rule instance. */
@@ -1684,9 +1702,9 @@ type RuleWithInputCustom<TData extends Record<string, string> = Record<string, s
   errorResult(decision: Decision): RuleResultError | null;
 };
 /** Union of all rule-with-input types. */
-type RuleWithInput = RuleWithInputTokenBucket | RuleWithInputFixedWindow | RuleWithInputSlidingWindow | RuleWithInputPromptInjection | RuleWithInputModerateContent | RuleWithInputSensitiveInfo | RuleWithInputCustom;
+export type RuleWithInput = RuleWithInputTokenBucket | RuleWithInputFixedWindow | RuleWithInputSlidingWindow | RuleWithInputPromptInjection | RuleWithInputModerateContent | RuleWithInputSensitiveInfo | RuleWithInputCustom;
 /** Options for a `.capture()` call. */
-interface CaptureOptions {
+export interface CaptureOptions {
   /**
    * The fact itself: what the application did, in customer vocabulary.
    *
@@ -1755,7 +1773,7 @@ interface CaptureOptions {
   waitUntil?: (promise: Promise<unknown>) => void;
 }
 /** Options for a `.guard()` call. */
-interface GuardOptions {
+export interface GuardOptions {
   /**
    * A label identifying the protection boundary (e.g. `"tools.weather"`).
    *
@@ -1860,4 +1878,4 @@ interface GuardOptions {
   signal?: AbortSignal;
 }
 //#endregion
-export { type ArcjetMetadata, Billing, CaptureOptions, Conclusion, CustomEvaluateFn, CustomEvaluateResult, Decision, DecisionAllow, DecisionBase, DecisionDeny, DetectPromptInjectionConfig, DetectPromptInjectionInput, ExperimentalModerateContentConfig, ExperimentalModerateContentInput, FixedWindowConfig, FixedWindowInput, GuardOptions, InternalDecision, InternalResult, LocalCustomConfig, LocalCustomInput, LocalDetectSensitiveInfoConfig, LocalDetectSensitiveInfoConfigAllow, LocalDetectSensitiveInfoConfigDeny, LocalDetectSensitiveInfoInput, Mode, ModerateContentConfig, ModerateContentInput, NativeSensitiveInfoEntityType, PolicyEvaluation, PolicyRuleResult, Reason, RuleResult, RuleResultCustom, RuleResultError, RuleResultFixedWindow, RuleResultInputConstraint, RuleResultModerateContent, RuleResultNotRun, RuleResultPromptInjection, RuleResultSensitiveInfo, RuleResultSlidingWindow, RuleResultTokenBucket, RuleResultUnknown, RuleWithConfig, RuleWithConfigCustom, RuleWithConfigFixedWindow, RuleWithConfigModerateContent, RuleWithConfigPromptInjection, RuleWithConfigSensitiveInfo, RuleWithConfigSlidingWindow, RuleWithConfigTokenBucket, RuleWithInput, RuleWithInputCustom, RuleWithInputFixedWindow, RuleWithInputModerateContent, RuleWithInputPromptInjection, RuleWithInputSensitiveInfo, RuleWithInputSlidingWindow, RuleWithInputTokenBucket, SensitiveInfoBackend, SensitiveInfoBackendContext, SensitiveInfoBackendLogger, SensitiveInfoBackendOptions, SensitiveInfoEntityType, SlidingWindowConfig, SlidingWindowInput, StringMatchOperator, TokenBucketConfig, TokenBucketInput, Warning };
+export type { ArcjetMetadata };

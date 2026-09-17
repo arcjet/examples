@@ -21,6 +21,6 @@ import { Transport } from "@connectrpc/connect";
  * @returns
  *   Connect transport used to make RPC calls.
  */
-declare function createTransport(baseUrl: string, options?: TransportOptions): Transport;
+export declare function createTransport(baseUrl: string, options?: TransportOptions): Transport;
 //#endregion
-export { type ProxyEnvironment, type TransportLogger, type TransportOptions, createTransport };
+export type { ProxyEnvironment, TransportLogger, TransportOptions };

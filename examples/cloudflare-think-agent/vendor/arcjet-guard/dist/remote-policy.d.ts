@@ -9,7 +9,7 @@ import { GetGuardPolicyRequestSchema, GetGuardPolicyResponse, GuardLocalPolicyRe
  *
  * @internal Exported for use by `client.ts`; not part of the public API.
  */
-declare const policyCapabilities: string[];
+export declare const policyCapabilities: string[];
 type FetchPolicy = (request: ReturnType<typeof create<typeof GetGuardPolicyRequestSchema>>, options: {
   headers: Record<string, string>;
   signal?: AbortSignal;
@@ -21,7 +21,7 @@ type FetchPolicy = (request: ReturnType<typeof create<typeof GetGuardPolicyReque
  *
  * @internal Not part of the public API.
  */
-type PreparedPolicy = {
+export type PreparedPolicy = {
   inputs: Record<string, GuardPolicyInput>;
   revision: string;
   results: GuardLocalPolicyResult[];
@@ -37,7 +37,7 @@ type PreparedPolicy = {
  *
  * @internal Not part of the public API.
  */
-declare class RemotePolicyRuntime {
+export declare class RemotePolicyRuntime {
   #private;
   constructor(key: string, userAgent: string, fetchPolicy: FetchPolicy, sensitiveInfoBackend?: SensitiveInfoBackend);
   /**
@@ -56,6 +56,5 @@ declare class RemotePolicyRuntime {
  *
  * @internal Exported for testing; not part of the public API.
  */
-declare function localStringDigest(value: string): Promise<Uint8Array>;
+export declare function localStringDigest(value: string): Promise<Uint8Array>;
 //#endregion
-export { PreparedPolicy, RemotePolicyRuntime, localStringDigest, policyCapabilities };

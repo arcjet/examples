@@ -19,7 +19,7 @@ import { ArcjetGuard } from "./index.js";
  * registerArcjet(launchArcjet({ key: process.env.ARCJET_KEY! }));
  * ```
  */
-declare function registerArcjet(client: ArcjetGuard): void;
+export declare function registerArcjet(client: ArcjetGuard): void;
 /**
  * Clear the registered client, if any.
  *
@@ -32,7 +32,7 @@ declare function registerArcjet(client: ArcjetGuard): void;
  * every free call after it fails open. Libraries should not call it — they take
  * a client explicitly. That is a convention, not something enforced here.
  */
-declare function unregisterArcjet(): void;
+export declare function unregisterArcjet(): void;
 /**
  * Evaluate guard rules through the registered client.
  *
@@ -51,7 +51,7 @@ declare function unregisterArcjet(): void;
  * });
  * ```
  */
-declare function guard(options: GuardOptions): Promise<Decision>;
+export declare function guard(options: GuardOptions): Promise<Decision>;
 /**
  * Record a fact about what the application did, through the registered client.
  *
@@ -76,12 +76,11 @@ declare function guard(options: GuardOptions): Promise<Decision>;
  * }
  * ```
  */
-declare function capture(options: CaptureOptions): void;
+export declare function capture(options: CaptureOptions): void;
 /**
  * Drain the registered client's buffered capture events within a deadline.
  *
  * Resolves immediately with nothing registered — there is no queue to drain.
  */
-declare function flush(timeoutMs?: number): Promise<void>;
+export declare function flush(timeoutMs?: number): Promise<void>;
 //#endregion
-export { capture, flush, guard, registerArcjet, unregisterArcjet };

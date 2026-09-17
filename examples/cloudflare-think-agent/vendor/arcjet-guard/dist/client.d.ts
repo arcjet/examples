@@ -5,7 +5,7 @@ import { Transport } from "@connectrpc/connect";
 import { CaptureEvent } from "./proto/proto/decide/v2/decide_pb.js";
 //#region src/client.d.ts
 /** Options for creating a guard client. */
-interface GuardClientOptions {
+export interface GuardClientOptions {
   /** Arcjet key. */
   key: string;
   /** Connect RPC transport. */
@@ -24,7 +24,7 @@ interface GuardClientOptions {
  *
  * The client can be shared across requests.
  */
-declare function createGuardClient(options: GuardClientOptions): {
+export declare function createGuardClient(options: GuardClientOptions): {
   guard(opts: GuardOptions): Promise<Decision>;
   capture(opts: CaptureOptions): void;
   flush(timeoutMs?: number): Promise<void>;
@@ -48,7 +48,7 @@ declare function createGuardClient(options: GuardClientOptions): {
  * @internal Not part of the public API. Unreachable outside the package: the
  * `exports` map lists no path that resolves here.
  */
-declare function normalizeCaptureEvent(value: unknown, diagnose: DiagnosticHandler): CaptureEvent | undefined;
+export declare function normalizeCaptureEvent(value: unknown, diagnose: DiagnosticHandler): CaptureEvent | undefined;
 /**
  * Synthesize the fail-open ALLOW returned when a guard could not be evaluated.
  *
@@ -61,6 +61,5 @@ declare function normalizeCaptureEvent(value: unknown, diagnose: DiagnosticHandl
  * @internal Not part of the public API. Unreachable outside the package: the
  * `exports` map lists no path that resolves here.
  */
-declare function createFailOpenDecision(message: string, warnings?: readonly Warning[]): Decision;
+export declare function createFailOpenDecision(message: string, warnings?: readonly Warning[]): Decision;
 //#endregion
-export { GuardClientOptions, createFailOpenDecision, createGuardClient, normalizeCaptureEvent };

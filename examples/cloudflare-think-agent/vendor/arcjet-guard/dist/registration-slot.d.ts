@@ -8,7 +8,7 @@ import { ArcjetGuard } from "./index.js";
  *
  * @internal
  */
-type Registration = {
+export type Registration = {
   version: string;
   client: ArcjetGuard;
 };
@@ -31,7 +31,7 @@ type Registration = {
  *
  * @internal
  */
-declare function isCurrentVersion(registration: Registration): boolean;
+export declare function isCurrentVersion(registration: Registration): boolean;
 /**
  * Read and validate whatever is in the global slot.
  *
@@ -48,21 +48,21 @@ declare function isCurrentVersion(registration: Registration): boolean;
  *
  * @internal
  */
-declare function readRegistration(): Registration | undefined;
+export declare function readRegistration(): Registration | undefined;
 /**
  * The registered client, if this build wrote it.
  *
  * @internal
  */
-declare function registeredClient(): ArcjetGuard | undefined;
+export declare function registeredClient(): ArcjetGuard | undefined;
 /**
  * Stamp a client with this build's version and put it in the slot.
  *
  * @internal
  */
-declare function writeRegistration(client: ArcjetGuard): void;
+export declare function writeRegistration(client: ArcjetGuard): void;
 /** Empty the slot. @internal */
-declare function clearRegistration(): void;
+export declare function clearRegistration(): void;
 /**
  * Whether the slot holds anything at all, valid or not.
  *
@@ -72,7 +72,7 @@ declare function clearRegistration(): void;
  *
  * @internal
  */
-declare function hasRegistration(): boolean;
+export declare function hasRegistration(): boolean;
 /**
  * Whether a value can actually serve the free calls.
  *
@@ -82,6 +82,5 @@ declare function hasRegistration(): boolean;
  *
  * @internal
  */
-declare function isClient(value: unknown): value is ArcjetGuard;
+export declare function isClient(value: unknown): value is ArcjetGuard;
 //#endregion
-export { Registration, clearRegistration, hasRegistration, isClient, isCurrentVersion, readRegistration, registeredClient, writeRegistration };

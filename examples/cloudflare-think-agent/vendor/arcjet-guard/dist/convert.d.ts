@@ -12,22 +12,22 @@ import { GuardConclusion, GuardReason, GuardResponse, GuardRuleResult, GuardRule
  *
  * @internal
  */
-declare const nativeEntityTypes: ReadonlySet<SensitiveInfoEntityType>;
+export declare const nativeEntityTypes: ReadonlySet<SensitiveInfoEntityType>;
 /** Type guard: whether `value` is a declared {@link SensitiveInfoEntityType}. */
-declare function isSensitiveInfoEntityType(value: string): value is SensitiveInfoEntityType;
+export declare function isSensitiveInfoEntityType(value: string): value is SensitiveInfoEntityType;
 /**
  * Map a proto `GuardConclusion` to the SDK `Conclusion` string.
  * Unrecognized values default to `"ALLOW"` (fail-open).
  *
  * @internal
  */
-declare function conclusionFromProto(c: GuardConclusion): Conclusion;
+export declare function conclusionFromProto(c: GuardConclusion): Conclusion;
 /**
  * Map a proto result's oneof `case` to a broad SDK `Reason`.
  *
  * @internal
  */
-declare function reasonFromCase(caseName: string | undefined): Reason;
+export declare function reasonFromCase(caseName: string | undefined): Reason;
 /**
  * Map a proto `GuardReason` enum to the SDK `Reason` string.
  *
@@ -36,7 +36,7 @@ declare function reasonFromCase(caseName: string | undefined): Reason;
  *
  * @internal
  */
-declare function reasonFromProto(r: GuardReason): Reason;
+export declare function reasonFromProto(r: GuardReason): Reason;
 /**
  * Convert a single proto `GuardRuleResult` to the SDK `RuleResult`.
  *
@@ -47,14 +47,14 @@ declare function reasonFromProto(r: GuardReason): Reason;
  *
  * @internal
  */
-declare function resultFromProto(pr: GuardRuleResult): RuleResult;
+export declare function resultFromProto(pr: GuardRuleResult): RuleResult;
 /**
  * Convert a `RuleWithInput` to a proto `GuardRuleSubmission`.
  *
  * Switches on the `type` discriminant so TypeScript narrows config/input
  * automatically — no casts required.
  */
-declare function ruleToProto(rule: RuleWithInput, signal?: AbortSignal, options?: {
+export declare function ruleToProto(rule: RuleWithInput, signal?: AbortSignal, options?: {
   /** Index of this rule in the submission, used to prefix warning messages. */
   ruleIndex?: number;
   /**
@@ -77,7 +77,7 @@ declare function ruleToProto(rule: RuleWithInput, signal?: AbortSignal, options?
  *
  * @internal
  */
-declare function decisionMembers(conclusion: Conclusion, results: readonly RuleResult[], warnings: readonly Warning[], additionalErrors?: readonly RuleResultError[]): {
+export declare function decisionMembers(conclusion: Conclusion, results: readonly RuleResult[], warnings: readonly Warning[], additionalErrors?: readonly RuleResultError[]): {
   warnings: readonly Warning[];
   errorResults: () => readonly RuleResultError[];
   hasFailedOpen: () => boolean;
@@ -89,6 +89,5 @@ declare function decisionMembers(conclusion: Conclusion, results: readonly RuleR
  * Correlates proto results back to SDK rule instances using
  * `config_id` and `input_id`.
  */
-declare function decisionFromProto(response: GuardResponse, _rules: readonly RuleWithInput[], localWarnings?: readonly Warning[]): Decision;
+export declare function decisionFromProto(response: GuardResponse, _rules: readonly RuleWithInput[], localWarnings?: readonly Warning[]): Decision;
 //#endregion
-export { conclusionFromProto, decisionFromProto, decisionMembers, isSensitiveInfoEntityType, nativeEntityTypes, reasonFromCase, reasonFromProto, resultFromProto, ruleToProto };

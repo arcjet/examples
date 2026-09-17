@@ -2,9 +2,9 @@ import { DiagnosticHandler } from "./diagnostics.js";
 import { CaptureEvent } from "./proto/proto/decide/v2/decide_pb.js";
 //#region src/capture-delivery.d.ts
 /** A platform hook that extends the current invocation for background work. */
-type WaitUntil = (promise: Promise<unknown>) => void;
+export type WaitUntil = (promise: Promise<unknown>) => void;
 /** Internal tuning controls, exposed for deterministic tests. */
-type CaptureDeliveryOptions = {
+export type CaptureDeliveryOptions = {
   /** Send one batch exactly once. */
   send: (events: readonly CaptureEvent[], signal: AbortSignal) => Promise<void>;
   /** Report a local failure that cannot travel over the wire. */
@@ -27,7 +27,7 @@ type CaptureDeliveryOptions = {
   batchDelayMs?: number;
 };
 /** Bounded, send-once delivery for best-effort capture events. */
-type CaptureDelivery = {
+export type CaptureDelivery = {
   /**
    * Enqueue one event without blocking the caller.
    *
@@ -49,6 +49,5 @@ type CaptureDelivery = {
  * one event queue, one pending-send set, and one unref'd batch timer. A full
  * buffer drops instead of blocking, and failed sends are never retried.
  */
-declare function createCaptureDelivery(options: CaptureDeliveryOptions): CaptureDelivery;
+export declare function createCaptureDelivery(options: CaptureDeliveryOptions): CaptureDelivery;
 //#endregion
-export { CaptureDelivery, CaptureDeliveryOptions, WaitUntil, createCaptureDelivery };

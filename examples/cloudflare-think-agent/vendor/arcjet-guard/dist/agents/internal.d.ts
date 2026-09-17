@@ -8,6 +8,5 @@
  * API. The symbol itself is observable on a wrapped tool, but the binding is
  * not a supported import.
  */
-declare const arcjetProtectedTool: symbol;
+export declare const arcjetProtectedTool: symbol;
 //#endregion
-export { arcjetProtectedTool };

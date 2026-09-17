@@ -9,6 +9,5 @@
  * @internal Exported for use by the vendor namespaces, so every one of them
  * generates correlation ids the same way; not part of the public API.
  */
-declare function ulid(): string;
+export declare function ulid(): string;
 //#endregion
-export { ulid };

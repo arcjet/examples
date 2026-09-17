@@ -4,11 +4,11 @@
  *
  * This is the same shape as `process.env`.
  */
-type ProxyEnvironment = Record<string, string | undefined>;
+export type ProxyEnvironment = Record<string, string | undefined>;
 /**
  * Minimal logger used to print a line when a proxy is detected.
  */
-interface TransportLogger {
+export interface TransportLogger {
   /**
    * Log an informational message.
    *
@@ -24,7 +24,7 @@ interface TransportLogger {
 /**
  * Configuration shared by all transports.
  */
-interface TransportOptions {
+export interface TransportOptions {
   /**
    * Logger used to print a line at startup when a proxy is detected (optional).
    *
@@ -78,6 +78,5 @@ interface TransportOptions {
  * @returns
  *   Proxy URL that applies to `url`, or `undefined` when no proxy applies.
  */
-declare function detectProxy(url: URL, options?: TransportOptions): string | undefined;
+export declare function detectProxy(url: URL, options?: TransportOptions): string | undefined;
 //#endregion
-export { ProxyEnvironment, TransportLogger, TransportOptions, detectProxy };

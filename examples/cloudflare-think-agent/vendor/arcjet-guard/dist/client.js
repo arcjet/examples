@@ -1,3 +1,4 @@
+import { labelProblem } from "./agents/label.js";
 import { createCaptureDelivery } from "./capture-delivery.js";
 import { encodeMetadata, enforceMetadataBudget } from "./metadata.js";
 import { symbolArcjetInternal } from "./symbol.js";
@@ -235,10 +236,12 @@ function normalizeCaptureEvent(value, diagnose) {
 		}
 		const occurredAtUnixMs = normalized.occurredAt === void 0 ? BigInt(Date.now()) : BigInt(normalized.occurredAt.getTime());
 		const encoded = encodeMetadata(normalized.metadata);
+		const labelIssue = labelProblem(normalized.action);
 		const warnings = [
 			...normalized.localWarnings,
 			...encoded.localWarnings,
-			...enforceMetadataBudget([encoded.metadataJson])
+			...enforceMetadataBudget([encoded.metadataJson]),
+			...labelIssue === void 0 ? [] : [captureLabelInvalid(labelIssue)]
 		];
 		for (const warning of warnings) diagnose(warning);
 		return create(CaptureEventSchema, {
@@ -320,6 +323,20 @@ function readWaitUntil(opts) {
 */
 function isWaitUntil(value) {
 	return typeof value === "function";
+}
+/**
+* Describe a capture action the service will not match to a policy.
+*
+* A capture has no response to carry `AJ1023` back, so the client-side check is
+* the only signal available here. It warns and still sends the action as
+* written: a capture records what the application did, and there is nothing to
+* fail closed on.
+*/
+function captureLabelInvalid(problem) {
+	return {
+		code: "AJ1023",
+		message: `capture.action is invalid (${problem}); no policy will match it`
+	};
 }
 /** Describe an optional capture field dropped by client-side normalization. */
 function captureOptionDropped(property) {

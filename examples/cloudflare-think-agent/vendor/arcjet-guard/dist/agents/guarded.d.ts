@@ -1,5 +1,5 @@
-import { ArcjetMetadata } from "../metadata.js";
 import { PolicyInputMap } from "../policy-input.js";
+import { ArcjetMetadata } from "../metadata.js";
 import { DecisionAllow, DecisionDeny, RuleWithInput } from "../types.js";
 import { ArcjetAgentClient } from "./capture.js";
 //#region src/agents/guarded.d.ts
@@ -24,7 +24,7 @@ import { ArcjetAgentClient } from "./capture.js";
  * envelope; `guardAction` throws `ArcjetDeniedError`. Those are different
  * handlers — they must not be the same function.
  */
-declare function runGuarded<T>(client: ArcjetAgentClient, params: {
+export declare function runGuarded<T>(client: ArcjetAgentClient, params: {
   action: string;
   rules: RuleWithInput[] | undefined;
   correlationId: string | undefined;
@@ -47,4 +47,3 @@ declare function runGuarded<T>(client: ArcjetAgentClient, params: {
   onGuardError?: "allow" | "deny";
 }): Promise<T>;
 //#endregion
-export { runGuarded };

@@ -8,14 +8,14 @@ import { ClientSessionOptions, SecureClientSessionOptions } from "node:http2";
  * Used by the Node proxy path to tunnel HTTP/2 through `CONNECT` via
  * `createConnection`.
  */
-type Http2ConnectOptions = ClientSessionOptions | SecureClientSessionOptions;
+export type Http2ConnectOptions = ClientSessionOptions | SecureClientSessionOptions;
 /**
  * A direct HTTP/2 transport plus the session manager that owns its connection.
  *
  * The session manager is exposed so callers (and tests) can tear the
  * connection down deterministically.
  */
-interface Http2TransportHandle {
+export interface Http2TransportHandle {
   transport: Transport;
   sessionManager: Http2SessionManager;
 }
@@ -36,6 +36,5 @@ interface Http2TransportHandle {
  *   (for example a `createConnection` tunnel).
  * @returns The transport and its session manager.
  */
-declare function createHttp2Transport(baseUrl: string, http2SessionOptions?: Http2ConnectOptions): Http2TransportHandle;
+export declare function createHttp2Transport(baseUrl: string, http2SessionOptions?: Http2ConnectOptions): Http2TransportHandle;
 //#endregion
-export { Http2ConnectOptions, Http2TransportHandle, createHttp2Transport };

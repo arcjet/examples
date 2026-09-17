@@ -16,7 +16,7 @@ type ServerPolicyInputValue = string | boolean | number | bigint | readonly stri
  * const body: PolicyInput = policyInput.local.string(emailBody);
  * ```
  */
-type PolicyInput = {
+export type PolicyInput = {
   readonly exposure: "SERVER";
   readonly kind: "STRING" | "BOOLEAN" | "INTEGER" | "NUMBER" | "STRING_LIST";
   readonly [policyInputBrand]: ServerPolicyInputValue;
@@ -39,7 +39,7 @@ type PolicyInput = {
  * };
  * ```
  */
-type PolicyInputMap = Readonly<Record<string, PolicyInput>>;
+export type PolicyInputMap = Readonly<Record<string, PolicyInput>>;
 type PolicyInputFactory = {
   readonly server: {
     /** Transmit a string value to Arcjet for policy evaluation and evidence. */
@@ -90,8 +90,7 @@ type PolicyInputFactory = {
  * });
  * ```
  */
-declare const policyInput: PolicyInputFactory;
+export declare const policyInput: PolicyInputFactory;
 /** @internal */
-declare function policyInputValue(input: PolicyInput): ServerPolicyInputValue;
+export declare function policyInputValue(input: PolicyInput): ServerPolicyInputValue;
 //#endregion
-export { PolicyInput, PolicyInputMap, policyInput, policyInputValue };

@@ -13,7 +13,7 @@ import "../types.js";
  *
  * Thread via `securityMetadata()` or merge directly into `ArcjetAgentContext.metadata`.
  */
-interface SecurityMetadataFields {
+export interface SecurityMetadataFields {
   /**
    * Whose authority the agent acts under (opaque ID, not PII).
    */
@@ -68,6 +68,5 @@ interface SecurityMetadataFields {
  * // → context has metadata: { user: "user_alice", "data-class": "confidential", destination: "audit_service" }
  * ```
  */
-declare function securityMetadata(fields: SecurityMetadataFields): ArcjetMetadata;
+export declare function securityMetadata(fields: SecurityMetadataFields): ArcjetMetadata;
 //#endregion
-export { SecurityMetadataFields, securityMetadata };

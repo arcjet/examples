@@ -9,6 +9,5 @@ import { Transport } from "@connectrpc/connect";
  * HTTP/2, optimistically pre-connecting so the first `.guard()` call doesn't
  * pay the full TCP + TLS setup cost.
  */
-declare function createTransport(baseUrl: string): Transport;
+export declare function createTransport(baseUrl: string): Transport;
 //#endregion
-export { createTransport };

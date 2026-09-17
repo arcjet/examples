@@ -10,7 +10,7 @@
  * @internal
  */
 /** @internal Single symbol key for correlation IDs. */
-declare const symbolArcjetInternal: unique symbol;
+export declare const symbolArcjetInternal: unique symbol;
 /**
  * The `globalThis` slot holding the registered client.
  *
@@ -27,6 +27,5 @@ declare const symbolArcjetInternal: unique symbol;
  *
  * @internal
  */
-declare const symbolArcjetClient: unique symbol;
+export declare const symbolArcjetClient: unique symbol;
 //#endregion
-export { symbolArcjetClient, symbolArcjetInternal };

@@ -23,7 +23,7 @@ import { CustomEvaluateResult, DetectPromptInjectionConfig, FixedWindowConfig, L
  * });
  * ```
  */
-declare function tokenBucket(config: TokenBucketConfig): RuleWithConfigTokenBucket;
+export declare function tokenBucket(config: TokenBucketConfig): RuleWithConfigTokenBucket;
 /**
  * Create a fixed window rate limiting rule.
  *
@@ -46,7 +46,7 @@ declare function tokenBucket(config: TokenBucketConfig): RuleWithConfigTokenBuck
  * });
  * ```
  */
-declare function fixedWindow(config: FixedWindowConfig): RuleWithConfigFixedWindow;
+export declare function fixedWindow(config: FixedWindowConfig): RuleWithConfigFixedWindow;
 /**
  * Create a sliding window rate limiting rule.
  *
@@ -68,7 +68,7 @@ declare function fixedWindow(config: FixedWindowConfig): RuleWithConfigFixedWind
  * });
  * ```
  */
-declare function slidingWindow(config: SlidingWindowConfig): RuleWithConfigSlidingWindow;
+export declare function slidingWindow(config: SlidingWindowConfig): RuleWithConfigSlidingWindow;
 /**
  * Create a server-side prompt injection detection rule.
  *
@@ -91,7 +91,7 @@ declare function slidingWindow(config: SlidingWindowConfig): RuleWithConfigSlidi
  * });
  * ```
  */
-declare function detectPromptInjection(config?: DetectPromptInjectionConfig): RuleWithConfigPromptInjection;
+export declare function detectPromptInjection(config?: DetectPromptInjectionConfig): RuleWithConfigPromptInjection;
 /**
  * Create a content moderation rule.
  *
@@ -131,13 +131,13 @@ declare function detectPromptInjection(config?: DetectPromptInjectionConfig): Ru
  * });
  * ```
  */
-declare function moderateContent(config?: ModerateContentConfig): RuleWithConfigModerateContent;
+export declare function moderateContent(config?: ModerateContentConfig): RuleWithConfigModerateContent;
 /**
  * Create a content moderation rule.
  *
  * @deprecated Use {@link moderateContent} instead.
  */
-declare const experimental_moderateContent: typeof moderateContent;
+export declare const experimental_moderateContent: typeof moderateContent;
 /**
  * Create a sensitive information detection rule.
  *
@@ -162,7 +162,7 @@ declare const experimental_moderateContent: typeof moderateContent;
  * });
  * ```
  */
-declare function localDetectSensitiveInfo(config?: LocalDetectSensitiveInfoConfig): RuleWithConfigSensitiveInfo;
+export declare function localDetectSensitiveInfo(config?: LocalDetectSensitiveInfoConfig): RuleWithConfigSensitiveInfo;
 /**
  * Define a typed custom rule.
  *
@@ -203,7 +203,7 @@ declare function localDetectSensitiveInfo(config?: LocalDetectSensitiveInfoConfi
  * }
  * ```
  */
-declare function defineCustomRule<TConfig extends Record<string, string>, TInput extends Record<string, string>, TData extends Record<string, string> = Record<string, string>>(options: {
+export declare function defineCustomRule<TConfig extends Record<string, string>, TInput extends Record<string, string>, TData extends Record<string, string> = Record<string, string>>(options: {
   evaluate: (config: Readonly<TConfig>, input: Readonly<TInput>, options: {
     signal?: AbortSignal;
   }) => CustomEvaluateResult<TData> | Promise<CustomEvaluateResult<TData>>;
@@ -214,4 +214,3 @@ declare function defineCustomRule<TConfig extends Record<string, string>, TInput
   metadata?: ArcjetMetadata;
 }) => RuleWithConfigCustom<TData, TInput>;
 //#endregion
-export { defineCustomRule, detectPromptInjection, experimental_moderateContent, fixedWindow, localDetectSensitiveInfo, moderateContent, slidingWindow, tokenBucket };

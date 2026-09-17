@@ -1,5 +1,5 @@
-import { ArcjetMetadata } from "../metadata.js";
 import { PolicyInputMap } from "../policy-input.js";
+import { ArcjetMetadata } from "../metadata.js";
 import { DecisionAllow, DecisionDeny, RuleWithInput } from "../types.js";
 import { ArcjetAgentClient } from "./capture.js";
 import { ArcjetAgentContext } from "./context.js";
@@ -47,7 +47,7 @@ import { ArcjetAgentContext } from "./context.js";
  * }
  * ```
  */
-declare class ArcjetDeniedError extends Error {
+export declare class ArcjetDeniedError extends Error {
   readonly decision: DecisionDeny;
   constructor(action: string, decision: DecisionDeny);
 }
@@ -61,7 +61,7 @@ declare class ArcjetDeniedError extends Error {
  * signals are caught and result in this error. This is distinct from
  * `ArcjetDeniedError`, which is thrown when a rule actively denies the action.
  */
-declare class ArcjetGuardUnavailableError extends Error {
+export declare class ArcjetGuardUnavailableError extends Error {
   readonly action: string;
   readonly decision?: DecisionAllow;
   constructor(action: string, init: {
@@ -78,7 +78,7 @@ declare class ArcjetGuardUnavailableError extends Error {
  * - `"deny"` (default): Do not execute; throw `ArcjetGuardUnavailableError` and
  *   capture the outcome as `"unavailable"` rather than executing.
  */
-type OnGuardError = "allow" | "deny";
+export type OnGuardError = "allow" | "deny";
 /**
  * Policy for `guardAction()` — how to guard an app-invoked action.
  *
@@ -88,7 +88,7 @@ type OnGuardError = "allow" | "deny";
  * happens, so the action is recorded and remains reachable by policy
  * configured outside the code, but nothing local is enforced.
  */
-interface GuardActionPolicy {
+export interface GuardActionPolicy {
   /** Guard label and capture action: `"resource.verb"`, past tense. */
   action: string;
   /**
@@ -172,9 +172,9 @@ interface GuardActionPolicy {
  * );
  * ```
  */
-declare function guardAction<T>(client: ArcjetAgentClient, ctx: ArcjetAgentContext, policy: GuardActionPolicy, fn: () => Promise<T>): Promise<T>;
+export declare function guardAction<T>(client: ArcjetAgentClient, ctx: ArcjetAgentContext, policy: GuardActionPolicy, fn: () => Promise<T>): Promise<T>;
 /** Options for `captureAction()`. */
-interface CaptureActionOptions {
+export interface CaptureActionOptions {
   /** Capture action: `"resource.verb"`, past tense. */
   action: string;
   /** Metadata merged over the context's. */
@@ -201,6 +201,5 @@ interface CaptureActionOptions {
  * });
  * ```
  */
-declare function captureAction(client: ArcjetAgentClient, ctx: ArcjetAgentContext, opts: CaptureActionOptions): void;
+export declare function captureAction(client: ArcjetAgentClient, ctx: ArcjetAgentContext, opts: CaptureActionOptions): void;
 //#endregion
-export { ArcjetDeniedError, ArcjetGuardUnavailableError, CaptureActionOptions, GuardActionPolicy, OnGuardError, captureAction, guardAction };

@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 /** Map of environment variables used to detect an outbound proxy. */
-type ProxyEnvironment = Record<string, string | undefined>;
+export type ProxyEnvironment = Record<string, string | undefined>;
 /**
  * Detect the proxy that applies to a URL and log a line when one is found.
  *
@@ -27,6 +27,5 @@ type ProxyEnvironment = Record<string, string | undefined>;
  *   runtime's environment when available).
  * @returns Proxy URL that applies to `url`, or `undefined` when none does.
  */
-declare function detectProxy(url: URL, proxyEnv?: ProxyEnvironment | undefined): string | undefined;
+export declare function detectProxy(url: URL, proxyEnv?: ProxyEnvironment | undefined): string | undefined;
 //#endregion
-export { ProxyEnvironment, detectProxy };

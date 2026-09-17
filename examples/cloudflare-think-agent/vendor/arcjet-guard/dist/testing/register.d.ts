@@ -16,6 +16,5 @@ import { ArcjetGuard } from "../index.js";
  *
  * @internal
  */
-declare function registerArcjetForTesting(client: ArcjetGuard): void;
+export declare function registerArcjetForTesting(client: ArcjetGuard): void;
 //#endregion
-export { registerArcjetForTesting };

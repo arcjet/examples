@@ -3,7 +3,7 @@ import { GuardOptions, Warning } from "../types.js";
 import { ArcjetGuard } from "../index.js";
 //#region src/testing/index.d.ts
 /** A capture event recorded by an {@link ArcjetTestClient}. */
-type ArcjetTestCapture = {
+export type ArcjetTestCapture = {
   /** What the application said it did. */
   action: string;
   /** Present only when the call supplied one. */
@@ -18,7 +18,7 @@ type ArcjetTestCapture = {
   warnings: readonly Warning[];
 };
 /** An in-memory Arcjet client that records calls instead of sending them. */
-type ArcjetTestClient = ArcjetGuard & {
+export type ArcjetTestClient = ArcjetGuard & {
   /** Captured events, in call order. */
   readonly captures: readonly ArcjetTestCapture[];
   /** Guard calls, in call order. */
@@ -81,6 +81,5 @@ type ArcjetTestClient = ArcjetGuard & {
  * ```
  *
  */
-declare function registerTestClient(): ArcjetTestClient;
+export declare function registerTestClient(): ArcjetTestClient;
 //#endregion
-export { ArcjetTestCapture, ArcjetTestClient, registerTestClient };

@@ -41,14 +41,11 @@ path is `@arcjet/guard/cloudflare-think/v0`.
 > `@arcjet/guard` is pinned to a `file:./vendor/arcjet-guard` build of
 > [`arcjet/arcjet-js`](https://github.com/arcjet/arcjet-js)
 > `david/cursor/cloudflare-think-guard-v0-1b24` at SHA
-> [`58a7d8b82f2a360c67eced13e9899f0c1799289f`](https://github.com/arcjet/arcjet-js/commit/58a7d8b82f2a360c67eced13e9899f0c1799289f)
+> [`863ac0d98070529436a6528a4c80b779c3857328`](https://github.com/arcjet/arcjet-js/commit/863ac0d98070529436a6528a4c80b779c3857328)
 > (see `vendor/SOURCE.txt`). The subpath is on that branch but **not yet
-> published to npm**. Guard on that SHA imports `@arcjet/transport/http2`,
-> which npm `@arcjet/transport@1.11.0` does not export, so
+> published to npm**. Guard on that SHA imports `@arcjet/transport/http2`, so
 > `@arcjet/transport` is also vendored from the **same SHA** as
 > `file:./vendor/arcjet-transport`.
-> After the JS adapter rebase lands, this vendor pin may need updating
-> (new SHA TBD — do not invent one).
 > npm cannot install a monorepo subdirectory from git, so the built packages
 > are vendored. Do not invent a published version number for this subpath.
 > Repin to the stable release once `@arcjet/guard/cloudflare-think/v0` ships.

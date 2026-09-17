@@ -33,6 +33,5 @@ import { SecureClientSessionOptions } from "node:http2";
  *   A `createConnection` callback for `http2.connect(..., { createConnection })`
  *   (and therefore for connect-node's `nodeOptions.createConnection`).
  */
-declare function createTunnelingConnection(proxyUrl: string): (authority: URL, options: SecureClientSessionOptions) => Duplex;
+export declare function createTunnelingConnection(proxyUrl: string): (authority: URL, options: SecureClientSessionOptions) => Duplex;
 //#endregion
-export { createTunnelingConnection };

@@ -9,6 +9,5 @@ import { Transport } from "@connectrpc/connect";
  * `NO_PROXY`) it uses the fetch transport so Bun's native `fetch` performs the
  * proxying.
  */
-declare function createTransport(baseUrl: string): Transport;
+export declare function createTransport(baseUrl: string): Transport;
 //#endregion
-export { createTransport };

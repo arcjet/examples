@@ -1,6 +1,6 @@
 //#region src/version.ts
 /** SDK version. Updated by the release process. */
-const VERSION = "1.11.0";
+const VERSION = "1.13.0";
 /**
 * Build a user-agent string with SDK version, runtime key, and navigator info.
 *

@@ -16,7 +16,7 @@ import { Transport } from "@connectrpc/connect";
  * @see https://github.com/connectrpc/connect-es/issues/749
  * @see https://github.com/connectrpc/connect-es/pull/1082
  */
-declare function createTransport(baseUrl: string): Transport;
+export declare function createTransport(baseUrl: string): Transport;
 /**
  * Build the fetch-based Connect transport without detecting a proxy.
  *
@@ -28,6 +28,5 @@ declare function createTransport(baseUrl: string): Transport;
  * Overrides `redirect` to `"follow"` because some edge runtimes (workerd,
  * edge-light) reject the `"error"` default set by connect-web.
  */
-declare function createFetchTransport(baseUrl: string): Transport;
+export declare function createFetchTransport(baseUrl: string): Transport;
 //#endregion
-export { createFetchTransport, createTransport };

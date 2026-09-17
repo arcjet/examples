@@ -7,13 +7,13 @@ import { Transport } from "@connectrpc/connect";
  * connection (aborting also kills any concurrent in-flight streams), low
  * enough that a dead session costs only a few failed-open calls.
  */
-declare const RECYCLE_AFTER_CONSECUTIVE_DEADLINES = 3;
+export declare const RECYCLE_AFTER_CONSECUTIVE_DEADLINES = 3;
 /**
  * The subset of `Http2SessionManager` the wrapper needs.
  *
  * Narrowed so tests can inject a fake.
  */
-interface RecyclableSession {
+export interface RecyclableSession {
   abort(reason?: Error): void;
   connect(): Promise<unknown>;
 }
@@ -50,6 +50,5 @@ interface RecyclableSession {
  * @param session Session manager to abort when the threshold is reached.
  * @returns A transport with the same behavior plus connection recycling.
  */
-declare function withConnectionRecycling(transport: Transport, session: RecyclableSession): Transport;
+export declare function withConnectionRecycling(transport: Transport, session: RecyclableSession): Transport;
 //#endregion
-export { RECYCLE_AFTER_CONSECUTIVE_DEADLINES, RecyclableSession, withConnectionRecycling };

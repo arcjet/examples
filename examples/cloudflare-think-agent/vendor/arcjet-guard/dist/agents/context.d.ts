@@ -11,7 +11,7 @@ import "../types.js";
  * @internal Exported for use by the vendor namespaces, so every one of them
  * rejects the same correlation ids; not part of the public API.
  */
-declare function correlationIdProblem(value: unknown): string | undefined;
+export declare function correlationIdProblem(value: unknown): string | undefined;
 /**
  * Security context threaded through guard evaluations.
  *
@@ -24,7 +24,7 @@ declare function correlationIdProblem(value: unknown): string | undefined;
  * Generated automatically as a ULID if not provided; validation ensures
  * caller-supplied IDs fit within 1–256 printable ASCII characters.
  */
-interface ArcjetAgentContext {
+export interface ArcjetAgentContext {
   /**
    * Correlation ID for tracing this request across services.
    * Generated as a ULID if not supplied; validates to 1–256 printable ASCII
@@ -71,9 +71,8 @@ interface ArcjetAgentContext {
  * @returns A new ArcjetAgentContext with validated correlation ID and metadata
  * @throws {Error} If a supplied correlationId is invalid (too long, non-ASCII, empty)
  */
-declare function createAgentContext(init?: {
+export declare function createAgentContext(init?: {
   correlationId?: string;
   metadata?: ArcjetMetadata;
 }): ArcjetAgentContext;
 //#endregion
-export { ArcjetAgentContext, correlationIdProblem, createAgentContext };

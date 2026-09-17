@@ -16,7 +16,7 @@ import "../../types.js";
  * - a `ToolCallContext`-shaped envelope (only a nested `context` bag is
  *   mined — `toolCallId` is ignored)
  */
-interface CloudflareThinkContextSource {
+export interface CloudflareThinkContextSource {
   context?: unknown;
   correlationId?: unknown;
   sessionId?: unknown;
@@ -30,7 +30,7 @@ interface CloudflareThinkContextSource {
  * Context derived from a Cloudflare Think run. `correlationId` is
  * omitted when nothing valid was present — this helper never mints one.
  */
-interface CloudflareThinkAgentContext {
+export interface CloudflareThinkAgentContext {
   correlationId?: string;
   metadata?: ArcjetMetadata;
 }
@@ -68,10 +68,9 @@ interface CloudflareThinkAgentContext {
  * }
  * ```
  */
-declare function cloudflareThinkContext(source?: CloudflareThinkContextSource, init?: {
+export declare function cloudflareThinkContext(source?: CloudflareThinkContextSource, init?: {
   sessionId?: string;
   correlationId?: string;
   metadata?: ArcjetMetadata;
 }): CloudflareThinkAgentContext;
 //#endregion
-export { CloudflareThinkAgentContext, CloudflareThinkContextSource, cloudflareThinkContext };

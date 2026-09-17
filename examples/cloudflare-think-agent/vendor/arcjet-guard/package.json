@@ -1,7 +1,7 @@
 {
   "name": "@arcjet/guard",
-  "version": "1.11.0",
-  "description": "Arcjet Guards SDK — AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored build from arcjet-js@58a7d8b82f2a360c67eced13e9899f0c1799289f (david/cursor/cloudflare-think-guard-v0-1b24).",
+  "version": "1.13.0",
+  "description": "Arcjet Guards SDK \u2014 AI guardrails for rate limiting, prompt injection detection, and sensitive info detection. Vendored build from arcjet-js@863ac0d98070529436a6528a4c80b779c3857328 (david/cursor/cloudflare-think-guard-v0-1b24).",
   "homepage": "https://arcjet.com",
   "bugs": {
     "url": "https://github.com/arcjet/arcjet-js/issues",
@@ -20,7 +20,7 @@
   },
   "files": [
     "dist/",
-    "skills/"
+    "skills"
   ],
   "type": "module",
   "main": "./dist/index.js",
@@ -75,13 +75,13 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@arcjet/analyze": "1.11.0",
-    "@arcjet/logger": "1.11.0",
+    "@arcjet/analyze": "1.13.0",
+    "@arcjet/logger": "1.13.0",
     "@arcjet/transport": "file:../arcjet-transport",
-    "@bufbuild/protobuf": "2.14.0",
-    "@connectrpc/connect": "2.1.2",
-    "@connectrpc/connect-node": "2.1.2",
-    "@connectrpc/connect-web": "2.1.2"
+    "@bufbuild/protobuf": "2.14.1",
+    "@connectrpc/connect": "2.2.0",
+    "@connectrpc/connect-node": "2.2.0",
+    "@connectrpc/connect-web": "2.2.0"
   },
   "peerDependencies": {
     "@cloudflare/think": ">=0.3.0 <1"

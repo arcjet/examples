@@ -9,7 +9,7 @@ import { ToolCallContext, ToolCallDecision } from "@cloudflare/think";
  * `guardHooks`. `input` is the tool's free-text args, not the
  * opaque `toolCallId`.
  */
-interface GuardHooksCall {
+export interface GuardHooksCall {
   toolName: string;
   input: unknown;
 }
@@ -25,7 +25,7 @@ interface GuardHooksCall {
  * (Durable Objects, workspace / MCP / client tools). Do **not** also
  * wrap the same tools with `@arcjet/guard/vercel-ai/v7`.
  */
-interface GuardHooksPolicy {
+export interface GuardHooksPolicy {
   /**
    * Guard label and capture action. Defaults to `"tool.invoked"`. May be a
    * function of the tool name and args.
@@ -64,7 +64,7 @@ interface GuardHooksPolicy {
  * `execute`. `{ action: "block" }` / `{ action: "substitute" }` skip
  * `execute`.
  */
-type CloudflareThinkGuardHooks = {
+export type CloudflareThinkGuardHooks = {
   beforeToolCall: (ctx: ToolCallContext) => Promise<ToolCallDecision | void>;
 };
 /**
@@ -145,6 +145,5 @@ type CloudflareThinkGuardHooks = {
  * }
  * ```
  */
-declare function guardHooks(client: ArcjetAgentClient, policy?: GuardHooksPolicy): CloudflareThinkGuardHooks;
+export declare function guardHooks(client: ArcjetAgentClient, policy?: GuardHooksPolicy): CloudflareThinkGuardHooks;
 //#endregion
-export { CloudflareThinkGuardHooks, GuardHooksCall, GuardHooksPolicy, guardHooks };

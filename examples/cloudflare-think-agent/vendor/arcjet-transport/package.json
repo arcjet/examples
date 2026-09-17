@@ -1,7 +1,7 @@
 {
   "name": "@arcjet/transport",
-  "version": "1.11.0",
-  "description": "Transport mechanisms for the Arcjet protocol. Vendored build from arcjet-js@58a7d8b82f2a360c67eced13e9899f0c1799289f (david/cursor/cloudflare-think-guard-v0-1b24; includes ./http2 which npm @arcjet/transport@1.11.0 does not export).",
+  "version": "1.13.0",
+  "description": "Transport mechanisms for the Arcjet protocol. Vendored build from arcjet-js@863ac0d98070529436a6528a4c80b779c3857328 (david/cursor/cloudflare-think-guard-v0-1b24; includes ./http2 used by Guard).",
   "keywords": [
     "arcjet",
     "transport",
@@ -59,16 +59,13 @@
     },
     "./package.json": "./package.json"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
-    "@arcjet/env": "1.11.0",
-    "@arcjet/logger": "1.11.0",
-    "@bufbuild/protobuf": "2.14.0",
-    "@connectrpc/connect": "2.1.2",
-    "@connectrpc/connect-node": "2.1.2",
-    "@connectrpc/connect-web": "2.1.2"
+    "@arcjet/env": "1.13.0",
+    "@arcjet/logger": "1.13.0",
+    "@bufbuild/protobuf": "2.14.1",
+    "@connectrpc/connect": "2.2.0",
+    "@connectrpc/connect-node": "2.2.0",
+    "@connectrpc/connect-web": "2.2.0"
   },
   "engines": {
     "node": ">=22.21.0 <23 || >=24.5.0"
