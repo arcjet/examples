@@ -1,0 +1,171 @@
+import { assertValidAction } from "../../agents/label.js";
+import { resolveActorInputs } from "../../agents/actor-inputs.js";
+import { shouldWarn } from "../../agents/capture.js";
+import { denialResult, unavailableResult } from "../../agents/denial.js";
+import { runGuarded } from "../../agents/guarded.js";
+import { arcjetProtectedTool } from "../../agents/internal.js";
+import { strandsAgentContext } from "./context.js";
+//#region src/strands-agents/v1/guard-tool.ts
+function isContextSource(value) {
+	return value !== null && typeof value === "object";
+}
+function isCallbackHolder(value) {
+	return value !== null && typeof value === "object";
+}
+function toolName(tool) {
+	if (typeof tool.name === "string" && tool.name.length > 0) return tool.name;
+	if (typeof tool.toolSpec?.name === "string" && tool.toolSpec.name.length > 0) return tool.toolSpec.name;
+}
+function resolveSessionId(policy, input) {
+	if (typeof policy.sessionId === "function") return policy.sessionId(input);
+	if (typeof policy.sessionId === "string" && policy.sessionId.length > 0) return policy.sessionId;
+}
+function contextSource(context) {
+	if (!isContextSource(context)) return;
+	if (context.invocationState !== void 0) return context;
+	return context;
+}
+/**
+* Wraps an authored `tool({ callback })` so the side-effect never runs
+* on DENY.
+*
+* After `tool()` the runner calls `stream()`, which calls `_callback`
+* (FunctionTool) or `_functionTool._callback` (ZodTool's validation
+* wrapper over the same authored function). `invoke()` calls
+* `_callback` directly. This helper replaces those callback slots so
+* every path is gated, and always runs `guard()` before the original
+* callback. On DENY the original callback never runs. The model
+* receives a plain `ArcjetDenialResult` (or the result of
+* `policy.onDeny`) as the callback return — `FunctionTool` wraps that
+* object in a `JsonBlock`. This helper does not throw on DENY and
+* does not fabricate a `ToolResultBlock`.
+*
+* Guard API errors depend on `policy.onGuardError` (defaults to `"deny"`):
+* - `"deny"` (default): callback does not run; the model receives an
+*   `ArcjetDenialResult` with `reason: "ERROR"`.
+* - `"allow"`: callback still runs, with a warning gated on
+*   `ARCJET_LOG_LEVEL`.
+*
+* Correlation is read from `toolContext.invocationState` (and
+* documented copies). No id is minted. `traceId`, `agent.id`, and
+* `SessionManager` are never read.
+*
+* MCP tools and anything not wrapped with `guardTool` skip this path
+* — use `guardHooks` for those. Do not also wrap the same tool with
+* `@arcjet/guard/vercel-ai/v7` or `@arcjet/guard/langgraph/v1`. The
+* shared `arcjetProtectedTool` brand throws on a second `guardTool`
+* wrap and lets `guardHooks` skip an already-guarded tool.
+*
+* Register only the value this helper returns on `Agent({ tools })`.
+* Passing the original `tool()` reference alongside the wrapped copy
+* leaves the inner `_functionTool._callback` unguarded on the
+* original's `stream()` path.
+*
+* @example
+* ```ts
+* import { launchArcjet, tokenBucket } from "@arcjet/guard";
+* import { guardTool } from "@arcjet/guard/strands-agents/v1";
+* import { tool } from "@strands-agents/sdk";
+* import { z } from "zod";
+*
+* const arcjet = launchArcjet({ key: process.env["ARCJET_KEY"]! });
+* const lookupLimit = tokenBucket({
+*   refillRate: 10,
+*   intervalSeconds: 60,
+*   maxTokens: 10,
+* });
+*
+* export const lookupOrder = guardTool(
+*   arcjet,
+*   tool({
+*     name: "lookup_order",
+*     description: "Look up an order by number",
+*     inputSchema: z.object({ orderNumber: z.string() }),
+*     callback: async ({ orderNumber }) => ({ orderNumber, status: "shipped" }),
+*   }),
+*   {
+*     action: "order.looked-up",
+*     rules: (input) => [lookupLimit({ key: input.orderNumber, requested: 1 })],
+*   },
+* );
+* ```
+*/
+function guardTool(client, tool, policy) {
+	assertValidAction(policy.action, "guardTool");
+	if (!isCallbackHolder(tool) || typeof tool._callback !== "function") throw new Error("@arcjet/guard: guardTool() requires a tool() result with a callback. Pass the result of tool({ callback }), not the config object.");
+	if (arcjetProtectedTool in tool) throw new Error("@arcjet/guard: guardTool() cannot wrap a tool that is already guarded; do not double-wrap with @arcjet/guard/strands-agents/v1, @arcjet/guard/vercel-ai/v7, or @arcjet/guard/langgraph/v1");
+	const proto = Object.getPrototypeOf(tool);
+	const wrapped = Object.defineProperties(Object.create(proto), Object.getOwnPropertyDescriptors(tool));
+	installGuardedCallback(client, tool, policy, wrapped);
+	const inner = wrapped._functionTool;
+	if (isCallbackHolder(inner) && typeof inner._callback === "function") {
+		const innerProto = Object.getPrototypeOf(inner);
+		const innerCopy = Object.defineProperties(Object.create(innerProto), Object.getOwnPropertyDescriptors(inner));
+		installGuardedCallback(client, tool, policy, innerCopy);
+		wrapped._functionTool = innerCopy;
+	}
+	Object.defineProperty(wrapped, arcjetProtectedTool, {
+		value: true,
+		enumerable: false,
+		configurable: true
+	});
+	return wrapped;
+}
+function installGuardedCallback(client, tool, policy, holder) {
+	const original = holder._callback;
+	if (typeof original !== "function") return;
+	const guarded = (input, context) => runGuardedCallback(client, tool, policy, input, context, () => Promise.resolve(original(input, context)));
+	Object.defineProperty(holder, "_callback", {
+		value: guarded,
+		writable: true,
+		enumerable: false,
+		configurable: true
+	});
+}
+async function runGuardedCallback(client, tool, policy, input, context, execute) {
+	const args = input === void 0 ? {} : input;
+	let sessionId;
+	let rules;
+	let policyMetadata;
+	let remote = {};
+	try {
+		const typedArgs = args;
+		sessionId = resolveSessionId(policy, typedArgs);
+		rules = typeof policy.rules === "function" ? policy.rules(typedArgs) : policy.rules;
+		policyMetadata = typeof policy.metadata === "function" ? policy.metadata(typedArgs) : policy.metadata;
+		remote = await resolveActorInputs(policy, typedArgs, context);
+	} catch (error) {
+		if (shouldWarn()) console.warn("@arcjet/guard: policy factory for \"%s\" threw; treating as a guard error:", policy.action, error);
+		if (policy.onGuardError === "allow") return execute();
+		return unavailableResult();
+	}
+	const source = contextSource(context);
+	const agentCtx = strandsAgentContext(source, sessionId === void 0 ? void 0 : { sessionId });
+	const name = toolName(tool);
+	const mergedMetadata = {
+		...agentCtx.metadata,
+		...name !== void 0 && { "strands.tool": name },
+		...policyMetadata
+	};
+	return runGuarded(client, {
+		action: policy.action,
+		rules,
+		correlationId: agentCtx.correlationId,
+		metadata: mergedMetadata,
+		...remote,
+		onDeny: (decision) => {
+			if (policy.onDeny === void 0) return denialResult(decision);
+			try {
+				return policy.onDeny(decision);
+			} catch (error) {
+				if (shouldWarn()) console.warn("@arcjet/guard: onDeny for \"%s\" threw; returning the default denial:", policy.action, error);
+				return denialResult(decision);
+			}
+		},
+		onUnavailable: () => unavailableResult(),
+		execute,
+		onGuardError: policy.onGuardError ?? "deny"
+	});
+}
+//#endregion
+export { guardTool };

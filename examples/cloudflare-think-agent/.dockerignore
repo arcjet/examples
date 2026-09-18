@@ -1,0 +1,11 @@
+*
+!index.ts
+!index.html
+!lib
+!src
+!scripts
+!vendor
+!environment.d.ts
+!package*.json
+!tsconfig.json
+!wrangler.jsonc
