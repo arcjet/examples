@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "esnext"],
+    "module": "node16",
+    "moduleResolution": "node16",
+    "skipLibCheck": true,
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  },
+  "include": [
+    "index.ts",
+    "lib/**/*.ts",
+    "scripts/**/*.ts",
+    "src/**/*.ts",
+    "environment.d.ts"
+  ]
+}
