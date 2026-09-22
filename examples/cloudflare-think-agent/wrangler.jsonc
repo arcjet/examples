@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "cloudflare-think-agent",
+  "main": "src/server.ts",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "durable_objects": {
+    "bindings": [{ "class_name": "SupportAgent", "name": "SupportAgent" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["SupportAgent"] }],
+}
