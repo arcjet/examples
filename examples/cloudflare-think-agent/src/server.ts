@@ -76,6 +76,11 @@ export class SupportAgent extends Think<Env, AgentState> {
   override beforeToolCall(
     ctx: ToolCallContext,
   ): ReturnType<CloudflareThinkGuardHooks["beforeToolCall"]> {
+    // ToolCallContext has no request body, so a body sessionId cannot be
+    // read here. beforeTurn persists that id onto this.state before tools
+    // run in the same turn. A resumed tool call (HITL) uses the id already
+    // stored on the Durable Object. A tool call that runs before beforeTurn
+    // has stored one stays uncorrelated — this hook does not mint an id.
     return createGuardHooks(this.callerSessionId()).beforeToolCall(ctx);
   }
 }

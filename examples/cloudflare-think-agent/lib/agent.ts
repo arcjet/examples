@@ -61,10 +61,14 @@ export function createGuardHooks(
     // Named remote-policy inputs. A dashboard policy that declares
     // these names can evaluate; omit them and those rules do not fire.
     inputs: ({ input: args }) => {
-      const orderId = readOrderId(args) ?? LOOKUP_ORDER_TOOL;
+      const orderId = readOrderId(args);
       const note = readNote(args);
       return {
-        order_id: policyInput.server.string(orderId),
+        // Omit order_id when the model left it out. Do not substitute the
+        // tool name — a remote policy keyed on order_id would see a bogus id.
+        ...(orderId !== undefined
+          ? { order_id: policyInput.server.string(orderId) }
+          : {}),
         actor: policyInput.server.string(TRUSTED_ACTOR),
         ...(note !== undefined ? { note: policyInput.local.string(note) } : {}),
       };
@@ -74,10 +78,14 @@ export function createGuardHooks(
     ...(onDeny === "block" ? { onDeny: "block" as const } : {}),
     //   guardHooks(arcjet, { onDeny: "block", ... })
     rules: ({ input: args }) => {
-      const orderId = readOrderId(args) ?? LOOKUP_ORDER_TOOL;
+      const orderId = readOrderId(args);
       const note = readNote(args);
       return [
-        lookupLimit({ key: `order:${orderId}`, requested: 1 }),
+        lookupLimit({
+          // Missing orderId shares one bucket that is not an order id.
+          key: orderId === undefined ? "missing-order-id" : `order:${orderId}`,
+          requested: 1,
+        }),
         // Scan free-text args only. An opaque orderId will not
         // trip EMAIL / phone / card / IP.
         ...(note !== undefined ? [detectPii(note)] : []),

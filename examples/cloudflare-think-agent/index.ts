@@ -102,7 +102,8 @@ function statusForError(error: unknown): number {
   return 500;
 }
 
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+const rawPort = process.env.PORT?.trim();
+const port = rawPort ? Number(rawPort) : 3000;
 if (!Number.isInteger(port) || port < 0 || port > 65535) {
   throw new Error(
     `PORT must be an integer between 0 and 65535, got ${process.env.PORT}`,
