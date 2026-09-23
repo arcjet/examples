@@ -23,18 +23,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.12.0",
-    "@arcjet/sensitive-info-rampart": "1.12.0",
-    "@ai-sdk/provider-utils": "5.0.36",
-    "ai": "7.0.66",
-    "zod": "^4.4.3"
+    "@arcjet/guard": "1.13.0",
+    "@arcjet/sensitive-info-rampart": "1.13.0",
+    "@ai-sdk/provider-utils": "5.0.41",
+    "ai": "7.0.102",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@types/node": "^24.13.3",
+    "@types/node": "^24.13.5",
     "typescript": "^5"
   },
   "overrides": {
     "sharp": "0.35.4",
-    "adm-zip": "0.6.0"
+    "adm-zip": "0.6.1"
   }
 }
