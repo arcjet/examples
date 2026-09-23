@@ -24,5 +24,8 @@
     "start": "nuxt preview --host 0.0.0.0",
     "postinstall": "nuxt prepare"
   },
-  "type": "module"
+  "type": "module",
+  "overrides": {
+    "devalue": "5.9.1"
+  }
 }
