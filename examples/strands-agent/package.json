@@ -24,12 +24,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.12.0",
-    "@strands-agents/sdk": "1.14.0",
-    "zod": "4.4.3"
+    "@arcjet/guard": "1.13.0",
+    "@strands-agents/sdk": "1.18.0",
+    "zod": "4.6.5"
   },
   "devDependencies": {
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.5",
     "typescript": "5.9.3"
   }
 }
