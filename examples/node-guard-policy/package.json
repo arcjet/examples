@@ -23,8 +23,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.13.0",
-    "@arcjet/sensitive-info-rampart": "1.13.0",
+    "@arcjet/guard": "1.14.0",
+    "@arcjet/sensitive-info-rampart": "1.14.0",
     "@ai-sdk/provider-utils": "5.0.41",
     "ai": "7.0.102",
     "zod": "^4.6.5"
