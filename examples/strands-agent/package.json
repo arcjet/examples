@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.13.0",
+    "@arcjet/guard": "1.14.0",
     "@strands-agents/sdk": "1.18.0",
     "zod": "4.6.5"
   },

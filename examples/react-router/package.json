@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@arcjet/react-router": "1.13.0",
+    "@arcjet/react-router": "1.14.0",
     "@fontsource-variable/figtree": "5.3.0",
     "@react-router/fs-routes": "7.18.4",
     "@react-router/node": "7.18.4",

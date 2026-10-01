@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.13.0",
+    "@arcjet/guard": "1.14.0",
     "ai": "7.0.102",
     "next": "16.3.5",
     "react": "19.3.0",
