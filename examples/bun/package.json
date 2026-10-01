@@ -22,8 +22,8 @@
     "start": "bun run src/index.ts"
   },
   "dependencies": {
-    "@arcjet/bun": "1.13.0",
-    "@arcjet/inspect": "1.13.0"
+    "@arcjet/bun": "1.14.0",
+    "@arcjet/inspect": "1.14.0"
   },
   "devDependencies": {
     "@types/bun": "1.4.0",
