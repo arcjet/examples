@@ -130,6 +130,15 @@ Once your example is merged into `main`, you can publish it to its own repositor
    }
    ```
 
+3. **Ask an organization owner to mark the repository as a published copy**
+
+   Publishing overwrites the copy, so its Dependabot alerts repeat this
+   repository's and a fix made in the copy doesn't last. Vulnerabilities are
+   tracked and fixed here instead. An organization owner:
+   - sets the `source_repository` custom property to `arcjet/examples`
+   - applies the **Derived repo** code security configuration, which turns off
+     Dependabot alerts
+
 Your example repository is now ready to receive code. Next, follow [Publishing an example](#publishing-an-example-semiautomated).
 
 ---
