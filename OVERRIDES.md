@@ -60,7 +60,7 @@ a new override that needs an explanation.
 
 ## Security maintenance overrides
 
-| `nuxt`                    | `devalue: 5.9.1`                                                         | Nuxt resolves an affected devalue release. Remove when its resolved devalue is 5.9.1 or later.                                                                                                                               | [GHSA-9rgm-9g3h-6x36](https://github.com/advisories/GHSA-9rgm-9g3h-6x36)                                                                                                                                                                                                                                                                                                         |
+| `nuxt`                    | `devalue: 5.9.3`                                                         | Nuxt resolves an affected devalue release. Raised for GHSA-j22f-vq7h-c4qm, GHSA-mcm9-63f2-9j32, and GHSA-x5rw-q4pp-hg5g. Remove when Nuxt selects devalue 5.9.3 or later without this override.                                                                                                                               | [GHSA-9rgm-9g3h-6x36](https://github.com/advisories/GHSA-9rgm-9g3h-6x36)                                                                                                                                                                                                                                                                                                         |
 
 These pins preserve the APIs used by the examples while upstream dependency
 constraints still select affected versions. Remove each pin once its parent
