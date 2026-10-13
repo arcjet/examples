@@ -46,7 +46,7 @@
   },
   "overrides": {
     "@nestjs/platform-express": {
-      "multer": "2.3.0"
+      "multer": "2.4.0"
     }
   }
 }
