@@ -58,12 +58,6 @@ Several other examples already pin transitives the same way (for example
 live in the example `package.json`. Add a section above when you introduce
 a new override that needs an explanation.
 
-## Temporary dependency update holds
-
-| Example | Hold | Retry condition |
-| --- | --- | --- |
-| [`cloudflare-think-agent`](./examples/cloudflare-think-agent) | Its existing `@arcjet/guard@1.14.0` requires `@arcjet/transport@1.14.0`; npm returns E404 for that tarball, so a full install and typecheck cannot run. The routine third-party-only update to `zod@4.6.5` and `@types/node@24.13.5` is recorded in its manifest and lockfile. | Retry install and typecheck after `@arcjet/transport@1.14.0` is published. |
-
 ## Security maintenance overrides
 
 | `nuxt`                    | `devalue: 5.9.1`                                                         | Nuxt resolves an affected devalue release. Remove when its resolved devalue is 5.9.1 or later.                                                                                                                               | [GHSA-9rgm-9g3h-6x36](https://github.com/advisories/GHSA-9rgm-9g3h-6x36)                                                                                                                                                                                                                                                                                                         |
