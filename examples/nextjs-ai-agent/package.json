@@ -48,6 +48,7 @@
     },
     "@workflow/world-vercel": {
       "undici": "7.29.1"
-    }
+    },
+    "devalue": "5.9.3"
   }
 }
