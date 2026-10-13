@@ -24,7 +24,7 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@arcjet/guard": "1.14.0",
+    "@arcjet/guard": "1.14.1",
     "@opentelemetry/api": "^1.9.1",
     "ai": "^7",
     "eve": "0.56.0",
@@ -34,5 +34,13 @@
     "@types/json-schema": "^7.0.15",
     "@types/node": "24.13.5",
     "typescript": "5.9.3"
+  },
+  "overrides": {
+    "@ai-sdk/provider-utils": {
+      "undici": "7.29.1"
+    },
+    "eve": {
+      "undici": "8.10.2"
+    }
   }
 }
