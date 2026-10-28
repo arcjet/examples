@@ -5,9 +5,6 @@ requires-python = ">=3.10, <4.0"
 [options]
 exclude-newer = "2026-10-22T00:00:00Z"
 
-[options.exclude-newer-package]
-opentelemetry-api = "2026-10-29T00:00:00Z"
-
 [[package]]
 name = "app"
 version = "0.1.0"
