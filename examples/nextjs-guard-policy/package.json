@@ -24,10 +24,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ai-sdk/provider-utils": "5.0.41",
+    "@ai-sdk/provider-utils": "5.0.65",
     "@arcjet/guard": "1.14.1",
     "@arcjet/sensitive-info-rampart": "1.14.1",
-    "ai": "7.0.102",
+    "ai": "7.0.148",
     "next": "16.4.2",
     "react": "19.3.1",
     "react-dom": "19.3.1",
