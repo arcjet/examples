@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.14.1",
+    "@arcjet/guard": "1.15.0",
     "@langchain/core": "1.2.20",
     "@langchain/openai": "1.6.3",
     "langchain": "1.5.18",
