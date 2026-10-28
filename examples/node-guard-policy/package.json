@@ -25,16 +25,16 @@
   "dependencies": {
     "@arcjet/guard": "1.14.1",
     "@arcjet/sensitive-info-rampart": "1.14.1",
-    "@ai-sdk/provider-utils": "5.0.41",
-    "ai": "7.0.102",
-    "zod": "^4.6.5"
+    "@ai-sdk/provider-utils": "5.0.65",
+    "ai": "7.0.148",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/node": "^24.13.5",
+    "@types/node": "^24.19.2",
     "typescript": "^5"
   },
   "overrides": {
-    "sharp": "0.35.4",
+    "sharp": "0.35.5",
     "adm-zip": "0.6.1"
   }
 }

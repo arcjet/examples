@@ -25,22 +25,19 @@
   },
   "dependencies": {
     "@arcjet/guard": "1.14.1",
-    "@opentelemetry/api": "^1.9.1",
+    "@opentelemetry/api": "^1.10.0",
     "ai": "^7",
-    "eve": "0.56.0",
+    "eve": "0.81.1",
     "zod": "^4"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.15",
-    "@types/node": "24.13.5",
+    "@types/node": "24.19.2",
     "typescript": "5.9.3"
   },
   "overrides": {
-    "@ai-sdk/provider-utils": {
-      "undici": "7.29.1"
-    },
     "eve": {
-      "undici": "8.10.2"
+      "undici": "8.12.2"
     }
   }
 }
