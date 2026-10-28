@@ -37,7 +37,7 @@
   },
   "overrides": {
     "eve": {
-      "undici": "8.10.2"
+      "undici": "8.12.2"
     }
   }
 }
