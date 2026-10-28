@@ -36,9 +36,6 @@
     "typescript": "5.9.3"
   },
   "overrides": {
-    "@ai-sdk/provider-utils": {
-      "undici": "7.29.1"
-    },
     "eve": {
       "undici": "8.10.2"
     }
