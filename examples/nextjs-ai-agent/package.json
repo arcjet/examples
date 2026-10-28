@@ -48,6 +48,7 @@
     "@workflow/world-vercel": {
       "undici": "7.30.1"
     },
-    "devalue": "5.9.3"
+    "devalue": "5.9.3",
+    "zod": "$zod"
   }
 }
