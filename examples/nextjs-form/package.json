@@ -31,12 +31,12 @@
     "@arcjet/next": "1.14.1",
     "@fontsource-variable/figtree": "5.3.0",
     "@fontsource/ibm-plex-mono": "5.3.0",
-    "@hookform/resolvers": "5.9.1",
+    "@hookform/resolvers": "5.9.2",
     "@nosecone/next": "1.14.1",
-    "next": "16.3.8",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "react-hook-form": "7.88.0",
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-hook-form": "7.90.0",
     "zod": "4.6.7"
   },
   "devDependencies": {
