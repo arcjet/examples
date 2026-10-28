@@ -1,6 +1,6 @@
 [project]
 dependencies = [
-    "arcjet==1.4.0",
+    "arcjet==1.5.0",
     "fastapi[standard]==0.156.4",
     "pydantic-settings==2.15.0",
     "uvicorn==0.54.0",
