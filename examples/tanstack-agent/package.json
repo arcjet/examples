@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.14.1",
+    "@arcjet/guard": "1.15.0",
     "@tanstack/ai": "0.54.0",
     "@tanstack/ai-openai": "0.22.6",
     "zod": "4.6.7"
