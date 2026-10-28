@@ -93,11 +93,3 @@ accepts the patched release.
 `@workflow/core@4.8.9` pins `devalue@5.9.2`, which is affected by
 GHSA-j22f-vq7h-c4qm and related advisories. The example overrides it to
 `devalue@5.9.3`. Remove this override when Workflow selects 5.9.3 or later.
-
-## cloudflare-think-agent: MCP peers
-
-`agents@0.24.0` pins `@modelcontextprotocol/client@2.0.0` and
-`@modelcontextprotocol/sdk@1.30.0` as exact peers. Override them to
-`2.2.0` and `1.31.0` for GHSA-6qxp-vccf-f47h. The example does not
-configure remote MCP OAuth. Remove these overrides when `agents` accepts
-the patched releases; recheck its peer versions when upgrading Think.

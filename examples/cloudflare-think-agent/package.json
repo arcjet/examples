@@ -32,9 +32,5 @@
   "devDependencies": {
     "@types/node": "24.19.2",
     "typescript": "5.9.3"
-  },
-  "overrides": {
-    "@modelcontextprotocol/client": "2.2.0",
-    "@modelcontextprotocol/sdk": "1.31.0"
   }
 }
