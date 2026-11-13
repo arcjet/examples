@@ -41,7 +41,7 @@ messages, and records every guard decision with Arcjet.
 2. Install dependencies:
 
    ```bash
-   npm ci
+   npm install
    ```
 
    This example requires **Node.js 24 or later** — Eve's floor is Node 24 and

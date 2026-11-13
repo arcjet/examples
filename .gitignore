@@ -137,3 +137,7 @@ dist
 
 # Turborepo
 .turbo
+
+# Examples resolve dependencies at install time; do not commit their lockfiles
+examples/*/package-lock.json
+examples/*/deno.lock

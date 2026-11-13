@@ -43,7 +43,7 @@ features.
 2. Install dependencies:
 
 ```sh
-npm ci
+npm install
 ```
 
 3. Rename `.env.example` to `.env` and add your Arcjet key.

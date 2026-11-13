@@ -15,6 +15,7 @@ example, publish it to its own repository, and keep dependencies up to date.
 5. [Publishing to a new repository](#publishing-to-a-new-repository)
 6. [Publishing an example (semi‑automated)](#publishing-an-example-semiautomated)
 7. [Updating dependencies](#updating-dependencies)
+   - [Version ranges](#version-ranges)
    - [npm](#npm)
    - [npm overrides](#npm-overrides)
    - [Deno](#deno)
@@ -180,6 +181,18 @@ Your example repository is now ready to receive code. Next, follow [Publishing a
 
 ## Updating dependencies
 
+### Version ranges
+
+The examples are documentation and a starting point for your own project, so
+they declare caret ranges (`^1.15.0`) and do not commit a lockfile. Each
+install resolves the newest releases those ranges allow, and a release inside
+a range needs no change here. Raise a range's lower bound only to require a
+fix or a new API, or to move to a new major version.
+
+`examples/tanstack-start` is the exception: each `@tanstack/react-start` release
+depends on one exact `@tanstack/react-router` release, so both are declared as
+exact versions and updated together.
+
 ### npm
 
 We use [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates#cooldown) with a **30‑day cooldown**.
@@ -204,10 +217,10 @@ We use [`npm-check-updates`](https://www.npmjs.com/package/npm-check-updates#coo
 
 ### npm overrides
 
-When a parent package cannot be updated past a Socket or `npm audit`
-finding, pin the transitive with `overrides` in that example's
-`package.json`. See [OVERRIDES.md](./OVERRIDES.md) for the current pins and
-why they exist.
+When a parent package's range still selects a release with a Socket or
+`npm audit` finding, raise the transitive package with `overrides` in that
+example's `package.json`. See [OVERRIDES.md](./OVERRIDES.md) for the current
+overrides and why they exist.
 
 ### Deno
 

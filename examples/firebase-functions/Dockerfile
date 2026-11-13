@@ -5,7 +5,7 @@ WORKDIR /app
 EXPOSE 5000
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY . .
 RUN npm run check
