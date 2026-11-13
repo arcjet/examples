@@ -75,7 +75,7 @@ The model uses Strands `OpenAIModel` with `api: "chat"`, routed through the
 2. Install dependencies:
 
    ```bash
-   npm ci
+   npm install
    ```
 
    Requires **Node.js 24 or later** for TypeScript type stripping.

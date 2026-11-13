@@ -4,9 +4,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // This example ships with its own `package-lock.json`. Point Next.js at this
-  // directory for file tracing so it doesn't warn about other lockfiles that
-  // may exist further up the tree.
+  // Next.js warns when it finds lockfiles in parent directories, as it does in
+  // the arcjet/examples repository. Set the tracing root to this directory.
   // See: https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats
   outputFileTracingRoot: path.join(import.meta.dirname, "."),
 };

@@ -48,7 +48,7 @@ content leaves your environment.
 2. Install dependencies:
 
    ```bash
-   npm ci
+   npm install
    ```
 
    > This example depends on `@arcjet/sensitive-info-rampart`, which pulls in a

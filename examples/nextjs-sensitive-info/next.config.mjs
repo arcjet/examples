@@ -5,9 +5,8 @@ import path from "node:path";
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  // In our arcjet/examples monorepo Next.js warns about the root
-  // `package-lock.json`. Here we tell Next.js to ignore it and instead use
-  // the adjacent `package-lock.json` file for tracing instead.
+  // Next.js warns when it finds lockfiles in parent directories, as it does in
+  // the arcjet/examples repository. Set the tracing root to this directory.
   // See: https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats
   outputFileTracingRoot: path.join(import.meta.dirname, "."),
   // The Rampart backend loads a native ONNX runtime

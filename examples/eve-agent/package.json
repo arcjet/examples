@@ -24,20 +24,20 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@arcjet/guard": "1.15.0",
+    "@arcjet/guard": "^1.15.0",
     "@opentelemetry/api": "^1.10.0",
     "ai": "^7",
-    "eve": "0.81.1",
+    "eve": "^0.81.1",
     "zod": "^4"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.15",
-    "@types/node": "24.19.2",
-    "typescript": "5.9.3"
+    "@types/node": "^24.19.2",
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "eve": {
-      "undici": "8.12.2"
+      "undici": "^8.12.2"
     }
   }
 }

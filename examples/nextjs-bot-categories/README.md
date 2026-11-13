@@ -31,7 +31,7 @@ bot, and by filtering an individual bot out of a category so it is still denied.
 2. Install dependencies:
 
 ```bash
-npm ci
+npm install
 ```
 
 3. Rename `.env.local.example` to `.env.local` and add your Arcjet key.

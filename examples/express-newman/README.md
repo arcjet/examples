@@ -39,7 +39,7 @@ request handler, for better performance.
 2. Install dependencies:
 
    ```bash
-   npm ci
+   npm install
    ```
 
 3. Rename `.env.local.example` to `.env.local` and add your Arcjet key.

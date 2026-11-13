@@ -75,7 +75,7 @@ settings. One `AI_GATEWAY_API_KEY` is enough.
 2. Install dependencies:
 
    ```bash
-   npm ci
+   npm install
    ```
 
    Requires **Node.js 24 or later** for TypeScript type stripping.

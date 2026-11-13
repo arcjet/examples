@@ -40,7 +40,7 @@ because middleware should not read the request body. See the
 2. Install dependencies:
 
 ```bash
-npm ci
+npm install
 ```
 
 3. Rename `.env.example` to `.env` and add your Arcjet key.

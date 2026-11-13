@@ -32,7 +32,7 @@ website from abuse.
 2. Install dependencies:
 
 ```sh
-npm ci
+npm install
 ```
 
 3. Rename `example.secret.local` to `.secret.local` and add your Arcjet key.
@@ -55,7 +55,7 @@ iteself. The function URL should end with `/arcjetExample`.
 2. Install dependencies:
 
 ```sh
-npm ci
+npm install
 ```
 
 3. Login to Firebase:

@@ -84,7 +84,7 @@ the app executes can be gated.
 2. Install dependencies:
 
    ```bash
-   npm ci
+   npm install
    ```
 
    Requires **Node.js 24 or later** for TypeScript type stripping.

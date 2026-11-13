@@ -4,7 +4,7 @@ WORKDIR /app
 
 EXPOSE 3000
 
-COPY deno.json deno.lock ./
+COPY deno.json ./
 RUN deno install
 
 COPY . .

@@ -113,7 +113,7 @@ Client tools with no local `execute` are out of scope.
 2. Install dependencies:
 
    ```bash
-   npm ci
+   npm install
    ```
 
    This example requires **Node.js 24 or later** so TypeScript can run

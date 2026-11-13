@@ -1,26 +1,26 @@
 {
   "dependencies": {
-    "@arcjet/inspect": "1.15.0",
-    "@arcjet/sveltekit": "1.15.0",
-    "@fontsource-variable/figtree": "5.3.0",
-    "@fontsource/ibm-plex-mono": "5.3.0",
-    "zod": "4.6.7"
+    "@arcjet/inspect": "^1.15.0",
+    "@arcjet/sveltekit": "^1.15.0",
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@sveltejs/adapter-node": "5.5.7",
-    "@sveltejs/kit": "2.70.3",
-    "@sveltejs/vite-plugin-svelte": "6.2.4",
-    "prettier": "3.9.10",
-    "prettier-plugin-svelte": "3.5.2",
-    "svelte": "5.57.2",
-    "svelte-check": "4.7.7",
-    "typescript": "5.9.3",
-    "vite": "7.3.7"
+    "@sveltejs/adapter-node": "^5.5.7",
+    "@sveltejs/kit": "^2.70.3",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "prettier": "^3.9.10",
+    "prettier-plugin-svelte": "^3.5.2",
+    "svelte": "^5.57.2",
+    "svelte-check": "^4.7.7",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.7"
   },
   "name": "@arcjet-example/sveltekit",
   "overrides": {
     "@sveltejs/kit": {
-      "cookie": "0.7.0"
+      "cookie": "^0.7.0"
     }
   },
   "prettier": {

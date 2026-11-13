@@ -25,17 +25,17 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "1.15.0",
-    "@cloudflare/think": "0.21.0",
-    "zod": "4.6.7"
+    "@arcjet/guard": "^1.15.0",
+    "@cloudflare/think": "^0.21.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/node": "24.19.2",
-    "typescript": "5.9.3"
+    "@types/node": "^24.19.2",
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "guarded-fetch": {
-      "undici": "7.30.1"
+      "undici": "^7.30.1"
     }
   }
 }
