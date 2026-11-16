@@ -33,6 +33,9 @@
     "typescript": "^5.9.3"
   },
   "overrides": {
-    "uuid": "^11.1.1"
+    "uuid": "^11.1.1",
+    "gcp-metadata@8.1.4": {
+      "gaxios": "^7.3.1"
+    }
   }
 }

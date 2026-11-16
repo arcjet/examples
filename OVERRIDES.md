@@ -75,3 +75,13 @@ the patched release.
 | `nextjs-ai-agent`        | `devalue: ^5.9.3`                                                                                       | `@workflow/core` 4.8.16 pins devalue 5.9.2. Remove when it permits 5.9.3 or later.                                                                                              | [GHSA-j22f-vq7h-c4qm](https://github.com/advisories/GHSA-j22f-vq7h-c4qm), [GHSA-mcm9-63f2-9j32](https://github.com/advisories/GHSA-mcm9-63f2-9j32), [GHSA-x5rw-q4pp-hg5g](https://github.com/advisories/GHSA-x5rw-q4pp-hg5g) and others                 |
 | `nextjs-ai-agent`        | `zod: $zod`                                                                                             | Resolves every zod in the tree to the example's own zod range. `@vercel/cli-auth` pins 4.1.11 and `@workflow/cli` allows only `~4.3.6`. Remove when both permit 4.6.6 or later. | [GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5)                                                                                                                                                                                |
 | `sveltekit`              | `@sveltejs/kit > cookie: ^0.7.0`                                                                        | SvelteKit 2.70.4 allows only cookie `^0.6.0`. Remove when it permits 0.7.0 or later.                                                                                            | [GHSA-pxg6-pf52-xh8x](https://github.com/advisories/GHSA-pxg6-pf52-xh8x)                                                                                                                                                                                |
+
+### google-adk-agent: gaxios
+
+`gcp-metadata@8.1.4` pins `gaxios@7.1.3`, which brings in `rimraf`,
+`glob`, and `minimatch`. Override that parent's gaxios to `^7.3.1`, a
+same-major release that removes the rimraf dependency, to address
+[GHSA-3g3m-2fjr-6pw4](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4)
+and [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249).
+Remove this override when gcp-metadata no longer pins the affected gaxios
+release. Other gcp-metadata versions keep their existing dependency ranges.
