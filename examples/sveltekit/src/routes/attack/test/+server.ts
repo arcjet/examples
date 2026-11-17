@@ -1,6 +1,6 @@
 import { shield } from "@arcjet/sveltekit";
-import { json, type RequestHandler } from "@sveltejs/kit";
-import { arcjet } from "$lib/server/arcjet";
+import type { RequestHandler } from "@sveltejs/kit";
+import { arcjet } from "#lib/server/arcjet.ts";
 
 // Add rules to the base Arcjet instance outside of the handler function
 const aj = arcjet.withRule(
@@ -21,13 +21,13 @@ export const GET: RequestHandler = async (event) => {
   // If the decision is denied, return a 403 Forbidden response. You can
   // inspect the decision results to customize the response.
   if (decision.isDenied()) {
-    return json({ error: "Forbidden" }, { status: 403 });
+    return Response.json({ error: "Forbidden" }, { status: 403 });
   }
 
   if (decision.isErrored()) {
     console.error("Arcjet error:", decision.reason);
     if (decision.reason.message === "[unauthenticated] invalid key") {
-      return json(
+      return Response.json(
         {
           message:
             "Invalid Arcjet key. Is the ARCJET_KEY environment variable set?",
@@ -36,11 +36,11 @@ export const GET: RequestHandler = async (event) => {
       );
     }
 
-    return json(
+    return Response.json(
       { message: `Internal server error: ${decision.reason.message}` },
       { status: 500 },
     );
   }
 
-  return json({ message: "Hello world" });
+  return Response.json({ message: "Hello world" });
 };

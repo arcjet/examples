@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import WhatNext from "$lib/components/WhatNext.svelte";
+  import WhatNext from "#lib/components/WhatNext.svelte";
   import type { PageProps } from "./$types";
 
   let { form }: PageProps = $props();

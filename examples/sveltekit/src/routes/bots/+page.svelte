@@ -1,5 +1,5 @@
 <script lang="ts">
-  import WhatNext from "$lib/components/WhatNext.svelte";
+  import WhatNext from "#lib/components/WhatNext.svelte";
 </script>
 
 <main class="page">

@@ -1,7 +1,7 @@
 import arcjetSvelteKit from "@arcjet/sveltekit";
-import { env } from "$env/dynamic/private";
+import { ARCJET_KEY } from "$app/env/private";
 
-let arcjetKey = env.ARCJET_KEY;
+let arcjetKey = ARCJET_KEY;
 if (!arcjetKey) {
   console.warn(
     "ARCJET_KEY environment variable is required. Sign up for your Arcjet key at https://console.arcjet.com",
