@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "^1.15.0",
+    "@arcjet/guard": "^1.16.0",
     "@mastra/core": "^1.66.0",
     "zod": "^4.6.7"
   },

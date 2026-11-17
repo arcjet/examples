@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcjet/guard": "^1.15.0",
+    "@arcjet/guard": "^1.16.0",
     "@genkit-ai/compat-oai": "^1.42.0",
     "genkit": "^1.42.0"
   },
