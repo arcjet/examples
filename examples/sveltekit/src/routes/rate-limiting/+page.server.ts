@@ -1,6 +1,6 @@
 import { fixedWindow, shield } from "@arcjet/sveltekit";
 import { type Actions, fail } from "@sveltejs/kit";
-import { arcjet } from "$lib/server/arcjet";
+import { arcjet } from "#lib/server/arcjet.ts";
 
 // Add rules to the base Arcjet instance outside of the handler function
 const aj = arcjet

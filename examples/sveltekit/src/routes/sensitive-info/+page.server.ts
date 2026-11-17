@@ -1,7 +1,7 @@
 import { sensitiveInfo, shield } from "@arcjet/sveltekit";
 import { type Actions, fail, redirect } from "@sveltejs/kit";
 import z from "zod";
-import { arcjet } from "$lib/server/arcjet";
+import { arcjet } from "#lib/server/arcjet.ts";
 
 // Add rules to the base Arcjet instance outside of the handler function
 const aj = arcjet

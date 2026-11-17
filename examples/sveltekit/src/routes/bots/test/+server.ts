@@ -1,6 +1,6 @@
 import { detectBot, fixedWindow } from "@arcjet/sveltekit";
-import { json, type RequestHandler } from "@sveltejs/kit";
-import { arcjet } from "$lib/server/arcjet";
+import type { RequestHandler } from "@sveltejs/kit";
+import { arcjet } from "#lib/server/arcjet.ts";
 
 export const prerender = false;
 
@@ -32,32 +32,32 @@ export const GET: RequestHandler = async (event) => {
 
   // Use the IP analysis to customize the response based on the country
   if (decision.ip.hasCountry() && decision.ip.country === "JP") {
-    return json({ message: "Konnichiwa!" });
+    return Response.json({ message: "Konnichiwa!" });
   }
 
   // Always deny requests from VPNs
   if (decision.ip.isVpn()) {
-    return json({ error: "VPNs are forbidden" }, { status: 403 });
+    return Response.json({ error: "VPNs are forbidden" }, { status: 403 });
   }
 
   // If the decision is denied, return an appropriate response. You can inspect
   // the decision results to customize the response.
   if (decision.isDenied()) {
     if (decision.reason.isBot()) {
-      return json({ error: "Bots are forbidden" }, { status: 403 });
+      return Response.json({ error: "Bots are forbidden" }, { status: 403 });
     }
 
     if (decision.reason.isRateLimit()) {
-      return json({ error: "Too many requests" }, { status: 429 });
+      return Response.json({ error: "Too many requests" }, { status: 429 });
     }
 
-    return json({ error: "Request denied" }, { status: 403 });
+    return Response.json({ error: "Request denied" }, { status: 403 });
   }
 
   if (decision.isErrored()) {
     console.error("Arcjet error:", decision.reason);
     if (decision.reason.message === "[unauthenticated] invalid key") {
-      return json(
+      return Response.json(
         {
           message:
             "Invalid Arcjet key. Is the ARCJET_KEY environment variable set?",
@@ -66,11 +66,11 @@ export const GET: RequestHandler = async (event) => {
       );
     }
 
-    return json(
+    return Response.json(
       { message: `Internal server error: ${decision.reason.message}` },
       { status: 500 },
     );
   }
 
-  return json({ message: "Hello world" });
+  return Response.json({ message: "Hello world" });
 };

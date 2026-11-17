@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import favicon from "$lib/assets/favicon.png";
-  import faviconLight from "$lib/assets/favicon-light.png";
-  import logoDark from "$lib/assets/logo-dark.svg";
-  import logoLight from "$lib/assets/logo-light.svg";
+  import favicon from "#lib/assets/favicon.png";
+  import faviconLight from "#lib/assets/favicon-light.png";
+  import logoDark from "#lib/assets/logo-dark.svg";
+  import logoLight from "#lib/assets/logo-light.svg";
   import type { LayoutProps } from "./$types";
 
   import "../styles/styles.css";
